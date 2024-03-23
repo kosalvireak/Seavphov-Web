@@ -2,9 +2,9 @@ import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 const CONDITION = {
-    AS_NEW: 'as-new',
-    GOOD: 'good',
-    WELL_WORN: 'well-worn',
+    AS_NEW: 'As-new',
+    GOOD: 'Good',
+    WELL_WORN: 'Well-worn',
 };
 
 const AVAILABILITY = {

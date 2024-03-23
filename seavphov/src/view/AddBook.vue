@@ -53,9 +53,9 @@
               >Condition</label
             >
             <select class="form-select" id="condition" v-model="book.condition">
-              <option value="AS_NEW" selected>as-new</option>
-              <option value="GOOD">good</option>
-              <option value="WELL_WORN">well-worn</option>
+              <option value="AS_NEW" selected>As-new</option>
+              <option value="GOOD">Good</option>
+              <option value="WELL_WORN">Well-worn</option>
             </select>
           </div>
 

@@ -80,10 +80,13 @@
               class="profile_image"
               alt="profile_img"
             />
-            <div class="d-flex flex-column justify-content-evenly mx-2 my-1">
+            <div
+              class="d-flex flex-column justify-content-evenly mx-2 my-1 ms-4"
+              style="height: 90px"
+            >
               <h5 class="font-Roboto">Khoeun Kosalvireak</h5>
               <h6>Information Technology Engineering</h6>
-              <p class="text-active" style="color: ">
+              <p class="text-active p-0 m-0" style="color: ">
                 Last Active: <u>10 months ago</u>
               </p>
             </div>

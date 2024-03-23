@@ -14,6 +14,7 @@
         >
           <div
             class="ms-3 d-flex align-items-start justify-content-between"
+            :class="{ 'margin-top': toggleFilter }"
             style="display: flex"
           >
             <div class="d-flex align-items-center justify-content-center">
@@ -21,7 +22,10 @@
                 Filter
               </h4>
             </div>
-            <div @click="ToggleFilter()" class="d-flex justify-content-center">
+            <div
+              @click="ToggleFilter()"
+              class="d-flex justify-content-center me-2"
+            >
               <span v-if="toggleFilter"
                 ><i class="fas fa-arrow-down fa-xl"></i
               ></span>
@@ -95,28 +99,28 @@
                   class="form-check-input"
                   type="checkbox"
                   v-model="Condition"
-                  value="as-new"
-                  id="as-new"
+                  value="As-new"
+                  id="As-new"
                 />
-                <label class="form-check-label" for="as-new">as-new</label>
+                <label class="form-check-label" for="As-new">As-new</label>
                 <br />
                 <input
                   class="form-check-input"
                   type="checkbox"
                   v-model="Condition"
-                  value="good"
-                  id="good"
+                  value="Good"
+                  id="Good"
                 />
-                <label class="form-check-label" for="good">good</label><br />
+                <label class="form-check-label" for="Good">Good</label><br />
                 <input
                   class="form-check-input"
                   type="checkbox"
                   v-model="Condition"
-                  value="well-worn"
-                  id="well-worn"
+                  value="Well-worn"
+                  id="Well-worn"
                 />
-                <label class="form-check-label" for="well-worn"
-                  >well-worn</label
+                <label class="form-check-label" for="Well-worn"
+                  >Well-worn</label
                 >
               </div>
             </div>
@@ -241,5 +245,8 @@ label {
 }
 .h-3rem {
   height: 3rem !important;
+}
+.margin-top {
+  margin-top: 20px !important;
 }
 </style>
