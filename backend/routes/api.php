@@ -23,7 +23,7 @@ Route::get('/hello', function () {
     return "Hello World!";
 });
 Route::get('books',  [BookController::class, 'index'])->name('book.index');
-Route::get('books/{book}',  [BookController::class, 'show'])->name('book.show');
+Route::get('books/{id}',  [BookController::class, 'show'])->name('book.show');
 Route::post('books', [BookController::class, 'store'])->name('book.store');
-Route::put('books/{book}', [BookController::class, 'update'])->name('book.update');
-Route::delete('books/{book}', [BookController::class, 'delete'])->name('book.delete');
+Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
+Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');

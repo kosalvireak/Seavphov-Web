@@ -1,6 +1,10 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
+import axios from "axios"
+
+const backend_url = "http://localhost:8000";
+
 const CONDITION = {
     AS_NEW: 'As-new',
     GOOD: 'Good',
@@ -354,6 +358,7 @@ const store = createStore({
         mybooks: [2, 4, 9, 12],
         searchWord: "",
         isLoggedIn: false,
+        fetchBooks: [],
     },
 
     getters: {
@@ -419,6 +424,12 @@ const store = createStore({
 
     },
     actions: {
+        getBooks() {
+            console.log("hi");
+            axios
+                .get(backend_url + "/api/books")
+                .then((response) => (this.state.fetchBooks = response.data));
+        },
         changeIsSaved({ commit }, id) {
             id = parseInt(id);
             // if book is already saved. Change issaved to False and remove from array 

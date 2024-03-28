@@ -4,6 +4,9 @@
       <Carousel />
     </div>
     <div class="mt-3 row">
+      <RenderBook :books="fetchBooks" />
+    </div>
+    <div class="mt-3 row" v-if="false">
       <div
         class="d-flex align-item-center justify-content-center col-xl-3 col-md-5 col-sm-12 mt-md-2"
       >
@@ -221,6 +224,9 @@ export default {
         return this.Books;
       }
     },
+    fetchBooks() {
+      return this.$store.state.fetchBooks;
+    },
   },
   methods: {
     ToggleFilter() {
@@ -233,8 +239,9 @@ export default {
       this.Availability = null;
     },
   },
-  mounted() {
+  async mounted() {
     this.Books = this.$store.getters.allBooks;
+    await this.$store.dispatch("getBooks");
   },
 };
 </script>

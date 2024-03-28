@@ -12,9 +12,9 @@ class BookController extends Controller
         return Book::all();
     }
 
-    public function show(Book $book)
+    public function show($id)
     {
-        return $book;
+        return Book::find($id);
     }
 
     public function store(Request $request)
@@ -23,18 +23,24 @@ class BookController extends Controller
         return response()->json($book, 201);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
+        $book = Book::findOrFail($id);
         $book->update($request->all());
 
         return response()->json($book, 200);
     }
 
-    public function delete(Book $book)
+    public function delete(Request $request, $id)
     {
-        $Book = Book::findOrFail($book);
-        $Book->delete();
+        $book = Book::findOrFail($id);
+        $book->delete();
 
-        return response()->json(null, 204);
+        return response()->json(
+            [
+                'msg' => 'Successfully delete ' . $book->title
+            ],
+            204
+        );
     }
 }
