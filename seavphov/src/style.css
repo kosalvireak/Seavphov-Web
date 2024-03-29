@@ -1,100 +1,191 @@
-
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
+
 body {
-	line-height: 1;
-	font-family: 'Nunito', sans-serif;
+  line-height: 1;
+  font-family: 'Nunito', sans-serif;
 }
-ol, ul {
-	list-style: none;
+
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* Reset CSS */
 
 
+.h-3rem {
+  height: 3rem !important;
+}
 
-.h-20{
+.h-20 {
   height: 20% !important;
 }
 
-.h-60{
+.h-60 {
   height: 60% !important;
 }
 
 .hover-zoom img {
-  transition: transform 0.4s ease; 
+  transition: transform 0.4s ease;
 }
 
-.bg-seavphov{
+.bg-seavphov {
   background-color: #9FB97F !important;
 }
 
-.bg-seavphov-light{
-	background-color: #edf8f5 !important;
+.bg-seavphov-light {
+  background-color: #edf8f5 !important;
 }
-.font-Roboto{
-	font-family: 'Roboto Slab', serif;
+
+.font-Roboto {
+  font-family: 'Roboto Slab', serif;
 }
 
 .username::first-letter {
-	text-transform: capitalize;
-  }
+  text-transform: capitalize;
+}
 
-  .text-gray{
-	color: #4F4F4F !important;
-  }
+.text-gray {
+  color: #4F4F4F !important;
+}
 
-  .text-seavphov{
-	color:#5c836e !important;
-  }
+.text-seavphov {
+  color: #5c836e !important;
+}
 
-  .ellipsis {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal; /* You may use 'nowrap' if you want to prevent wrapping within the two lines */
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  /* You may use 'nowrap' if you want to prevent wrapping within the two lines */
 }
 
 .ellipsis-container {
-    overflow: hidden;
+  overflow: hidden;
 }

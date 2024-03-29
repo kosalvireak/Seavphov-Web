@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "axios",
         "Buttom",
         "Fromsavedbooks",
         "gmap",
@@ -12,6 +13,7 @@
         "savedbooks",
         "seavphov",
         "Tobooks",
-        "Tosavedbooks"
+        "Tosavedbooks",
+        "VITE"
     ]
 }
