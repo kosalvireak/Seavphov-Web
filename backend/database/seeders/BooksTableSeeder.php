@@ -3,13 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use BookCategory;
+use BookCondition;
+use BookImage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Enums\BookCondition;
-use App\Enums\BookCategory;
 
+require_once  "BookCondition.php";
+require_once  "BookImage.php";
+require_once  "BookCategory.php";
 require_once 'vendor/autoload.php';
-
 
 
 
@@ -22,15 +25,18 @@ class BooksTableSeeder extends Seeder
     {
         Book::truncate();
 
+        $bookCondition = new BookCondition;
+        $bookCategory = new BookCategory;
+        $bookImage = new BookImage;
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Book::create([
                 'title' => $faker->sentence,
                 'author' => $faker->name,
-                'condition' => BookCondition::random()->value,
-                'categories' => BookCategory::random()->value,
-                'images' => 'https://m.media-amazon.com/images/I/71QT4UeAHGL._AC_UF1000,1000_QL80_.jpg',
-                'descriptions' => $faker->sentence,
+                'condition' => $bookCondition->getCondition(),
+                'categories' =>  $bookCategory->getCategory(),
+                'images' => $bookImage->getImageUrl(),
+                'descriptions' => $faker->sentence(300),
                 'availability' => $faker->boolean(33),
             ]);
         }

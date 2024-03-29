@@ -161,20 +161,23 @@ export default {
   data() {
     return {
       paramsId: this.$route.params.id,
-      book: {},
       relatedBooks: [],
     };
   },
   methods: {
-    getBook() {
-      this.book = this.$store.getters.book(this.paramsId)[0];
+    async getBook() {
+      await this.$store.dispatch("fetchBookById", this.paramsId);
       this.relatedBooks = this.$store.getters.booksByCategory(
         this.book.categories
       );
     },
     toggleIsSaved() {
       this.$store.dispatch("changeIsSaved", this.paramsId);
-      console.log("hello");
+    },
+  },
+  computed: {
+    book() {
+      return this.$store.state.book;
     },
   },
   beforeRouteUpdate(to, from, next) {
@@ -182,7 +185,7 @@ export default {
     this.getBook();
     next();
   },
-  mounted() {
+  async mounted() {
     this.getBook();
   },
 };

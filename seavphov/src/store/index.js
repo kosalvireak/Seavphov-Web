@@ -358,7 +358,11 @@ const store = createStore({
         mybooks: [2, 4, 9, 12],
         searchWord: "",
         isLoggedIn: false,
+
+        // start backend
         fetchBooks: [],
+        book: {},
+        // end backend
     },
 
     getters: {
@@ -382,15 +386,18 @@ const store = createStore({
             // take all the books and filter out only book that has id match what inside array mybooks
             return state.books.filter(book => state.mybooks.includes(book.id));
         },
-        booksByCategory: (state) => (category) => {
-            return state.books.filter(book => book.categories == category);
-        },
         searchWord(state) {
             return state.searchWord;
         },
         loggedInState(state) {
             return state.isLoggedIn;
-        }
+        },
+
+        // start backend
+        booksByCategory: (state) => (category) => {
+            return state.fetchBooks.filter(book => book.categories == category);
+        },
+        // end backend
     },
     mutations: {
         addLoggedInUser(state, payload) {
@@ -424,12 +431,24 @@ const store = createStore({
 
     },
     actions: {
-        getBooks() {
-            console.log("hi");
+        // start backend
+        fetchBooks() {
             axios
                 .get(backend_url + "/api/books")
                 .then((response) => (this.state.fetchBooks = response.data));
         },
+        fetchBookById({ commit }, id) {
+            axios
+                .get(backend_url + "/api/books/" + id)
+                .then((response) => {
+
+                    console.log(response);
+                    this.state.book = response.data
+                });
+        },
+
+
+        // end backend
         changeIsSaved({ commit }, id) {
             id = parseInt(id);
             // if book is already saved. Change issaved to False and remove from array 

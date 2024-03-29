@@ -241,7 +241,7 @@ export default {
   },
   async mounted() {
     this.Books = this.$store.getters.allBooks;
-    await this.$store.dispatch("getBooks");
+    await this.$store.dispatch("fetchBooks");
   },
 };
 </script>
