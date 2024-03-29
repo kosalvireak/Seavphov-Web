@@ -9,7 +9,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        return Book::all();
+        return Book::paginate(5);
     }
 
     public function show($id)

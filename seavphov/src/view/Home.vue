@@ -4,7 +4,7 @@
       <Carousel />
     </div>
     <div class="mt-3 row">
-      <RenderBook :books="fetchBooks" />
+      <PaginatedBook />
     </div>
     <div class="mt-3 row" v-if="false">
       <div
@@ -176,73 +176,77 @@
   <script>
 import Carousel from "../components/Carousel.vue";
 import RenderBook from "../components/RenderBook.vue";
+import PaginatedBook from "../components/PaginatedBook.vue";
 export default {
   name: "Home",
-  components: { Carousel, RenderBook },
-  data() {
-    return {
-      Books: [],
-      Categories: [],
-      Condition: [],
-      Availability: null,
-      toggleFilter: false,
-    };
-  },
-  computed: {
-    filteredBooks() {
-      let filteredBooks = this.Books;
-      // check if any filter array has change
-      if (
-        this.Categories.length !== 0 ||
-        this.Condition.length !== 0 ||
-        this.Availability !== null
-      ) {
-        // filter category
-        if (this.Categories.length !== 0) {
-          filteredBooks = filteredBooks.filter((book) =>
-            this.Categories.includes(book.categories)
-          );
-        }
-        // filter condition
-        if (this.Condition.length !== 0) {
-          filteredBooks = filteredBooks.filter((book) =>
-            this.Condition.includes(book.condition)
-          );
-        }
-        // filter availability
-        if (this.Availability == "true") {
-          filteredBooks = filteredBooks.filter(
-            (book) => book.availability == true
-          );
-        } else if (this.Availability == "false") {
-          filteredBooks = filteredBooks.filter(
-            (book) => book.availability == false
-          );
-        }
-        return filteredBooks;
-      } else {
-        return this.Books;
-      }
-    },
-    fetchBooks() {
-      return this.$store.state.fetchBooks;
-    },
-  },
-  methods: {
-    ToggleFilter() {
-      this.toggleFilter = !this.toggleFilter;
-    },
-    // reset filtered array and reset availability
-    clearFilter() {
-      this.Categories = [];
-      this.Condition = [];
-      this.Availability = null;
-    },
-  },
-  async mounted() {
-    this.Books = this.$store.getters.allBooks;
-    await this.$store.dispatch("fetchBooks");
-  },
+  components: { Carousel, RenderBook, PaginatedBook },
+  // data() {
+  //   return {
+  //     Books: [],
+  //     Categories: [],
+  //     Condition: [],
+  //     Availability: null,
+  //     toggleFilter: false,
+  //   };
+  // },
+  // computed: {
+  //   filteredBooks() {
+  //     let filteredBooks = this.Books;
+  //     // check if any filter array has change
+  //     if (
+  //       this.Categories.length !== 0 ||
+  //       this.Condition.length !== 0 ||
+  //       this.Availability !== null
+  //     ) {
+  //       // filter category
+  //       if (this.Categories.length !== 0) {
+  //         filteredBooks = filteredBooks.filter((book) =>
+  //           this.Categories.includes(book.categories)
+  //         );
+  //       }
+  //       // filter condition
+  //       if (this.Condition.length !== 0) {
+  //         filteredBooks = filteredBooks.filter((book) =>
+  //           this.Condition.includes(book.condition)
+  //         );
+  //       }
+  //       // filter availability
+  //       if (this.Availability == "true") {
+  //         filteredBooks = filteredBooks.filter(
+  //           (book) => book.availability == true
+  //         );
+  //       } else if (this.Availability == "false") {
+  //         filteredBooks = filteredBooks.filter(
+  //           (book) => book.availability == false
+  //         );
+  //       }
+  //       return filteredBooks;
+  //     } else {
+  //       return this.Books;
+  //     }
+  //   },
+  //   fetchBooks() {
+  //     return this.$store.state.fetchBooks;
+  //   },
+  // },
+  // methods: {
+  //   ToggleFilter() {
+  //     this.toggleFilter = !this.toggleFilter;
+  //   },
+  //   // reset filtered array and reset availability
+  //   clearFilter() {
+  //     this.Categories = [];
+  //     this.Condition = [];
+  //     this.Availability = null;
+  //   },
+  //   onChangePage(currentPage) {
+  //     console.log("currentPage", currentPage);
+  //   },
+  // },
+  // async mounted() {
+  //   this.Books = this.$store.getters.allBooks;
+  //   await this.$store.dispatch("fetchBooks");
+  // },
 };
 </script>
   

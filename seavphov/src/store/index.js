@@ -3,7 +3,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 import axios from "axios"
 
-const backend_url = "http://localhost:8000";
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 const CONDITION = {
     AS_NEW: 'As-new',
@@ -435,7 +435,7 @@ const store = createStore({
         fetchBooks() {
             axios
                 .get(backend_url + "/api/books")
-                .then((response) => (this.state.fetchBooks = response.data));
+                .then((response) => (this.state.fetchBooks = response.data.data));
         },
         fetchBookById({ commit }, id) {
             axios
