@@ -9,12 +9,32 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $query = Book::query(); // Start with a base query
+
+        // Filter based on query parameters (example filters: title, author)
+        $title = $request->get('title');
+        $author = $request->get('author');
+        $categories = $request->get('categories');
+
+        if ($title) {
+            $query->where('title', $title); // Filter by title
+        }
+        if ($categories) {
+            $query->where('categories', $categories); // Filter by categories
+        }
+
+        if ($author) {
+            $query->where('author', $author); // Filter by author
+        }
+
+        $books = $query->paginate(5); // Apply pagination 
+
         try {
             return response()->json([
                 'success' => true,
-                'message' => Book::paginate(5),
+                'message' => $books,
             ], 200);
         } catch (Exception $exception) {
             return response()->json([

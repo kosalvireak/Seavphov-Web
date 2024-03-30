@@ -360,7 +360,7 @@ const store = createStore({
         isLoggedIn: false,
 
         // start backend
-        fetchBooks: [],
+        filteredFetchBook: [],
         book: {},
         // end backend
     },
@@ -432,15 +432,29 @@ const store = createStore({
     },
     actions: {
         // start backend
-        fetchBooks() {
-            axios
-                .get(backend_url + "/api/books")
-                .then((response) => (this.state.fetchBooks = response.data.data));
+        async fetchBooksWithFilter({ commit }, filters) {
+            const params = new URLSearchParams();
+            if (filters.title) {
+                params.append('title', filters.title);
+            }
+            if (filters.author) {
+                params.append('author', filters.author);
+            }
+            if (filters.categories) {
+                params.append('categories', filters.categories);
+            }
+            try {
+                const response = await axios.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
+                if (response.data.success) {
+                    this.state.filteredFetchBook = response.data.message.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
         },
         async fetchBookById({ commit }, id) {
             try {
                 const response = await axios.get(backend_url + "/api/books/" + id)
-                console.log('fetchBookById', response)
                 if (response.data.success) {
                     this.state.book = response.data.message;
                 }

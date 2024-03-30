@@ -161,14 +161,17 @@ export default {
     return {
       paramsId: this.$route.params.id,
       relatedBooks: [],
+      filters: {
+        categories: "",
+      },
     };
   },
   methods: {
     async getBook() {
       await this.$store.dispatch("fetchBookById", this.paramsId);
-      this.relatedBooks = this.$store.getters.booksByCategory(
-        this.book.categories
-      );
+      this.filters.categories = this.$store.state.book.categories;
+      await this.$store.dispatch("fetchBooksWithFilter", this.filters);
+      this.relatedBooks = this.$store.state.filteredFetchBook;
     },
     toggleIsSaved() {
       this.$store.dispatch("changeIsSaved", this.paramsId);
