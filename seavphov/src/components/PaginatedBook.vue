@@ -2,7 +2,7 @@
   <div>
     <RenderBook :books="books" />
     <div
-      class="d-flex align-items-center justify-content-center pagination h-3rem m-2"
+      class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
     >
       <a
         @click="previous()"
@@ -31,11 +31,13 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import axios from "axios";
+import { useToast } from "vue-toastification";
 export default {
   name: "PaginatedBook",
   components: { RenderBook },
   data() {
     return {
+      toast: useToast(),
       books: [],
       last_page: 5,
       current_page: 1,
@@ -52,11 +54,16 @@ export default {
   },
   methods: {
     async fetchBooks(path) {
-      await axios.get(path).then((response) => {
-        this.books = response.data.data;
-        this.current_page = response.data.current_page;
-        this.last_page = response.data.last_page;
-      });
+      try {
+        const response = await axios.get(path);
+        if (response.data.success) {
+          this.books = response.data.message.data;
+          this.current_page = response.data.message.current_page;
+          this.last_page = response.data.message.last_page;
+        }
+      } catch (error) {
+        this.toast.error(error.response.data.message);
+      }
     },
     previous() {
       if (this.isDisabledPrev) return;

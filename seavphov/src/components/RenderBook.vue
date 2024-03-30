@@ -1,5 +1,5 @@
 <template>
-  <div class="RenderBook w-100 h-100">
+  <div class="RenderBook w-100 h-auto">
     <div v-if="!isBooksEmpty">
       <div
         class="d-flex align-items-center justify-content-end m-1"

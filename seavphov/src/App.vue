@@ -5,7 +5,7 @@
     class="d-flex flex-column bg-success-subtle m-0 p-0"
     style="min-height: 100vh"
   >
-    <div style="width: 100%; min-height: 95%; margin-bottom: 23rem">
+    <div style="width: 100%; min-height: 95%">
       <div v-if="isLogin">
         <NavBar />
       </div>
@@ -14,7 +14,7 @@
         <router-view />
       </main>
     </div>
-    <div style="height: 5%; position: relative; bottom: 0px">
+    <div style="height: 5%; position: relative; bottom: 0px; margin-top: 15rem">
       <Footer />
     </div>
   </div>

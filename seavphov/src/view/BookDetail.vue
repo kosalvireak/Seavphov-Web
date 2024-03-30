@@ -95,8 +95,7 @@
 
         <!-- User Contact -->
         <div
-          class="rounded-7 d-flex flex-wrap flex-column mt-3 bg-seavphov-light"
-          style="height: 484px"
+          class="rounded-7 d-flex flex-wrap flex-column mt-3 bg-seavphov-light h-100"
         >
           <div class="d-flex flex-column w-100">
             <h4 class="mx-3 mt-3 font-Roboto">Contact</h4>

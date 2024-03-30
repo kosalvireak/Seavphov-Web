@@ -3,13 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Exception;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     public function index()
     {
-        return Book::paginate(5);
+        try {
+            return response()->json([
+                'success' => true,
+                'message' => Book::paginates(5),
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
 
     public function show($id)
