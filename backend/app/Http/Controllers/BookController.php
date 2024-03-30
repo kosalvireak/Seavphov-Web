@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -13,7 +14,7 @@ class BookController extends Controller
         try {
             return response()->json([
                 'success' => true,
-                'message' => Book::paginates(5),
+                'message' => Book::paginate(5),
             ], 200);
         } catch (Exception $exception) {
             return response()->json([
@@ -26,7 +27,18 @@ class BookController extends Controller
 
     public function show($id)
     {
-        return Book::find($id);
+        try {
+            return response()->json([
+                'success' => true,
+                'message' => Book::findOrFail($id),
+            ], 200);
+        } catch (ModelNotFoundException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Book not found!',
+                'error' => $exception->getMessage()
+            ], 404);
+        }
     }
 
     public function store(Request $request)

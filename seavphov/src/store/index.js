@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-
+import { useToast } from "vue-toastification"
 import axios from "axios"
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
-
+const toast = useToast();
 const CONDITION = {
     AS_NEW: 'As-new',
     GOOD: 'Good',
@@ -437,59 +437,61 @@ const store = createStore({
                 .get(backend_url + "/api/books")
                 .then((response) => (this.state.fetchBooks = response.data.data));
         },
-        fetchBookById({ commit }, id) {
-            axios
-                .get(backend_url + "/api/books/" + id)
-                .then((response) => {
-
-                    console.log(response);
-                    this.state.book = response.data
-                });
-        },
-
-
-        // end backend
-        changeIsSaved({ commit }, id) {
-            id = parseInt(id);
-            // if book is already saved. Change issaved to False and remove from array 
-            if (this.state.books[id - 1].issaved) {
-                commit('changeIsSavedToFalse', id);
-                commit('removeFromsavedbooks', id);
-            } else {
-                // else book is already saved. Change issaved to True and push from array 
-                commit('changeIsSavedToTrue', id);
-                commit('addTosavedbooks', id);
+        async fetchBookById({ commit }, id) {
+            try {
+                const response = await axios.get(backend_url + "/api/books/" + id)
+                console.log('fetchBookById', response)
+                if (response.data.success) {
+                    this.state.book = response.data.message;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
             }
-        },
-        addLoggedInUser({ commit }, { email, profile }) {
-            let username0 = email.split('@');
-            const username = username0[0];
-            commit('addLoggedInUser', { username, profile });
-        },
-        addSearchWord({ commit }, word) {
-            commit('addSearchWord', word);
-        },
-        addNewBook({ commit }, book) {
-            const id = this.state.books.length + 1;
-            book.id = id;
-            const condition = book.condition;
-            const category = book.categories;
-            book.condition = CONDITION[`${condition}`];
-            book.issaved = SAVEDBOOK.FALSE;
-            book.availability = AVAILABILITY.TRUE;
-            book.categories = CATEGORIES[`${category}`];
-            book.username = "Todd";
-            commit('addNewBookTobooks', book);
-        },
-        logUserIn({ commit }) {
-            commit('loggin');
-        },
-        logUserOut({ commit }) {
-            commit('loggout');
-        },
+        }
+    },
 
 
-    }
+    // end backend
+    changeIsSaved({ commit }, id) {
+        id = parseInt(id);
+        // if book is already saved. Change issaved to False and remove from array 
+        if (this.state.books[id - 1].issaved) {
+            commit('changeIsSavedToFalse', id);
+            commit('removeFromsavedbooks', id);
+        } else {
+            // else book is already saved. Change issaved to True and push from array 
+            commit('changeIsSavedToTrue', id);
+            commit('addTosavedbooks', id);
+        }
+    },
+    addLoggedInUser({ commit }, { email, profile }) {
+        let username0 = email.split('@');
+        const username = username0[0];
+        commit('addLoggedInUser', { username, profile });
+    },
+    addSearchWord({ commit }, word) {
+        commit('addSearchWord', word);
+    },
+    addNewBook({ commit }, book) {
+        const id = this.state.books.length + 1;
+        book.id = id;
+        const condition = book.condition;
+        const category = book.categories;
+        book.condition = CONDITION[`${condition}`];
+        book.issaved = SAVEDBOOK.FALSE;
+        book.availability = AVAILABILITY.TRUE;
+        book.categories = CATEGORIES[`${category}`];
+        book.username = "Todd";
+        commit('addNewBookTobooks', book);
+    },
+    logUserIn({ commit }) {
+        commit('loggin');
+    },
+    logUserOut({ commit }) {
+        commit('loggout');
+    },
+
+
 })
 
 export default store
