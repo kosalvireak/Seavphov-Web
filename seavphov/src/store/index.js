@@ -461,48 +461,54 @@ const store = createStore({
             } catch (error) {
                 toast.error(error.response.data.message);
             }
-        }
-    },
+        },
+        async createBook({ commit }, formData) {
+            // for (var key of this.formData.entries()) {
+            //   console.log(key[0] + ", " + key[1]);
+            // }
+
+            try {
+                const response = await axios.post(backend_url + "/api/books/", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("response", response);
+
+            } catch (error) {
+                console.error("Error adding book:", error);
+                toast.error(error.response.data.message);
+            }
+        },
 
 
-    // end backend
-    changeIsSaved({ commit }, id) {
-        id = parseInt(id);
-        // if book is already saved. Change issaved to False and remove from array 
-        if (this.state.books[id - 1].issaved) {
-            commit('changeIsSavedToFalse', id);
-            commit('removeFromsavedbooks', id);
-        } else {
-            // else book is already saved. Change issaved to True and push from array 
-            commit('changeIsSavedToTrue', id);
-            commit('addTosavedbooks', id);
-        }
-    },
-    addLoggedInUser({ commit }, { email, profile }) {
-        let username0 = email.split('@');
-        const username = username0[0];
-        commit('addLoggedInUser', { username, profile });
-    },
-    addSearchWord({ commit }, word) {
-        commit('addSearchWord', word);
-    },
-    addNewBook({ commit }, book) {
-        const id = this.state.books.length + 1;
-        book.id = id;
-        const condition = book.condition;
-        const category = book.categories;
-        book.condition = CONDITION[`${condition}`];
-        book.issaved = SAVEDBOOK.FALSE;
-        book.availability = AVAILABILITY.TRUE;
-        book.categories = CATEGORIES[`${category}`];
-        book.username = "Todd";
-        commit('addNewBookTobooks', book);
-    },
-    logUserIn({ commit }) {
-        commit('loggin');
-    },
-    logUserOut({ commit }) {
-        commit('loggout');
+        // end backend
+        changeIsSaved({ commit }, id) {
+            id = parseInt(id);
+            // if book is already saved. Change issaved to False and remove from array 
+            if (this.state.books[id - 1].issaved) {
+                commit('changeIsSavedToFalse', id);
+                commit('removeFromsavedbooks', id);
+            } else {
+                // else book is already saved. Change issaved to True and push from array 
+                commit('changeIsSavedToTrue', id);
+                commit('addTosavedbooks', id);
+            }
+        },
+        addLoggedInUser({ commit }, { email, profile }) {
+            let username0 = email.split('@');
+            const username = username0[0];
+            commit('addLoggedInUser', { username, profile });
+        },
+        addSearchWord({ commit }, word) {
+            commit('addSearchWord', word);
+        },
+        logUserIn({ commit }) {
+            commit('loggin');
+        },
+        logUserOut({ commit }) {
+            commit('loggout');
+        },
     },
 
 

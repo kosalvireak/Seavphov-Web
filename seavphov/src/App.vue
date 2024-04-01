@@ -6,11 +6,11 @@
     style="min-height: 100vh"
   >
     <div style="width: 100%; min-height: 95%">
-      <div v-if="isLogin">
+      <div>
         <NavBar />
       </div>
 
-      <main class="container mt-3" v-if="isLogin">
+      <main class="container mt-3">
         <router-view />
       </main>
     </div>
@@ -27,16 +27,6 @@ import Footer from "../src/components/Footer.vue";
 export default {
   name: "App",
   components: { NavBar, Footer },
-  computed: {
-    isLogin() {
-      // This funtion use to check if the user stay in login or signup page thus we hide Navbar
-      if (this.$route.name == "login" || this.$route.name == "signup") {
-        return false;
-      } else {
-        return true;
-      }
-    },
-  },
 };
 </script>
 

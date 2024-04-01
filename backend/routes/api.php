@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Middleware\CorsMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,6 @@ Route::get('/hello', function () {
 });
 Route::get('books',  [BookController::class, 'index'])->name('book.index');
 Route::get('books/{id}',  [BookController::class, 'show'])->name('book.show');
-Route::post('books', [BookController::class, 'store'])->name('book.store');
+Route::post('books', [BookController::class, 'store'])->name('book.store')->middleware([CorsMiddleware::class]);
 Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
 Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');

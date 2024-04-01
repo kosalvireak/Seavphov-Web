@@ -56,10 +56,7 @@
               >
             </a>
           </li>
-          <li
-            class="nav-item me-2 d-flex align-items-sm-center"
-            v-if="this.$store.getters.loggedInState"
-          >
+          <li class="nav-item me-2 d-flex align-items-sm-center">
             <a
               class="nav-link"
               @click="
@@ -72,10 +69,7 @@
             </a>
           </li>
           <!-- Chat dropdown -->
-          <li
-            class="nav-item dropdown me-2 d-flex align-items-sm-center"
-            v-if="this.$store.getters.loggedInState"
-          >
+          <li class="nav-item dropdown me-2 d-flex align-items-sm-center">
             <a
               class="nav-link dropdown-toggle hidden-arrow"
               role="button"
@@ -94,10 +88,7 @@
           </li>
 
           <!-- Notification dropdown -->
-          <li
-            class="nav-item dropdown me-3 d-flex align-items-sm-center"
-            v-if="this.$store.getters.loggedInState"
-          >
+          <li class="nav-item dropdown me-3 d-flex align-items-sm-center">
             <a
               class="nav-link dropdown-toggle hidden-arrow"
               role="button"
