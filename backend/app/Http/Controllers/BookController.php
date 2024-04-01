@@ -64,10 +64,6 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => $request,
-        // ], 201);
         try {
             $validatedData = $request->validate([
                 'title' => 'required|string',
@@ -76,17 +72,14 @@ class BookController extends Controller
                 'condition' => 'required|string',
                 'descriptions' => 'required|string',
                 'availability' => 'required|int',
-                'images' => '', // Image validation (optional)
+                'images' => 'required|string',
             ]);
 
             $book = Book::create($validatedData);
             return response()->json([
                 'success' => true,
-                'message' => $book,
-            ], 201);
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully upload Book!' . $book,
+                'message' => 'Successfully upload ' . $book->title,
+                'bookId' => $book->id
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $exception) {
             return response()->json([

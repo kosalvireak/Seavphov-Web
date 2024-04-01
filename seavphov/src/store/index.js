@@ -362,6 +362,7 @@ const store = createStore({
         // start backend
         filteredFetchBook: [],
         book: {},
+        newBookId: null,
         // end backend
     },
 
@@ -427,7 +428,12 @@ const store = createStore({
         },
         loggout(state) {
             state.isLoggedIn = false;
-        }
+        },
+        // start backend
+        setNewBookId(state, id) {
+            state.newBookId = id;
+        },
+        // end backend
 
     },
     actions: {
@@ -463,18 +469,14 @@ const store = createStore({
             }
         },
         async createBook({ commit }, formData) {
-            // for (var key of this.formData.entries()) {
-            //   console.log(key[0] + ", " + key[1]);
-            // }
-
             try {
                 const response = await axios.post(backend_url + "/api/books/", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                console.log("response", response);
-
+                toast.success(response.data.message);
+                this.state.newBookId = response.data.bookId;
             } catch (error) {
                 console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
