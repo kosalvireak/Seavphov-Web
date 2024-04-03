@@ -491,7 +491,7 @@ const store = createStore({
                 });
                 if (response.data.success) {
                     toast.success(response.data.message);
-                    console.log("response", response);
+                    toast.warning(response.data.data.api_token);
 
                 }
             } catch (error) {
