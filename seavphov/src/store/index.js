@@ -482,6 +482,23 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async registerUser({ commit }, signupData) {
+            try {
+                const response = await axios.post(backend_url + "/api/user/register", signupData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                    console.log("response", response);
+
+                }
+            } catch (error) {
+                console.error("Error register user:", error);
+                toast.error(error.response.data.message);
+            }
+        },
 
 
         // end backend

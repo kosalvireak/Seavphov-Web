@@ -1,3 +1,15 @@
+## Start the project
+> /seavphov
+
+```npm install```
+
+```npm run dev```
+
+>/backend
+
+```php artisan serve```
+
+
 ## backend API
 
 

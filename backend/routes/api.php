@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Middleware\CorsMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,6 @@ Route::get('books/{id}',  [BookController::class, 'show'])->name('book.show');
 Route::post('books', [BookController::class, 'store'])->name('book.store')->middleware([CorsMiddleware::class]);
 Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
 Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');
+
+
+Route::post('user/register', [RegisterController::class, 'register'])->name('user.register');

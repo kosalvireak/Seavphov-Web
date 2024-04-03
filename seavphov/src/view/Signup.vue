@@ -11,6 +11,22 @@
         <form v-on:submit.prevent="Signup()">
           <div class="form-floating mb-3">
             <input
+              type="name"
+              class="form-control btn rounded-pill text-start"
+              id="name"
+              placeholder="name"
+              v-model="name"
+              style="background-color: #d9d9d9"
+              @focus="toggleLabel('name', true)"
+              @blur="toggleLabel('name', false)"
+              required
+            />
+            <label for="name" :class="{ 'special-style': toggleEmail }"
+              >Name</label
+            >
+          </div>
+          <div class="form-floating mb-3">
+            <input
               type="email"
               class="form-control btn rounded-pill text-start"
               id="email"
@@ -19,6 +35,7 @@
               style="background-color: #d9d9d9"
               @focus="toggleLabel('email', true)"
               @blur="toggleLabel('email', false)"
+              required
             />
             <label for="email" :class="{ 'special-style': toggleEmail }"
               >Email address</label
@@ -34,6 +51,7 @@
               style="background-color: #d9d9d9"
               @focus="toggleLabel('password', true)"
               @blur="toggleLabel('password', false)"
+              required
             />
             <label for="password" :class="{ 'special-style': togglePassword }"
               >Password</label
@@ -41,17 +59,18 @@
           </div>
           <div class="form-floating mb-3">
             <input
-              type="confirmpassword"
+              type="password"
               class="form-control btn rounded-pill text-start"
-              id="confirmpassword"
-              placeholder="password"
-              v-model="confirmpassword"
+              id="password_confirmation"
+              placeholder="password_confirmation"
+              v-model="password_confirmation"
               style="background-color: #d9d9d9"
-              @focus="toggleLabel('confirmpassword', true)"
-              @blur="toggleLabel('confirmpassword', false)"
+              @focus="toggleLabel('password_confirmation', true)"
+              @blur="toggleLabel('password_confirmation', false)"
+              required
             />
             <label
-              for="confirmpassword"
+              for="password_confirmation"
               :class="{ 'special-style': toggleConfirmPassword }"
               >Confirm Password</label
             >
@@ -105,9 +124,10 @@ export default {
   name: "Signup",
   data() {
     return {
-      email: "",
-      password: "",
-      confirmpassword: "",
+      email: "virakvary@gmail.com",
+      name: "virak",
+      password: "123456789",
+      password_confirmation: "123456789",
       Error: false,
       errorMessage: "",
       isShowPassword: false,
@@ -117,50 +137,23 @@ export default {
     };
   },
   methods: {
-    Signup() {
-      console.log("here", this.email, this.password, this.confirmpassword);
-      // if both input are empty
-      if (
-        this.email.length == 0 ||
-        this.password.length == 0 ||
-        this.confirmpassword.length == 0
-      ) {
-        this.Error = true;
-        this.errorMessage = "Email or password cannot be empty!";
-      }
-      // if both input are not empty
-      else {
-        console.log("here", this.email, this.password, this.confirmpassword);
-        const users = this.$store.getters.allUsers;
-        // if found in users array, the index i will return
-        const i = users.findIndex((u) => u.email === this.email);
-        if (i > -1) {
-          // if email is available
+    async Signup() {
+      if (this.password.length >= 8) {
+        if (this.password == this.password_confirmation) {
+          const signupData = {
+            email: this.email,
+            name: this.name,
+            password: this.password,
+            password_confirmation: this.password_confirmation,
+          };
+          await this.$store.dispatch("registerUser", signupData);
+        } else {
           this.Error = true;
-          this.errorMessage = "User already exists";
+          this.errorMessage = "Password & confirm password does not match!";
         }
-        // else user not found in users array
-        else {
-          // if password is more than 8 characters
-          if (this.password.length >= 8) {
-            // if password is the same as confirm password
-            if (this.password == this.confirmpassword) {
-              this.$store.dispatch("addLoggedInUser", {
-                email: `${this.email}`,
-                profile:
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-              });
-              this.$store.dispatch("logUserIn");
-              this.$router.push("/home");
-            } else {
-              this.Error = true;
-              this.errorMessage = "Password & confirm password does not match!";
-            }
-          } else {
-            this.Error = true;
-            this.errorMessage = "Password must be 8 characters or more";
-          }
-        }
+      } else {
+        this.Error = true;
+        this.errorMessage = "Password must be 8 characters or more";
       }
     },
     toggleLabel(input, bool) {
@@ -174,7 +167,7 @@ export default {
         if (this.password.length !== 0) {
           this.togglePassword = true;
         }
-      } else if (input == "confirmpassword") {
+      } else if (input == "password_confirmation") {
         this.toggleConfirmPassword = bool;
         if (this.password.length !== 0) {
           this.toggleConfirmPassword = true;
@@ -184,14 +177,14 @@ export default {
     showPassword() {
       if (this.isShowPassword) {
         password.type = "password";
-        confirmpassword.type = "password";
+        password_confirmation.type = "password";
       } else {
         password.type = "text";
-        confirmpassword.type = "text";
+        password_confirmation.type = "text";
       }
     },
     forgotPassword() {
-      alert("Comming soon");
+      alert("Coming soon");
     },
   },
 };
