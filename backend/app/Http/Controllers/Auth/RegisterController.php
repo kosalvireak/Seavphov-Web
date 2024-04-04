@@ -43,13 +43,6 @@ class RegisterController extends Controller
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
-                'phone' => '',
-                'location' => '',
-                'picture' => '',
-                'instagram' => '',
-                'facebook' => '',
-                'twitter' => '',
-                'telegram' => '',
             ]);
 
             return $this->registered($request, $user);

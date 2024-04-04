@@ -45,14 +45,14 @@
               "
             >
               <img
-                :src="this.$store.getters.loggedInUser.profile"
+                :src="this.$store.state.loginUser.profile"
                 class="rounded-circle navbar_img border border-3"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
               />
               <strong
                 class="ms-1 username d-flex align-items-center justify-contents-center"
-                >{{ this.$store.getters.loggedInUser.username }}</strong
+                >{{ this.$store.state.loginUser.name }}</strong
               >
             </a>
           </li>
@@ -144,12 +144,6 @@ export default {
   components: { ChatDropdown, NotificationDropdown, SearchInput },
   methods: {
     Logout() {
-      this.$store.dispatch("addLoggedInUser", {
-        email: "Anonymous@gmail.com",
-        profile:
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-      });
-      this.$store.dispatch("logUserOut");
       this.$router.push("/login");
     },
   },

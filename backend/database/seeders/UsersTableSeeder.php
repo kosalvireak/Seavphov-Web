@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 require_once 'vendor/autoload.php';
 
@@ -20,7 +19,7 @@ class UsersTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        $password = Hash::make('welcome');
+        $password = bcrypt('12345678');
         User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',

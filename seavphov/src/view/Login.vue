@@ -99,8 +99,8 @@ export default {
   name: "Login",
   data() {
     return {
-      email: "",
-      password: "",
+      email: "virakvary@gmail.com",
+      password: "123456789",
       Error: false,
       errorMessage: "",
       isShowPassword: false,
@@ -109,39 +109,17 @@ export default {
     };
   },
   methods: {
-    Login() {
+    async Login() {
       // if both input are empty
       if (this.email.length == 0 || this.password.length == 0) {
         this.Error = true;
         this.errorMessage = "Email or password cannot be empty!";
-      }
-      // if both input are not empty
-      else if (this.email.length > 0 || this.password.length > 0) {
-        const users = this.$store.getters.allUsers;
-        // if found in users array, the index i will return
-        const i = users.findIndex((u) => u.email === this.email);
-        if (i > -1) {
-          // if password is match
-          if (users[i].password == this.password) {
-            console.log(this.email, users[i].profile);
-            this.$store.dispatch("addLoggedInUser", {
-              email: `${this.email}`,
-              profile: `${users[i].profile}`,
-            });
-            this.$store.dispatch("logUserIn");
-            this.$router.push("/home");
-          }
-          // if password is not match
-          else {
-            this.Error = true;
-            this.errorMessage = "Password is incorrect!";
-          }
-        }
-        // else user not found in users array
-        else {
-          this.Error = true;
-          this.errorMessage = "User not found!";
-        }
+      } else if (this.email.length > 0 || this.password.length > 6) {
+        const loginData = {
+          email: this.email,
+          password: this.password,
+        };
+        await this.$store.dispatch("loginUser", loginData);
       } else {
         this.Error = true;
         this.errorMessage = "Incorrect email or password!";

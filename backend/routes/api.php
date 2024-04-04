@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Middleware\CorsMiddleware;
@@ -31,4 +32,5 @@ Route::put('books/{id}', [BookController::class, 'update'])->name('book.update')
 Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');
 
 
+Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('user/register', [RegisterController::class, 'register'])->name('user.register');
