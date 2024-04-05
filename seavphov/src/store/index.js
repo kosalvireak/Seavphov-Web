@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import { useToast } from "vue-toastification"
 import axios from "axios"
+import VueCookies from 'vue-cookies';
+
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
@@ -36,12 +38,12 @@ const store = createStore({
     })],
     state: {
         loginUser: {
-            email: "",
-            name: "",
+            email: VueCookies.get('user').email,
+            name: VueCookies.get('user').name,
+            api_token: VueCookies.get('user').api_token,
             profile: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         isLogin: false,
-        token: null,
         // start backend
         filteredFetchBook: [],
         book: {},
@@ -112,8 +114,6 @@ const store = createStore({
                 });
                 if (response.data.success) {
                     toast.success(response.data.message);
-                    toast.warning(response.data.data.api_token);
-
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -127,12 +127,15 @@ const store = createStore({
                         'Content-Type': 'application/json',
                     },
                 });
-                if (response.data.success) {
-
-                    this.state.loginUser.name = response.data.data.name;
-                    this.state.loginUser.email = response.data.data.email;
-                    this.state.token = response.data.data.api_token;
-                    toast.success(response.data.message);
+                const responseData = await response.data;
+                if (responseData.success) {
+                    const user = {
+                        name: responseData.data.name,
+                        email: responseData.data.email,
+                        api_token: responseData.data.api_token,
+                    }
+                    VueCookies.set('user', user);
+                    toast.success(responseData.message);
                 }
             } catch (error) {
                 console.error("Error register user:", error);
