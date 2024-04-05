@@ -133,7 +133,6 @@ const store = createStore({
                     this.state.loginUser.email = response.data.data.email;
                     this.state.token = response.data.data.api_token;
                     toast.success(response.data.message);
-                    toast.warning(response.data.data.api_token);
                 }
             } catch (error) {
                 console.error("Error register user:", error);

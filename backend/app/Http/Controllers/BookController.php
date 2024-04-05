@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -64,6 +65,11 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
+        // $user = User::where('api_token', $request->bearerToken())->first();
+
+        // if (!$user || now()->gt($user->api_token_expires_at)) {
+        //     return response()->json(['error' => 'Unauthorized: Token expired'], 401);
+        // }
         try {
             $validatedData = $request->validate([
                 'title' => 'required|string',

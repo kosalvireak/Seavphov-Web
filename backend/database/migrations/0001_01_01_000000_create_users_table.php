@@ -23,7 +23,6 @@ return new class extends Migration
             $table->text('facebook')->nullable();
             $table->text('twitter')->nullable();
             $table->text('telegram')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
 
