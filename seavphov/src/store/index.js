@@ -7,30 +7,6 @@ import VueCookies from 'vue-cookies';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
-const CONDITION = {
-    AS_NEW: 'As-new',
-    GOOD: 'Good',
-    WELL_WORN: 'Well-worn',
-};
-
-const AVAILABILITY = {
-    TRUE: true,
-    FALSE: false
-}
-
-const SAVEDBOOK = {
-    TRUE: true,
-    FALSE: false
-}
-
-const CATEGORIES = {
-    FICTION: 'Fiction',
-    NOVEL: 'Novel',
-    TEXT_BOOK: 'Text-Book',
-    HISTORY: 'History',
-    SCIENCE: 'Science',
-    FANTASY: 'Fantasy',
-}
 
 const store = createStore({
     plugins: [createPersistedState({
@@ -38,9 +14,9 @@ const store = createStore({
     })],
     state: {
         loginUser: {
-            email: VueCookies.get('user').email,
-            name: VueCookies.get('user').name,
-            api_token: VueCookies.get('user').api_token,
+            email: VueCookies.get('user') ? VueCookies.get('user').email : "",
+            name: VueCookies.get('user') ? VueCookies.get('user').name : "Not logged in",
+            api_token: VueCookies.get('user') ? VueCookies.get('user').api_token : "",
             profile: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         isLogin: false,
@@ -135,6 +111,9 @@ const store = createStore({
                         api_token: responseData.data.api_token,
                     }
                     VueCookies.set('user', user);
+                    this.state.loginUser.name = VueCookies.get('user').name;
+                    this.state.loginUser.email = VueCookies.get('user').email;
+                    this.state.loginUser.api_token = VueCookies.get('user').api_token;
                     toast.success(responseData.message);
                 }
             } catch (error) {
@@ -144,8 +123,6 @@ const store = createStore({
         },
         // end backend
     },
-
-
 })
 
 export default store

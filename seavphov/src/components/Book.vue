@@ -24,7 +24,7 @@
       >
         <button
           type="button"
-          class="btn btn-success d-flex align-items-center justify-content-center w-auto h-fit"
+          class="btn btn-success d-flex align-items-center justify-content-center w-auto p-0 px-3"
           v-if="book.availability"
           data-mdb-ripple-init
           style="font-size: x-small; height: 2rem"
@@ -33,7 +33,7 @@
         </button>
         <button
           type="button"
-          class="btn btn-danger align-items-center justify-content-center w-auto text-wrap"
+          class="btn btn-danger align-items-center justify-content-center w-auto p-0 px-2"
           style="font-size: x-small; height: 2rem"
           data-mdb-ripple-init
           v-else

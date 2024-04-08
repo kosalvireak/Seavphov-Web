@@ -58,9 +58,9 @@
               v-model="book.condition"
               required
             >
-              <option value="AS_NEW" selected>As-new</option>
-              <option value="GOOD">Good</option>
-              <option value="WELL_WORN">Well-worn</option>
+              <option value="As-new" selected>As-new</option>
+              <option value="Good">Good</option>
+              <option value="Well-worn">Well-worn</option>
             </select>
           </div>
 
@@ -77,12 +77,12 @@
               v-model="book.categories"
               required
             >
-              <option value="FICTION" selected>Fiction</option>
-              <option value="NOVEL">Novel</option>
-              <option value="TEXT_BOOK">Text-Book</option>
-              <option value="HISTORY">History</option>
-              <option value="SCIENCE">Science</option>
-              <option value="FANTASY">Fantasy</option>
+              <option value="Fiction" selected>Fiction</option>
+              <option value="Novel">Novel</option>
+              <option value="Text-Book">Text-Book</option>
+              <option value="History">History</option>
+              <option value="Science">Science</option>
+              <option value="Fantasy">Fantasy</option>
             </select>
           </div>
         </div>
@@ -110,7 +110,8 @@
               style="object-fit: cover"
             />
             <div v-else>
-              <p class="text-center">
+              <Loader v-if="uploadingBook" />
+              <p class="text-center" v-else>
                 Paste a valid image url. <br />
                 Your image will preview here
               </p>
@@ -127,10 +128,11 @@
 <script>
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import Loader from "../components/Loader.vue";
 import { useToast } from "vue-toastification";
 export default {
   name: "AddBook",
+  components: { Loader },
   data() {
     return {
       toast: useToast(),
@@ -143,6 +145,7 @@ export default {
         categories: "NOVEL",
       },
       formData: new FormData(),
+      uploadingBook: false,
     };
   },
   methods: {
@@ -159,6 +162,7 @@ export default {
       }
     },
     async handleImageChange(event) {
+      this.uploadingBook = true;
       try {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
@@ -168,6 +172,7 @@ export default {
             (url) => {
               this.book.images = url;
               this.formData.append("images", url);
+              this.uploadingBook = false;
             }
           );
         }
