@@ -3,6 +3,7 @@ import createPersistedState from 'vuex-persistedstate'
 import { useToast } from "vue-toastification"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
+import router from '../router';
 
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
@@ -20,23 +21,34 @@ const store = createStore({
             profile: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         isLogin: false,
-        // start backend
         filteredFetchBook: [],
         book: {},
         newBookId: null,
-        // end backend
+    },
+    mutations: {
+        logout(state) {
+            VueCookies.remove('user');
+            this.state.loginUser.name = "Not logged in"
+            this.state.loginUser.email = ""
+            this.state.loginUser.api_token = ""
+            this.state.isLogin = false;
+        },
+        login(state, user) {
+            VueCookies.set('user', user);
+            this.state.loginUser.name = VueCookies.get('user').name;
+            this.state.loginUser.email = VueCookies.get('user').email;
+            this.state.loginUser.api_token = VueCookies.get('user').api_token;
+            this.state.isLogin = true;
+        },
     },
 
     getters: {
-        // start backend
         booksByCategory: (state) => (category) => {
             return state.fetchBooks.filter(book => book.categories == category);
         },
-        // end backend
     },
 
     actions: {
-        // start backend
         async fetchBooksWithFilter({ commit }, filters) {
             const params = new URLSearchParams();
             if (filters.title) {
@@ -110,18 +122,15 @@ const store = createStore({
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
                     }
-                    VueCookies.set('user', user);
-                    this.state.loginUser.name = VueCookies.get('user').name;
-                    this.state.loginUser.email = VueCookies.get('user').email;
-                    this.state.loginUser.api_token = VueCookies.get('user').api_token;
+                    commit("login", user);
                     toast.success(responseData.message);
+                    router.push('/home');
                 }
             } catch (error) {
                 console.error("Error register user:", error);
                 toast.error(error.response.data.message);
             }
         },
-        // end backend
     },
 })
 

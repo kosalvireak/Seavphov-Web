@@ -56,7 +56,10 @@
               >
             </a>
           </li>
-          <li class="nav-item me-2 d-flex align-items-sm-center">
+          <li
+            v-if="this.$store.state.isLogin"
+            class="nav-item me-2 d-flex align-items-sm-center"
+          >
             <a
               class="nav-link"
               @click="
@@ -144,6 +147,7 @@ export default {
   components: { ChatDropdown, NotificationDropdown, SearchInput },
   methods: {
     Logout() {
+      this.$store.commit("logout");
       this.$router.push("/login");
     },
   },

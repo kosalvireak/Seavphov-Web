@@ -41,10 +41,10 @@ export default {
   },
   computed: {
     getSavedBooks() {
-      return this.$store.getters.savedBooks;
+      return [];
     },
     getMyBooks() {
-      return this.$store.getters.myBooks;
+      return [];
     },
   },
   methods: {
