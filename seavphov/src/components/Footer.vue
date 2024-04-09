@@ -1,14 +1,85 @@
 <template>
-  <footer>
-    <div class="footer-bottom">
-      <p>copyright &copy; <a href="#">Foolish Developer</a></p>
-      <div class="footer-menu">
-        <ul class="f-menu">
-          <li><a href="">Home</a></li>
-          <li><a href="">About</a></li>
-          <li><a href="">Contact</a></li>
-          <li><a href="">Blog</a></li>
-        </ul>
+  <footer class="footer-section mt-3">
+    <div class="container">
+      <div class="footer-content pt-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 mb-50">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <a href="/home"
+                  ><img
+                    src="/img/book.png"
+                    class="img-fluid"
+                    alt="logo"
+                    style="height: 65px"
+                /></a>
+              </div>
+              <div class="footer-social-icon">
+                <span>Follow us</span>
+                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Useful Links</h3>
+              </div>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">services</a></li>
+                <li><a href="#">portfolio</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+            <div class="footer-widget">
+              <div class="footer-widget-heading">
+                <h3>Subscribe</h3>
+              </div>
+              <div class="footer-text mb-25">
+                <p>
+                  Don’t miss to subscribe to our new feeds, kindly fill the form
+                  below.
+                </p>
+              </div>
+              <div class="subscribe-form">
+                <form action="#">
+                  <input type="text" placeholder="Email Address" />
+                  <button><i class="fab fa-telegram-plane"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+            <div class="copyright-text">
+              <p>
+                Copyright &copy; 2018, All Right Reserved
+                <a href="https://codepen.io/anupkumar92/">Anup</a>
+              </p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Policy</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
@@ -20,102 +91,164 @@ export default {
 };
 </script>
 <style media="screen">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+ul {
+  margin: 0px;
+  padding: 0px;
 }
-body {
-  background: #fcfcfc;
-  font-family: sans-serif;
+.footer-section {
+  background: #151414;
+  position: relative;
 }
-footer {
+.footer-cta {
+  border-bottom: 1px solid #373636;
+}
+.single-cta i {
+  color: #ff5e14;
+  font-size: 30px;
+  float: left;
+  margin-top: 8px;
+}
+.cta-text {
+  padding-left: 15px;
+  display: inline-block;
+}
+.cta-text h4 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.cta-text span {
+  color: #757575;
+  font-size: 15px;
+}
+.footer-content {
+  position: relative;
+  z-index: 2;
+}
+.footer-pattern img {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
-  background: #111;
-  height: 10rem;
-  width: auto;
-
-  padding-top: 40px;
+  height: 330px;
+  background-size: cover;
+  background-position: 100% 100%;
+}
+.footer-logo {
+  margin-bottom: 30px;
+}
+.footer-logo img {
+  max-width: 200px;
+}
+.footer-text p {
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #7e7e7e;
+  line-height: 28px;
+}
+.footer-social-icon span {
   color: #fff;
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
 }
-
-.socials {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0 3rem 0;
-}
-.socials li {
-  margin: 0 10px;
-}
-.socials a {
-  text-decoration: none;
+.footer-social-icon a {
   color: #fff;
-  border: 1.1px solid white;
-  padding: 5px;
-
+  font-size: 16px;
+  margin-right: 15px;
+}
+.footer-social-icon i {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 38px;
   border-radius: 50%;
 }
-.socials a i {
-  font-size: 1.1rem;
-  width: 20px;
-
-  transition: color 0.4s ease;
+.facebook-bg {
+  background: #3b5998;
 }
-.socials a:hover i {
-  color: aqua;
+.twitter-bg {
+  background: #55acee;
 }
-
-.footer-bottom {
-  background: #000;
-  width: auto;
-  padding: 20px;
-  padding-bottom: 40px;
-  text-align: center;
+.google-bg {
+  background: #dd4b39;
 }
-.footer-bottom p {
+.footer-widget-heading h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  position: relative;
+}
+.footer-widget-heading h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  height: 2px;
+  width: 50px;
+  background: #ff5e14;
+}
+.footer-widget ul li {
+  display: inline-block;
   float: left;
-  font-size: 14px;
-  word-spacing: 2px;
+  width: 50%;
+  margin-bottom: 12px;
+}
+.footer-widget ul li a:hover {
+  color: #ff5e14;
+}
+.footer-widget ul li a {
+  color: #878787;
   text-transform: capitalize;
 }
-.footer-bottom p a {
-  color: #44bae8;
-  font-size: 16px;
-  text-decoration: none;
+.subscribe-form {
+  position: relative;
+  overflow: hidden;
 }
-.footer-bottom span {
-  text-transform: uppercase;
-  opacity: 0.4;
-  font-weight: 200;
+.subscribe-form input {
+  width: 100%;
+  padding: 14px 28px;
+  background: #2e2e2e;
+  border: 1px solid #2e2e2e;
+  color: #fff;
 }
-.footer-menu {
-  float: right;
+.subscribe-form button {
+  position: absolute;
+  right: 0;
+  background: #ff5e14;
+  padding: 13px 20px;
+  border: 1px solid #ff5e14;
+  top: 0;
 }
-.footer-menu ul {
-  display: flex;
+.subscribe-form button i {
+  color: #fff;
+  font-size: 22px;
+  transform: rotate(-6deg);
 }
-.footer-menu ul li {
-  padding-right: 10px;
-  display: block;
+.copyright-area {
+  background: #202020;
+  padding: 25px 0;
 }
-.footer-menu ul li a {
-  color: #cfd2d6;
-  text-decoration: none;
+.copyright-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #878787;
 }
-.footer-menu ul li a:hover {
-  color: #27bcda;
+.copyright-text p a {
+  color: #ff5e14;
 }
-
-@media (max-width: 500px) {
-  .footer-menu ul {
-    display: flex;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
+.footer-menu li {
+  display: inline-block;
+  margin-left: 20px;
+}
+.footer-menu li:hover a {
+  color: #ff5e14;
+}
+.footer-menu li a {
+  font-size: 14px;
+  color: #878787;
 }
 </style>

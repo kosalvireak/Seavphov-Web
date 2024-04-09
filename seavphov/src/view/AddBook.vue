@@ -10,7 +10,11 @@
     >
       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
     </a>
-    <div class="d-flex align-items-center justify-content-center flex-column">
+
+    <div
+      v-if="this.$store.state.isLogin"
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
       <h4 class="my-4 text-gray fw-bold">Your are adding a new book.</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
@@ -122,6 +126,12 @@
         </div>
       </form>
     </div>
+    <div
+      v-else
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
+      <NoLoggin />
+    </div>
   </div>
 </template>
 
@@ -129,10 +139,11 @@
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../components/Loader.vue";
+import NoLoggin from "../components/NoLoggin.vue";
 import { useToast } from "vue-toastification";
 export default {
   name: "AddBook",
-  components: { Loader },
+  components: { Loader, NoLoggin },
   data() {
     return {
       toast: useToast(),

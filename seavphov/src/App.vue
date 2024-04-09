@@ -3,20 +3,17 @@
 <template>
   <div
     class="d-flex flex-column bg-success-subtle m-0 p-0"
-    style="min-height: 100vh"
+    style="min-height: 100vh; width: 100%"
   >
-    <div style="width: 100%; min-height: 95%">
-      <div>
-        <NavBar />
-      </div>
+    <div>
+      <NavBar />
+    </div>
 
-      <main class="container mt-3">
-        <router-view />
-      </main>
-    </div>
-    <div style="height: 5%; position: relative; bottom: 0px; margin-top: 15rem">
-      <Footer />
-    </div>
+    <main class="container mt-3">
+      <router-view />
+    </main>
+
+    <Footer />
   </div>
 </template>
 
@@ -31,6 +28,9 @@ export default {
 </script>
 
 <style>
+.container {
+  flex: 1;
+}
 .loginPage {
   background-image: url(/img/login_background.png);
   background-size: cover;

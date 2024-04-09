@@ -1,6 +1,5 @@
 <template>
   <div
-    style="height: 35rem; width: 30rem"
     class="NoLoggin d-flex align-items-center justify-content-center flex-column"
   >
     <div
@@ -13,7 +12,8 @@
         style="width: 150px; height: 150px"
       />
 
-      <h4 class="mt-4">Please login to see this page.</h4>
+      <h4 class="mt-4">You don't have permission.</h4>
+      <h5 class="mt-3">Please login.</h5>
       <br />
       <a
         @click="

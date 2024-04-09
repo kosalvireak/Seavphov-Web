@@ -40,7 +40,9 @@
               class="nav-link d-flex align-items-sm-center"
               @click="
                 () => {
-                  this.$router.push('/profile');
+                  if (isLogin) {
+                    this.$router.push('/profile');
+                  }
                 }
               "
             >
@@ -56,10 +58,7 @@
               >
             </a>
           </li>
-          <li
-            v-if="this.$store.state.isLogin"
-            class="nav-item me-2 d-flex align-items-sm-center"
-          >
+          <li v-if="isLogin" class="nav-item me-2 d-flex align-items-sm-center">
             <a
               class="nav-link"
               @click="
@@ -72,7 +71,10 @@
             </a>
           </li>
           <!-- Chat dropdown -->
-          <li class="nav-item dropdown me-2 d-flex align-items-sm-center">
+          <li
+            v-if="isLogin"
+            class="nav-item dropdown me-2 d-flex align-items-sm-center"
+          >
             <a
               class="nav-link dropdown-toggle hidden-arrow"
               role="button"
@@ -91,7 +93,10 @@
           </li>
 
           <!-- Notification dropdown -->
-          <li class="nav-item dropdown me-3 d-flex align-items-sm-center">
+          <li
+            v-if="isLogin"
+            class="nav-item dropdown me-3 d-flex align-items-sm-center"
+          >
             <a
               class="nav-link dropdown-toggle hidden-arrow"
               role="button"
@@ -149,6 +154,11 @@ export default {
     Logout() {
       this.$store.commit("logout");
       this.$router.push("/login");
+    },
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
 };
