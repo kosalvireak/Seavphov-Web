@@ -81,11 +81,14 @@ const store = createStore({
         },
         async createBook({ commit }, formData) {
             try {
+                const token = this.state.loginUser.api_token;
                 const response = await axios.post(backend_url + "/api/books/", formData, {
                     headers: {
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+                console.log("response", response)
                 toast.success(response.data.message);
                 this.state.newBookId = response.data.bookId;
             } catch (error) {

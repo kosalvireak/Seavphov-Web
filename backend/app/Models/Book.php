@@ -16,6 +16,12 @@ class Book extends Model
         'categories',
         'images',
         'descriptions',
-        'availability'
+        'availability',
+        'owner_id',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="Profile box" style="height: 100%">
-    <div class="container-sm box b-1 p-0">
+    <div v-if="this.$store.state.isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile />
       <div class="flex book_options">
         <div
@@ -23,6 +23,12 @@
       <div>
         <RenderBook :books="isMyBooksPage ? getMyBooks : getSavedBooks" />
       </div>
+    </div>
+    <div
+      v-else
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
+      <NoLoggin />
     </div>
   </div>
 </template>

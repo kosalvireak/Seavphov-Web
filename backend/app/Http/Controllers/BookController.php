@@ -65,11 +65,12 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        // $user = User::where('api_token', $request->bearerToken())->first();
 
-        // if (!$user || now()->gt($user->api_token_expires_at)) {
-        //     return response()->json(['error' => 'Unauthorized: Token expired'], 401);
-        // }
+        $user = User::where('api_token', $request->bearerToken())->first();
+
+        if (!$user || now()->gt($user->api_token_expires_at)) {
+            return response()->json(['error' => 'Unauthorized: Token expired'], 401);
+        }
         try {
             $validatedData = $request->validate([
                 'title' => 'required|string',
@@ -80,6 +81,7 @@ class BookController extends Controller
                 'availability' => 'required|int',
                 'images' => 'required|string',
             ]);
+            $validatedData['owner_id'] = $user->id;
 
             $book = Book::create($validatedData);
             return response()->json([
