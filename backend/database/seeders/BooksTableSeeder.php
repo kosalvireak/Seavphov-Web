@@ -29,7 +29,7 @@ class BooksTableSeeder extends Seeder
         $bookCategory = new BookCategory;
         $bookImage = new BookImage;
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 40; $i++) {
             Book::create([
                 'title' => $faker->sentence,
                 'author' => $faker->name,
@@ -37,7 +37,8 @@ class BooksTableSeeder extends Seeder
                 'categories' =>  $bookCategory->getCategory(),
                 'images' => $bookImage->getImageUrl(),
                 'descriptions' => $faker->sentence(300),
-                'availability' => $faker->boolean(33),
+                'availability' => 1,
+                'owner_id' => rand(1, 5)
             ]);
         }
     }

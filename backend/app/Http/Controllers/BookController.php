@@ -31,7 +31,7 @@ class BookController extends Controller
             $query->where('author', $author); // Filter by author
         }
 
-        $books = $query->paginate(5); // Apply pagination 
+        $books = $query->paginate(10); // Apply pagination 
 
         try {
             return response()->json([
