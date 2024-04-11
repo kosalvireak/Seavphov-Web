@@ -126,8 +126,8 @@ export default {
     return {
       email: "virakvary@gmail.com",
       name: "virak",
-      password: "123456789",
-      password_confirmation: "123456789",
+      password: "12345678",
+      password_confirmation: "12345678",
       Error: false,
       errorMessage: "",
       isShowPassword: false,

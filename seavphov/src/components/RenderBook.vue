@@ -44,7 +44,7 @@ export default {
   props: { books: Array },
   computed: {
     isBooksEmpty() {
-      if (this.books.length == 0) {
+      if (this.books & (this.books.length == 0)) {
         return true;
       } else {
         return false;

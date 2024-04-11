@@ -60,10 +60,14 @@ const store = createStore({
             if (filters.categories) {
                 params.append('categories', filters.categories);
             }
+            if (filters.owner_id) {
+                params.append('owner_id', filters.owner_id);
+            }
             try {
                 const response = await axios.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
                 if (response.data.success) {
-                    this.state.filteredFetchBook = response.data.message.data;
+                    // this.state.filteredFetchBook = response.data.message.data;
+                    return response.data.message.data;
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
@@ -79,12 +83,26 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async fetchBookByWithAuth({ commit }) {
+            try {
+                const response = await axios.get(backend_url + "/api/auth/books", {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.loginUser.api_token}`,
+                    },
+                })
+                console.log("fetchBookByWithAuth", response);
+                if (response.data.success) {
+                    return response.data.message;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async createBook({ commit }, formData) {
             try {
-                const token = this.state.loginUser.api_token;
                 const response = await axios.post(backend_url + "/api/books/", formData, {
                     headers: {
-                        'Authorization': `Bearer ${token}`,
+                        'Authorization': `Bearer ${this.state.loginUser.api_token}`,
                         'Content-Type': 'multipart/form-data',
                     },
                 });
@@ -103,8 +121,16 @@ const store = createStore({
                         'Content-Type': 'application/json',
                     },
                 });
-                if (response.data.success) {
-                    toast.success(response.data.message);
+                const responseData = await response.data;
+                if (responseData.success) {
+                    const user = {
+                        name: responseData.data.name,
+                        email: responseData.data.email,
+                        api_token: responseData.data.api_token,
+                    }
+                    commit("login", user);
+                    toast.success(responseData.message);
+                    router.push('/home');
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -130,7 +156,7 @@ const store = createStore({
                     router.push('/home');
                 }
             } catch (error) {
-                console.error("Error register user:", error);
+                console.error("Error login user:", error);
                 toast.error(error.response.data.message);
             }
         },

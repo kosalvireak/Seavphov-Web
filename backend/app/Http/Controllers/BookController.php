@@ -46,6 +46,24 @@ class BookController extends Controller
             ], 500);
         }
     }
+    public function authIndex(Request $request)
+    {
+        $user = $request->attributes->get('user');
+
+        $books = Book::where('owner_id', $user->id)->get();
+        try {
+            return response()->json([
+                'success' => true,
+                'message' => $books,
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
 
     public function show($id)
     {
@@ -65,12 +83,7 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-
-        $user = User::where('api_token', $request->bearerToken())->first();
-
-        if (!$user || now()->gt($user->api_token_expires_at)) {
-            return response()->json(['error' => 'Unauthorized: Token expired'], 401);
-        }
+        $user = $request->attributes->get('user');
         try {
             $validatedData = $request->validate([
                 'title' => 'required|string',

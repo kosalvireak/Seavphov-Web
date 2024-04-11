@@ -170,8 +170,12 @@ export default {
     async getBook() {
       await this.$store.dispatch("fetchBookById", this.paramsId);
       this.filters.categories = this.$store.state.book.categories;
-      await this.$store.dispatch("fetchBooksWithFilter", this.filters);
-      this.relatedBooks = this.$store.state.filteredFetchBook;
+      // await this.$store.dispatch("fetchBooksWithFilter", this.filters);
+      // this.relatedBooks = this.$store.state.filteredFetchBook;
+      this.relatedBooks = await this.$store.dispatch(
+        "fetchBooksWithFilter",
+        this.filters
+      );
     },
     toggleIsSaved() {
       this.$store.dispatch("changeIsSaved", this.paramsId);

@@ -21,7 +21,7 @@
         </div>
       </div>
       <div>
-        <RenderBook :books="isMyBooksPage ? getMyBooks : getSavedBooks" />
+        <RenderBook :books="isMyBooksPage ? myBooks : savedBooks" />
       </div>
     </div>
     <div
@@ -43,15 +43,12 @@ export default {
   data() {
     return {
       isMyBooksPage: true,
+      myBooks: [],
+      savedBooks: [],
     };
   },
-  computed: {
-    getSavedBooks() {
-      return [];
-    },
-    getMyBooks() {
-      return [];
-    },
+  mounted() {
+    this.getBooks();
   },
   methods: {
     toggleMyBooksPage(page) {
@@ -60,6 +57,9 @@ export default {
       } else {
         this.isMyBooksPage = false;
       }
+    },
+    async getBooks() {
+      this.myBooks = await this.$store.dispatch("fetchBookByWithAuth");
     },
   },
 };

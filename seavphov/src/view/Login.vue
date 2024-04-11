@@ -100,7 +100,7 @@ export default {
   data() {
     return {
       email: "virakvary@gmail.com",
-      password: "123456789",
+      password: "12345678",
       Error: false,
       errorMessage: "",
       isShowPassword: false,
