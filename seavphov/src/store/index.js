@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
 import { useToast } from "vue-toastification"
 import axios from "axios"
 import VueCookies from 'vue-cookies';
@@ -10,9 +9,6 @@ const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
 
 const store = createStore({
-    plugins: [createPersistedState({
-        storage: window.sessionStorage,
-    })],
     state: {
         loginUser: {
             email: VueCookies.get('user') ? VueCookies.get('user').email : "",
@@ -20,7 +16,6 @@ const store = createStore({
             api_token: VueCookies.get('user') ? VueCookies.get('user').api_token : "",
             profile: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
-        isLogin: false,
         filteredFetchBook: [],
         book: {},
         newBookId: null,
@@ -31,20 +26,21 @@ const store = createStore({
             this.state.loginUser.name = "Not logged in"
             this.state.loginUser.email = ""
             this.state.loginUser.api_token = ""
-            this.state.isLogin = false;
         },
         login(state, user) {
             VueCookies.set('user', user);
             this.state.loginUser.name = VueCookies.get('user').name;
             this.state.loginUser.email = VueCookies.get('user').email;
             this.state.loginUser.api_token = VueCookies.get('user').api_token;
-            this.state.isLogin = true;
         },
     },
 
     getters: {
         booksByCategory: (state) => (category) => {
             return state.fetchBooks.filter(book => book.categories == category);
+        },
+        isLogin: () => {
+            return VueCookies.get('user') ? true : false;
         },
     },
 

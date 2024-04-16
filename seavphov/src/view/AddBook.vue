@@ -12,7 +12,7 @@
     </a>
 
     <div
-      v-if="this.$store.state.isLogin"
+      v-if="this.$store.getters.isLogin"
       class="d-flex align-items-center justify-content-center flex-column"
     >
       <h4 class="my-4 text-gray fw-bold">Your are adding a new book.</h4>
@@ -115,10 +115,7 @@
             />
             <div v-else>
               <Loader v-if="uploadingBook" />
-              <p class="text-center" v-else>
-                Paste a valid image url. <br />
-                Your image will preview here
-              </p>
+              <p class="text-center" v-else>Your image will preview here</p>
             </div>
           </div>
           <button type="submit" class="btn btn-primary mt-1">Add Book</button>

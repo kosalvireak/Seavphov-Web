@@ -6,6 +6,7 @@ import Signup from "../view/Signup.vue"
 import Profile from "../view/Profile.vue"
 import SearchResult from "../view/SearchResult.vue"
 import AddBook from "../view/AddBook.vue"
+import EditProfile from "../view/EditProfile.vue"
 
 
 const router = createRouter({
@@ -29,7 +30,12 @@ const router = createRouter({
         {
             path: "/profile",
             name: "profile",
-            component: Profile,
+            component: Profile
+        },
+        {
+            path: "/edit-profile",
+            name: "edit-profile",
+            component: EditProfile,
         },
         {
             path: "/home",

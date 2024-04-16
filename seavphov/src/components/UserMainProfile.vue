@@ -20,7 +20,8 @@
         />
         <div class="profile_name username">
           <h3>{{ this.$store.state.loginUser.name }}</h3>
-          <p>Information Technology Engineering</p>
+          <p>conrad.tremblay@bayer.com</p>
+          <p>+16629967189</p>
         </div>
       </div>
       <div class="flex user_info_right">
@@ -60,6 +61,16 @@
               alt="instragram"
               class="icon rounded-5"
             />
+          </a>
+          <a
+            class="mx-3 text-gray"
+            @click="
+              () => {
+                this.$router.push({ path: '/edit-profile' });
+              }
+            "
+          >
+            <i class="fas fa-pencil fa-xl"></i>
           </a>
         </div>
       </div>

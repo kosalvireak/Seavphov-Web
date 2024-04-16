@@ -33,6 +33,6 @@ Route::post('books', [BookController::class, 'store'])->name('book.store')->midd
 Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
 Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');
 
-
+Route::get('user/profile/{id}', [LoginController::class, 'profile'])->middleware([ApiTokenAuthentication::class]);
 Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('user/register', [RegisterController::class, 'register'])->name('user.register');

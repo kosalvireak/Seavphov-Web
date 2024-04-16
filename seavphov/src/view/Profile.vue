@@ -1,6 +1,6 @@
 <template>
   <div class="Profile box" style="height: 100%">
-    <div v-if="this.$store.state.isLogin" class="container-sm box b-1 p-0">
+    <div v-if="this.$store.getters.isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile />
       <div class="flex book_options">
         <div
