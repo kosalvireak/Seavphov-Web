@@ -30,6 +30,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'api_token_expires_at',
+        'created_at',
+        'updated_at',
+        'id',
     ];
 
     /**

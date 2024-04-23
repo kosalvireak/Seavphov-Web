@@ -17,33 +17,34 @@
     >
       <h4 class="my-4 text-gray fw-bold">Your are editing your profile</h4>
 
-      <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
+      <form style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="col-12 col-md-6">
           <div class="mb-3">
-            <label for="images" class="form-label">Profile Image</label>
+            <label for="picture" class="form-label">Profile Image</label>
             <input
               type="file"
               class="form-control"
-              id="images"
-              name="images"
+              id="picture"
+              name="picture"
               @change="handleImageChange"
-              required
             />
           </div>
-          <div
-            class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
-            style="width: 152px; height: 152px"
-          >
-            <img
-              v-if="user.images"
-              :src="user.images"
-              alt="preview_image"
-              class="img-fluid h-100 w-100 cover_image b-1 rounded-circle"
-              style="object-fit: cover"
-            />
-            <div v-else>
-              <Loader v-if="uploadingBook" />
-              <p class="text-center" v-else>Your image will preview here</p>
+          <div class="d-flex justify-content-center">
+            <div
+              class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
+              style="width: 144px; height: 144px"
+            >
+              <img
+                v-if="user.picture"
+                :src="user.picture"
+                alt="preview_image"
+                class="img-fluid h-100 w-100 cover_image b-1 rounded-circle"
+                style="object-fit: cover"
+              />
+              <div v-else>
+                <Loader v-if="uploadingBook" />
+                <p class="text-center" v-else>Your image will preview here</p>
+              </div>
             </div>
           </div>
           <div class="mb-3">
@@ -66,8 +67,6 @@
               required
             />
           </div>
-        </div>
-        <div class="col-12 col-md-6">
           <div class="mb-3">
             <label for="phone" class="form-label">Phone number</label>
             <input
@@ -75,9 +74,10 @@
               class="form-control"
               id="phone"
               v-model="user.phone"
-              required
             />
           </div>
+        </div>
+        <div class="col-12 col-md-6">
           <div class="mb-3">
             <label for="instagram" class="form-label">Instagram link</label>
             <input
@@ -114,8 +114,19 @@
               v-model="user.telegram"
             />
           </div>
+          <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              class="form-control"
+              id="location"
+              v-model="user.location"
+            />
+          </div>
+          <button type="submit" class="col-12 btn btn-primary mt-2">
+            Save
+          </button>
         </div>
-        <button type="submit" class="btn btn-primary mt-1">Save</button>
       </form>
     </div>
     <div
@@ -142,29 +153,32 @@ export default {
       user: {
         name: "",
         email: "",
-        images: "",
+        picture: "",
         phone: "",
         instagram: "",
         facebook: "",
         twitter: "",
         telegram: "",
+        location: "",
       },
       formData: new FormData(),
       uploadingBook: false,
     };
   },
   methods: {
-    async AddBook() {
-      this.formData.append("title", this.book.title);
-      this.formData.append("author", this.book.author);
-      this.formData.append("categories", this.book.categories);
-      this.formData.append("condition", this.book.condition);
-      this.formData.append("descriptions", this.book.descriptions);
-      this.formData.append("availability", 1);
-      await this.$store.dispatch("createBook", this.formData);
-      if (this.$store.state.newBookId) {
-        this.$router.push({ path: `/home/${this.$store.state.newBookId}` });
-      }
+    async Save() {
+      this.formData.append("_method", "put");
+      this.formData.append("name", this.user.name);
+      this.formData.append("email", this.user.email);
+      this.formData.append("picture", this.user.picture);
+      this.formData.append("phone", this.user.phone);
+      this.formData.append("instagram", this.user.instagram);
+      this.formData.append("facebook", this.user.facebook);
+      this.formData.append("twitter", this.user.twitter);
+      this.formData.append("telegram", this.user.telegram);
+      this.formData.append("location", this.user.location);
+      await this.$store.dispatch("modifyUserProfile", this.formData);
+      this.$router.push({ path: "/profile" });
     },
     async handleImageChange(event) {
       this.uploadingBook = true;
@@ -175,8 +189,8 @@ export default {
           const imageUpload = await uploadBytes(storageRef, selectedFile);
           getDownloadURL(ref(storage, imageUpload.metadata.fullPath)).then(
             (url) => {
-              this.book.images = url;
-              this.formData.append("images", url);
+              this.user.picture = url;
+              this.formData.append("picture", url);
               this.uploadingBook = false;
             }
           );
@@ -188,10 +202,23 @@ export default {
   },
   computed: {
     isLogin() {
+      console.log("computed EditProfile", this.$store.getters.isLogin);
       return this.$store.getters.isLogin;
     },
   },
-  async mounted() {},
+  async mounted() {
+    const response = await this.$store.dispatch("fetchUserProfile");
+    this.user.name = response.name;
+    this.user.email = response.email;
+    this.user.picture = response.picture;
+    this.user.phone = response.phone;
+    this.user.facebook = response.facebook;
+    this.user.instagram = response.instagram;
+    this.user.location = response.location;
+    this.user.twitter = response.twitter;
+    this.user.telegram = response.telegram;
+    this.user.location = response.location;
+  },
 };
 </script>
 

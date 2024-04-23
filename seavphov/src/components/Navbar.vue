@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-md bg-seavphov p-0">
+  <nav v-if="hideNavbar" class="navbar navbar-expand-md bg-seavphov p-0">
     <div class="container-fluid">
       <a
         class="navbar-brand"
@@ -35,19 +35,17 @@
           class="navbar-nav my-0 NavUserInfo justify-content-end"
           style="--bs-scroll-height: 100px"
         >
-          <li class="nav-item me-2 me-lg-1">
+          <li class="nav-item me-2 me-lg-1 cursor-pointer">
             <a
               class="nav-link d-flex align-items-sm-center"
               @click="
                 () => {
-                  if (isLogin) {
-                    this.$router.push('/profile');
-                  }
+                  this.$router.push('/profile');
                 }
               "
             >
               <img
-                :src="this.$store.state.loginUser.profile"
+                :src="this.$store.state.loginUser.picture"
                 class="rounded-circle navbar_img border border-3"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
@@ -58,7 +56,10 @@
               >
             </a>
           </li>
-          <li v-if="isLogin" class="nav-item me-2 d-flex align-items-sm-center">
+          <li
+            v-if="isLogin"
+            class="nav-item me-2 d-flex align-items-sm-center cursor-pointer"
+          >
             <a
               class="nav-link"
               @click="
@@ -73,7 +74,7 @@
           <!-- Chat dropdown -->
           <li
             v-if="isLogin"
-            class="nav-item dropdown me-2 d-flex align-items-sm-center"
+            class="nav-item dropdown me-2 d-flex align-items-sm-center cursor-pointer"
           >
             <a
               class="nav-link dropdown-toggle hidden-arrow"
@@ -95,7 +96,7 @@
           <!-- Notification dropdown -->
           <li
             v-if="isLogin"
-            class="nav-item dropdown me-3 d-flex align-items-sm-center"
+            class="nav-item dropdown me-3 d-flex align-items-sm-center cursor-pointer"
           >
             <a
               class="nav-link dropdown-toggle hidden-arrow"
@@ -122,7 +123,7 @@
           </li>
         </ul>
         <a
-          class="navbar-brand-center"
+          class="navbar-brand-center cursor-pointer"
           @click="
             () => {
               this.$router.push('/home');
@@ -151,14 +152,22 @@ export default {
   name: "Navbar",
   components: { ChatDropdown, NotificationDropdown, SearchInput },
   methods: {
-    Logout() {
-      this.$store.commit("logout");
+    async Logout() {
+      await this.$store.dispatch("logoutUser");
       this.$router.push("/login");
     },
   },
   computed: {
     isLogin() {
+      console.log("computed Navbar", this.$store.getters.isLogin);
       return this.$store.getters.isLogin;
+    },
+    hideNavbar() {
+      if (this.$route.name == "login" || this.$route.name == "signup") {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 };

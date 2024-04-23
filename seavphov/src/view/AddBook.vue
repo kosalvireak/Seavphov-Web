@@ -12,7 +12,7 @@
     </a>
 
     <div
-      v-if="this.$store.getters.isLogin"
+      v-if="isLogin"
       class="d-flex align-items-center justify-content-center flex-column"
     >
       <h4 class="my-4 text-gray fw-bold">Your are adding a new book.</h4>
@@ -187,6 +187,12 @@ export default {
       } catch (error) {
         this.toast.error(error);
       }
+    },
+  },
+  computed: {
+    isLogin() {
+      console.log("computed AddBook", this.$store.getters.isLogin);
+      return this.$store.getters.isLogin;
     },
   },
 };

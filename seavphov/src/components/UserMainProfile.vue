@@ -14,7 +14,7 @@
     <div class="container-sm flex user_info b-1">
       <div class="flex user_info_left">
         <img
-          :src="this.$store.state.loginUser.profile"
+          :src="this.$store.state.loginUser.picture"
           alt="profile image"
           class="profile_image shadow rounded-circle"
         />
@@ -63,7 +63,7 @@
             />
           </a>
           <a
-            class="mx-3 text-gray"
+            class="mx-3 text-gray cursor-pointer"
             @click="
               () => {
                 this.$router.push({ path: '/edit-profile' });

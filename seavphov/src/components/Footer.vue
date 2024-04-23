@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer-section mt-3">
+  <footer v-if="hideFooter" class="footer-section mt-3">
     <div class="container">
       <div class="footer-content pt-5">
         <div class="row">
@@ -88,6 +88,15 @@
 <script>
 export default {
   name: "Footer",
+  computed: {
+    hideFooter() {
+      if (this.$route.name == "login" || this.$route.name == "signup") {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
 <style media="screen">

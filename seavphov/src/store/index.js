@@ -1,9 +1,9 @@
 import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
 import axios from "axios"
-import VueCookies from 'vue-cookies';
 import router from '../router';
 
+import { setUserCookie, getUserCookie ,removeUserCookie} from './cookieUtils';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
@@ -11,36 +11,22 @@ const toast = useToast();
 const store = createStore({
     state: {
         loginUser: {
-            email: VueCookies.get('user') ? VueCookies.get('user').email : "",
-            name: VueCookies.get('user') ? VueCookies.get('user').name : "Not logged in",
-            api_token: VueCookies.get('user') ? VueCookies.get('user').api_token : "",
-            profile: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+            email:  getUserCookie() ? getUserCookie().email : "",
+            name:   getUserCookie() ? getUserCookie().name:"Not logged in",
+            api_token:   getUserCookie() ? getUserCookie().api_token : null,
+            picture: getUserCookie() ? getUserCookie().picture :"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         filteredFetchBook: [],
         book: {},
         newBookId: null,
     },
-    mutations: {
-        logout(state) {
-            VueCookies.remove('user');
-            this.state.loginUser.name = "Not logged in"
-            this.state.loginUser.email = ""
-            this.state.loginUser.api_token = ""
-        },
-        login(state, user) {
-            VueCookies.set('user', user);
-            this.state.loginUser.name = VueCookies.get('user').name;
-            this.state.loginUser.email = VueCookies.get('user').email;
-            this.state.loginUser.api_token = VueCookies.get('user').api_token;
-        },
-    },
-
     getters: {
         booksByCategory: (state) => (category) => {
             return state.fetchBooks.filter(book => book.categories == category);
         },
         isLogin: () => {
-            return VueCookies.get('user') ? true : false;
+            // console.log("isLogin",getUserCookie() == null ? false : true);
+            return getUserCookie() == null ? false : true;
         },
     },
 
@@ -86,7 +72,6 @@ const store = createStore({
                         'Authorization': `Bearer ${this.state.loginUser.api_token}`,
                     },
                 })
-                console.log("fetchBookByWithAuth", response);
                 if (response.data.success) {
                     return response.data.message;
                 }
@@ -124,7 +109,7 @@ const store = createStore({
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
                     }
-                    commit("login", user);
+                    setUserCookie(user);
                     toast.success(responseData.message);
                     router.push('/home');
                 }
@@ -132,6 +117,9 @@ const store = createStore({
                 console.error("Error register user:", error);
                 toast.error(error.response.data.message);
             }
+        },
+        async logoutUser({commit}){
+            removeUserCookie();
         },
         async loginUser({ commit }, loginData) {
             try {
@@ -142,17 +130,58 @@ const store = createStore({
                 });
                 const responseData = await response.data;
                 if (responseData.success) {
+                    console.log("loginUser",responseData.data);
                     const user = {
                         name: responseData.data.name,
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
+                        picture: responseData.data.picture,
                     }
-                    commit("login", user);
+                    setUserCookie(user);
                     toast.success(responseData.message);
                     router.push('/home');
                 }
             } catch (error) {
                 console.error("Error login user:", error);
+                toast.error(error.response.data.message);
+            }
+        },
+        async fetchUserProfile({commit}){
+            try {
+                const response = await axios.get(backend_url + "/api/profile", {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.loginUser.api_token}`,
+                    },
+                })
+                if (response.data.success) {
+                    return response.data.message;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async modifyUserProfile({commit}, formData){
+            try {
+                const response = await axios.post(backend_url + "/api/profile", formData, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.loginUser.api_token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                if(response.data.success){
+                    console.log("modifyUserProfile",response.data.data)
+                    const responseData   = response.data.data;
+                    const user = {
+                        name: responseData.name,
+                        email: responseData.email,
+                        api_token: responseData.api_token,
+                        picture: responseData.picture,
+                    }
+                    setUserCookie(user);
+                    toast.success(response.data.message);
+                }
+            } catch (error) {
+                console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
             }
         },

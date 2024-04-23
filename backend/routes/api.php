@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ApiTokenAuthentication;
 use Illuminate\Http\Request;
@@ -33,6 +34,8 @@ Route::post('books', [BookController::class, 'store'])->name('book.store')->midd
 Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
 Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');
 
-Route::get('user/profile/{id}', [LoginController::class, 'profile'])->middleware([ApiTokenAuthentication::class]);
 Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('user/register', [RegisterController::class, 'register'])->name('user.register');
+
+Route::get('profile',[UserController::class, 'index'])->middleware([ApiTokenAuthentication::class]);
+Route::put('profile', [UserController::class, 'update'])->middleware([ApiTokenAuthentication::class]);

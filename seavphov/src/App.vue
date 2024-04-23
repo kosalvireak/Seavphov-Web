@@ -5,9 +5,7 @@
     class="d-flex flex-column bg-success-subtle m-0 p-0"
     style="min-height: 100vh; width: 100%"
   >
-    <div>
-      <NavBar />
-    </div>
+    <NavBar />
 
     <main class="container mt-3">
       <router-view />

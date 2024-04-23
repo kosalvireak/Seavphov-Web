@@ -189,3 +189,7 @@ table {
 .ellipsis-container {
   overflow: hidden;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

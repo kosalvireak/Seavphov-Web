@@ -1,10 +1,10 @@
 <template>
   <div class="Profile box" style="height: 100%">
-    <div v-if="this.$store.getters.isLogin" class="container-sm box b-1 p-0">
+    <div v-if="isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile />
       <div class="flex book_options">
         <div
-          class="flex book_option_child rounded-7"
+          class="flex book_option_child rounded-7 cursor-pointer"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
         >
           <a class="text-black" @click="toggleMyBooksPage('mybooks')"
@@ -12,7 +12,7 @@
           >
         </div>
         <div
-          class="flex book_option_child rounded-7"
+          class="flex book_option_child rounded-7 cursor-pointer"
           :class="{ 'book_option_child_selected fw-bold': !isMyBooksPage }"
         >
           <a class="text-black" @click="toggleMyBooksPage('savedbooks')"
@@ -60,6 +60,12 @@ export default {
     },
     async getBooks() {
       this.myBooks = await this.$store.dispatch("fetchBookByWithAuth");
+    },
+  },
+  computed: {
+    isLogin() {
+      console.log("computed Profile", this.$store.getters.isLogin);
+      return this.$store.getters.isLogin;
     },
   },
 };

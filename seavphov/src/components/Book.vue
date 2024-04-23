@@ -1,7 +1,7 @@
 <template>
   <div class="Book card m-3 my-2 border-start-1 shadow-5-strong">
     <router-link
-      :to="`/home/${book.id}`"
+      :to="`/book/${book.id}`"
       class="d-flex justify-content-center h-50 bg-success-subtle bg-image hover-zoom"
       style="height: 12rem"
     >
