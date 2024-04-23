@@ -45,14 +45,14 @@
               "
             >
               <img
-                :src="this.$store.state.loginUser.picture"
+                :src="this.$store.state.user.picture"
                 class="rounded-circle navbar_img border border-3"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
               />
               <strong
                 class="ms-1 username d-flex align-items-center justify-contents-center"
-                >{{ this.$store.state.loginUser.name }}</strong
+                >{{ this.$store.state.user.name }}</strong
               >
             </a>
           </li>
@@ -159,7 +159,6 @@ export default {
   },
   computed: {
     isLogin() {
-      console.log("computed Navbar", this.$store.getters.isLogin);
       return this.$store.getters.isLogin;
     },
     hideNavbar() {

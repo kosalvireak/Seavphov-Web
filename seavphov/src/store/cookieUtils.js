@@ -1,15 +1,15 @@
 
 import VueCookies from 'vue-cookies';
 
-export function setUserCookie(user) {
-    console.log("setUserCookie",user);
+export function setCookie(user) {
+    console.log("setCookie",user);
     VueCookies.set('user', user);
 }
 
-export function getUserCookie() {
+export function getCookie() {
     return VueCookies.get('user')
 }
 
-export function removeUserCookie() {
+export function removeCookie() {
     VueCookies.remove('user');
 }

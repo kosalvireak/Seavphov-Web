@@ -191,7 +191,6 @@ export default {
   },
   computed: {
     isLogin() {
-      console.log("computed AddBook", this.$store.getters.isLogin);
       return this.$store.getters.isLogin;
     },
   },

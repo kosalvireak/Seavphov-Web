@@ -14,13 +14,13 @@
     <div class="container-sm flex user_info b-1">
       <div class="flex user_info_left">
         <img
-          :src="this.$store.state.loginUser.picture"
+          :src="profilePicture"
           alt="profile image"
           class="profile_image shadow rounded-circle"
         />
         <div class="profile_name username">
-          <h3>{{ this.$store.state.loginUser.name }}</h3>
-          <p>conrad.tremblay@bayer.com</p>
+          <h3>{{ username }}</h3>
+          <p>{{ email }}</p>
           <p>+16629967189</p>
         </div>
       </div>
@@ -81,6 +81,18 @@
 <script>
 export default {
   name: "UserMainProfile",
+  computed: {
+    username() {
+      console.log("username", this.$store.state.user.name);
+      return this.$store.state.user.name;
+    },
+    profilePicture() {
+      return this.$store.state.user.picture;
+    },
+    email() {
+      return this.$store.state.user.email;
+    },
+  },
 };
 </script>
 

@@ -42,9 +42,8 @@ class UserController extends Controller
                 'telegram' => 'nullable|string',
                 'location' => 'nullable|string',
             ]);
-     
+            
             $user->update($validatedData);
-
                 
             return response()->json([
                 'success' => true,

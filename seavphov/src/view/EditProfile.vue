@@ -192,6 +192,7 @@ export default {
               this.user.picture = url;
               this.formData.append("picture", url);
               this.uploadingBook = false;
+              console.log("EditProfile this.user.picture", this.user.picture);
             }
           );
         }
@@ -202,7 +203,6 @@ export default {
   },
   computed: {
     isLogin() {
-      console.log("computed EditProfile", this.$store.getters.isLogin);
       return this.$store.getters.isLogin;
     },
   },
