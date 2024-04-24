@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index(Request $request){
         $user = collect($request->attributes->get('user'));
 
-        $filteredUser = $user->except([ 'api_token']);
+        $filteredUser = $user->except(['api_token']);
         try {
             return response()->json([
                 'success' => true,
@@ -42,7 +42,8 @@ class UserController extends Controller
                 'telegram' => 'nullable|string',
                 'location' => 'nullable|string',
             ]);
-            
+
+            $user->generateToken();
             $user->update($validatedData);
                 
             return response()->json([
@@ -55,7 +56,7 @@ class UserController extends Controller
                 'success' => false,
                 'message' => 'Profile validation error!',
                 'error' => $exception->getMessage()
-            ], 442);
+            ], 422);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,

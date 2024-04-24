@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,17 +47,18 @@ class BookController extends Controller
             ], 500);
         }
     }
+    
     public function authIndex(Request $request)
     {
         $user = $request->attributes->get('user');
-
-        $books = Book::where('owner_id', $user->id)->get();
+        $books = $user->books()->get();
+        
         try {
             return response()->json([
                 'success' => true,
                 'message' => $books,
             ], 200);
-        } catch (Exception $exception) {
+        } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while fetching books.',
@@ -104,6 +106,7 @@ class BookController extends Controller
                 'availability' => 'required|int',
                 'images' => 'required|string',
             ]);
+            
             $validatedData['owner_id'] = $user->id;
 
             $book = Book::create($validatedData);
