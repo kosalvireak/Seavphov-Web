@@ -19,23 +19,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/hello', function () {
-    return "Hello World!";
-});
-Route::get('books',  [BookController::class, 'index'])->name('book.index');
 Route::get('auth/books',  [BookController::class, 'authIndex'])->middleware([ApiTokenAuthentication::class]);
-Route::get('books/{id}',  [BookController::class, 'show'])->name('book.show');
-Route::post('books', [BookController::class, 'store'])->name('book.store')->middleware([ApiTokenAuthentication::class]);
-Route::put('books/{id}', [BookController::class, 'update'])->name('book.update');
-Route::delete('books/{id}', [BookController::class, 'delete'])->name('book.delete');
 
-Route::post('user/login', [LoginController::class, 'login'])->name('user.login');
-Route::post('user/register', [RegisterController::class, 'register'])->name('user.register');
+Route::prefix('books')->group(function () {
+    Route::get('',  [BookController::class, 'index']);
+    Route::get('{id}',  [BookController::class, 'show']);
+    Route::post('', [BookController::class, 'store'])->middleware([ApiTokenAuthentication::class]);
+    Route::put('{id}', [BookController::class, 'update']);
+    Route::delete('{id}', [BookController::class, 'delete']);
+});
 
-Route::get('profile',[UserController::class, 'index'])->middleware([ApiTokenAuthentication::class]);
-Route::put('profile', [UserController::class, 'update'])->middleware([ApiTokenAuthentication::class]);
+Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('',[UserController::class, 'index']);
+    Route::put('', [UserController::class, 'update']);
+});
+
+Route::prefix('user')->group(function () {
+    Route::post('login', [LoginController::class, 'login']);
+    Route::post('register', [RegisterController::class, 'register']);
+});
