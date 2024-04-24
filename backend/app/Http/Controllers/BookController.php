@@ -69,21 +69,12 @@ class BookController extends Controller
     {
         try {
             
-            $book = Book::findOrFail($id);
-            
-            $author = User::find($book->owner_id);
+            $book = Book::with('owner')->findOrFail($id);
 
-            if(!$author){
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Author not found!',
-                ], 404);
-            }
-            
             return response()->json([
                 'success' => true,
                 'book' => $book,
-                'author' => $author,
+                'author' => $book->owner,
             ], 200);
         } catch (ModelNotFoundException  $exception) {
             return response()->json([
@@ -91,6 +82,12 @@ class BookController extends Controller
                 'message' => 'Book not found!',
                 'error' => $exception->getMessage()
             ], 404);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Internal Server Error',
+                'error' => $exception->getMessage()
+            ], 500);
         }
     }
 
