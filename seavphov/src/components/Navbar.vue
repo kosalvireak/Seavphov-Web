@@ -71,27 +71,6 @@
               <span><i class="fas fa-plus-circle fa-xl"></i></span>
             </a>
           </li>
-          <!-- Chat dropdown -->
-          <li
-            v-if="isLogin"
-            class="nav-item dropdown me-2 d-flex align-items-sm-center cursor-pointer"
-          >
-            <a
-              class="nav-link dropdown-toggle hidden-arrow"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fas fa-comments fa-xl"></i>
-
-              <span class="badge rounded-pill badge-notification bg-danger"
-                >2</span
-              >
-            </a>
-            <ul class="dropdown-menu ChatDropdown">
-              <ChatDropdown />
-            </ul>
-          </li>
 
           <!-- Notification dropdown -->
           <li
@@ -145,12 +124,11 @@
 </template>
 
 <script>
-import ChatDropdown from "./ChatDropdown.vue";
 import NotificationDropdown from "./NotificationDropdown.vue";
 import SearchInput from "./SearchInput.vue";
 export default {
   name: "Navbar",
-  components: { ChatDropdown, NotificationDropdown, SearchInput },
+  components: { NotificationDropdown, SearchInput },
   methods: {
     async Logout() {
       await this.$store.dispatch("logoutUser");

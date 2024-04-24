@@ -68,9 +68,22 @@ class BookController extends Controller
     public function show($id)
     {
         try {
+            
+            $book = Book::findOrFail($id);
+            
+            $author = User::find($book->owner_id);
+
+            if(!$author){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Author not found!',
+                ], 404);
+            }
+            
             return response()->json([
                 'success' => true,
-                'message' => Book::findOrFail($id),
+                'book' => $book,
+                'author' => $author,
             ], 200);
         } catch (ModelNotFoundException  $exception) {
             return response()->json([

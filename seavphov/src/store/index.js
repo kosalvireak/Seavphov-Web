@@ -37,11 +37,11 @@ const store = createStore({
 
     actions: {
         setUserFromCookies({ commit }) {
-            const {name,email,api_token,picture} = getCookie();
-            if(name && email){
+            if(getCookie()){
+                const {name,email,api_token,picture} = getCookie();
                 commit('SET_USER', { name, email,api_token,picture});
+                console.log("setUserFromCookies",name);
             }
-            console.log("setUserFromCookies",name);
         },
         async logoutUser({commit}){
             removeCookie();
@@ -140,7 +140,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBooksWithFilter(filters) {
+        async fetchBooksWithFilter({},filters) {
             const params = new URLSearchParams();
             if (filters.title) {
                 params.append('title', filters.title);
@@ -164,11 +164,11 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBookById(id) {
+        async fetchBookById({},id) {
             try {
                 const response = await axios.get(backend_url + "/api/books/" + id)
                 if (response.data.success) {
-                    this.state.book = response.data.message;
+                    return [response.data.book, response.data.author];
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
@@ -188,7 +188,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async createBook(formData) {
+        async createBook({},formData) {
             try {
                 const response = await axios.post(backend_url + "/api/books/", formData, {
                     headers: {
