@@ -1,59 +1,61 @@
 <template>
-  <div class="notification-ui_dd-header">
-    <h5
-      class="d-flex align-items-center justify-content-center fw-bold"
-      style="height: 50px; border-bottom: 1px solid gray"
-    >
-      Notification
-    </h5>
-  </div>
-  <div class="notification-ui_dd-content">
-    <div class="notification-list notification-list--unread">
-      <div class="notification-list_img">
-        <img src="https://i.imgur.com/zYxDCQT.jpg" alt="user" />
-      </div>
-      <div class="notification-list_detail">
-        <p><b>John Doe</b> saved your book</p>
-        <p><small>1 day ago</small></p>
-      </div>
-      <div class="notification-list_feature-img">
-        <img src="/img/Exploring the Cosmos.webp" alt="Feature image" />
-      </div>
+  <div>
+    <div class="notification-ui_dd-header">
+      <h5
+        class="d-flex align-items-center justify-content-center fw-bold"
+        style="height: 50px; border-bottom: 1px solid gray"
+      >
+        Notification
+      </h5>
     </div>
-    <div class="notification-list notification-list--unread">
-      <div class="notification-list_img">
-        <img src="https://i.imgur.com/w4Mp4ny.jpg" alt="user" />
+    <div class="notification-ui_dd-content">
+      <div class="notification-list notification-list--unread">
+        <div class="notification-list_img">
+          <img src="https://i.imgur.com/zYxDCQT.jpg" alt="user" />
+        </div>
+        <div class="notification-list_detail">
+          <p><b>John Doe</b> saved your book</p>
+          <p><small>1 day ago</small></p>
+        </div>
+        <div class="notification-list_feature-img">
+          <img src=" " alt="Feature image" />
+        </div>
       </div>
-      <div class="notification-list_detail">
-        <p><b>Richard Miles</b> saved your book</p>
-        <p><small>1 day ago</small></p>
+      <div class="notification-list notification-list--unread">
+        <div class="notification-list_img">
+          <img src="https://i.imgur.com/w4Mp4ny.jpg" alt="user" />
+        </div>
+        <div class="notification-list_detail">
+          <p><b>Richard Miles</b> saved your book</p>
+          <p><small>1 day ago</small></p>
+        </div>
+        <div class="notification-list_feature-img">
+          <img src=" " alt="Feature image" />
+        </div>
       </div>
-      <div class="notification-list_feature-img">
-        <img src="/img/Exploring the Cosmos.webp" alt="Feature image" />
+      <div class="notification-list">
+        <div class="notification-list_img">
+          <img src="https://i.imgur.com/ltXdE4K.jpg" alt="user" />
+        </div>
+        <div class="notification-list_detail">
+          <p><b>Brian Cumin</b> saved your book</p>
+          <p><small>1 day ago</small></p>
+        </div>
+        <div class="notification-list_feature-img">
+          <img src="" alt="Feature image" />
+        </div>
       </div>
-    </div>
-    <div class="notification-list">
-      <div class="notification-list_img">
-        <img src="https://i.imgur.com/ltXdE4K.jpg" alt="user" />
-      </div>
-      <div class="notification-list_detail">
-        <p><b>Brian Cumin</b> saved your book</p>
-        <p><small>1 day ago</small></p>
-      </div>
-      <div class="notification-list_feature-img">
-        <img src="/img/Tears of the Kingdom.jpg" alt="Feature image" />
-      </div>
-    </div>
-    <div class="notification-list">
-      <div class="notification-list_img">
-        <img src="https://i.imgur.com/CtAQDCP.jpg" alt="user" />
-      </div>
-      <div class="notification-list_detail">
-        <p><b>Lance Bogrol</b> saved your book</p>
-        <p><small>1 day ago</small></p>
-      </div>
-      <div class="notification-list_feature-img">
-        <img src="/img/Tears of the Kingdom.jpg" alt="Feature image" />
+      <div class="notification-list">
+        <div class="notification-list_img">
+          <img src="https://i.imgur.com/CtAQDCP.jpg" alt="user" />
+        </div>
+        <div class="notification-list_detail">
+          <p><b>Lance Bogrol</b> saved your book</p>
+          <p><small>1 day ago</small></p>
+        </div>
+        <div class="notification-list_feature-img">
+          <img src="" alt="Feature image" />
+        </div>
       </div>
     </div>
   </div>
