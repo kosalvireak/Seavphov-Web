@@ -1,5 +1,5 @@
 <template>
-  <div class="Profile box" style="height: 100%">
+  <div class="Profile box h-100 w-100">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile />
       <div class="flex book_options">

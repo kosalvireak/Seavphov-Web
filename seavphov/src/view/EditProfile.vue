@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3">
+  <div class="EditProfile w-100 mb-3">
     <a
       @click="
         () => {
