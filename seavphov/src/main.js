@@ -16,7 +16,9 @@ app.use(store);
 app.use(Toast, {
     position: POSITION.BOTTOM_RIGHT
 });
-app.use(VueCookies, { expires: '1h' })
+app.use(VueCookies)
 
+
+VueCookies.config('30d','','',true);
 store.dispatch("setUserFromCookies");
 app.mount("#app");

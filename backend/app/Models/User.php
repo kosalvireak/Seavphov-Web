@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function generateToken()
     {
         $this->api_token = Str::random(60);
-        $this->api_token_expires_at = now()->addMinutes(60);
+        $this->api_token_expires_at = now()->addDays(30);
         $this->save();
 
         return $this->api_token;
