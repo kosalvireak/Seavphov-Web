@@ -197,7 +197,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .border-bdbdbd {
   border: 1px !important;
   border-style: solid !important;

@@ -281,7 +281,6 @@ a {
   }
   .row {
     width: 100%;
-    padding: 20px;
   }
   .special-style {
     width: 370px !important;

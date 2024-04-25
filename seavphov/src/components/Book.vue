@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .Book {
   height: 20rem;
   width: 13rem;

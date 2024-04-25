@@ -1,5 +1,5 @@
 <template>
-  <footer v-if="hideFooter" class="footer-section mt-3">
+  <footer v-if="hideFooter" class="footer-section mt-3 w-100">
     <div class="container">
       <div class="footer-content pt-5">
         <div class="row">
