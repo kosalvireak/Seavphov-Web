@@ -73,4 +73,8 @@ export default {};
     height: 250px !important;
   }
 }
+#carouselExampleInterval{
+  margin-bottom: 50px;
+}
+
 </style>

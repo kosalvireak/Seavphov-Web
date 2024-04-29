@@ -1,11 +1,12 @@
 <template>
   <div class="w-100 h-100">
-    <div style="height: 300px">
+    <div style="height: 300px margin: 50px;">
       <Carousel />
     </div>
-    <div class="mt-3 row">
+    <Filter></Filter>
+    <!-- <div class="mt-3 row">
       <PaginatedBook />
-    </div>
+    </div> -->
     <div class="mt-3 row" v-if="false">
       <div
         class="d-flex align-item-center justify-content-center col-xl-3 col-md-5 col-sm-12 mt-md-2"
@@ -172,14 +173,15 @@
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import Carousel from "../components/Carousel.vue";
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
+import Filter from "../components/Filter.vue";
 export default {
   name: "Home",
-  components: { Carousel, RenderBook, PaginatedBook },
+  components: { Carousel, RenderBook, PaginatedBook, Filter },
   // data() {
   //   return {
   //     Books: [],
@@ -249,7 +251,7 @@ export default {
   // },
 };
 </script>
-  
+
 <style scoped>
 label {
   font-size: 0.9rem;

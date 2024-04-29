@@ -107,7 +107,7 @@ section {
 
 body {
   line-height: 1;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 ol,
@@ -124,7 +124,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -134,7 +134,6 @@ table {
 }
 
 /* Reset CSS */
-
 
 .h-3rem {
   height: 3rem !important;
@@ -153,7 +152,7 @@ table {
 }
 
 .bg-seavphov {
-  background-color: #9FB97F !important;
+  background-color: #37aba3 !important;
 }
 
 .bg-seavphov-light {
@@ -161,7 +160,7 @@ table {
 }
 
 .font-Roboto {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 
 .username::first-letter {
@@ -169,7 +168,7 @@ table {
 }
 
 .text-gray {
-  color: #4F4F4F !important;
+  color: #4f4f4f !important;
 }
 
 .text-seavphov {
@@ -190,11 +189,11 @@ table {
   overflow: hidden;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
-.d-flex-center{
+.d-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="d-flex-center flex-column bg-success-subtle m-0 p-0"
+    class="d-flex-center flex-column bg-white m-0 p-0"
     style="min-height: 100vh; width: 100%"
   >
     <NavBar />
