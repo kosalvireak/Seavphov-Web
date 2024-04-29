@@ -46,13 +46,13 @@
             class="fa-solid fa-bookmark fa-2xl border border-1"
             style="color: yellow"
             v-if="book.issaved"
-            @click="toggleIsSaved()"
+            @click="onSaveBook(false)"
           ></i>
           <i
             class="fa-regular fa-bookmark fa-2xl"
             style="color: darkgrey"
             v-else
-            @click="toggleIsSaved()"
+            @click="onSaveBook(true)"
           ></i>
         </button>
       </div>
@@ -65,8 +65,12 @@ export default {
   name: "Book",
   props: { book: Object },
   methods: {
-    toggleIsSaved() {
-      this.$store.dispatch("changeIsSaved", this.book.id);
+    onSaveBook(bool) {
+      if (bool) {
+        this.$store.dispatch("saveBook", this.book.id);
+      } else {
+        this.$store.dispatch("unSaveBook", this.book.id);
+      }
     },
   },
 };

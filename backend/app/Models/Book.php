@@ -24,4 +24,9 @@ class Book extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function savedByUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -189,6 +189,20 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async fetchSavedBook() {
+            try {
+                const response = await axios.get(backend_url + "/api/saved", {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                })
+                if (response.data.success) {
+                    return response.data.message;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async createBook({},formData) {
             try {
                 const response = await axios.post(backend_url + "/api/books/", formData, {
@@ -202,6 +216,38 @@ const store = createStore({
                 this.state.newBookId = response.data.bookId;
             } catch (error) {
                 console.error("Error adding book:", error);
+                toast.error(error.response.data.message);
+            }
+        },
+        async saveBook({},bookId){
+            try {
+                const response = await axios.get(backend_url + "/api/saved/"+ bookId, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                });
+                if (response.data.success) {
+                   console.log("response.data",response.data)
+                   
+                   toast.success(response.data.message);
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async unSaveBook({},bookId){
+            try {
+                const response = await axios.delete(backend_url + "/api/saved/"+ bookId, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                });
+                if (response.data.success) {
+                   console.log("response.unSaveBook",response.data)
+                   
+                   toast.success(response.data.message);
+                }
+            } catch (error) {
                 toast.error(error.response.data.message);
             }
         },

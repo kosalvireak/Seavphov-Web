@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ApiTokenAuthentication;
@@ -23,7 +24,7 @@ Route::get('auth/books',  [BookController::class, 'authIndex'])->middleware([Api
 
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'index']);
-    Route::get('{id}',  [BookController::class, 'show']);
+    Route::get('{bookId}',  [BookController::class, 'show']);
     Route::post('', [BookController::class, 'store'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'update']);
     Route::delete('{id}', [BookController::class, 'delete']);
@@ -37,4 +38,10 @@ Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(fun
 Route::prefix('user')->group(function () {
     Route::post('login', [LoginController::class, 'login']);
     Route::post('register', [RegisterController::class, 'register']);
+});
+
+Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('{bookId}', [UserBookController::class, 'saveBook']);
+    Route::get('', [UserBookController::class, 'getSaveBook']);
+    Route::delete('{bookId}', [UserBookController::class, 'removeBook']);
 });

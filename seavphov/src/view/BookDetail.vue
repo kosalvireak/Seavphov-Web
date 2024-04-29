@@ -35,14 +35,14 @@
                 <i
                   class="fa-solid fa-bookmark fa-2xl"
                   style="color: yellow"
-                  v-if="book.issaved"
-                  @click="toggleIsSaved()"
+                  v-if="issaved"
+                  @click="onSaveBook(false)"
                 ></i>
                 <i
                   class="fa-regular fa-bookmark fa-2xl"
                   style="color: darkgrey"
                   v-else
-                  @click="toggleIsSaved()"
+                  @click="onSaveBook(true)"
                 ></i>
               </button>
             </div>
@@ -94,6 +94,7 @@ export default {
       },
       author: {},
       isLoading: false,
+      issaved: true,
     };
   },
   methods: {
@@ -110,8 +111,12 @@ export default {
       );
       this.isLoading = false;
     },
-    toggleIsSaved() {
-      this.$store.dispatch("changeIsSaved", this.paramsId);
+    onSaveBook(bool) {
+      if (bool) {
+        this.$store.dispatch("saveBook", this.paramsId);
+      } else {
+        this.$store.dispatch("unSaveBook", this.paramsId);
+      }
     },
   },
   beforeRouteUpdate(to, from, next) {

@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -67,11 +66,11 @@ class BookController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($bookId)
     {
         try {
             
-            $book = Book::with('owner')->findOrFail($id);
+            $book = Book::with('owner')->findOrFail($bookId);
 
             return response()->json([
                 'success' => true,

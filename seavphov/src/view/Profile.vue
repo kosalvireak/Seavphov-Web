@@ -52,19 +52,26 @@ export default {
     };
   },
   mounted() {
-    this.isLoading = true;
     this.getBooks();
   },
   methods: {
-    toggleMyBooksPage(page) {
+    async toggleMyBooksPage(page) {
       if (page == "mybooks") {
         this.isMyBooksPage = true;
-      } else {
+        await this.getBooks();
+      } else if (page == "savedbooks") {
         this.isMyBooksPage = false;
+        await this.getSavedBooks();
       }
     },
     async getBooks() {
+      this.isLoading = true;
       this.myBooks = await this.$store.dispatch("fetchBookByWithAuth");
+      this.isLoading = false;
+    },
+    async getSavedBooks() {
+      this.isLoading = true;
+      this.savedBooks = await this.$store.dispatch("fetchSavedBook");
       this.isLoading = false;
     },
   },
