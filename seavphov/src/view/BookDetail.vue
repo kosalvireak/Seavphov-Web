@@ -4,10 +4,10 @@
       <div
         class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 bg-seavphov-light ps-3"
       >
-        <div class="d-flex h-70 row" style="height: 70%">
+        <div class="d-flex h-top row me-0">
           <img
             :src="book.images"
-            class="book_cover p-3 img-fluid col-5 h-100"
+            class="book_cover img-fluid col-5 h-100 p-3"
             alt="book cover"
           />
           <div class="col-7 px-lg-4 px-sm-1 h-100">
@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div class="pe-3" style="height: 30%">
+        <div class="pe-3 h-buttom">
           <h3
             class="d-flex ps-1 font-Roboto"
             style="color: black; font-weight: bold"
@@ -72,7 +72,7 @@
     <div class="RelatedBooks mt-5">
       <hr />
       <h5 class="fw-bold">Related Books</h5>
-      <RenderBook :books="relatedBooks" />
+      <RenderBook :books="relatedBooks" :loading="isLoading" />
     </div>
   </div>
 </template>
@@ -80,9 +80,10 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import BookAuthorProfile from "../components/BookAuthorProfile.vue";
+import Loader from "../components/Loader.vue";
 export default {
   name: "BookDetail",
-  components: { RenderBook, BookAuthorProfile },
+  components: { RenderBook, BookAuthorProfile, Loader },
   data() {
     return {
       paramsId: this.$route.params.id,
@@ -92,10 +93,12 @@ export default {
         categories: "",
       },
       author: {},
+      isLoading: false,
     };
   },
   methods: {
     async getBook() {
+      this.isLoading = true;
       [this.book, this.author] = await this.$store.dispatch(
         "fetchBookById",
         this.paramsId
@@ -105,6 +108,7 @@ export default {
         "fetchBooksWithFilter",
         this.filters
       );
+      this.isLoading = false;
     },
     toggleIsSaved() {
       this.$store.dispatch("changeIsSaved", this.paramsId);
@@ -124,7 +128,7 @@ export default {
 
 <style scoped>
 .book_cover {
-  object-fit: cover;
+  object-fit: contain;
   max-width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -178,6 +182,13 @@ u {
   background-color: black;
 }
 
+.h-top {
+  height: 70%;
+}
+.h-buttom {
+  height: 30%;
+}
+
 @media (max-width: 992px) {
   .book_cover {
     max-width: 200px;
@@ -185,6 +196,15 @@ u {
   }
   .book_title {
     font-size: 30px;
+  }
+  .h-top {
+    height: 60%;
+  }
+  .h-buttom {
+    height: 40%;
+  }
+  .LeftSide {
+    height: 500px;
   }
 }
 @media (max-width: 576px) {

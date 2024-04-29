@@ -10,7 +10,7 @@ export default {
 
 <style scoped>
 .loader {
-  color: #ffffff;
+  color: #000000;
   font-size: 45px;
   text-indent: -9999em;
   overflow: hidden;

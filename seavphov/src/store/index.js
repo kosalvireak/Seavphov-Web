@@ -44,6 +44,7 @@ const store = createStore({
             }
         },
         async logoutUser({commit}){
+            localStorage.removeItem("reloaded");
             removeCookie();
             const name = "Not logged in";
             const email = null;
@@ -68,7 +69,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push('/home');
+                    router.push({ path: '/home' }) 
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -94,7 +95,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push('/home');
+                    router.push({ path: '/home' }) 
                 }
             } catch (error) {
                 console.error("Error login user:", error);

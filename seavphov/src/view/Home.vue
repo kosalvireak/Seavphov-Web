@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 h-100">
-    <div style="height: 300px margin: 50px;">
+    <div style="height: 300px; margin: 50px">
       <Carousel />
     </div>
     <Filter></Filter>
@@ -182,15 +182,11 @@ import Filter from "../components/Filter.vue";
 export default {
   name: "Home",
   components: { Carousel, RenderBook, PaginatedBook, Filter },
-  // data() {
-  //   return {
-  //     Books: [],
-  //     Categories: [],
-  //     Condition: [],
-  //     Availability: null,
-  //     toggleFilter: false,
-  //   };
-  // },
+  data() {
+    return {
+      reloaded: false,
+    };
+  },
   // computed: {
   //   filteredBooks() {
   //     let filteredBooks = this.Books;
@@ -245,10 +241,12 @@ export default {
   //     console.log("currentPage", currentPage);
   //   },
   // },
-  // async mounted() {
-  //   this.Books = this.$store.getters.allBooks;
-  //   await this.$store.dispatch("fetchBooks");
-  // },
+  mounted() {
+    if (!localStorage.getItem("reloaded")) {
+      location.reload();
+      localStorage.setItem("reloaded", true);
+    }
+  },
 };
 </script>
 
