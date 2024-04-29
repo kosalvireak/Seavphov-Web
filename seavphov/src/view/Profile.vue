@@ -21,7 +21,10 @@
         </div>
       </div>
       <div>
-        <RenderBook :books="isMyBooksPage ? myBooks : savedBooks" />
+        <RenderBook
+          :books="isMyBooksPage ? myBooks : savedBooks"
+          :loading="isLoading"
+        />
       </div>
     </div>
     <div
@@ -45,9 +48,11 @@ export default {
       isMyBooksPage: true,
       myBooks: [],
       savedBooks: [],
+      isLoading: false,
     };
   },
   mounted() {
+    this.isLoading = true;
     this.getBooks();
   },
   methods: {
@@ -60,6 +65,7 @@ export default {
     },
     async getBooks() {
       this.myBooks = await this.$store.dispatch("fetchBookByWithAuth");
+      this.isLoading = false;
     },
   },
   computed: {

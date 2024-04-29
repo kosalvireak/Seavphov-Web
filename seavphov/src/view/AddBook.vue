@@ -1,5 +1,5 @@
 <template>
-  <div class="AddBook w-100 mb-4">
+  <div class="AddBook w-100 mb-4 container-sm">
     <a
       @click="
         () => {

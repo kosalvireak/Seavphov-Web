@@ -3,7 +3,7 @@
     <div style="height: 300px; margin: 50px">
       <Carousel />
     </div>
-    <Filter></Filter>
+    <Filter class="container-sm" />
     <!-- <div class="mt-3 row">
       <PaginatedBook />
     </div> -->
