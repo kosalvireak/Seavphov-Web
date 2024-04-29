@@ -1,5 +1,5 @@
 <template>
-  <div class="AddBook w-100 mb-3">
+  <div class="AddBook w-100 mb-4">
     <a
       @click="
         () => {
@@ -12,63 +12,58 @@
     </a>
 
     <div
-      v-if="isLogin"
+      v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
       <h4 class="my-4 text-gray fw-bold">Your are adding a new book.</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
-          <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Title"
               id="title"
               v-model="book.title"
+              wrapperClass="bg-white"
               required
             />
           </div>
-          <div class="mb-3">
-            <label for="author" class="form-label">Author</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Author"
               id="author"
               v-model="book.author"
+              wrapperClass="bg-white"
               required
             />
           </div>
-          <div class="mb-3">
-            <label for="descriptions" class="form-label">Descriptions</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Descriptions"
               id="descriptions"
               v-model="book.descriptions"
+              wrapperClass="bg-white"
               required
             />
           </div>
-          <div class="input-group mb-3" style="margin-top: 2rem">
+          <div class="input-group mb-4">
             <label
               class="input-group-text"
               for="condition"
               style="height: 40px; width: 100px"
               >Condition</label
             >
-            <select
-              class="form-select"
-              id="condition"
-              v-model="book.condition"
-              required
-            >
-              <option value="As-new" selected>As-new</option>
+            <select class="form-select" id="condition" v-model="book.condition">
+              <option value="As-new">As-new</option>
               <option value="Good">Good</option>
               <option value="Well-worn">Well-worn</option>
             </select>
           </div>
 
-          <div class="input-group mb-3" style="margin-top: 2rem">
+          <div class="input-group mb-4">
             <label
               class="input-group-text"
               for="categories"
@@ -79,9 +74,8 @@
               class="form-select"
               id="categories"
               v-model="book.categories"
-              required
             >
-              <option value="Fiction" selected>Fiction</option>
+              <option value="Fiction">Fiction</option>
               <option value="Novel">Novel</option>
               <option value="Text-Book">Text-Book</option>
               <option value="History">History</option>
@@ -91,20 +85,21 @@
           </div>
         </div>
         <div class="col-12 col-md-6">
-          <div class="mb-3">
-            <label for="images" class="form-label">Book Image</label>
+          <div class="mb-4">
+            <label for="images" class="form-label custom-file-upload"
+              >Book Image</label
+            >
             <input
               type="file"
               class="form-control"
               id="images"
               name="images"
               @change="handleImageChange"
-              required
             />
           </div>
           <div
             class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
-            style="width: 100%; height: 242px"
+            style="width: 100%; height: 220px"
           >
             <img
               v-if="book.images"
@@ -118,8 +113,11 @@
               <p class="text-center" v-else>Your image will preview here</p>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary mt-1">Add Book</button>
-          <div></div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <button type="submit" class="col-2 btn btn-primary mt-2">
+            Add Book
+          </button>
         </div>
       </form>
     </div>
@@ -133,6 +131,7 @@
 </template>
 
 <script>
+import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../components/Loader.vue";
@@ -140,7 +139,7 @@ import NoLoggin from "../components/NoLoggin.vue";
 import { useToast } from "vue-toastification";
 export default {
   name: "AddBook",
-  components: { Loader, NoLoggin },
+  components: { Loader, NoLoggin, MDBInput },
   data() {
     return {
       toast: useToast(),
@@ -149,8 +148,8 @@ export default {
         author: "",
         images: "",
         descriptions: "",
-        condition: "GOOD",
-        categories: "NOVEL",
+        condition: "Good",
+        categories: "Novel",
       },
       formData: new FormData(),
       uploadingBook: false,
@@ -202,5 +201,19 @@ export default {
   border: 1px !important;
   border-style: solid !important;
   border-color: #bdbdbd !important;
+}
+.custom-file-upload {
+  display: inline-block;
+  padding: 4px 12px;
+  cursor: pointer;
+  color: #4f4f4f;
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  margin: 2px 0px 0px 1px;
+}
+
+.form-control {
+  padding: 0.375rem 0.75rem !important;
 }
 </style>

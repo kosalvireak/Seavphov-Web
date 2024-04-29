@@ -1,5 +1,5 @@
 <template>
-  <div class="EditProfile w-100 mb-3">
+  <div class="EditProfile w-100 mb-4">
     <a
       @click="
         () => {
@@ -19,8 +19,10 @@
 
       <form style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="col-12 col-md-6">
-          <div class="mb-3">
-            <label for="picture" class="form-label">Profile Image</label>
+          <div class="mb-4">
+            <label for="picture" class="form-label custom-file-upload"
+              >Profile Image</label
+            >
             <input
               type="file"
               class="form-control"
@@ -29,10 +31,10 @@
               @change="handleImageChange"
             />
           </div>
-          <div class="d-flex justify-content-center">
+          <div class="mb-4 d-flex justify-content-center">
             <div
               class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
-              style="width: 144px; height: 144px"
+              style="width: 155px; height: 155px"
             >
               <img
                 v-if="user.picture"
@@ -47,85 +49,86 @@
               </div>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Name"
               id="name"
               v-model="user.name"
+              wrapperClass="bg-white"
               required
             />
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="email"
-              class="form-control"
+              label="Email"
               id="email"
               v-model="user.email"
+              wrapperClass="bg-white"
               required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">Phone number</label>
-            <input
-              type="text"
-              class="form-control"
-              id="phone"
-              v-model="user.phone"
             />
           </div>
         </div>
         <div class="col-12 col-md-6">
-          <div class="mb-3">
-            <label for="instagram" class="form-label">Instagram link</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Phone number"
+              id="phone"
+              v-model="user.phone"
+              wrapperClass="bg-white"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <MDBInput
+              type="text"
+              label="Instagram link"
               id="instagram"
               v-model="user.instagram"
+              wrapperClass="bg-white"
             />
           </div>
-          <div class="mb-3">
-            <label for="facebook" class="form-label">Facebook link</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Facebook link"
               id="facebook"
               v-model="user.facebook"
+              wrapperClass="bg-white"
             />
           </div>
-          <div class="mb-3">
-            <label for="twitter" class="form-label">Twitter link</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Twitter link"
               id="twitter"
               v-model="user.twitter"
+              wrapperClass="bg-white"
             />
           </div>
-          <div class="mb-3">
-            <label for="telegram" class="form-label">Telegram link</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Telegram link"
               id="telegram"
               v-model="user.telegram"
+              wrapperClass="bg-white"
             />
           </div>
-          <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input
+          <div class="mb-4">
+            <MDBInput
               type="text"
-              class="form-control"
+              label="Location"
               id="location"
               v-model="user.location"
+              wrapperClass="bg-white"
             />
           </div>
-          <button type="submit" class="col-12 btn btn-primary mt-2">
-            Save
-          </button>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <button type="submit" class="col-2 btn btn-primary mt-2">Save</button>
         </div>
       </form>
     </div>
@@ -144,9 +147,10 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../components/Loader.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import { useToast } from "vue-toastification";
+import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "EditProfile",
-  components: { Loader, NoLoggin },
+  components: { Loader, NoLoggin, MDBInput },
   data() {
     return {
       toast: useToast(),
@@ -230,5 +234,15 @@ export default {
 }
 .cover_image {
   object-fit: cover;
+}
+.custom-file-upload {
+  display: inline-block;
+  padding: 2px 7px;
+  cursor: pointer;
+  color: #4f4f4f;
+  background-color: #fff;
+  border-radius: 5px;
+  position: absolute;
+  margin: 2px 0px 0px 1px;
 }
 </style>
