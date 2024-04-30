@@ -130,16 +130,13 @@ export default {
   width: 50%;
   height: 50px;
   text-align: center;
-  border-bottom: 1px solid rgb(125, 125, 125);
 }
 .book_option_child:hover {
   background-color: #9fb97fb0;
-  border-bottom: 3px black;
   transition: 0.3s;
 }
 
 .book_option_child_selected {
-  border-bottom: 1px solid black;
   background-color: #9fb97f;
 }
 

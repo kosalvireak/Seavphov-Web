@@ -10,7 +10,7 @@
     <div v-else>
       <div v-if="!isBooksEmpty">
         <div
-          class="d-flex align-items-center justify-content-end m-1"
+          class="d-flex align-items-center justify-content-end m-1 mt-4"
           style="height: 40px"
         >
           <h6 class="p-0 m-0 fw-bold">Result: {{ books.length }} Books</h6>
