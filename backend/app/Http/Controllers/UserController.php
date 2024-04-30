@@ -65,4 +65,24 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function getUser(Request $request,$userName){
+        try{
+            $user = collect(User::where('email','like',$userName.'%') -> first());
+            $filteredData = $user->except(['email','api_token','remember_token']);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully get user profile.',
+                'data' => $filteredData,
+            ], 201);
+        }catch(Exception $exception){
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get user profile!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+       
+    }
 }

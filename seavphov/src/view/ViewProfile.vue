@@ -1,7 +1,11 @@
 <template>
   <div class="Profile box h-100 w-100">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
-      <UserMainProfile :fromProfile="false" />
+      <UserMainProfile
+        :fromProfile="false"
+        :user="User"
+        :loading="isLoadingProfile"
+      />
       <div
         class="flex book_options rounded-7 cursor-pointer book_option_child_selected fw-bold"
       >
@@ -32,10 +36,31 @@ export default {
       isBooksPage: true,
       Books: [],
       isLoading: false,
+      isLoadingProfile: false,
+      User: {},
     };
   },
-  mounted() {
+  async mounted() {
     this.getBooks();
+    this.isLoadingProfile = true;
+    const username = this.$route.params.username;
+    const response = await this.$store.dispatch(
+      "fetchOtherUserProfile",
+      username
+    );
+    console.log("response", response);
+    this.User.uuid = response.uuid;
+    this.User.name = response.name;
+    this.User.picture = response.picture;
+    this.User.phone = response.phone;
+    this.User.facebook = response.facebook;
+    this.User.instagram = response.instagram;
+    this.User.location = response.location;
+    this.User.twitter = response.twitter;
+    this.User.telegram = response.telegram;
+    this.User.location = response.location;
+
+    this.isLoadingProfile = false;
   },
   methods: {
     async getBooks() {
@@ -89,5 +114,10 @@ a:link {
 }
 a:hover {
   color: darkgray;
+}
+@media only screen and (max-width: 991.98px) {
+  .book_options {
+    margin-top: 0px;
+  }
 }
 </style>

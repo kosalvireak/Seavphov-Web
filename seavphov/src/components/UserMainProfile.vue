@@ -1,43 +1,58 @@
 <template>
   <div class="UserMainProfile">
     <div
-      class="container-sm cover_container w-1800 b-1 p-0"
-      style="height: 250px"
+      v-if="loading"
+      class="h-100 w-100 d-flex align-items-center justify-content-center"
+      style="height: 400px !important"
     >
-      <img
-        src="/img/cover.jpg?url"
-        class="w-100 h-100 cover_image b-1 rounded-7"
-        style="object-fit: cover"
-        alt="profile cover"
-      />
+      <Loader />
     </div>
-    <div class="container-sm flex user_info b-1">
-      <div class="flex user_info_left">
+    <div v-else>
+      <div
+        class="container-sm cover_container w-1800 b-1 p-0"
+        style="height: 250px"
+      >
         <img
-          :src="profilePicture"
-          alt="profile image"
-          class="profile_image shadow rounded-circle"
+          src="/img/cover.jpg?url"
+          class="w-100 h-100 cover_image b-1 rounded-7"
+          style="object-fit: cover"
+          alt="profile cover"
         />
-        <div class="profile_name username">
-          <h3>{{ username }}</h3>
-          <p>{{ email }}</p>
-          <p>+16629967189</p>
-        </div>
       </div>
-      <div class="flex user_info_right">
-        <div class="flex profile_socialmedia">
-          <SocialMediaList />
-          <a
-            v-if="fromProfile"
-            class="mx-3 text-gray cursor-pointer"
-            @click="
-              () => {
-                this.$router.push({ path: '/edit-profile' });
-              }
-            "
-          >
-            <i class="fas fa-pencil fa-xl"></i>
-          </a>
+      <div class="container-sm flex user_info b-1">
+        <div class="flex user_info_left">
+          <img
+            v-if="user.picture"
+            :src="user.picture"
+            alt="profile image"
+            class="profile_image shadow rounded-circle"
+          />
+          <div class="profile_name username">
+            <h3>{{ user.name }}</h3>
+            <p v-if="fromProfile">{{ user.email }}</p>
+            <p>{{ user.phone }}</p>
+          </div>
+        </div>
+        <div class="flex user_info_right">
+          <div class="flex profile_socialmedia">
+            <SocialMediaList
+              :facebook="user.facebook"
+              :instagram="user.instagram"
+              :telegram="user.telegram"
+              :twitter="user.twitter"
+            />
+            <a
+              v-if="fromProfile"
+              class="mx-3 text-gray cursor-pointer"
+              @click="
+                () => {
+                  this.$router.push({ path: '/edit-profile' });
+                }
+              "
+            >
+              <i class="fas fa-pencil fa-xl"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -46,24 +61,15 @@
 
 <script>
 import SocialMediaList from "./SocialMediaList.vue";
+
+import Loader from "../components/Loader.vue";
 export default {
   name: "UserMainProfile",
-  components: { SocialMediaList },
+  components: { SocialMediaList, Loader },
   props: {
     user: { type: Object, required: true },
     fromProfile: { type: Boolean, required: true },
-  },
-  computed: {
-    username() {
-      console.log("username", this.$store.state.user.name);
-      return this.$store.state.user.name;
-    },
-    profilePicture() {
-      return this.$store.state.user.picture;
-    },
-    email() {
-      return this.$store.state.user.email;
-    },
+    loading: { type: Boolean, required: false },
   },
 };
 </script>

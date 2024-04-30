@@ -116,6 +116,21 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async fetchOtherUserProfile({},username){
+            try {
+                const response = await axios.get(backend_url + "/api/user/" + username, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                })
+
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async modifyUserProfile({dispatch}, formData){
             try {
                 const response = await axios.post(backend_url + "/api/profile", formData, {
@@ -158,7 +173,6 @@ const store = createStore({
             try {
                 const response = await axios.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
                 if (response.data.success) {
-                    // this.state.filteredFetchBook = response.data.message.data;
                     return response.data.message.data;
                 }
             } catch (error) {
