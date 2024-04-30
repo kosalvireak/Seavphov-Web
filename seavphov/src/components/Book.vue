@@ -3,7 +3,7 @@
     <router-link
       :to="`/book/${book.id}`"
       class="d-flex justify-content-center h-50 bg-success-subtle bg-image hover-zoom"
-      style="height: 12rem"
+      style="height: 13rem"
     >
       <img
         :src="book.images"
@@ -20,7 +20,7 @@
       </div>
       <p class="p-0 px-3 m-0 h-20 Condition">Condition: {{ book.condition }}</p>
       <div
-        class="d-flex flex-row justify-content-between align-items-center h-20 px-3 Availability"
+        class="d-flex flex-row justify-content-end align-items-center h-20 px-3 Availability"
       >
         <button
           type="button"
@@ -41,20 +41,6 @@
           Not Avaliable
         </button>
         <input type="text" name="id" value="<%=book.id%>" class="d-none" />
-        <button class="border-0 bg-white">
-          <i
-            class="fa-solid fa-bookmark fa-2xl border border-1"
-            style="color: yellow"
-            v-if="book.issaved"
-            @click="onSaveBook(false)"
-          ></i>
-          <i
-            class="fa-regular fa-bookmark fa-2xl"
-            style="color: darkgrey"
-            v-else
-            @click="onSaveBook(true)"
-          ></i>
-        </button>
       </div>
     </div>
   </div>
@@ -64,15 +50,6 @@
 export default {
   name: "Book",
   props: { book: Object },
-  methods: {
-    onSaveBook(bool) {
-      if (bool) {
-        this.$store.dispatch("saveBook", this.book.id);
-      } else {
-        this.$store.dispatch("unSaveBook", this.book.id);
-      }
-    },
-  },
 };
 </script>
 

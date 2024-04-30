@@ -1,7 +1,7 @@
 <template>
   <div class="Profile box h-100 w-100">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
-      <UserMainProfile />
+      <UserMainProfile :fromProfile="true" />
       <div class="flex book_options">
         <div
           class="flex book_option_child rounded-7 cursor-pointer"
@@ -51,7 +51,19 @@ export default {
       isLoading: false,
     };
   },
-  mounted() {
+  async mounted() {
+    const response = await this.$store.dispatch("fetchUserProfile");
+    this.user.name = response.name;
+    this.user.email = response.email;
+    this.user.picture = response.picture;
+    this.user.phone = response.phone;
+    this.user.facebook = response.facebook;
+    this.user.instagram = response.instagram;
+    this.user.location = response.location;
+    this.user.twitter = response.twitter;
+    this.user.telegram = response.telegram;
+    this.user.location = response.location;
+
     this.getBooks();
   },
   methods: {

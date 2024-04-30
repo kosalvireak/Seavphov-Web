@@ -4,12 +4,14 @@
       class="bg-seavphov rounded-7 d-flex align-items-center justify-content-center flex-wrap flex-row mt-3 mt-lg-0 bg-seavphov-light px-3"
       style="height: 150px"
     >
-      <div
-        class="d-flex justify-content-start flex-row align-items-center w-100"
-      >
-        <img :src="author.picture" class="profile_image" alt="not found" />
-        <h5 class="font-Roboto ms-3">{{ author.name }}</h5>
-      </div>
+      <a :href="profileUrl">
+        <div
+          class="d-flex justify-content-start flex-row align-items-center w-100"
+        >
+          <img :src="author.picture" class="profile_image" alt="not found" />
+          <h5 class="font-Roboto ms-3">{{ author.name }}</h5>
+        </div>
+      </a>
     </div>
 
     <!-- User Contact -->
@@ -31,40 +33,12 @@
         </div>
 
         <!-- Social Media Button -->
-        <div class="d-flex justify-content-center">
-          <a
-            v-if="author.facebook"
-            :href="author.facebook"
-            target="_blank"
-            class="ms-2 text-black"
-          >
-            <img src="/img/facebook.webp" class="icon rounded-5" />
-          </a>
-          <a
-            v-if="author.instagram"
-            :href="author.instagram"
-            target="_blank"
-            class="ms-2 text-black"
-          >
-            <img src="/img/instagram.webp" class="icon rounded-5" />
-          </a>
-          <a
-            v-if="author.telegram"
-            :href="author.telegram"
-            target="_blank"
-            class="ms-2 text-black"
-          >
-            <img src="/img/telegram.webp" class="icon rounded-5" />
-          </a>
-          <a
-            v-if="author.twitter"
-            :href="author.twitter"
-            target="_blank"
-            class="ms-2 text-black"
-          >
-            <img src="/img/twitter.webp" class="icon rounded-5" />
-          </a>
-        </div>
+        <SocialMediaList
+          :facebook="author.facebook"
+          :instagram="author.instagram"
+          :telegram="author.telegram"
+          :twitter="author.twitter"
+        />
         <hr class="custom-hr d-flex mx-4 justify-content-center" />
 
         <!-- Location-->
@@ -93,10 +67,34 @@
 </template>
 
 <script>
+import SocialMediaList from "./SocialMediaList.vue";
 export default {
   name: "BookAuthorProfile",
+  components: { SocialMediaList },
   props: {
     author: Object,
+  },
+  data() {
+    return {
+      profileUrl: null,
+    };
+  },
+  methods: {
+    getUserProfileUrl(newAuthor) {
+      if (newAuthor) {
+        const email = newAuthor.email;
+        this.profileUrl = `/profile/${email.split("@")[0]}`;
+      }
+    },
+  },
+  watch: {
+    author: {
+      handler(newAuthor, oldAuthor) {
+        if (newAuthor) {
+          this.getUserProfileUrl(newAuthor);
+        }
+      },
+    },
   },
 };
 </script>

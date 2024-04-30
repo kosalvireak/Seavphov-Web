@@ -35,7 +35,7 @@
                 <i
                   class="fa-solid fa-bookmark fa-2xl"
                   style="color: yellow"
-                  v-if="issaved"
+                  v-if="book.issaved"
                   @click="onSaveBook(false)"
                 ></i>
                 <i
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Right Container -->
-      <BookAuthorProfile :author="author" />
+      <BookAuthorProfile v-if="author" :author="author" />
     </div>
     <div class="RelatedBooks mt-5">
       <hr />

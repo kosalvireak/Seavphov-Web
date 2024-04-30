@@ -26,43 +26,9 @@
       </div>
       <div class="flex user_info_right">
         <div class="flex profile_socialmedia">
-          <a href="http://google.com/" target="_blank" class="ms-2 text-black">
-            <img
-              src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-facebook-2019-square2-512.png"
-              alt="facebook"
-              class="icon rounded-5"
-            />
-          </a>
-          <a href="http://google.com/" target="_blank" class="ms-2 text-black">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png"
-              alt="linkedin"
-              class="icon rounded-5"
-            />
-          </a>
-          <a href="http://google.com/" target="_blank" class="ms-2 text-black">
-            <img
-              src="https://static.dezeen.com/uploads/2023/07/x-logo-twitter-elon-musk_dezeen_2364_col_0.jpg"
-              alt="twitter"
-              class="icon rounded-5"
-            />
-          </a>
-          <a href="http://google.com/" target="_blank" class="ms-2 text-black">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png"
-              alt="telegram"
-              class="icon rounded-5"
-            />
-          </a>
-
-          <a href="http://google.com/" target="_blank" class="ms-2 text-black">
-            <img
-              src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-square2-512.png"
-              alt="instragram"
-              class="icon rounded-5"
-            />
-          </a>
+          <SocialMediaList />
           <a
+            v-if="fromProfile"
             class="mx-3 text-gray cursor-pointer"
             @click="
               () => {
@@ -79,8 +45,14 @@
 </template>
 
 <script>
+import SocialMediaList from "./SocialMediaList.vue";
 export default {
   name: "UserMainProfile",
+  components: { SocialMediaList },
+  props: {
+    user: { type: Object, required: true },
+    fromProfile: { type: Boolean, required: true },
+  },
   computed: {
     username() {
       console.log("username", this.$store.state.user.name);

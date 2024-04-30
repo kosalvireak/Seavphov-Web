@@ -7,6 +7,7 @@ import Profile from "../view/Profile.vue"
 import SearchResult from "../view/SearchResult.vue"
 import AddBook from "../view/AddBook.vue"
 import EditProfile from "../view/EditProfile.vue"
+import ViewProfile from "../view/ViewProfile.vue"
 import { getCookie } from "../store/cookieUtils.js"
 
 
@@ -33,6 +34,13 @@ const router = createRouter({
             name: "profile",
             component: Profile,
             meta: { requiresCookie: true }
+        },
+        
+        {
+            path: "/profile/:username",
+            name: "user-profile",
+            component: ViewProfile,
+            // meta: { requiresCookie: true }
         },
         {
             path: "/edit-profile",
