@@ -1,6 +1,6 @@
 <template>
   <div class="Profile box h-100 w-100">
-    <div v-if="isLogin" class="container-sm box b-1 p-0">
+    <div class="container-sm box b-1 p-0">
       <UserMainProfile
         :fromProfile="false"
         :user="User"
@@ -14,12 +14,6 @@
       <div>
         <RenderBook :books="Books" :loading="isLoading" />
       </div>
-    </div>
-    <div
-      v-else
-      class="d-flex align-items-center justify-content-center flex-column"
-    >
-      <NoLoggin />
     </div>
   </div>
 </template>
@@ -38,18 +32,20 @@ export default {
       isLoading: false,
       isLoadingProfile: false,
       User: {},
+      filters: { uuid: null },
     };
   },
   async mounted() {
-    this.getBooks();
     this.isLoadingProfile = true;
+    this.isLoading = true;
     const username = this.$route.params.username;
     const response = await this.$store.dispatch(
       "fetchOtherUserProfile",
       username
     );
-    console.log("response", response);
     this.User.uuid = response.uuid;
+    this.filters.uuid = response.uuid;
+    this.getBooks();
     this.User.name = response.name;
     this.User.picture = response.picture;
     this.User.phone = response.phone;
@@ -59,19 +55,15 @@ export default {
     this.User.twitter = response.twitter;
     this.User.telegram = response.telegram;
     this.User.location = response.location;
-
     this.isLoadingProfile = false;
   },
   methods: {
     async getBooks() {
-      this.isLoading = true;
-      this.Books = await this.$store.dispatch("fetchBookByWithAuth");
+      this.Books = await this.$store.dispatch(
+        "fetchBooksWithFilter",
+        this.filters
+      );
       this.isLoading = false;
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
 };

@@ -19,6 +19,7 @@ class BookController extends Controller
         $title = $request->get('title');
         $author = $request->get('author');
         $categories = $request->get('categories');
+        $uuid = $request->get('uuid');
 
         if ($title) {
             $query->where('title', $title); // Filter by title
@@ -26,11 +27,13 @@ class BookController extends Controller
         if ($categories) {
             $query->where('categories', $categories); // Filter by categories
         }
-
         if ($author) {
             $query->where('author', $author); // Filter by author
         }
-
+        if ($uuid) {
+            $user = User::where('uuid',$uuid)->first();
+            $query->where('owner_id', $user->id); // Filter by uuid
+        }
         $books = $query->paginate(10); // Apply pagination 
 
         try {

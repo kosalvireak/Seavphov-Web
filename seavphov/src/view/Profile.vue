@@ -26,9 +26,11 @@
       </div>
       <div>
         <RenderBook
-          :books="isMyBooksPage ? myBooks : savedBooks"
+          v-if="!isMyBooksPage"
+          :books="savedBooks"
           :loading="isLoading"
         />
+        <RenderMyBook v-else :books="myBooks" :loading="isLoading" />
       </div>
     </div>
     <div
@@ -42,11 +44,13 @@
   
   <script>
 import RenderBook from "../components/RenderBook.vue";
+import RenderMyBook from "../components/RenderMyBook.vue";
 import UserMainProfile from "../components/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
+import MyBook from "../components/MyBook.vue";
 export default {
   name: "Profile",
-  components: { UserMainProfile, RenderBook, NoLoggin },
+  components: { UserMainProfile, RenderBook, NoLoggin, MyBook, RenderMyBook },
   data() {
     return {
       isMyBooksPage: true,
@@ -62,6 +66,7 @@ export default {
     this.getBooks();
 
     this.isLoadingProfile = true;
+    this.isLoading = true;
     const response = await this.$store.dispatch("fetchUserProfile");
     this.User.uuid = response.uuid;
     this.User.name = response.name;
@@ -89,7 +94,7 @@ export default {
     },
     async getBooks() {
       this.isLoading = true;
-      this.myBooks = await this.$store.dispatch("fetchBookByWithAuth");
+      this.myBooks = await this.$store.dispatch("fetchMyBooks");
       this.isLoading = false;
     },
     async getSavedBooks() {

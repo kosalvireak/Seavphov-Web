@@ -40,7 +40,6 @@ const store = createStore({
             if(getCookie()){
                 const {name,email,api_token,picture} = getCookie();
                 commit('SET_USER', { name, email,api_token,picture});
-                console.log("setUserFromCookies",name);
             }
         },
         async logoutUser({commit}){
@@ -170,6 +169,9 @@ const store = createStore({
             if (filters.owner_id) {
                 params.append('owner_id', filters.owner_id);
             }
+            if (filters.uuid) {
+                params.append('uuid', filters.uuid);
+            }
             try {
                 const response = await axios.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
                 if (response.data.success) {
@@ -189,7 +191,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBookByWithAuth() {
+        async fetchMyBooks() {
             try {
                 const response = await axios.get(backend_url + "/api/auth/books", {
                     headers: {

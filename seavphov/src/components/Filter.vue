@@ -192,7 +192,6 @@ export default {
   },
   computed: {
     filteredBooks() {
-      console.log("selectedCategory", this.selectedCategory);
       if (this.selectedCategory === "all") {
         return this.books;
       } else {
