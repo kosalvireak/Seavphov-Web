@@ -1,6 +1,6 @@
 <template>
   <div class="MyBook card my-4" >
-    <div class="row container-sm m-0 p-0">
+    <div class="row container-sm m-0 p-2">
         <router-link
       :to="`/book/${book.id}`"
       class="col-md-3 d-flex-center bg-success-subtle hover-zoom rounded-7 p-2"
@@ -20,11 +20,11 @@
           </p>
           <p class="card-text">
             <ul>
-                <li>Author:{{ book.author }}</li>
-                <li>Condition: {{ book.condition }}</li>
-                <li>Category: {{ book.categories }}</li>
-                <li v-if="book.availability">Available: True</li>
-                <li v-else>Available: False</li>
+                <li> <span class="fw-bold">Author:</span>{{ book.author }}</li>
+                <li><span class="fw-bold">Condition: </span>{{ book.condition }}</li>
+                <li><span class="fw-bold">Category: </span>{{ book.categories }}</li>
+                <li v-if="book.availability"><span class="fw-bold">Available:</span> True</li>
+                <li v-else><span class="fw-bold">Available: </span>False</li>
                 
             </ul>
           </p>

@@ -1,5 +1,5 @@
 <template>
-  <footer v-if="hideFooter" class="footer-section mt-3 w-100">
+  <footer v-if="hideFooter" class="footer-section mt-3 w-100 bg-seavphov">
     <div class="container">
       <div class="footer-content pt-5">
         <div class="row">
@@ -68,7 +68,9 @@
               </p>
             </div>
           </div>
-          <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+          <div
+            class="col-xl-6 col-lg-6 d-none d-lg-block text-right text-black"
+          >
             <div class="footer-menu">
               <ul>
                 <li><a href="#">Home</a></li>
@@ -105,7 +107,6 @@ ul {
   padding: 0px;
 }
 .footer-section {
-  background: #151414;
   position: relative;
 }
 .footer-cta {
@@ -128,7 +129,7 @@ ul {
   margin-bottom: 2px;
 }
 .cta-text span {
-  color: #757575;
+  color: #000000;
   font-size: 15px;
 }
 .footer-content {
@@ -152,7 +153,7 @@ ul {
 .footer-text p {
   margin-bottom: 14px;
   font-size: 14px;
-  color: #7e7e7e;
+  color: #000000;
   line-height: 28px;
 }
 .footer-social-icon span {
@@ -202,15 +203,14 @@ ul {
 }
 .footer-widget ul li {
   display: inline-block;
-  float: left;
   width: 50%;
   margin-bottom: 12px;
 }
 .footer-widget ul li a:hover {
-  color: #ff5e14;
+  color: #edf8f5;
 }
 .footer-widget ul li a {
-  color: #878787;
+  color: #000000;
   text-transform: capitalize;
 }
 .subscribe-form {
@@ -229,7 +229,6 @@ ul {
   right: 0;
   background: #ff5e14;
   padding: 13px 20px;
-  border: 1px solid #ff5e14;
   top: 0;
 }
 .subscribe-form button i {
@@ -238,26 +237,25 @@ ul {
   transform: rotate(-6deg);
 }
 .copyright-area {
-  background: #202020;
   padding: 25px 0;
 }
 .copyright-text p {
   margin: 0;
   font-size: 14px;
-  color: #878787;
+  color: #000000;
 }
 .copyright-text p a {
-  color: #ff5e14;
+  color: #edf8f5;
 }
 .footer-menu li {
   display: inline-block;
   margin-left: 20px;
 }
 .footer-menu li:hover a {
-  color: #ff5e14;
+  color: #edf8f5;
 }
 .footer-menu li a {
   font-size: 14px;
-  color: #878787;
+  color: #000000;
 }
 </style>

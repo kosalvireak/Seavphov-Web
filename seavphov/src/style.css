@@ -199,5 +199,5 @@ table {
   justify-content: center;
 }
 img{
-  image-rendering: pixelated !important;
+  image-rendering: crisp-edges !important;
 }

@@ -98,11 +98,11 @@ export default {
     };
   },
   methods: {
-    async getBook() {
+    async getBook(id) {
       this.isLoading = true;
       [this.book, this.author] = await this.$store.dispatch(
         "fetchBookById",
-        this.paramsId
+        id
       );
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
@@ -121,12 +121,11 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.paramsId = to.params.id;
-    this.getBook();
+    this.getBook(this.paramsId);
     next();
-    this.$router.go();
   },
   async mounted() {
-    this.getBook();
+    this.getBook(this.paramsId);
   },
 };
 </script>

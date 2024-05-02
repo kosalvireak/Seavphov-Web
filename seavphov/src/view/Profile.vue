@@ -6,7 +6,7 @@
         :user="User"
         :loading="isLoadingProfile"
       />
-      <div class="flex book_options">
+      <div class="flex book_options p-2">
         <div
           class="flex book_option_child rounded-7 cursor-pointer"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
