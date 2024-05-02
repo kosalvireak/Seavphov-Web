@@ -13,21 +13,34 @@
         />
     </router-link>
       <div class="col-md-9">
-        <div class="card-body">
-          <h5 class="card-title fw-bold truncate-2-lines">{{ book.title }}</h5>
-          <p class="card-text truncate-2-lines">
-            {{ book.descriptions }}
-          </p>
-          <p class="card-text">
-            <ul>
-                <li> <span class="fw-bold">Author:</span>{{ book.author }}</li>
-                <li><span class="fw-bold">Condition: </span>{{ book.condition }}</li>
-                <li><span class="fw-bold">Category: </span>{{ book.categories }}</li>
-                <li v-if="book.availability"><span class="fw-bold">Available:</span> True</li>
-                <li v-else><span class="fw-bold">Available: </span>False</li>
-                
-            </ul>
-          </p>
+        <div class="d-flex justify-content-between p-2"> 
+          <div>
+            <h5 class="card-title fw-bold truncate-2-lines">{{ book.title }}</h5>
+            <p class="card-text truncate-2-lines">
+              {{ book.descriptions }}
+            </p>
+            
+            <p class="card-text">
+              <ul>
+                  <li> <span class="fw-bold">Author:</span>{{ book.author }}</li>
+                  <li><span class="fw-bold">Condition: </span>{{ book.condition }}</li>
+                  <li><span class="fw-bold">Category: </span>{{ book.categories }}</li>
+                  <li v-if="book.availability"><span class="fw-bold">Available:</span> True</li>
+                  <li v-else><span class="fw-bold">Available: </span>False</li>
+              </ul>
+            </p>
+        </div>
+          <div class="">
+            <MDBDropdown  btnGroup align="end"  v-model="openDropdown" >
+              <MDBDropdownToggle @click="openDropdown = !openDropdown" color="info"/>
+              <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
+                <MDBDropdownItem tag="button" 
+                @click="editBook(book.id)"
+                >Edit</MDBDropdownItem>
+                <MDBDropdownItem tag="button">Delete</MDBDropdownItem>
+              </MDBDropdownMenu>
+            </MDBDropdown>
+          </div>
         </div>
       </div>
     </div>
@@ -35,13 +48,41 @@
 </template>
   
   <script>
+import {
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+} from "mdb-vue-ui-kit";
 export default {
   name: "MyBook",
+  components: {
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem,
+  },
   props: { book: Object },
+  data() {
+    return {
+      openDropdown: false,
+    };
+  },
+  methods: {
+    editBook(id) {
+      this.$router.push(`/book/edit/${id}`);
+    },
+  },
 };
 </script>
   
   <style scoped>
+.dropdown-menu {
+  min-width: 75px !important;
+}
+.dropdown-toggle {
+  width: 75px !important;
+}
 .truncate-2-lines {
   overflow: hidden;
   display: -webkit-box;

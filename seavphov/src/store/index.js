@@ -235,6 +235,22 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async modifyBook({},formData) {
+            try {
+                let id = formData.get("id");
+                const response = await axios.post(backend_url + "/api/books/"+ id, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("response", response)
+                toast.success(response.data.message);
+            } catch (error) {
+                console.error("Error adding book:", error);
+                toast.error(error.response.data.message);
+            }
+        },
         async saveBook({},bookId){
             try {
                 const response = await axios.get(backend_url + "/api/saved/"+ bookId, {

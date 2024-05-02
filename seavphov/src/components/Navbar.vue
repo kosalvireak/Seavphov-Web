@@ -64,7 +64,7 @@
               class="nav-link"
               @click="
                 () => {
-                  this.$router.push('/newbook');
+                  this.$router.push('/book/new');
                 }
               "
             >

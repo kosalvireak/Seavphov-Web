@@ -6,6 +6,7 @@ import Signup from "../view/Signup.vue"
 import Profile from "../view/Profile.vue"
 import SearchResult from "../view/SearchResult.vue"
 import AddBook from "../view/AddBook.vue"
+import EditBook from "../view/EditBook.vue"
 import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
 import { getCookie } from "../store/cookieUtils.js"
@@ -59,9 +60,15 @@ const router = createRouter({
             component: SearchResult,
         },
         {
-            path: "/newbook",
+            path: "/book/new",
             name: "newbook",
             component: AddBook,
+            meta: { requiresCookie: true }
+        },
+        {
+            path: "/book/edit/:id",
+            name: "editbook",
+            component: EditBook,
             meta: { requiresCookie: true }
         },
         {
