@@ -122,8 +122,8 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.paramsId = to.params.id;
     this.getBook();
-    this.$router.go();
     next();
+    this.$router.go();
   },
   async mounted() {
     this.getBook();

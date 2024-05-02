@@ -198,3 +198,6 @@ table {
   align-items: center;
   justify-content: center;
 }
+img{
+  image-rendering: pixelated !important;
+}

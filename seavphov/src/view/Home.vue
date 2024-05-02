@@ -1,7 +1,11 @@
 <template>
   <div class="w-100 h-100">
-    <div style="height: 300px; margin: 50px">
-      <Carousel />
+    <div class="container-sm d-flex-center my-3" style="width: 100%">
+      <img
+        src="/img/login_background.png"
+        class="img-fluid"
+        style="max-height: 400px; object-fit: cover; width: 100%"
+      />
     </div>
     <Filter class="container-sm" />
     <!-- <div class="mt-3 row">
@@ -175,13 +179,12 @@
 </template>
 
 <script>
-import Carousel from "../components/Carousel.vue";
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
 import Filter from "../components/Filter.vue";
 export default {
   name: "Home",
-  components: { Carousel, RenderBook, PaginatedBook, Filter },
+  components: { RenderBook, PaginatedBook, Filter },
   data() {
     return {
       reloaded: false,

@@ -13,7 +13,9 @@
           class="d-flex align-items-center justify-content-end m-1 mt-4"
           style="height: 40px"
         >
-          <h6 class="p-0 m-0 fw-bold">Result: {{ books.length }} Books</h6>
+          <h6 class="p-0 m-0 fw-bold font-75">
+            Result: {{ books.length }} Books
+          </h6>
         </div>
         <div v-for="book in books" :key="book.id">
           <MyBook :book="book" :key="book.id" class="m-0 p-0" />
@@ -24,7 +26,9 @@
           class="d-flex align-items-center justify-content-end m-1"
           style="height: 40px"
         >
-          <h6 class="p-0 m-0 fw-bold">Result: {{ books.length }} Book</h6>
+          <h6 class="p-0 m-0 fw-bold font-75">
+            Result: {{ books.length }} Book
+          </h6>
         </div>
         <div
           class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
@@ -60,3 +64,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+@media only screen and (max-width: 576px) {
+  .font-75 {
+    font-size: 75%;
+  }
+}
+</style>

@@ -90,12 +90,12 @@ export default {
   text-align: center;
 }
 .book_option_child:hover {
-  background-color: #9fb97fb0;
+  background-color: #37aba39a !important;
   transition: 0.3s;
 }
 
 .book_option_child_selected {
-  background-color: #9fb97f;
+  background-color: #37aba3 !important;
 }
 
 a:link {

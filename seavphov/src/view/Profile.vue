@@ -11,7 +11,7 @@
           class="flex book_option_child rounded-7 cursor-pointer"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
         >
-          <a class="text-black" @click="toggleMyBooksPage('mybooks')"
+          <a class="text-black font-75" @click="toggleMyBooksPage('mybooks')"
             >My Books</a
           >
         </div>
@@ -19,7 +19,7 @@
           class="flex book_option_child rounded-7 cursor-pointer"
           :class="{ 'book_option_child_selected fw-bold': !isMyBooksPage }"
         >
-          <a class="text-black" @click="toggleMyBooksPage('savedbooks')"
+          <a class="text-black font-75" @click="toggleMyBooksPage('savedbooks')"
             >Saved Books</a
           >
         </div>
@@ -132,12 +132,12 @@ export default {
   text-align: center;
 }
 .book_option_child:hover {
-  background-color: #9fb97fb0;
+  background-color: #37aba39a !important;
   transition: 0.3s;
 }
 
 .book_option_child_selected {
-  background-color: #9fb97f;
+  background-color: #37aba3 !important;
 }
 
 a:link {
@@ -156,7 +156,7 @@ a:hover {
 @media only screen and (max-width: 576px) {
   .book_options {
     flex-direction: column;
-    width: 500px;
+    width: 100%;
     height: 100px;
     margin-top: 0px;
   }
@@ -164,6 +164,9 @@ a:hover {
   .book_option_child {
     width: 100%;
     height: 50px;
+  }
+  .font-75 {
+    font-size: 75%;
   }
 }
 </style>

@@ -8,14 +8,11 @@
       <Loader />
     </div>
     <div v-else>
-      <div
-        class="container-sm cover_container w-1800 b-1 p-0"
-        style="height: 250px"
-      >
+      <div class="container-sm cover_container w-1800 b-1 p-0">
         <img
-          src="/img/cover.jpg?url"
-          class="w-100 h-100 cover_image b-1 rounded-7"
-          style="object-fit: cover"
+          src="/img/login_background.png"
+          class="w-100 h-100 b-1 rounded-7 img-fluid cover_img"
+          style="object-fit: cover; max-height: 250px"
           alt="profile cover"
         />
       </div>
@@ -28,9 +25,9 @@
             class="profile_image shadow rounded-circle"
           />
           <div class="profile_name username">
-            <h3>{{ user.name }}</h3>
-            <p v-if="fromProfile">{{ user.email }}</p>
-            <p>{{ user.phone }}</p>
+            <h3 class="font-100">{{ user.name }}</h3>
+            <p v-if="fromProfile" class="font-75">{{ user.email }}</p>
+            <p class="font-75">{{ user.phone }}</p>
           </div>
         </div>
         <div class="flex user_info_right">
@@ -79,9 +76,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.cover_image {
-  object-fit: cover;
 }
 
 .user_info {
@@ -144,7 +138,7 @@ a:link {
 @media only screen and (max-width: 991.98px) {
   .user_info {
     position: relative;
-    top: 0;
+    top: -60px;
     margin-top: 1.5rem;
   }
 
@@ -173,22 +167,47 @@ a:link {
   }
 }
 
-@media only screen and (max-width: 576px) {
-  .cover_container {
-    width: 31.25rem;
+@media (max-width: 768px) {
+  .cover_img {
+    object-fit: contain !important;
   }
-
   .user_info {
-    width: 31.25rem;
+    top: 0px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .user_info {
+    height: 300px;
+    top: -60px;
   }
 
   .user_info_left {
     flex-direction: column;
+    height: 240px;
+  }
+
+  .profile_image {
+    width: 100px;
+    height: 100px;
   }
 
   .icon {
     width: 35px;
     height: 35px;
+  }
+
+  .profile_name {
+    margin-left: 0px;
+    margin-top: 0px;
+    font-weight: bolder;
+  }
+
+  .font-75 {
+    font-size: 75%;
+  }
+  .font-100 {
+    font-size: 100%;
   }
 }
 </style>

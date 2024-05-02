@@ -1,6 +1,6 @@
 <template>
   <nav v-if="hideNavbar" class="navbar navbar-expand-md bg-seavphov p-0 w-100">
-    <div class="container-fluid">
+    <div class="container-xxl">
       <a
         class="navbar-brand"
         @click="
