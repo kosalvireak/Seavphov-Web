@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
-import axios from "axios"
 import router from '../router';
+import axiosInstance from '../../axiosInstance';
 
 import { setCookie, getCookie ,removeCookie} from './cookieUtils';
 
@@ -53,7 +53,7 @@ const store = createStore({
         },
         async registerUser({ dispatch }, signupData) {
             try {
-                const response = await axios.post(backend_url + "/api/user/register", signupData, {
+                const response = await axiosInstance.post(backend_url + "/api/user/register", signupData, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -77,7 +77,7 @@ const store = createStore({
         },
         async loginUser({ dispatch }, loginData) {
             try {
-                const response = await axios.post(backend_url + "/api/user/login", loginData, {
+                const response = await axiosInstance.post(backend_url + "/api/user/login", loginData, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -103,7 +103,7 @@ const store = createStore({
         },
         async fetchUserProfile(){
             try {
-                const response = await axios.get(backend_url + "/api/profile", {
+                const response = await axiosInstance.get(backend_url + "/api/profile", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -117,7 +117,7 @@ const store = createStore({
         },
         async fetchOtherUserProfile({},username){
             try {
-                const response = await axios.get(backend_url + "/api/user/" + username, {
+                const response = await axiosInstance.get(backend_url + "/api/user/" + username, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -132,7 +132,7 @@ const store = createStore({
         },
         async modifyUserProfile({dispatch}, formData){
             try {
-                const response = await axios.post(backend_url + "/api/profile", formData, {
+                const response = await axiosInstance.post(backend_url + "/api/profile", formData, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                         'Content-Type': 'multipart/form-data',
@@ -173,7 +173,7 @@ const store = createStore({
                 params.append('uuid', filters.uuid);
             }
             try {
-                const response = await axios.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
+                const response = await axiosInstance.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
                 if (response.data.success) {
                     return response.data.message.data;
                 }
@@ -183,7 +183,7 @@ const store = createStore({
         },
         async fetchBookById({},id) {
             try {
-                const response = await axios.get(backend_url + "/api/books/" + id)
+                const response = await axiosInstance.get(backend_url + "/api/books/" + id)
                 if (response.data.success) {
                     return [response.data.book, response.data.author];
                 }
@@ -193,7 +193,7 @@ const store = createStore({
         },
         async fetchMyBooks() {
             try {
-                const response = await axios.get(backend_url + "/api/auth/books", {
+                const response = await axiosInstance.get(backend_url + "/api/auth/books", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -207,7 +207,7 @@ const store = createStore({
         },
         async fetchSavedBook() {
             try {
-                const response = await axios.get(backend_url + "/api/saved", {
+                const response = await axiosInstance.get(backend_url + "/api/saved", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -221,7 +221,7 @@ const store = createStore({
         },
         async createBook({},formData) {
             try {
-                const response = await axios.post(backend_url + "/api/books/", formData, {
+                const response = await axiosInstance.post(backend_url + "/api/books/", formData, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                         'Content-Type': 'multipart/form-data',
@@ -238,7 +238,7 @@ const store = createStore({
         async modifyBook({},formData) {
             try {
                 let id = formData.get("id");
-                const response = await axios.post(backend_url + "/api/books/"+ id, formData, {
+                const response = await axiosInstance.post(backend_url + "/api/books/"+ id, formData, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                         'Content-Type': 'multipart/form-data',
@@ -253,7 +253,7 @@ const store = createStore({
         },
         async saveBook({},bookId){
             try {
-                const response = await axios.get(backend_url + "/api/saved/"+ bookId, {
+                const response = await axiosInstance.get(backend_url + "/api/saved/"+ bookId, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -269,7 +269,7 @@ const store = createStore({
         },
         async unSaveBook({},bookId){
             try {
-                const response = await axios.delete(backend_url + "/api/saved/"+ bookId, {
+                const response = await axiosInstance.delete(backend_url + "/api/saved/"+ bookId, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
