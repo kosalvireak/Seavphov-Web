@@ -2,13 +2,13 @@
 
 <template>
   <div
-    class="d-flex-center flex-column bg-white m-0 p-0 w-100 h-100"
+    class="d-flex-center flex-column bg-white m-0 p-0"
     style="max-height: 4000px"
   >
     <NavBar />
 
     <main
-      class="container d-flex-center m-0 p-0 mt-3"
+      class=" d-flex-center m-0 p-0"
       style="max-width: 1980px"
     >
       <router-view />

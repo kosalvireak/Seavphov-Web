@@ -92,7 +92,7 @@ export default {
   name: "Footer",
   computed: {
     hideFooter() {
-      if (this.$route.name == "login" || this.$route.name == "signup") {
+      if (this.$route.name == "login" || this.$route.name == "signup" || this.$route.name == "admin") {
         return false;
       } else {
         return true;

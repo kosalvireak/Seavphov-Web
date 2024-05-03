@@ -9,6 +9,7 @@ import AddBook from "../view/AddBook.vue"
 import EditBook from "../view/EditBook.vue"
 import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
+import Dashboard from '../view/admin/Dashboard.vue'
 import { getCookie } from "../store/cookieUtils.js"
 
 
@@ -75,6 +76,11 @@ const router = createRouter({
             path: '/book/:id',
             name: 'book-detail',
             component: BookDetail,
+        },
+        {
+            path: '/admin/dashboard',
+            name: 'admin',
+            component: Dashboard,
         },
         {
             path: "/:pathMatch(.*)*",
