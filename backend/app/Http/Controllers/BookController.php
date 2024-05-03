@@ -50,7 +50,7 @@ class BookController extends Controller
         }
     }
     
-    public function authIndex(Request $request)
+    public function getMyBooks(Request $request)
     {
         $user = $request->attributes->get('user');
         $books = $user->books()->get();
@@ -60,6 +60,35 @@ class BookController extends Controller
                 'success' => true,
                 'message' => $books,
             ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+    public function getMyBook(Request $request, $id)
+    {
+        try {
+
+        $user = $request->attributes->get('user');
+        $books = $user->books()->get();
+        $book = null ;
+        foreach ($books as $book) {
+            if ($book['id'] == $id) {
+                return response()->json([
+                    'success' => true,
+                    'message' => $book,
+                ], 200);
+            }
+        }
+        if($book == null){
+            return response()->json([
+                'success' => false,
+                'message' => 'You do not have permission' ,
+            ], 403);
+        }
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
@@ -134,10 +163,40 @@ class BookController extends Controller
 
     public function update(Request $request, $id)
     {
-        $book = Book::findOrFail($id);
-        $book->update($request->all());
+        try{
+            $user = $request->attributes->get('user');
+            
+            $book = Book::findOrFail($id);
 
-        return response()->json($book, 200);
+            if($book->owner_id != $user->id){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You do not have permission' ,
+                ], 403);
+            }
+            
+            $validatedData = $request->validate([
+                'title' => 'required|string',
+                'author' => 'required|string',
+                'categories' => 'required|string',
+                'condition' => 'required|string',
+                'descriptions' => 'required|string',
+                'availability' => 'required|int',
+                'images' => 'required|string',
+            ]);
+            
+            $book->update($validatedData);
+            return response()->json([
+                'success' => true,
+                'message' => $book,
+            ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
 
     public function delete(Request $request, $id)

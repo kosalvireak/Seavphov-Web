@@ -192,10 +192,7 @@ export default {
       }
     },
     async getBook(id) {
-      [this.book, this.author] = await this.$store.dispatch(
-        "fetchBookById",
-        id
-      );
+      this.book = await this.$store.dispatch("getMyBook", id);
     },
   },
   computed: {
@@ -204,6 +201,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.paramsId);
     this.getBook(this.paramsId);
   },
 };

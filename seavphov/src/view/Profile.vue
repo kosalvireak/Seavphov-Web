@@ -94,7 +94,7 @@ export default {
     },
     async getBooks() {
       this.isLoading = true;
-      this.myBooks = await this.$store.dispatch("fetchMyBooks");
+      this.myBooks = await this.$store.dispatch("getMyBooks");
       this.isLoading = false;
     },
     async getSavedBooks() {

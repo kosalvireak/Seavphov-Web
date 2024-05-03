@@ -191,9 +191,9 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchMyBooks() {
+        async getMyBooks() {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/auth/books", {
+                const response = await axiosInstance.get(backend_url + "/api/auth/book", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -203,6 +203,22 @@ const store = createStore({
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
+            }
+        },
+        async getMyBook({},id) {
+            try {
+                const response = await axios.get(backend_url + "/api/auth/book/" + id, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                })
+                if (response.data.success) {
+                    return response.data.message;
+                }else{
+                    toast.error(error.response.data.message);
+                }
+            } catch (error) {
+                toast.error(error.response.message);
             }
         },
         async fetchSavedBook() {

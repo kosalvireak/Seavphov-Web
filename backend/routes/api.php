@@ -20,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('auth/books',  [BookController::class, 'authIndex'])->middleware([ApiTokenAuthentication::class]);
+Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function(){
+    Route::get('',[BookController::class, 'getMyBooks']);
+    Route::get('{id}',[BookController::class, 'getMyBook']);
+});
 
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'index']);
