@@ -21,12 +21,7 @@
       <div class="d-flex flex-column w-100">
         <h4 class="mx-3 mt-3 font-Roboto">Contact</h4>
         <div class="d-flex flex-row my-2 mx-3">
-          <img
-            src="/img/cellcard.png?url"
-            class="mobile_image mx-1"
-            alt="mobile_img"
-            style="width: 28px; height: 28px; object-fit: cover"
-          />
+          <span><i class="fas fa-phone fa-lg me-1"></i></span>
           <h5 class="ml-5" style="font-size: 18px; margin-top: 2.5px">
             {{ author.phone }}
           </h5>
@@ -44,7 +39,7 @@
         <!-- Location-->
         <h4 class="mx-3 mt-3 font-Roboto">Location</h4>
         <h5 class="ml-5 my-2 mx-3" style="font-size: 18px; margin-top: 2.5px">
-          <span><i class="fas fa-map-pin me-1"></i></span>{{ author.location }}
+          <span><i class="fas fa-map-pin fa-lg me-1"></i></span>{{ author.location }}
         </h5>
         <div class="location d-flex flex-wrap flex-column my-1 mx-3">
           <!-- Map -->
