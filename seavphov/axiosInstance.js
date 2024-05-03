@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const toast = useToast();
 const axiosInstance = axios.create({
-    baseURL: 'http://your-laravel-api.com/api',
+    baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 axiosInstance.interceptors.response.use(response => {

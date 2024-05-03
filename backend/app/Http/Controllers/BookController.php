@@ -71,24 +71,20 @@ class BookController extends Controller
     public function getMyBook(Request $request, $id)
     {
         try {
-
         $user = $request->attributes->get('user');
-        $books = $user->books()->get();
-        $book = null ;
-        foreach ($books as $book) {
-            if ($book['id'] == $id) {
-                return response()->json([
-                    'success' => true,
-                    'message' => $book,
-                ], 200);
-            }
-        }
-        if($book == null){
+        $book = $user->book($id);
+        
+        if(!$book){
             return response()->json([
                 'success' => false,
                 'message' => 'You do not have permission' ,
-            ], 403);
+            ], 200);
         }
+        return response()->json([
+            'success' => true,
+            'message' => $book,
+        ], 200);
+        
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
@@ -161,11 +157,11 @@ class BookController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function modifyBook(Request $request, $id)
     {
         try{
             $user = $request->attributes->get('user');
-            
+
             $book = Book::findOrFail($id);
 
             if($book->owner_id != $user->id){
@@ -188,7 +184,7 @@ class BookController extends Controller
             $book->update($validatedData);
             return response()->json([
                 'success' => true,
-                'message' => $book,
+                'message' => 'Successfully updated '.$book->title,
             ], 200);
         } catch (QueryException  $exception) {
             return response()->json([
@@ -199,16 +195,33 @@ class BookController extends Controller
         }
     }
 
-    public function delete(Request $request, $id)
+    public function deleteBook(Request $request, $id)
     {
-        $book = Book::findOrFail($id);
-        $book->delete();
+        try{
+            $user = $request->attributes->get('user');
 
-        return response()->json(
-            [
-                'msg' => 'Successfully delete ' . $book->title
-            ],
-            204
-        );
+            $book = Book::findOrFail($id);
+
+            
+            if($book->owner_id != $user->id){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You do not have permission' ,
+                ], 403);
+            }
+        
+            $book->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully delete "'.$book->title.'"',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot delete Book!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+        
     }
 }

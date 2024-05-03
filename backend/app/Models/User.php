@@ -71,6 +71,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class, 'owner_id');
     }
+    
+    public function book($id)
+    {
+        return $this->books()->where('id', $id)->first();
+    }
 
     public function savedBooks()
     {

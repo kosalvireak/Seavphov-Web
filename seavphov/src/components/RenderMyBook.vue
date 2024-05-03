@@ -18,7 +18,12 @@
           </h6>
         </div>
         <div v-for="book in books" :key="book.id">
-          <MyBook :book="book" :key="book.id" class="m-0 p-0" />
+          <MyBook
+            :book="book"
+            :key="book.id"
+            class="m-0 p-0"
+            @call-get-book.once="$emit('callGetBook2')"
+          />
         </div>
       </div>
       <div v-else class="h-100 w-100">

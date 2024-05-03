@@ -1,5 +1,5 @@
 <template>
-  <div class="Profile box h-100 w-100">
+  <div class="Profile container box h-100 w-100">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile
         :fromProfile="true"
@@ -30,7 +30,12 @@
           :books="savedBooks"
           :loading="isLoading"
         />
-        <RenderMyBook v-else :books="myBooks" :loading="isLoading" />
+        <RenderMyBook
+          v-else
+          :books="myBooks"
+          :loading="isLoading"
+          @call-get-book-2.once="getBooks()"
+        />
       </div>
     </div>
     <div
@@ -64,7 +69,6 @@ export default {
   },
   async mounted() {
     this.getBooks();
-
     this.isLoadingProfile = true;
     this.isLoading = true;
     const response = await this.$store.dispatch("fetchUserProfile");

@@ -37,7 +37,7 @@
                 <MDBDropdownItem tag="button" 
                 @click="editBook(book.id)"
                 >Edit</MDBDropdownItem>
-                <MDBDropdownItem tag="button">Delete</MDBDropdownItem>
+                <MDBDropdownItem tag="button" @click="deleteBook(book.id)">Delete</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
           </div>
@@ -71,6 +71,10 @@ export default {
   methods: {
     editBook(id) {
       this.$router.push(`/book/edit/${id}`);
+    },
+    async deleteBook(id) {
+      await this.$store.dispatch("deleteBook", id);
+      this.$emit("callGetBook");
     },
   },
 };

@@ -207,15 +207,15 @@ const store = createStore({
         },
         async getMyBook({},id) {
             try {
-                const response = await axios.get(backend_url + "/api/auth/book/" + id, {
+                const response = await axiosInstance.get(backend_url + "/api/auth/book/" + id, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 })
                 if (response.data.success) {
                     return response.data.message;
-                }else{
-                    toast.error(error.response.data.message);
+                } else {
+                    toast.error(response.data.message);
                 }
             } catch (error) {
                 toast.error(error.response.message);
@@ -260,8 +260,22 @@ const store = createStore({
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                console.log("response", response)
                 toast.success(response.data.message);
+            } catch (error) {
+                console.error("Error adding book:", error);
+                toast.error(error.response.data.message);
+            }
+        },
+        async deleteBook({},id) {
+            try {
+
+                const response = await axiosInstance.delete(backend_url + "/api/books/"+ id, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                });
+                toast.success(response.data.message);
+
             } catch (error) {
                 console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
@@ -275,7 +289,6 @@ const store = createStore({
                     },
                 });
                 if (response.data.success) {
-                   console.log("response.data",response.data)
                    
                    toast.success(response.data.message);
                 }

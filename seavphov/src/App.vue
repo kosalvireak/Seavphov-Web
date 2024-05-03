@@ -8,7 +8,7 @@
     <NavBar />
 
     <main
-      class=" d-flex-center m-0 p-0"
+      class="d-flex-center m-0 p-0 container mt-3"
       style="max-width: 1980px"
     >
       <router-view />

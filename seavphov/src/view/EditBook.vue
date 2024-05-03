@@ -115,9 +115,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="col-2 btn btn-primary mt-2">
-            Add Book
-          </button>
+          <button type="submit" class="col-2 btn btn-primary mt-2">Save</button>
         </div>
       </form>
     </div>
@@ -169,7 +167,7 @@ export default {
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
       await this.$store.dispatch("modifyBook", this.formData);
-      this.$router.push({ path: `/home/${this.paramsId}` });
+      this.$router.push({ path: `/book/${this.paramsId}` });
     },
     async handleImageChange(event) {
       this.toast.success("Uploading image.");
@@ -192,7 +190,15 @@ export default {
       }
     },
     async getBook(id) {
-      this.book = await this.$store.dispatch("getMyBook", id);
+      const response = await this.$store.dispatch("getMyBook", id);
+      this.book.id = response.id;
+      this.book.title = response.title;
+      this.book.author = response.author;
+      this.book.images = response.images;
+      this.formData.append("images", response.images);
+      this.book.descriptions = response.descriptions;
+      this.book.condition = response.condition;
+      this.book.categories = response.categories;
     },
   },
   computed: {

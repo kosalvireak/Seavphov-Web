@@ -29,8 +29,8 @@ Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'index']);
     Route::get('{bookId}',  [BookController::class, 'show']);
     Route::post('', [BookController::class, 'store'])->middleware([ApiTokenAuthentication::class]);
-    Route::put('{id}', [BookController::class, 'update']);
-    Route::delete('{id}', [BookController::class, 'delete']);
+    Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
+    Route::delete('{id}', [BookController::class, 'deleteBook'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
