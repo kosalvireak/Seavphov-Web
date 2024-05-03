@@ -127,7 +127,7 @@
 import NotificationDropdown from "./NotificationDropdown.vue";
 import SearchInput from "./SearchInput.vue";
 export default {
-  name: "Navbar",
+  name: "Nav",
   components: { NotificationDropdown, SearchInput },
   methods: {
     async Logout() {
@@ -140,7 +140,11 @@ export default {
       return this.$store.getters.isLogin;
     },
     hideNavbar() {
-      if (this.$route.name == "login" || this.$route.name == "signup" || this.$route.name == "admin") {
+      if (
+        this.$route.name == "login" ||
+        this.$route.name == "signup" ||
+        this.$route.name == "admin"
+      ) {
         return false;
       } else {
         return true;
