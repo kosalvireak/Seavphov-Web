@@ -1,7 +1,7 @@
 <template>
   <nav
     v-if="hideNavbar"
-    class="AdminNav navbar navbar-expand-md bg-seavphov p-0 w-100"
+    class="AdminNav navbar navbar-expand-md bg-seavphov-light p-0 w-100"
   >
     <button
       class="navbar-toggler"

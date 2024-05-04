@@ -5,8 +5,11 @@
     </div>
     <div class="Dashboard_right col-10 bg-seavphov-light m-0 p-0">
       <AdminNav />
-      <!-- <router-view v-if="showDashboard" /> -->
-      <component :is="renderComponent" v-if="showDashboard" />
+      <component
+        :is="renderComponent"
+        v-if="showDashboard"
+        :key="componentsKey"
+      />
       <DashboardOverviewVue v-else />
     </div>
   </div>
@@ -21,6 +24,11 @@ import DashboardOverviewVue from "./DashboardOverview.vue";
 export default {
   name: "Dashboard",
   components: { DashboardOverviewVue, AdminNav, LeftSidePanel, Users, Books },
+  data() {
+    return {
+      componentsKey: null,
+    };
+  },
   computed: {
     showDashboard() {
       if (this.$route.name) {
@@ -36,8 +44,10 @@ export default {
     renderComponent() {
       if (this.$route.name) {
         if (this.$route.name === "admin.users") {
+          this.componentsKey = 2;
           return Users;
         } else if (this.$route.name === "admin.books") {
+          this.componentsKey = 3;
           return Books;
         }
       }
@@ -49,6 +59,9 @@ export default {
   <style scoped>
 .Dashboard {
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
+}
+.Dashboard_right {
+  min-height: 100vh;
 }
 </style>
