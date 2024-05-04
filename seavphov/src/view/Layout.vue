@@ -9,12 +9,13 @@
     >
       <Nav />
 
-      <main
+      <div
+        v-if="adminRoute"
         class="d-flex-center m-0 p-0 container mt-3"
         style="max-width: 1980px"
       >
         <router-view />
-      </main>
+      </div>
 
       <Footer />
     </div>
@@ -32,10 +33,13 @@ export default {
   components: { Footer, Nav, Dashboard },
   computed: {
     adminRoute() {
-      if (this.$route.name == "admin") {
-        return false;
-      } else {
-        return true;
+      if (this.$route.name) {
+        const admin = this.$route.name.startsWith("admin");
+        if (admin) {
+          return false;
+        } else {
+          return true;
+        }
       }
     },
   },

@@ -10,6 +10,8 @@ import EditBook from "../view/EditBook.vue"
 import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
 import Dashboard from '../view/admin/Dashboard.vue'
+import Users from '../components/admin/Users.vue'
+import Books from '../components/admin/Books.vue'
 import { getCookie } from "../store/cookieUtils.js"
 
 
@@ -78,9 +80,21 @@ const router = createRouter({
             component: BookDetail,
         },
         {
-            path: '/admin/dashboard',
+            path: '/admin',
             name: 'admin',
             component: Dashboard,
+            children: [
+                {
+                  path: 'users',
+                  name: 'admin.users',
+                  component: Users,
+                },
+                {
+                    path: 'books',
+                    name: 'admin.books',
+                    component: Books,
+                  },
+              ]
         },
         {
             path: "/:pathMatch(.*)*",
