@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ApiTokenAuthentication;
 use Illuminate\Http\Request;
@@ -20,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function(){
     Route::get('',[BookController::class, 'getMyBooks']);
     Route::get('{id}',[BookController::class, 'getMyBook']);
@@ -48,4 +51,11 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
     Route::get('{bookId}', [UserBookController::class, 'saveBook']);
     Route::get('', [UserBookController::class, 'getSaveBook']);
     Route::delete('{bookId}', [UserBookController::class, 'removeBook']);
+});
+
+
+Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function(){
+    Route::get('/auth',[AdminController::class, 'adminGetAuth']);
+    Route::get('/books',[AdminController::class, 'adminGetBooks']);
+    Route::get('/users',[AdminController::class, 'adminGetUsers']);
 });

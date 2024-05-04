@@ -181,6 +181,50 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async adminGetBooks() { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/books',{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); // Add params to URL
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async adminGetUsers() { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/users',{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); // Add params to URL
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async adminGetAuth() { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/auth',{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); 
+                if (response.data.success) {
+                    return response.data.isAdmin;
+                } else{
+                    return false;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async fetchBookById({},id) {
             try {
                 const response = await axiosInstance.get(backend_url + "/api/books/" + id)

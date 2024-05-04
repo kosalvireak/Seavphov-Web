@@ -1,12 +1,24 @@
+
 <template>
   <div class="Users w-100 p-5">
     <EasyDataTable
+      :server-items-length="serverItemsLength"
       :headers="headers"
-      :items="items"
+      :items="users"
       alternating
+      :loading="isLoading"
       border-cell
       buttons-pagination
-    />
+    >
+      <template #item-picture="users">
+        <img
+          :src="users.picture"
+          class="img-fluid rounded-circle navbar_img border border-1 mt-2"
+          alt="img"
+          loading="lazy"
+        />
+      </template>
+    </EasyDataTable>
   </div>
 </template>
   
@@ -15,384 +27,45 @@ export default {
   name: "Users",
   data() {
     return {
+      isLoading: false,
+      serverItemsLength: 0,
       headers: [
-        { text: "PLAYER", value: "player", sortable: true },
-        { text: "TEAM", value: "team", sortable: true },
-        { text: "NUMBER", value: "number", sortable: true },
-        { text: "POSITION", value: "position", sortable: true },
-        { text: "HEIGHT", value: "indicator.height", sortable: true },
-        { text: "WEIGHT (lbs)", value: "indicator.weight", sortable: true },
-        { text: "LAST ATTENDED", value: "lastAttended", width: 200 },
-        { text: "COUNTRY", value: "country", sortable: true },
+        { text: "UUID", value: "uuid", sortable: true },
+        { text: "PROFILE", value: "picture", sortable: true },
+        { text: "NAME", value: "name", sortable: true },
+        { text: "EMAIL", value: "email", sortable: true },
+        { text: "PHONE", value: "phone", sortable: true },
+        { text: "FACEBOOK", value: "facebook", sortable: true },
+        { text: "INSTAGRAM", value: "instagram", sortable: true },
+        { text: "TELEGRAM", value: "telegram", sortable: true },
+        { text: "TWITTER", value: "twitter", width: 200 },
+        { text: "TOKEN", value: "api_token", sortable: true },
+        { text: "JOIN DATA", value: "created_at", sortable: true },
       ],
-      items: [
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-        {
-          player: "Stephen Curry",
-          team: "GSW",
-          number: 30,
-          position: "G",
-          indicator: { height: "6-2", weight: 185 },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          player: "Lebron James",
-          team: "LAL",
-          number: 6,
-          position: "F",
-          indicator: { height: "6-9", weight: 250 },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          player: "Kevin Durant",
-          team: "BKN",
-          number: 7,
-          position: "F",
-          indicator: { height: "6-10", weight: 240 },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          player: "Giannis Antetokounmpo",
-          team: "MIL",
-          number: 34,
-          position: "F",
-          indicator: { height: "6-11", weight: 242 },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-      ],
+      users: [],
     };
+  },
+  methods: {
+    async adminGetUsers() {
+      this.isLoading = true;
+      this.users = await this.$store.dispatch("adminGetUsers");
+      console.log("adminGetUsers", this.users);
+      this.serverItemsLength = this.users.length;
+      this.isLoading = false;
+    },
+  },
+  async mounted() {
+    this.adminGetUsers();
   },
 };
 </script>
   
   <style scoped>
+.navbar_img {
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+}
 .Users {
   max-width: 100vw;
 }

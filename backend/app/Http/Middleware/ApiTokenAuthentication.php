@@ -41,6 +41,7 @@ class ApiTokenAuthentication
             ], 401);
         }
         $request->attributes->add(['user' => $user]);
+        
         return $next($request);
     }
 }

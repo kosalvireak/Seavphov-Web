@@ -13,6 +13,7 @@ import Dashboard from '../view/admin/Dashboard.vue'
 import Users from '../components/admin/Users.vue'
 import Books from '../components/admin/Books.vue'
 import { getCookie } from "../store/cookieUtils.js"
+import store from '../store/index.js'
 
 
 const router = createRouter({
@@ -83,16 +84,19 @@ const router = createRouter({
             path: '/admin',
             name: 'admin',
             component: Dashboard,
+            meta: {  requiredAdminAuth: true},
             children: [
                 {
                   path: 'users',
                   name: 'admin.users',
                   component: Users,
+                  meta: {  requiredAdminAuth: true},
                 },
                 {
                     path: 'books',
                     name: 'admin.books',
                     component: Books,
+                    meta: {  requiredAdminAuth: true},
                   },
               ]
         },
@@ -105,18 +109,19 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    // Check if the route requires a cookie
     if (to.meta.requiresCookie) {
-      // Check if the cookie exists
       if (getCookie()) {
-        // Cookie exists, proceed to the route
         next();
       } else {
-        // Cookie doesn't exist, redirect to another route
-        next('/login'); // Redirect to login page or any other route
+        next('/login');  
       }
+    } else if(to.meta.requiredAdminAuth){
+        if (store.dispatch("adminGetAuth")) {
+            next();
+        } else {
+            next('/login');  
+        }
     } else {
-      // Route doesn't require a cookie, proceed as usual
       next();
     }
   });

@@ -1,11 +1,11 @@
 <template>
   <section
-    class="LeftSidePanel w-100 h-100 d-flex-center flex-row align-items-start"
+    class="LeftSidePanel w-100 h-100 d-flex-center flex-row align-items-start shadow-5"
   >
     <ul class="w-100">
-      <div class="text-lg d-flex-center py-3">
+      <div class="text-sm d-flex-center py-3">
         <a
-          class="navbar-brand"
+          class="navbar-brand cursor-pointer"
           @click="
             () => {
               this.$router.push('/home');
@@ -16,20 +16,19 @@
             alt="book logo"
             srcset=""
             class="img-fluid"
-            style="height: 60px"
+            style="height: 45px"
         /></a>
       </div>
-      <li class="text-lg">
-        <i class="fa fa-table fa-xl ms-3"></i
-        ><router-link :to="{ name: 'admin' }">Dashboard</router-link>
+      <li class="text-sm" @click="toRoute('admin')">
+        <i class="fa fa-table fa-xl ms-3"></i>Dashboard
       </li>
-      <li class="text-lg">
+      <li class="text-sm" @click="toRoute('admin.users')">
         <i class="fa fa-users fa-xl ms-3"></i>
-        <router-link :to="{ name: 'admin.users' }">Users</router-link>
+        Users
       </li>
-      <li class="text-lg">
+      <li class="text-sm" @click="toRoute('admin.books')">
         <i class="fa fa-book fa-xl ms-3"></i>
-        <router-link :to="{ name: 'admin.books' }">Books</router-link>
+        Books
       </li>
     </ul>
   </section>
@@ -38,13 +37,18 @@
 <script>
 export default {
   name: "LeftSidePanel",
+  methods: {
+    toRoute(route) {
+      this.$router.push({ name: route });
+    },
+  },
 };
 </script>
 
 <style lang="css" scoped>
 li {
   color: black !important;
-  font-size: larger;
+  font-size: small;
   padding: 15px;
 }
 li:hover {

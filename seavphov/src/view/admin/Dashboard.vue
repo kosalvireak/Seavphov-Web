@@ -10,7 +10,7 @@
         v-if="showDashboard"
         :key="componentsKey"
       />
-      <DashboardOverviewVue v-else />
+      <DashboardOverview v-else />
     </div>
   </div>
 </template>
@@ -20,10 +20,10 @@ import Books from "../../components/admin/Books.vue";
 import Users from "../../components/admin/Users.vue";
 import LeftSidePanel from "../../components/admin/LeftSidePanel.vue";
 import AdminNav from "../../components/admin/AdminNav.vue";
-import DashboardOverviewVue from "./DashboardOverview.vue";
+import DashboardOverview from "./DashboardOverview.vue";
 export default {
   name: "Dashboard",
-  components: { DashboardOverviewVue, AdminNav, LeftSidePanel, Users, Books },
+  components: { DashboardOverview, AdminNav, LeftSidePanel, Users, Books },
   data() {
     return {
       componentsKey: null,
