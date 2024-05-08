@@ -1,5 +1,5 @@
 <template>
-  <div class="Dashboard container-xl w-100 h-100 row p-0 m-0">
+  <div v-if="isAdmin" class="Dashboard container-xl w-100 h-100 row p-0 m-0">
     <div class="Dashboard_left col-2 bg-white text-black p-0">
       <LeftSidePanel />
     </div>
@@ -27,13 +27,13 @@ export default {
   data() {
     return {
       componentsKey: null,
+      isAdmin: false,
     };
   },
   computed: {
     showDashboard() {
       if (this.$route.name) {
         const adminRoute = this.$route.name === "admin";
-        console.log("showDashboard", adminRoute);
         if (adminRoute) {
           return false;
         } else {
@@ -53,6 +53,14 @@ export default {
       }
     },
   },
+  async mounted(){
+    const auth = await this.$store.dispatch("adminGetAuth")
+    if (auth) {
+      this.isAdmin = true;
+    } else {
+      this.$router.push('/home');
+    }
+  }
 };
 </script>
   
