@@ -57,6 +57,22 @@
             </a>
           </li>
           <li
+            v-if="isAdmin"
+            class="nav-item me-2 d-flex align-items-sm-center cursor-pointer"
+          >
+            <a
+              class="nav-link"
+              @click="
+                () => {
+                  this.$router.push('/admin');
+                }
+              "
+            >
+              <span><i class="fas fa-unlock fa-xl"></i></span>
+              <strong class="ms-1">Admin</strong>
+            </a>
+          </li>
+          <li
             v-if="isLogin"
             class="nav-item me-2 d-flex align-items-sm-center cursor-pointer"
           >
@@ -138,6 +154,9 @@ export default {
   computed: {
     isLogin() {
       return this.$store.getters.isLogin;
+    },
+    isAdmin() {
+      return false;
     },
     hideNavbar() {
       if (this.$route.name) {

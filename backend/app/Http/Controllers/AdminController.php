@@ -47,7 +47,7 @@ class AdminController extends Controller
 
             return response()->json([
                 'success' => true,
-                'isAdmin' => $isAdmin,
+                'data' => $isAdmin,
             ], 200);
         } catch (QueryException  $exception) {
             return response()->json([

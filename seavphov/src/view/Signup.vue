@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="Signup row">
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >
@@ -9,7 +9,15 @@
       <h1>Sign Up</h1>
       <form v-on:submit.prevent="Signup()">
         <div class="form-floating mb-3">
-          <input
+          <MDBInput
+            type="text"
+            label="Name"
+            id="name"
+            v-model="name"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="name"
             class="form-control btn rounded-pill text-start"
             id="name"
@@ -22,10 +30,18 @@
           />
           <label for="name" :class="{ 'special-style': toggleEmail }"
             >Name</label
-          >
+          > -->
         </div>
         <div class="form-floating mb-3">
-          <input
+          <MDBInput
+            type="email"
+            label="Email address"
+            id="email"
+            v-model="email"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="email"
             class="form-control btn rounded-pill text-start"
             id="email"
@@ -38,10 +54,18 @@
           />
           <label for="email" :class="{ 'special-style': toggleEmail }"
             >Email address</label
-          >
+          > -->
         </div>
         <div class="form-floating password mb-3">
-          <input
+          <MDBInput
+            type="password"
+            label="Password"
+            id="password"
+            v-model="password"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="password"
             class="form-control btn rounded-pill text-start"
             id="password"
@@ -54,10 +78,18 @@
           />
           <label for="password" :class="{ 'special-style': togglePassword }"
             >Password</label
-          >
+          > -->
         </div>
         <div class="form-floating mb-3">
-          <input
+          <MDBInput
+            type="password"
+            label="Confirm Password"
+            id="password_confirmation"
+            v-model="password_confirmation"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="password"
             class="form-control btn rounded-pill text-start"
             id="password_confirmation"
@@ -72,7 +104,7 @@
             for="password_confirmation"
             :class="{ 'special-style': toggleConfirmPassword }"
             >Confirm Password</label
-          >
+          > -->
         </div>
         <div class="d-flex align-items-start justify-content-between my-3">
           <div class="d-flex justify-content-center ps-4 align-items-start">
@@ -96,7 +128,13 @@
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+        <button
+          type="submit"
+          class="btn btn-primary mt-2 d-flex-center btn_submit"
+        >
+          <span v-if="!isLoading">Signup</span>
+          <Loader v-else :size="20" :Color="'#FFFFFF'" />
+        </button>
       </form>
 
       <div class="text-center mt-3">
@@ -116,8 +154,11 @@
 </template>
   
 <script>
+import Loader from "../components/Loader.vue";
+import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "Signup",
+  components: { Loader, MDBInput },
   data() {
     return {
       email: "virakvary@gmail.com",
@@ -127,9 +168,7 @@ export default {
       Error: false,
       errorMessage: "",
       isShowPassword: false,
-      toggleEmail: false,
-      togglePassword: false,
-      toggleConfirmPassword: false,
+      isLoading: false,
     };
   },
   methods: {
@@ -142,7 +181,9 @@ export default {
             password: this.password,
             password_confirmation: this.password_confirmation,
           };
+          this.isLoading = true;
           await this.$store.dispatch("registerUser", signupData);
+          this.isLoading = false;
         } else {
           this.Error = true;
           this.errorMessage = "Password & confirm password does not match!";
@@ -152,24 +193,7 @@ export default {
         this.errorMessage = "Password must be 8 characters or more";
       }
     },
-    toggleLabel(input, bool) {
-      if (input == "email") {
-        this.toggleEmail = bool;
-        if (this.email.length !== 0) {
-          this.toggleEmail = true;
-        }
-      } else if (input == "password") {
-        this.togglePassword = bool;
-        if (this.password.length !== 0) {
-          this.togglePassword = true;
-        }
-      } else if (input == "password_confirmation") {
-        this.toggleConfirmPassword = bool;
-        if (this.password.length !== 0) {
-          this.toggleConfirmPassword = true;
-        }
-      }
-    },
+
     showPassword() {
       if (this.isShowPassword) {
         password.type = "password";
@@ -187,6 +211,9 @@ export default {
 </script>
   
 <style scoped>
+.Signup {
+  margin-bottom: 100px !important ;
+}
 .row {
   background-color: #fff;
   border-radius: 30px;
@@ -260,6 +287,10 @@ button:hover {
 a {
   color: #a3b18a;
   text-decoration: none;
+}
+.btn_submit {
+  width: 200px;
+  height: 51px;
 }
 
 @media (max-width: 768px) {

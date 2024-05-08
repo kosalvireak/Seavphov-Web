@@ -81,10 +81,10 @@ const router = createRouter({
             component: BookDetail,
         },
         {
+            meta: {  requiredAdminAuth: true},
             path: '/admin',
             name: 'admin',
             component: Dashboard,
-            meta: {  requiredAdminAuth: true},
             children: [
                 {
                   path: 'users',
@@ -108,18 +108,19 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresCookie) {
-      if (getCookie()) {
+      if (await getCookie()) {
         next();
       } else {
         next('/login');  
       }
     } else if(to.meta.requiredAdminAuth){
-        if (store.dispatch("adminGetAuth")) {
+        const auth = await store.dispatch("adminGetAuth")
+        if (auth == true) {
             next();
         } else {
-            next('/login');  
+            next('/home');  
         }
     } else {
       next();

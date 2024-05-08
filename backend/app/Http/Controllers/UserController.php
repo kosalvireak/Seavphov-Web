@@ -13,6 +13,7 @@ class UserController extends Controller
         $user = collect($request->attributes->get('user'));
 
         $filteredUser = $user->except(['api_token']);
+        
         try {
             return response()->json([
                 'success' => true,

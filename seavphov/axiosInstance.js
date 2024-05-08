@@ -10,13 +10,7 @@ axiosInstance.interceptors.response.use(response => {
     return response;
 }, error => {
     if (!error.response) {
-        // Handle network errors here
-        // For example, display a message to the user
         toast.error('Network Error:', error.message);
-    } else {
-        // Handle HTTP errors here
-        // For example, display error messages from the server
-        toast.error('HTTP Error:', error.response.status);
     }
     return Promise.reject(error);
 });

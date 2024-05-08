@@ -14,6 +14,7 @@ const store = createStore({
             email: null ,
             name: "Not logged in",
             api_token: null,
+            uuid:null,
             picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         filteredFetchBook: [],
@@ -38,8 +39,8 @@ const store = createStore({
     actions: {
         setUserFromCookies({ commit }) {
             if(getCookie()){
-                const {name,email,api_token,picture} = getCookie();
-                commit('SET_USER', { name, email,api_token,picture});
+                const {name,email,api_token,picture,uuid} = getCookie();
+                commit('SET_USER', { name, email,api_token,picture,uuid});
             }
         },
         async logoutUser({commit}){
@@ -64,6 +65,7 @@ const store = createStore({
                         name: responseData.data.name,
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
+                        uuid: responseData.data.uuid
                     }
                     setCookie(user);
                     dispatch('setUserFromCookies');
@@ -83,6 +85,7 @@ const store = createStore({
                     },
                 });
                 const responseData = await response.data;
+                console.log("responseData",responseData);
                 if (responseData.success) {
                     console.log("user",responseData.data);
                     const user = {
@@ -90,11 +93,14 @@ const store = createStore({
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
                         picture: responseData.data.picture,
+                        uuid:responseData.data.uuid
                     }
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
                     router.push({ path: '/home' }) 
+                    
+
                 }
             } catch (error) {
                 console.error("Error login user:", error);
@@ -217,8 +223,9 @@ const store = createStore({
                     },
                 }); 
                 if (response.data.success) {
-                    return response.data.isAdmin;
-                } else{
+                    return response.data.data;
+                } else {
+                    toast.error(response.data.message);
                     return false;
                 }
             } catch (error) {

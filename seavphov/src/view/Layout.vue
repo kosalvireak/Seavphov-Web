@@ -11,10 +11,10 @@
 
       <div
         v-if="adminRoute"
-        class="d-flex-center m-0 p-0 container mt-3"
-        style="max-width: 1980px"
+        class="d-flex-center m-0 p-0 container"
+        style="max-width: 1980px; min-height: 100vh"
       >
-        <router-view />
+        <router-view class="mt-3" />
       </div>
 
       <Footer />

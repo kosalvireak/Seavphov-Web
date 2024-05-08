@@ -20,7 +20,7 @@ class AdminAuthorization
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized'
-            ], 401);
+            ], 200);
         }
         return $next($request);
     }

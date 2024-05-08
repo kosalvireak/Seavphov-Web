@@ -1,21 +1,35 @@
 <template>
-  <div class="loader"></div>
+  <div
+    class="loader"
+    :style="{
+      width: size + 'px',
+      height: size + 'px',
+      'font-size': size + 'px',
+      color: Color,
+    }"
+  ></div>
 </template>
 
 <script>
 export default {
   name: "Loader",
+  props: {
+    size: {
+      type: Number,
+      default: 45,
+    },
+    Color: {
+      type: String,
+      default: "#000000",
+    },
+  },
 };
 </script>
 
 <style scoped>
 .loader {
-  color: #000000;
-  font-size: 45px;
   text-indent: -9999em;
   overflow: hidden;
-  width: 45px;
-  height: 45px;
   border-radius: 50%;
   position: relative;
   transform: translateZ(0);

@@ -19,7 +19,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    protected function registered(Request $request, $user)
+    protected function registered( $user)
     {
         $user->generateToken();
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="Login row p-3 m-0">
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >
@@ -9,7 +9,15 @@
       <h1>Log In</h1>
       <form v-on:submit.prevent="Login()">
         <div class="form-floating mb-3">
-          <input
+          <MDBInput
+            type="email"
+            label="Email address"
+            id="email"
+            v-model="email"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="email"
             class="form-control btn rounded-pill text-start"
             id="email"
@@ -21,10 +29,18 @@
           />
           <label for="email" :class="{ 'special-style': toggleEmail }"
             >Email address</label
-          >
+          > -->
         </div>
         <div class="form-floating">
-          <input
+          <MDBInput
+            type="password"
+            label="Password"
+            id="password"
+            v-model="password"
+            wrapperClass="bg-white"
+            required
+          />
+          <!-- <input
             type="password"
             class="form-control btn rounded-pill text-start"
             id="password"
@@ -36,7 +52,7 @@
           />
           <label for="password" :class="{ 'special-style': togglePassword }"
             >Password</label
-          >
+          > -->
         </div>
 
         <!-- 2 column grid layout for inline styling -->
@@ -68,7 +84,15 @@
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        <!-- <button v-if="!isLoading" type="submit" class="">Log in</button> -->
+        <!-- <Loader v-else :size="20" /> -->
+        <button
+          type="submit"
+          class="btn btn-primary mt-2 d-flex-center btn_submit"
+        >
+          <span v-if="!isLoading">Login</span>
+          <Loader v-else :size="20" :Color="'#FFFFFF'" />
+        </button>
       </form>
 
       <!-- Register buttons -->
@@ -89,22 +113,23 @@
 </template>
   
   <script>
+import Loader from "../components/Loader.vue";
+import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "Login",
+  components: { Loader, MDBInput },
   data() {
     return {
       email: "virakvary@gmail.com",
       password: "12345678",
       Error: false,
       errorMessage: "",
+      isLoading: false,
       isShowPassword: false,
-      toggleEmail: false,
-      togglePassword: false,
     };
   },
   methods: {
     async Login() {
-      // if both input are empty
       if (this.email.length == 0 || this.password.length == 0) {
         this.Error = true;
         this.errorMessage = "Email or password cannot be empty!";
@@ -113,23 +138,12 @@ export default {
           email: this.email,
           password: this.password,
         };
+        this.isLoading = true;
         await this.$store.dispatch("loginUser", loginData);
+        this.isLoading = false;
       } else {
         this.Error = true;
         this.errorMessage = "Incorrect email or password!";
-      }
-    },
-    toggleLabel(input, bool) {
-      if (input == "email") {
-        this.toggleEmail = bool;
-        if (this.email.length !== 0) {
-          this.toggleEmail = true;
-        }
-      } else if (input == "password") {
-        this.togglePassword = bool;
-        if (this.password.length !== 0) {
-          this.togglePassword = true;
-        }
       }
     },
     showPassword() {
@@ -140,13 +154,16 @@ export default {
       }
     },
     forgotPassword() {
-      alert("Comming soon");
+      alert("Coming soon");
     },
   },
 };
 </script>
   
 <style scoped>
+.Login {
+  margin-bottom: 100px !important ;
+}
 .row {
   background-color: #fff;
   border-radius: 30px;
@@ -161,7 +178,6 @@ export default {
 .logoimg {
   max-width: 300px;
 }
-
 h1 {
   font-size: 50px;
   font-weight: bold;
@@ -220,6 +236,11 @@ button:hover {
 a {
   color: #a3b18a;
   text-decoration: none;
+}
+
+.btn_submit {
+  width: 200px;
+  height: 51px;
 }
 
 @media (max-width: 768px) {
