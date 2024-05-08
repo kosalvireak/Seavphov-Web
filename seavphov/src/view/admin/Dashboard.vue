@@ -53,14 +53,15 @@ export default {
       }
     },
   },
-  async mounted(){
-    const auth = await this.$store.dispatch("adminGetAuth")
+  async mounted() {
+    console.log("hello from admin");
+    const auth = await this.$store.dispatch("adminGetAuth");
     if (auth) {
       this.isAdmin = true;
     } else {
-      this.$router.push('/home');
+      this.$router.push("/home");
     }
-  }
+  },
 };
 </script>
   

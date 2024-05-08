@@ -25,7 +25,7 @@
               label="Title"
               id="title"
               v-model="book.title"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>
@@ -35,7 +35,7 @@
               label="Author"
               id="author"
               v-model="book.author"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>
@@ -45,7 +45,7 @@
               label="Descriptions"
               id="descriptions"
               v-model="book.descriptions"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>

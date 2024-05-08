@@ -12,6 +12,7 @@ import ViewProfile from "../view/ViewProfile.vue"
 import Dashboard from '../view/admin/Dashboard.vue'
 import Users from '../components/admin/Users.vue'
 import Books from '../components/admin/Books.vue'
+import ForgotPassword from '../view/ForgotPassword.vue'
 import { getCookie } from "../store/cookieUtils.js"
 import store from '../store/index.js'
 
@@ -35,6 +36,11 @@ const router = createRouter({
             component: Signup,
         },
         {
+            path: "/forgot-password",
+            name: "forgot-password",
+            component: ForgotPassword,
+        },
+        {
             path: "/profile",
             name: "profile",
             component: Profile,
@@ -45,7 +51,6 @@ const router = createRouter({
             path: "/profile/:username",
             name: "user-profile",
             component: ViewProfile,
-            // meta: { requiresCookie: true }
         },
         {
             path: "/edit-profile",
@@ -81,10 +86,10 @@ const router = createRouter({
             component: BookDetail,
         },
         {
-            meta: {  requiredAdminAuth: true},
             path: '/admin',
             name: 'admin',
             component: Dashboard,
+            meta: {  requiredAdminAuth: true},
             children: [
                 {
                   path: 'users',

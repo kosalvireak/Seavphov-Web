@@ -1,8 +1,6 @@
 <template>
   <div class="Signup row">
-    <div
-      class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
-    >
+    <div class="d-flex-center logo col-md-6 col-sm-12">
       <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid" />
     </div>
     <div class="container col-md-6 col-sm-12">
@@ -14,23 +12,9 @@
             label="Name"
             id="name"
             v-model="name"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="name"
-            class="form-control btn rounded-pill text-start"
-            id="name"
-            placeholder="name"
-            v-model="name"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('name', true)"
-            @blur="toggleLabel('name', false)"
-            required
-          />
-          <label for="name" :class="{ 'special-style': toggleEmail }"
-            >Name</label
-          > -->
         </div>
         <div class="form-floating mb-3">
           <MDBInput
@@ -38,23 +22,9 @@
             label="Email address"
             id="email"
             v-model="email"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="email"
-            class="form-control btn rounded-pill text-start"
-            id="email"
-            placeholder="name@example.com"
-            v-model="email"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('email', true)"
-            @blur="toggleLabel('email', false)"
-            required
-          />
-          <label for="email" :class="{ 'special-style': toggleEmail }"
-            >Email address</label
-          > -->
         </div>
         <div class="form-floating password mb-3">
           <MDBInput
@@ -62,23 +32,9 @@
             label="Password"
             id="password"
             v-model="password"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="password"
-            class="form-control btn rounded-pill text-start"
-            id="password"
-            placeholder="password"
-            v-model="password"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('password', true)"
-            @blur="toggleLabel('password', false)"
-            required
-          />
-          <label for="password" :class="{ 'special-style': togglePassword }"
-            >Password</label
-          > -->
         </div>
         <div class="form-floating mb-3">
           <MDBInput
@@ -86,29 +42,12 @@
             label="Confirm Password"
             id="password_confirmation"
             v-model="password_confirmation"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="password"
-            class="form-control btn rounded-pill text-start"
-            id="password_confirmation"
-            placeholder="password_confirmation"
-            v-model="password_confirmation"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('password_confirmation', true)"
-            @blur="toggleLabel('password_confirmation', false)"
-            required
-          />
-          <label
-            for="password_confirmation"
-            :class="{ 'special-style': toggleConfirmPassword }"
-            >Confirm Password</label
-          > -->
         </div>
         <div class="d-flex align-items-start justify-content-between my-3">
-          <div class="d-flex justify-content-center ps-4 align-items-start">
-            <!-- Checkbox -->
+          <div class="d-flex justify-content-center align-items-start">
             <div
               class="form-check h-100 d-flex align-items-start justify-content-center"
             >
@@ -204,7 +143,7 @@ export default {
       }
     },
     forgotPassword() {
-      alert("Coming soon");
+      this.$router.push("/forgot-password");
     },
   },
 };

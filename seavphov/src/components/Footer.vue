@@ -93,7 +93,11 @@ export default {
   computed: {
     hideFooter() {
       if (this.$route.name) {
-        if (this.$route.name == "login" || this.$route.name == "signup") {
+        if (
+          this.$route.name == "login" ||
+          this.$route.name == "signup" ||
+          this.$route.name == "forgot-password"
+        ) {
           return false;
         } else {
           return true;

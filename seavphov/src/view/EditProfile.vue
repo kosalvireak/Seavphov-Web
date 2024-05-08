@@ -55,7 +55,7 @@
               label="Name"
               id="name"
               v-model="user.name"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>
@@ -65,7 +65,7 @@
               label="Email"
               id="email"
               v-model="user.email"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>
@@ -77,7 +77,7 @@
               label="Phone number"
               id="phone"
               v-model="user.phone"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
               required
             />
           </div>
@@ -87,7 +87,7 @@
               label="Instagram link"
               id="instagram"
               v-model="user.instagram"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
             />
           </div>
           <div class="mb-4">
@@ -96,7 +96,7 @@
               label="Facebook link"
               id="facebook"
               v-model="user.facebook"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
             />
           </div>
           <div class="mb-4">
@@ -105,7 +105,7 @@
               label="Twitter link"
               id="twitter"
               v-model="user.twitter"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
             />
           </div>
           <div class="mb-4">
@@ -114,7 +114,7 @@
               label="Telegram link"
               id="telegram"
               v-model="user.telegram"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
             />
           </div>
           <div class="mb-4">
@@ -123,7 +123,7 @@
               label="Location"
               id="location"
               v-model="user.location"
-              wrapperClass="bg-white"
+              wrapperClass="bg-white p-2"
             />
           </div>
         </div>

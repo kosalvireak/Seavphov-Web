@@ -14,22 +14,9 @@
             label="Email address"
             id="email"
             v-model="email"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="email"
-            class="form-control btn rounded-pill text-start"
-            id="email"
-            placeholder="name@example.com"
-            v-model="email"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('email', true)"
-            @blur="toggleLabel('email', false)"
-          />
-          <label for="email" :class="{ 'special-style': toggleEmail }"
-            >Email address</label
-          > -->
         </div>
         <div class="form-floating">
           <MDBInput
@@ -37,28 +24,13 @@
             label="Password"
             id="password"
             v-model="password"
-            wrapperClass="bg-white"
+            wrapperClass="bg-white p-2"
             required
           />
-          <!-- <input
-            type="password"
-            class="form-control btn rounded-pill text-start"
-            id="password"
-            placeholder="Password"
-            v-model="password"
-            style="background-color: #d9d9d9"
-            @focus="toggleLabel('password', true)"
-            @blur="toggleLabel('password', false)"
-          />
-          <label for="password" :class="{ 'special-style': togglePassword }"
-            >Password</label
-          > -->
         </div>
 
-        <!-- 2 column grid layout for inline styling -->
-        <div class="d-flex align-items-start justify-content-between my-3 px-4">
+        <div class="d-flex align-items-start justify-content-between my-3">
           <div class="d-flex justify-content-center">
-            <!-- Checkbox -->
             <div
               class="form-check h-100 d-flex align-items-start justify-content-center"
             >
@@ -78,14 +50,12 @@
           </div>
 
           <div class="text-seavphov">
-            <!-- Simple link -->
-            <label @click="forgotPassword()">Forgot password?</label>
+            <label @click="forgotPassword()" class="cursor-pointer"
+              >Forgot password?</label
+            >
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <!-- Submit button -->
-        <!-- <button v-if="!isLoading" type="submit" class="">Log in</button> -->
-        <!-- <Loader v-else :size="20" /> -->
         <button
           type="submit"
           class="btn btn-primary mt-2 d-flex-center btn_submit"
@@ -95,7 +65,6 @@
         </button>
       </form>
 
-      <!-- Register buttons -->
       <div class="text-center mt-3">
         Doesn't have an account?
         <a
@@ -154,7 +123,7 @@ export default {
       }
     },
     forgotPassword() {
-      alert("Coming soon");
+      this.$router.push("/forgot-password");
     },
   },
 };
