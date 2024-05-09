@@ -59,7 +59,7 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/auth',[AdminController::class, 'adminGetAuth']);
     Route::get('/books',[AdminController::class, 'adminGetBooks']);
     Route::get('/users',[AdminController::class, 'adminGetUsers']);
-    Route::get('/banners',[BannerController::class, 'getBanners']);
+    Route::get('/banners',[BannerController::class, 'adminGetBanners']);
     Route::post('/banners',[BannerController::class, 'postBanners']);
     Route::delete('/banners/{id}',[BannerController::class, 'deleteBanners']);
 });

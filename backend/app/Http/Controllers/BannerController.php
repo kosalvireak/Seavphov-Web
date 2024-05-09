@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
-    public function getBanners() {
+    public function adminGetBanners() {
         try {
-            $banners = Banner::all();
+        $banners = Banner::all();
            return response()->json([
                'success' => true,
                'data' => $banners,
@@ -19,11 +19,12 @@ class BannerController extends Controller
        } catch (QueryException  $exception) {
            return response()->json([
                'success' => false,
-               'message' => 'An error occurred while fetching users.',
+               'message' => 'An error occurred while fetching banners.',
                'error' => $exception->getMessage()
            ], 500);
        }
     }
+    
     public function postBanners(Request $request) {
         try {
             

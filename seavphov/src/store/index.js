@@ -201,6 +201,20 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async adminGetBanners() { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/banners',{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); // Add params to URL
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async adminGetUsers() { 
             try {
                 const response = await axiosInstance.get(backend_url + '/api/admin/users',{

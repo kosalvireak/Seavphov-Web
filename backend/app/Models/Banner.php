@@ -15,7 +15,4 @@ class Banner extends Model
         'link_url',
         'order_priority',
     ];
-    protected $hidden = [
-        'id',
-    ];
 }

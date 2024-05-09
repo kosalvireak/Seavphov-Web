@@ -1,6 +1,6 @@
 
 <template>
-  <div class="Users w-100 p-5">
+  <div class="Users w-100 p-2 p-lg-5">
     <EasyDataTable
       :server-items-length="serverItemsLength"
       :headers="headers"

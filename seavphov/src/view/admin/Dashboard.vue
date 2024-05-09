@@ -1,5 +1,8 @@
 <template>
-  <div v-if="isAdmin" class="Dashboard container-xl w-100 h-100 row p-0 m-0">
+  <div
+    v-if="isAdmin"
+    class="Dashboard container-xl w-100 h-100 row p-0 m-0 mt-0"
+  >
     <div class="Dashboard_left col-2 bg-white text-black p-0">
       <LeftSidePanel />
     </div>
@@ -18,12 +21,20 @@
   <script>
 import Books from "../../components/admin/Books.vue";
 import Users from "../../components/admin/Users.vue";
+import Banners from "../../components/admin/Banners.vue";
 import LeftSidePanel from "../../components/admin/LeftSidePanel.vue";
 import AdminNav from "../../components/admin/AdminNav.vue";
 import DashboardOverview from "./DashboardOverview.vue";
 export default {
   name: "Dashboard",
-  components: { DashboardOverview, AdminNav, LeftSidePanel, Users, Books },
+  components: {
+    DashboardOverview,
+    AdminNav,
+    LeftSidePanel,
+    Users,
+    Books,
+    Banners,
+  },
   data() {
     return {
       componentsKey: null,
@@ -49,6 +60,9 @@ export default {
         } else if (this.$route.name === "admin.books") {
           this.componentsKey = 3;
           return Books;
+        } else if (this.$route.name === "admin.banners") {
+          this.componentsKey = 4;
+          return Banners;
         }
       }
     },
@@ -69,6 +83,7 @@ export default {
 .Dashboard {
   min-height: 100vh;
   min-width: 100%;
+  margin-top: 0px !important;
 }
 .Dashboard_right {
   min-height: 100vh;

@@ -11,6 +11,7 @@ import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
 import Dashboard from '../view/admin/Dashboard.vue'
 import Users from '../components/admin/Users.vue'
+import Banners from '../components/admin/Banners.vue'
 import Books from '../components/admin/Books.vue'
 import ForgotPassword from '../view/ForgotPassword.vue'
 import { getCookie } from "../store/cookieUtils.js"
@@ -101,6 +102,12 @@ const router = createRouter({
                     path: 'books',
                     name: 'admin.books',
                     component: Books,
+                    meta: {  requiredAdminAuth: true},
+                  },
+                {
+                    path: 'banners',
+                    name: 'admin.banners',
+                    component: Banners,
                     meta: {  requiredAdminAuth: true},
                   },
               ]

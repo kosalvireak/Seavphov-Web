@@ -30,6 +30,10 @@
         <i class="fa fa-book fa-xl ms-3"></i>
         Books
       </li>
+      <li class="text-sm" @click="toRoute('admin.banners')">
+        <i class="fa fa-th-large fa-xl ms-3"></i>
+        Banners
+      </li>
     </ul>
   </section>
 </template>
@@ -46,10 +50,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.LeftSidePanel {
+  min-width: 82px !important;
+}
 li {
   color: black !important;
   font-size: small;
   padding: 15px;
+  cursor: pointer;
 }
 li:hover {
   background-color: #37aba39a !important;

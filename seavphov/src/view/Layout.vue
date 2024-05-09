@@ -3,7 +3,7 @@
 <template>
   <section>
     <div
-      v-if="isNotAdminRoute"
+      v-if="!isAdminRoute"
       class="d-flex-center flex-column bg-white m-0 p-0"
       style="max-height: 4000px"
     >
@@ -32,16 +32,14 @@ export default {
   components: { Footer, Nav, Dashboard },
   data() {
     return {
-      isNotAdminRoute: true,
+      isAdminRoute: false,
     };
   },
   mounted() {
     if (this.$route.name) {
       const admin = this.$route.name.startsWith("admin");
       if (admin) {
-        this.isNotAdminRoute = true;
-      } else {
-        this.isNotAdminRoute = false;
+        this.isAdminRoute = true;
       }
     }
   },

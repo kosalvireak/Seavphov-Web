@@ -163,7 +163,8 @@ export default {
         if (
           this.$route.name == "login" ||
           this.$route.name == "signup" ||
-          this.$route.name == "forgot-password"
+          this.$route.name == "forgot-password" ||
+          this.$route.name.startsWith("admin")
         ) {
           return false;
         } else {
