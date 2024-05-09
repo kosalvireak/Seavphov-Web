@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthorization;
@@ -58,4 +59,7 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/auth',[AdminController::class, 'adminGetAuth']);
     Route::get('/books',[AdminController::class, 'adminGetBooks']);
     Route::get('/users',[AdminController::class, 'adminGetUsers']);
+    Route::get('/banners',[BannerController::class, 'getBanners']);
+    Route::post('/banners',[BannerController::class, 'postBanners']);
+    Route::delete('/banners/{id}',[BannerController::class, 'deleteBanners']);
 });

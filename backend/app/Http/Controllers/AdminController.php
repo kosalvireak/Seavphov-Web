@@ -12,7 +12,6 @@ class AdminController extends Controller
     public function adminGetBooks(){
         try {
              $books = Book::all();
-
             return response()->json([
                 'success' => true,
                 'data' => $books,
