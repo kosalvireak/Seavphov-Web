@@ -147,6 +147,10 @@ table {
   height: 60% !important;
 }
 
+.w-60{
+  width: 60% !important;
+}
+
 .hover-zoom img {
   transition: transform 0.4s ease;
 }
@@ -200,4 +204,10 @@ table {
 }
 img{
   image-rendering: crisp-edges !important;
+}
+
+@media (max-width: 768px) {
+  .w-60{
+    width: 100% !important;
+  }
 }
