@@ -121,9 +121,9 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchOtherUserProfile({},username){
+        async fetchOtherUserProfile({},uuid){
             try {
-                const response = await axiosInstance.get(backend_url + "/api/user/" + username, {
+                const response = await axiosInstance.get(backend_url + "/api/user/" + uuid, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -236,7 +236,7 @@ const store = createStore({
             try {
                 const response = await axiosInstance.get(backend_url + "/api/books/" + id)
                 if (response.data.success) {
-                    return [response.data.book, response.data.author];
+                    return [response.data.book, response.data.owner];
                 }
             } catch (error) {
                 toast.error(error.response.data.message);

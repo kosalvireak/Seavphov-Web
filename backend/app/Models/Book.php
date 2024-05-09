@@ -22,7 +22,9 @@ class Book extends Model
 
     public function owner()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        $user = $this->belongsTo(User::class, 'owner_id')->first();
+        $user->makeHidden([ 'email','api_token','remember_token','created_at']);
+        return $user;
     }
 
     public function savedByUsers()

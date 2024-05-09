@@ -8,8 +8,8 @@
         <div
           class="d-flex justify-content-start flex-row align-items-center w-100"
         >
-          <img :src="author.picture" class="profile_image" alt="not found" />
-          <h5 class="font-Roboto ms-3">{{ author.name }}</h5>
+          <img :src="owner.picture" class="profile_image" alt="not found" />
+          <h5 class="font-Roboto ms-3">{{ owner.name }}</h5>
         </div>
       </a>
     </div>
@@ -23,23 +23,24 @@
         <div class="d-flex flex-row my-2 mx-3">
           <span><i class="fas fa-phone fa-lg me-1"></i></span>
           <h5 class="ml-5" style="font-size: 18px; margin-top: 2.5px">
-            {{ author.phone }}
+            {{ owner.phone }}
           </h5>
         </div>
 
         <!-- Social Media Button -->
         <SocialMediaList
-          :facebook="author.facebook"
-          :instagram="author.instagram"
-          :telegram="author.telegram"
-          :twitter="author.twitter"
+          :facebook="owner.facebook"
+          :instagram="owner.instagram"
+          :telegram="owner.telegram"
+          :twitter="owner.twitter"
         />
         <hr class="custom-hr d-flex mx-4 justify-content-center" />
 
         <!-- Location-->
         <h4 class="mx-3 mt-3 font-Roboto">Location</h4>
         <h5 class="ml-5 my-2 mx-3" style="font-size: 18px; margin-top: 2.5px">
-          <span><i class="fas fa-map-pin fa-lg me-1"></i></span>{{ author.location }}
+          <span><i class="fas fa-map-pin fa-lg me-1"></i></span
+          >{{ owner.location }}
         </h5>
         <div class="location d-flex flex-wrap flex-column my-1 mx-3">
           <!-- Map -->
@@ -67,7 +68,7 @@ export default {
   name: "BookAuthorProfile",
   components: { SocialMediaList },
   props: {
-    author: Object,
+    owner: Object,
   },
   data() {
     return {
@@ -77,13 +78,12 @@ export default {
   methods: {
     getUserProfileUrl(newAuthor) {
       if (newAuthor) {
-        const email = newAuthor.email;
-        this.profileUrl = `/profile/${email.split("@")[0]}`;
+        this.profileUrl = `/profile/${newAuthor.uuid}`;
       }
     },
   },
   watch: {
-    author: {
+    owner: {
       handler(newAuthor, oldAuthor) {
         if (newAuthor) {
           this.getUserProfileUrl(newAuthor);

@@ -67,9 +67,9 @@ class UserController extends Controller
         }
     }
 
-    public function getUser(Request $request,$userName){
+    public function getUser(Request $request,$uuid){
         try{
-            $user = collect(User::where('email','like',$userName.'%') -> first());
+            $user = collect(User::where('uuid',$uuid) -> first());
             $filteredData = $user->except(['email','api_token','remember_token']);
             
             return response()->json([

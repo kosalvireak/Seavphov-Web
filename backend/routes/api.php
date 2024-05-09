@@ -42,7 +42,7 @@ Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(fun
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('{userName}',[UserController::class,'getUser']);
+    Route::get('{uuid}',[UserController::class,'getUser']);
     Route::post('login', [LoginController::class, 'login']);
     Route::post('register', [RegisterController::class, 'register']);
 });

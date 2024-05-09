@@ -19,7 +19,7 @@
 
             <div class="h-50 BookDetailButtom">
               <p class="book_author my-2 mt-0">
-                <u class="fw-bold text-black">Author</u>: {{ book.author }}
+                <u class="fw-bold text-black">Author</u>: {{ book.owner }}
               </p>
               <p class="book_category my-2">
                 <u class="fw-bold text-black">Category</u>:
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Right Container -->
-      <BookAuthorProfile v-if="author" :author="author" />
+      <BookAuthorProfile v-if="owner" :owner="owner" />
     </div>
     <div class="RelatedBooks mt-5">
       <hr />
@@ -92,7 +92,7 @@ export default {
       filters: {
         categories: "",
       },
-      author: {},
+      owner: {},
       isLoading: false,
       issaved: true,
     };
@@ -100,10 +100,7 @@ export default {
   methods: {
     async getBook(id) {
       this.isLoading = true;
-      [this.book, this.author] = await this.$store.dispatch(
-        "fetchBookById",
-        id
-      );
+      [this.book, this.owner] = await this.$store.dispatch("fetchBookById", id);
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",

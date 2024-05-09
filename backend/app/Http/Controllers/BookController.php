@@ -98,12 +98,13 @@ class BookController extends Controller
     {
         try {
             
-            $book = Book::with('owner')->findOrFail($bookId);
-
+            $book = Book::findOrFail($bookId);
+            $book->makeHidden(['owner_id','updated_at','created_at']);
+            
             return response()->json([
                 'success' => true,
                 'book' => $book,
-                'author' => $book->owner,
+                'owner' => $book->owner(),
             ], 200);
         } catch (ModelNotFoundException  $exception) {
             return response()->json([

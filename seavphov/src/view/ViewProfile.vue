@@ -38,11 +38,8 @@ export default {
   async mounted() {
     this.isLoadingProfile = true;
     this.isLoading = true;
-    const username = this.$route.params.username;
-    const response = await this.$store.dispatch(
-      "fetchOtherUserProfile",
-      username
-    );
+    const uuid = this.$route.params.uuid;
+    const response = await this.$store.dispatch("fetchOtherUserProfile", uuid);
     this.User.uuid = response.uuid;
     this.filters.uuid = response.uuid;
     this.getBooks();
