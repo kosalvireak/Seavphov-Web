@@ -49,7 +49,6 @@ export default {
     async adminGetUsers() {
       this.isLoading = true;
       this.users = await this.$store.dispatch("adminGetUsers");
-      console.log("adminGetUsers", this.users);
       this.serverItemsLength = this.users.length;
       this.isLoading = false;
     },

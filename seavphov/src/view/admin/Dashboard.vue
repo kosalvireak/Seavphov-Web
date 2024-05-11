@@ -1,19 +1,24 @@
 <template>
   <div
-    v-if="isAdmin"
-    class="Dashboard container-xl w-100 h-100 row p-0 m-0 mt-0"
+    class="Admin Dashboard container-xl w-100 h-100 p-0 m-0 mt-0 d-flex-center"
   >
-    <div class="Dashboard_left col-2 bg-white text-black p-0">
-      <LeftSidePanel />
-    </div>
-    <div class="Dashboard_right col-10 bg-seavphov-light m-0 p-0">
-      <AdminNav />
-      <component
-        :is="renderComponent"
-        v-if="showDashboard"
-        :key="componentsKey"
-      />
-      <DashboardOverview v-else />
+    <Loader v-if="isLoading" />
+    <div
+      v-if="isAdmin"
+      class="Dashboard container-xl w-100 h-100 row p-0 m-0 mt-0"
+    >
+      <div class="Dashboard_left col-2 bg-white text-black p-0">
+        <LeftSidePanel />
+      </div>
+      <div class="Dashboard_right col-10 bg-seavphov-light m-0 p-0">
+        <AdminNav />
+        <component
+          :is="renderComponent"
+          v-if="showDashboard"
+          :key="renderComponent"
+        />
+        <DashboardOverview v-else />
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +30,7 @@ import Banners from "../../components/admin/Banners.vue";
 import LeftSidePanel from "../../components/admin/LeftSidePanel.vue";
 import AdminNav from "../../components/admin/AdminNav.vue";
 import DashboardOverview from "./DashboardOverview.vue";
+import Loader from "../../components/Loader.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -34,11 +40,12 @@ export default {
     Users,
     Books,
     Banners,
+    Loader,
   },
   data() {
     return {
-      componentsKey: null,
       isAdmin: false,
+      isLoading: false,
     };
   },
   computed: {
@@ -54,24 +61,26 @@ export default {
     },
     renderComponent() {
       if (this.$route.name) {
+        this.isLoading = true;
         if (this.$route.name === "admin.users") {
-          this.componentsKey = 2;
+          this.isLoading = false;
           return Users;
         } else if (this.$route.name === "admin.books") {
-          this.componentsKey = 3;
+          this.isLoading = false;
           return Books;
         } else if (this.$route.name === "admin.banners") {
-          this.componentsKey = 4;
+          this.isLoading = false;
           return Banners;
         }
       }
     },
   },
   async mounted() {
-    console.log("hello from admin");
+    this.isLoading = true;
     const auth = await this.$store.dispatch("adminGetAuth");
     if (auth) {
       this.isAdmin = true;
+      this.isLoading = false;
     } else {
       this.$router.push("/home");
     }

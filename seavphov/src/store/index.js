@@ -207,7 +207,7 @@ const store = createStore({
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
-                }); // Add params to URL
+                }); 
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -243,6 +243,23 @@ const store = createStore({
                     return false;
                 }
             } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async adminAddBanner({},formData) {
+            try {
+                const response = await axiosInstance.post(backend_url + "/api/admin/banners/", formData, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                toast.success(response.data.message);
+                if (response.data.success) {
+                    return response.data.success;
+                } 
+            } catch (error) {
+                console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
             }
         },

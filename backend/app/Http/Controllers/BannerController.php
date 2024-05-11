@@ -30,13 +30,11 @@ class BannerController extends Controller
             
             $validatedData = $request->validate([
                 'title' => 'required|string',
-                'author' => 'required|string',
-                'categories' => 'required|string',
-                'condition' => 'required|string',
-                'descriptions' => 'required|string',
-                'availability' => 'required|int',
-                'images' => 'required|string',
+                'order_priority' => 'required|int',
+                'image_url' => 'required|string',
+                'link_url' => 'nullable|string',
             ]);
+            
             Banner::create($validatedData);
             
             return response()->json([

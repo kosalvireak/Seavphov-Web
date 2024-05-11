@@ -2,26 +2,17 @@
   <div
     class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2"
   >
-  <div class="d-flex-center align-items-center justify-content-between me-5">
-    <span class="justify-content-left">
-        <i
-          @click="switchPage()"
-          class="fa fa-arrow-left fa-xl cursor-pointer"
-        ></i>
-      </span>
-
-    <div
-      class="d-flex align-items-center justify-content-center logo col-md-2 col-sm-4"
-    >
-      <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid " />
+    <span class="w-100 my-3 ms-4">
+      <i
+        @click="switchPage()"
+        class="fa fa-arrow-left fa-xl cursor-pointer"
+      ></i>
+    </span>
+    <div class="d-flex-center">
+      <img src="/img/book.png" alt="booklogo" class="logo_img img-fluid" />
     </div>
 
-    <span></span>
-  </div>
-
-    <div
-      class="ForgotPassword_top d-flex-center"
-    >
+    <div class="ForgotPassword_top d-flex-center">
       <h2 class="mt-2">Forgot Password</h2>
     </div>
 
@@ -29,9 +20,7 @@
       v-if="page == 1"
       class="SendEmailForm d-flex-center flex-column mb-7 w-60"
     >
-      <h6 class="my-3">
-        Enter your email address
-      </h6>
+      <h6 class="my-3">Enter your email address</h6>
       <form v-on:submit.prevent="SendEmail()" class="w-100">
         <div class="form-floating mb-3">
           <MDBInput
@@ -45,10 +34,7 @@
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
         <div class="form-floating d-flex-center justify-content-end">
-          <button
-            type="submit"
-            class="btn mt-2 d-flex-center btn_submit"
-          >
+          <button type="submit" class="btn mt-2 d-flex-center btn_submit">
             <span v-if="!isLoading">Next</span>
             <Loader v-else :size="20" :Color="'#FFFFFF'" />
           </button>
@@ -201,13 +187,15 @@ export default {
 .btn_submit {
   width: 80px;
   height: 40px;
-  background-color:#5c836e;
-  color:#FFFFFF;
+  background-color: #5c836e;
+  color: #ffffff;
 }
 
 .btn_submit:hover {
   background-color: #444;
 }
-
-
+.logo_img {
+  width: 140px;
+  height: auto;
+}
 </style>
