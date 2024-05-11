@@ -2,26 +2,36 @@
   <div
     class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2"
   >
-    <div
-      class="ForgotPassword_top border-bottom d-flex-center justify-content-between"
-    >
-      <span>
+  <div class="d-flex-center align-items-center justify-content-between me-5">
+    <span class="justify-content-left">
         <i
           @click="switchPage()"
-          class="fa fa-arrow-circle-left fa-xl ms-3 cursor-pointer"
+          class="fa fa-arrow-left fa-xl cursor-pointer"
         ></i>
       </span>
-      <h2 class="mt-2 me-3">Forgot Password</h2>
-      <span></span>
+
+    <div
+      class="d-flex align-items-center justify-content-center logo col-md-2 col-sm-4"
+    >
+      <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid " />
+    </div>
+
+    <span></span>
+  </div>
+
+    <div
+      class="ForgotPassword_top d-flex-center"
+    >
+      <h2 class="mt-2">Forgot Password</h2>
     </div>
 
     <div
       v-if="page == 1"
       class="SendEmailForm d-flex-center flex-column mb-7 w-60"
     >
-      <h5 class="my-3">
-        Enter your email address we will send a token for reset your password.
-      </h5>
+      <h6 class="my-3">
+        Enter your email address
+      </h6>
       <form v-on:submit.prevent="SendEmail()" class="w-100">
         <div class="form-floating mb-3">
           <MDBInput
@@ -37,9 +47,9 @@
         <div class="form-floating d-flex-center justify-content-end">
           <button
             type="submit"
-            class="btn btn-primary mt-2 d-flex-center btn_submit"
+            class="btn mt-2 d-flex-center btn_submit"
           >
-            <span v-if="!isLoading">Send</span>
+            <span v-if="!isLoading">Next</span>
             <Loader v-else :size="20" :Color="'#FFFFFF'" />
           </button>
         </div>
@@ -191,5 +201,13 @@ export default {
 .btn_submit {
   width: 80px;
   height: 40px;
+  background-color:#5c836e;
+  color:#FFFFFF;
 }
+
+.btn_submit:hover {
+  background-color: #444;
+}
+
+
 </style>

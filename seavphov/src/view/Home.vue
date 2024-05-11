@@ -1,4 +1,6 @@
 <template>
+
+  <!--Homepage Image -->
   <div class="w-100 h-100">
     <div class="container-sm d-flex-center my-3" style="width: 100%">
       <img
@@ -7,6 +9,8 @@
         style="max-height: 400px; object-fit: cover; width: 100%"
       />
     </div>
+
+    <!-- Filter -->
     <Filter class="container-sm" />
     <!-- <div class="mt-3 row">
       <PaginatedBook />

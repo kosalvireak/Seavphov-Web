@@ -1,8 +1,15 @@
 <template>
   <div class="Login row p-3 m-0">
+      <span>
+        <i
+          @click="redirectHome()"
+          class="fa fa-arrow-left fa-xl ms-3 cursor-pointer"
+        ></i>
+      </span>
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >
+  
       <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid" />
     </div>
     <div class="container col-md-6 col-sm-12">
@@ -124,6 +131,9 @@ export default {
     },
     forgotPassword() {
       this.$router.push("/forgot-password");
+    },
+    redirectHome(){
+      this.$router.push("/home");
     },
   },
 };
