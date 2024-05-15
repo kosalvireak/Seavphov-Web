@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use PharIo\Manifest\Email;
 
 class UserController extends Controller
 {
@@ -85,5 +90,77 @@ class UserController extends Controller
             ], 500);
         }
        
+    }
+    public function sendEmailResetPassword(Request $request){
+        try{
+            $email = $request->get('email');
+            
+            $user = User::where('email',$email)->first();
+            
+            if($user){
+                
+                $token =  random_int(100000, 999999);
+                
+                DB::table('password_reset_tokens')->insert([
+                    'email' => $user->email,
+                    'token' => $token,
+                    'created_at' => Carbon::now()
+                ]);
+
+                Mail::send('email.forgot-password',['token' => $token], function ($message) use ($user){
+                    $message->to($user->email);
+                    $message->subject("Reset password Token");
+                });
+                                
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully send token to your email.',
+            ], 200);
+        }   catch(Exception $exception){
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+    public function resetPassword(Request $request){
+        try{
+            $validatedData = $request->validate([
+                'email' => 'required|string|email|',
+                'password' => 'required|string|min:6|confirmed',
+                'password_confirmation' => 'required',
+            ]);
+            
+            $isResetExist = DB::table('password_reset_tokens')
+            ->where([
+                'email'=>$request->get('email')
+            ])->first();    
+                
+            if( $isResetExist->token != $request->get('token')){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Token do not match!',
+                ], 400);
+            }
+                
+            User::where('email',$request->get('email'))
+            ->update(['password' => bcrypt($validatedData['password'])]);
+                            
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully update password.',
+                ], 200);
+                                
+            
+            
+        }   catch(Exception $exception){
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
 }

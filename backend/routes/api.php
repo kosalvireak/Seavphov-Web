@@ -63,3 +63,8 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::post('/banners',[BannerController::class, 'postBanners']);
     Route::delete('/banners/{id}',[BannerController::class, 'deleteBanners']);
 });
+
+Route::prefix('reset')->group(function(){
+    Route::post('/',[UserController::class,'resetPassword']);
+    Route::post('/send',[UserController::class,'sendEmailResetPassword']);
+});

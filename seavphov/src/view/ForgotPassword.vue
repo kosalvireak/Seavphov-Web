@@ -27,7 +27,7 @@
             type="email"
             label="Email"
             id="email"
-            v-model="email"
+            v-model="sendEmail"
             wrapperClass="bg-white p-2"
             required
           />
@@ -36,7 +36,7 @@
         <div class="form-floating d-flex-center justify-content-end">
           <button type="submit" class="btn mt-2 d-flex-center btn_submit">
             <span v-if="!isLoading">Next</span>
-            <Loader v-else :size="20" :Color="'#FFFFFF'" />
+            <Loader v-else :size="15" :Color="'#FFFFFF'" />
           </button>
         </div>
       </form>
@@ -114,7 +114,7 @@
             class="btn btn-primary mt-2 d-flex-center btn_submit"
           >
             <span v-if="!isLoading">Reset</span>
-            <Loader v-else :size="20" :Color="'#FFFFFF'" />
+            <Loader v-else :size="15" :Color="'#FFFFFF'" />
           </button>
         </div>
       </form>
@@ -131,28 +131,39 @@ export default {
   components: { Loader, MDBInput },
   data() {
     return {
-      email: "virakvary@gmail.com",
-      token: "1234",
-      password: "12345678",
-      password_confirmation: "12345678",
+      sendEmail: "vary@gmail.com",
+      email: "conrad.tremblay@bayer.com",
+      token: "452286",
+      password: "1122334455",
+      password_confirmation: "1122334455",
       isLoading: false,
       Error: false,
       errorMessage: "",
       isShowPassword: false,
-      page: "1",
+      page: "2",
     };
   },
   methods: {
     async SendEmail() {
+      this.isLoading = true;
+      const formData = new FormData();
+      formData.append("email", this.sendEmail);
+      await this.$store.dispatch("sendEmailResetPassword", formData);
+      this.isLoading = false;
       this.page = 2;
-      //.isLoading = true;
-      // await this.$store.dispatch("registerUser", signupData);
-      //this.isLoading = false;
     },
     async SendResetPassword() {
-      if (this.page == 2) {
-        this.$router.push("/login");
-      }
+      this.isLoading = true;
+      const formData = new FormData();
+      formData.append("email", this.email);
+      formData.append("token", this.token);
+      formData.append("password", this.password);
+      formData.append("password_confirmation", this.password_confirmation);
+      await this.$store.dispatch("resetPassword", formData);
+      this.isLoading = false;
+      // if (this.page == 2) {
+      //   this.$router.push("/login");
+      // }
     },
     showPassword() {
       if (this.isShowPassword) {

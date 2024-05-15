@@ -393,6 +393,39 @@ const store = createStore({
             } catch (error) {
                 toast.error(error.response.data.message);
             }
+        },        
+        async sendEmailResetPassword({},formData) {
+            try {
+                const response = await axiosInstance.post(backend_url + "/api/reset/send", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("response", response)
+                if (response.data.success) {
+                    
+                    toast.success(response.data.message);
+                 }
+            } catch (error) {
+                console.error("Error sending email", error);
+                toast.error(error.response.data.message);
+            }
+        },
+        async resetPassword({},formData) {
+            try {
+                const response = await axiosInstance.post(backend_url + "/api/reset/", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("response", response)
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                 }
+            } catch (error) {
+                console.error("Error reset password", error);
+                toast.error(error.response.data.message);
+            }
         },
 
     },
