@@ -9,41 +9,42 @@ use Illuminate\Http\Request;
 
 class UserBookController extends Controller
 {
-    public function saveBook(Request $request, $bookId)
-    {
-        try {
+    public function saveBook (Request $request, $bookId){
+        try{
             $user = $request->attributes->get('user');
-
+            
             $book = Book::find($bookId);
 
-            if (!$book) {
+            if(!$book){
                 return response()->json([
                     'success' => false,
                     'message' => 'Book not found!',
                 ], 404);
             }
-
+            
             $user->savedBooks()->attach($bookId);
-
+            
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully save "' . $book->title . '"',
+                'message' => 'Successfully save '.$book->title,
             ], 201);
+            
+                    
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'Internal Server Error',
             ], 500);
         }
+      
     }
-    public function getSaveBook(Request $request)
-    {
+    public function getSaveBook (Request $request){
         try {
-
+            
             $user = $request->attributes->get('user');
-
+            
             $savedBooks = $user->savedBooks;
-
+        
             return response()->json([
                 'success' => true,
                 'message' => $savedBooks,
@@ -58,25 +59,26 @@ class UserBookController extends Controller
     }
     public function removeBook(Request $request, $bookId)
     {
-        try {
+        try{
+            
+        $user = $request->attributes->get('user');
 
-            $user = $request->attributes->get('user');
+        $book = Book::find($bookId);
 
-            $book = Book::find($bookId);
-
-            if (!$book) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Book not found!',
-                ], 404);
-            }
-
-            $user->savedBooks()->detach($bookId);
-
+        if(!$book){
             return response()->json([
-                'success' => true,
-                'message' => 'Remove from Saved',
-            ], 201);
+                'success' => false,
+                'message' => 'Book not found!',
+            ], 404);
+        }
+
+        $user->savedBooks()->detach($bookId);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book removed successfully',
+        ], 201);
+    
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,

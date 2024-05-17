@@ -1,9 +1,15 @@
 <template>
   <div class="container-sm">
     <div class="row">
-      <div class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 bg-seavphov-light ps-3">
+      <div
+        class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 bg-seavphov-light ps-3"
+      >
         <div class="d-flex h-top row me-0">
-          <img :src="book.images" class="book_cover img-fluid col-5 h-100 p-3" alt="book cover" />
+          <img
+            :src="book.images"
+            class="book_cover img-fluid col-5 h-100 p-3"
+            alt="book cover"
+          />
           <div class="col-7 px-lg-4 px-sm-1 h-100">
             <div class="title_div h-50 overflow-auto">
               <p class="book_title font-Roboto mt-3">
@@ -25,22 +31,40 @@
               </p>
 
               <!-- Bookmark -->
-              <button class="border-0 my-1 bg-seavphov-light p-0" v-if="isLogin">
-                <Loader v-if="isLoading1" :size="10" :Color="'#000000'" id="1" />
-                <div v-else>
-                  <i class="fa-solid fa-bookmark fa-2xl" style="color: yellow" v-if="book.issaved"
-                    @click="onSaveBook(false)"></i>
-                  <i class="fa-regular fa-bookmark fa-2xl" style="color: darkgrey" v-else @click="onSaveBook(true)"></i>
+              <button
+                class="border-0 my-1 bg-seavphov-light p-0"
+                v-if="isLogin"
+              >
+                <Loader v-if="isLoading1" :size="10" :Color="'#000000'" />
+                <div v-if="!isLoading1">
+                  <i
+                    class="fa-solid fa-bookmark fa-2xl"
+                    style="color: yellow"
+                    v-if="book.issaved"
+                    @click="onSaveBook(false)"
+                  ></i>
+                  <i
+                    class="fa-regular fa-bookmark fa-2xl"
+                    style="color: darkgrey"
+                    v-else
+                    @click="onSaveBook(true)"
+                  ></i>
                 </div>
               </button>
             </div>
           </div>
         </div>
         <div class="pe-3 h-buttom">
-          <h3 class="d-flex ps-1 font-Roboto" style="color: black; font-weight: bold">
+          <h3
+            class="d-flex ps-1 font-Roboto"
+            style="color: black; font-weight: bold"
+          >
             Description
           </h3>
-          <div class="d-flex overflow-auto mx-1 my-1" style="width: 100%; height: 120px">
+          <div
+            class="d-flex overflow-auto mx-1 my-1"
+            style="width: 100%; height: 120px"
+          >
             <p>
               {{ book.descriptions }}
             </p>
@@ -101,17 +125,13 @@ export default {
     },
     onSaveBook(bool) {
       this.isLoading1 = true;
-      console.log("isLoading1", this.isLoading1);
       if (bool) {
         this.$store.dispatch("saveBook", this.paramsId);
-        this.book.issaved = true;
         this.isLoading1 = false;
       } else {
         this.$store.dispatch("unSaveBook", this.paramsId);
-        this.book.issaved = false;
         this.isLoading1 = false;
       }
-
     },
   },
   computed: {
@@ -143,8 +163,7 @@ export default {
   overflow: visible;
   text-overflow: ellipsis;
 }
-
-.title_div>p {
+.title_div > p {
   overflow: visible;
 }
 
@@ -172,18 +191,16 @@ export default {
 .btn:focus,
 .btn:active,
 .btn.active,
-.open>.dropdown-toggle.btn {
+.open > .dropdown-toggle.btn {
   color: black;
   background-color: #588157;
   border-color: black;
   opacity: 0.75;
   /*set the color you want here*/
 }
-
 u {
   text-decoration: none;
 }
-
 .custom-hr {
   height: 2px;
   background-color: black;
@@ -192,7 +209,6 @@ u {
 .h-top {
   height: 70%;
 }
-
 .h-buttom {
   height: 30%;
 }
@@ -202,35 +218,28 @@ u {
     max-width: 200px;
     height: 300px;
   }
-
   .book_title {
     font-size: 30px;
   }
-
   .h-top {
     height: 60%;
   }
-
   .h-buttom {
     height: 40%;
   }
-
   .LeftSide {
     height: 500px;
   }
 }
-
 @media (max-width: 576px) {
   .book_cover {
     max-width: 200px;
     max-height: 250px;
   }
-
   .book_title {
     font-size: 20px;
     height: 40%;
   }
-
   .BookDetailButtom {
     height: 60%;
   }
