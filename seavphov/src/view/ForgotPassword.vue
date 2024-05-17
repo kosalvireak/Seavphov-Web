@@ -140,7 +140,7 @@ export default {
       Error: false,
       errorMessage: "",
       isShowPassword: false,
-      page: "2",
+      page: "1",
     };
   },
   methods: {
@@ -161,9 +161,9 @@ export default {
       formData.append("password_confirmation", this.password_confirmation);
       await this.$store.dispatch("resetPassword", formData);
       this.isLoading = false;
-      // if (this.page == 2) {
-      //   this.$router.push("/login");
-      // }
+      if (this.page == 2) {
+        this.$router.push("/login");
+      }
     },
     showPassword() {
       if (this.isShowPassword) {

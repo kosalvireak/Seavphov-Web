@@ -263,9 +263,14 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBookById({},id) {
+        async fetchBookById({},formData) {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/books/" + id)
+                let id = formData.get("id");
+                const response = await axiosInstance.post(backend_url + "/api/books/" + id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
                 if (response.data.success) {
                     return [response.data.book, response.data.owner];
                 }

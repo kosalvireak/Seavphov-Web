@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -94,12 +95,24 @@ class BookController extends Controller
         }
     }
 
-    public function show($bookId)
+    public function fetchBookById(Request $request, $bookId)
     {
         try {
             
             $book = Book::findOrFail($bookId);
+
             $book->makeHidden(['owner_id','updated_at','created_at']);
+
+            $uuid = $request->get('uuid');
+            
+            $issaved = false;
+            
+            if($uuid){
+                $user = User::where('uuid',$uuid)->first();
+                $savedBooks = $user->savedBooks;
+                $issaved = $savedBooks->contains('id',$bookId);
+            }
+            $book->issaved = $issaved;
             
             return response()->json([
                 'success' => true,

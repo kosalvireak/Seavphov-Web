@@ -102,12 +102,20 @@ export default {
       isLoading: false,
       isLoading1: false,
       issaved: true,
+      formData: new FormData(),
     };
   },
   methods: {
     async getBook(id) {
       this.isLoading = true;
-      [this.book, this.owner] = await this.$store.dispatch("fetchBookById", id);
+      this.formData.append("id", id);
+      if (this.isLogin) {
+        this.formData.append("uuid", this.$store.state.user.uuid);
+      }
+      [this.book, this.owner] = await this.$store.dispatch(
+        "fetchBookById",
+        this.formData
+      );
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
