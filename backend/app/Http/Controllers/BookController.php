@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    public function index(Request $request)
+    public function fetchBooksWithFilter(Request $request)
     {
         $query = Book::query(); // Start with a base query
 
@@ -23,7 +23,7 @@ class BookController extends Controller
         $uuid = $request->get('uuid');
 
         if ($title) {
-            $query->where('title', $title); // Filter by title
+            $query->where('title', 'like', '%' . $title . '%'); // Filter by title
         }
         if ($categories) {
             $query->where('categories', $categories); // Filter by categories
@@ -35,6 +35,7 @@ class BookController extends Controller
             $user = User::where('uuid',$uuid)->first();
             $query->where('owner_id', $user->id); // Filter by uuid
         }
+        
         $books = $query->paginate(10); // Apply pagination 
 
         try {
@@ -107,10 +108,12 @@ class BookController extends Controller
             
             $issaved = false;
             
-            if($uuid){
+            if($uuid!=null){
                 $user = User::where('uuid',$uuid)->first();
                 $savedBooks = $user->savedBooks;
-                $issaved = $savedBooks->contains('id',$bookId);
+                if($savedBooks){
+                    $issaved = $savedBooks->contains('id',$bookId);
+                }
             }
             $book->issaved = $issaved;
             

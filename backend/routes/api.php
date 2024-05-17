@@ -30,7 +30,7 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
 });
 
 Route::prefix('books')->group(function () {
-    Route::get('',  [BookController::class, 'index']);
+    Route::get('',  [BookController::class, 'fetchBooksWithFilter']);
     Route::post('{bookId}',  [BookController::class, 'fetchBookById']);
     Route::post('', [BookController::class, 'store'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);

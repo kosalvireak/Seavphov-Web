@@ -5,7 +5,6 @@
     <div
       v-if="!isAdminRoute"
       class="d-flex-center flex-column bg-white m-0 p-0"
-      style="max-height: 4000px"
     >
       <Nav />
 

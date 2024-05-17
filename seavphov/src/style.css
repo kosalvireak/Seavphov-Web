@@ -146,6 +146,10 @@ table {
   height: 60% !important;
 }
 
+.mh-100{
+  min-height: 100vh;
+}
+
 .w-60{
   width: 60% !important;
 }

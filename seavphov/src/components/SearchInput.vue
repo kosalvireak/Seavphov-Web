@@ -9,7 +9,7 @@
         id="search"
         name="search"
         placeholder="Search..."
-        v-model="inputText"
+        v-model="keyword"
       />
       <button type="submit">Search</button>
     </form>
@@ -21,13 +21,12 @@ export default {
   name: "SearchInput",
   data() {
     return {
-      inputText: "",
+      keyword: "",
     };
   },
   methods: {
     SearchBooks() {
-      this.$store.dispatch("addSearchWord", this.inputText);
-      this.$router.push("/search");
+      this.$router.push({ path: "/search", query: { q: this.keyword } });
     },
   },
 };
