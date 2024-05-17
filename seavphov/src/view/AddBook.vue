@@ -1,5 +1,10 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
+    <!-- cover -->
+    <div class="d-flex justify-content-center logo">
+      <img src="/img/book.png" alt="booklogo" class="logoimg w-50 h-50" />
+    </div>
+    <!-- end -->
     <a
       @click="
         () => {
@@ -8,14 +13,14 @@
       "
       class="text-gray"
     >
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to home
     </a>
 
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">Your are adding a new book.</h4>
+      <h4 class="my-4 text-gray fw-bold">You are adding a new book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
@@ -115,9 +120,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="col-2 btn btn-primary mt-2">
-            Add Book
-          </button>
+          <button type="submit" class="col-2 btn mt-2">Add Book</button>
         </div>
       </form>
     </div>
@@ -215,5 +218,13 @@ export default {
 
 .form-control {
   padding: 0.375rem 0.75rem !important;
+}
+
+.btn {
+  background-color: #5c836e;
+  color: #fff;
+}
+.btn:hover {
+  opacity: 50%;
 }
 </style>

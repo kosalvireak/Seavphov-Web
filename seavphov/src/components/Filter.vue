@@ -1,28 +1,69 @@
 <template>
   <div>
-    <div class="Filter nyvathxx">
+    <div class="Filter nyvathxx pb-3">
       <div class="search-container">
-        <div class="search-style"><search-input /></div>
-        <div class="wrapper">
-          <div id="buttons">
-            <!-- Buttons for filtering categories -->
-            <button class="button-value" @click="filterBook('all')">All</button>
-            <button class="button-value" @click="filterBook('History')">
-              History
+        <!-- Example single danger button -->
+        <div class="flex">
+          <div class="btn-group ml-3">
+            <button
+              type="button"
+              class="btn btn-info dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Book Condition
             </button>
-            <button class="button-value" @click="filterBook('Science')">
-              Science
-            </button>
-            <button class="button-value" @click="filterBook('Fantasy')">
-              Fantasy
-            </button>
-            <button class="button-value" @click="filterBook('Text-Book')">
-              Text-Book
-            </button>
-            <button class="button-value" @click="filterBook('Novel')">
-              Novel
-            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Old Condition</a></li>
+              <li><a class="dropdown-item" href="#">New Condition</a></li>
+            </ul>
           </div>
+        </div>
+
+        <div class="buttons flex">
+          <!-- Buttons for filtering categories -->
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'all' }"
+            @click="filterBook('all')"
+          >
+            All
+          </button>
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'History' }"
+            @click="filterBook('History')"
+          >
+            History
+          </button>
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'Science' }"
+            @click="filterBook('Science')"
+          >
+            Science
+          </button>
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'Fantasy' }"
+            @click="filterBook('Fantasy')"
+          >
+            Fantasy
+          </button>
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'Text-Book' }"
+            @click="filterBook('Text-Book')"
+          >
+            Text-Book
+          </button>
+          <button
+            class="button-value"
+            :class="{ active: activeButton === 'Novel' }"
+            @click="filterBook('Novel')"
+          >
+            Novel
+          </button>
         </div>
       </div>
     </div>
@@ -34,12 +75,13 @@
 
 <script>
 import RenderBook from "./RenderBook.vue";
-import SearchInput from "./SearchInput.vue";
+
 export default {
-  components: { RenderBook, SearchInput },
+  components: { RenderBook },
   data() {
     return {
-      selectedCategory: "all",
+      selectedCategories: [],
+      activeButton: "all",
       books: [
         {
           id: 1,
@@ -192,18 +234,24 @@ export default {
   },
   computed: {
     filteredBooks() {
-      if (this.selectedCategory === "all") {
+      if (this.selectedCategories.length === 0) {
         return this.books;
       } else {
-        return this.books.filter(
-          (book) => book["categories"] == this.selectedCategory
+        return this.books.filter((book) =>
+          this.selectedCategories.includes(book.categories)
         );
       }
     },
   },
   methods: {
     filterBook(category) {
-      this.selectedCategory = category;
+      const index = this.selectedCategories.indexOf(category);
+      if (index === -1) {
+        this.selectedCategories.push(category);
+      } else {
+        this.selectedCategories.splice(index, 1);
+      }
+      this.activeButton = category;
     },
   },
 };
@@ -229,24 +277,21 @@ body {
   background-color: #f5f8ff;
 }
 
-.wrapper {
+/* .wrapper {
   width: 95%;
-  /* margin: 0 auto; */
+  margin: 0 auto;
   margin-bottom: 10px;
   justify-content: center;
-}
+} */
 
 .nyvathxx {
   background: #37aba3;
   opacity: 1;
-  border-radius: 3%;
 }
 
-#buttons {
+.buttons {
   display: flex;
-  /* margin-top: 1em; */
-  /* margin: 0px; */
-  /* gap: 10px; */
+  gap: 10px;
   justify-content: center;
 }
 
