@@ -31,19 +31,25 @@
               </p>
 
               <!-- Bookmark -->
-              <button class="border-0 my-1 bg-seavphov-light p-0">
-                <i
-                  class="fa-solid fa-bookmark fa-2xl"
-                  style="color: yellow"
-                  v-if="book.issaved"
-                  @click="onSaveBook(false)"
-                ></i>
-                <i
-                  class="fa-regular fa-bookmark fa-2xl"
-                  style="color: darkgrey"
-                  v-else
-                  @click="onSaveBook(true)"
-                ></i>
+              <button
+                class="border-0 my-1 bg-seavphov-light p-0"
+                v-if="isLogin"
+              >
+                <Loader v-if="isLoading1" :size="10" :Color="'#000000'" />
+                <div v-if="!isLoading1">
+                  <i
+                    class="fa-solid fa-bookmark fa-2xl"
+                    style="color: yellow"
+                    v-if="book.issaved"
+                    @click="onSaveBook(false)"
+                  ></i>
+                  <i
+                    class="fa-regular fa-bookmark fa-2xl"
+                    style="color: darkgrey"
+                    v-else
+                    @click="onSaveBook(true)"
+                  ></i>
+                </div>
               </button>
             </div>
           </div>
@@ -94,6 +100,7 @@ export default {
       },
       owner: {},
       isLoading: false,
+      isLoading1: false,
       issaved: true,
     };
   },
@@ -109,11 +116,19 @@ export default {
       this.isLoading = false;
     },
     onSaveBook(bool) {
+      this.isLoading1 = true;
       if (bool) {
         this.$store.dispatch("saveBook", this.paramsId);
+        this.isLoading1 = false;
       } else {
         this.$store.dispatch("unSaveBook", this.paramsId);
+        this.isLoading1 = false;
       }
+    },
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin;
     },
   },
   beforeRouteUpdate(to, from, next) {

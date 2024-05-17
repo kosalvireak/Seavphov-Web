@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use PharIo\Manifest\Email;
+use App\Mail\SendMail;
 
 class UserController extends Controller
 {
@@ -106,11 +106,10 @@ class UserController extends Controller
                     'token' => $token,
                     'created_at' => Carbon::now()
                 ]);
+                $subject = "Reset Password Token";
+                $body = $token;
 
-                Mail::send('email.forgot-password',['token' => $token], function ($message) use ($user){
-                    $message->to($user->email);
-                    $message->subject("Reset password Token");
-                });
+                Mail::to($user->email)->send(new SendMail($subject, $body));
                                 
             }
             return response()->json([
