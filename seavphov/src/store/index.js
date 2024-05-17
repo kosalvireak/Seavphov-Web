@@ -3,7 +3,7 @@ import { useToast } from "vue-toastification"
 import router from '../router';
 import axiosInstance from '../../axiosInstance';
 
-import { setCookie, getCookie ,removeCookie} from './cookieUtils';
+import { setCookie, getCookie, removeCookie } from './cookieUtils';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
@@ -11,18 +11,18 @@ const toast = useToast();
 const store = createStore({
     state: {
         user: {
-            email: null ,
+            email: null,
             name: "Not logged in",
             api_token: null,
-            uuid:null,
+            uuid: null,
             picture: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         },
         filteredFetchBook: [],
         book: {},
         newBookId: null,
     },
-    mutations:{
-        SET_USER (state, userData){
+    mutations: {
+        SET_USER(state, userData) {
             state.user = userData;
         }
     },
@@ -38,19 +38,19 @@ const store = createStore({
 
     actions: {
         setUserFromCookies({ commit }) {
-            if(getCookie()){
-                const {name,email,api_token,picture,uuid} = getCookie();
-                commit('SET_USER', { name, email,api_token,picture,uuid});
+            if (getCookie()) {
+                const { name, email, api_token, picture, uuid } = getCookie();
+                commit('SET_USER', { name, email, api_token, picture, uuid });
             }
         },
-        async logoutUser({commit}){
+        async logoutUser({ commit }) {
             localStorage.removeItem("reloaded");
             removeCookie();
             const name = "Not logged in";
             const email = null;
             const api_token = null;
             const picture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            commit('SET_USER', { name, email,api_token,picture});
+            commit('SET_USER', { name, email, api_token, picture });
         },
         async registerUser({ dispatch }, signupData) {
             try {
@@ -70,7 +70,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push({ path: '/home' }) 
+                    router.push({ path: '/home' })
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -85,21 +85,21 @@ const store = createStore({
                     },
                 });
                 const responseData = await response.data;
-                console.log("responseData",responseData);
+                console.log("responseData", responseData);
                 if (responseData.success) {
-                    console.log("user",responseData.data);
+                    console.log("user", responseData.data);
                     const user = {
                         name: responseData.data.name,
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
                         picture: responseData.data.picture,
-                        uuid:responseData.data.uuid
+                        uuid: responseData.data.uuid
                     }
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push({ path: '/home' }) 
-                    
+                    router.push({ path: '/home' })
+
 
                 }
             } catch (error) {
@@ -107,7 +107,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchUserProfile(){
+        async fetchUserProfile() {
             try {
                 const response = await axiosInstance.get(backend_url + "/api/profile", {
                     headers: {
@@ -121,7 +121,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchOtherUserProfile({},uuid){
+        async fetchOtherUserProfile({ }, uuid) {
             try {
                 const response = await axiosInstance.get(backend_url + "/api/user/" + uuid, {
                     headers: {
@@ -136,7 +136,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async modifyUserProfile({dispatch}, formData){
+        async modifyUserProfile({ dispatch }, formData) {
             try {
                 const response = await axiosInstance.post(backend_url + "/api/profile", formData, {
                     headers: {
@@ -144,8 +144,8 @@ const store = createStore({
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                if(response.data.success){
-                    const responseData   = response.data.data;
+                if (response.data.success) {
+                    const responseData = response.data.data;
                     const user = {
                         name: responseData.name,
                         email: responseData.email,
@@ -161,7 +161,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBooksWithFilter({},filters) {
+        async fetchBooksWithFilter({ }, filters) {
             const params = new URLSearchParams();
             if (filters.title) {
                 params.append('title', filters.title);
@@ -187,9 +187,9 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async adminGetBooks() { 
+        async adminGetBooks() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/books',{
+                const response = await axiosInstance.get(backend_url + '/api/admin/books', {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -201,13 +201,13 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async adminGetBanners() { 
+        async adminGetBanners() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/banners',{
+                const response = await axiosInstance.get(backend_url + '/api/admin/banners', {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
-                }); 
+                });
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -215,9 +215,9 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async adminGetUsers() { 
+        async adminGetUsers() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/users',{
+                const response = await axiosInstance.get(backend_url + '/api/admin/users', {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -229,13 +229,13 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async adminGetAuth() { 
+        async adminGetAuth() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/auth',{
+                const response = await axiosInstance.get(backend_url + '/api/admin/auth', {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
-                }); 
+                });
                 if (response.data.success) {
                     return response.data.data;
                 } else {
@@ -246,7 +246,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async adminAddBanner({},formData) {
+        async adminAddBanner({ }, formData) {
             try {
                 const response = await axiosInstance.post(backend_url + "/api/admin/banners/", formData, {
                     headers: {
@@ -257,13 +257,13 @@ const store = createStore({
                 toast.success(response.data.message);
                 if (response.data.success) {
                     return response.data.success;
-                } 
+                }
             } catch (error) {
                 console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
             }
         },
-        async fetchBookById({},formData) {
+        async fetchBookById({ }, formData) {
             try {
                 let id = formData.get("id");
                 const response = await axiosInstance.post(backend_url + "/api/books/" + id, formData, {
@@ -292,7 +292,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async getMyBook({},id) {
+        async getMyBook({ }, id) {
             try {
                 const response = await axiosInstance.get(backend_url + "/api/auth/book/" + id, {
                     headers: {
@@ -322,7 +322,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async createBook({},formData) {
+        async createBook({ }, formData) {
             try {
                 const response = await axiosInstance.post(backend_url + "/api/books/", formData, {
                     headers: {
@@ -338,10 +338,10 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async modifyBook({},formData) {
+        async modifyBook({ }, formData) {
             try {
                 let id = formData.get("id");
-                const response = await axiosInstance.post(backend_url + "/api/books/"+ id, formData, {
+                const response = await axiosInstance.post(backend_url + "/api/books/" + id, formData, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                         'Content-Type': 'multipart/form-data',
@@ -353,10 +353,10 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async deleteBook({},id) {
+        async deleteBook({ }, id) {
             try {
 
-                const response = await axiosInstance.delete(backend_url + "/api/books/"+ id, {
+                const response = await axiosInstance.delete(backend_url + "/api/books/" + id, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
@@ -368,37 +368,37 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async saveBook({},bookId){
+        async saveBook({ }, bookId) {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/saved/"+ bookId, {
+                const response = await axiosInstance.get(backend_url + "/api/saved/" + bookId, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 });
                 if (response.data.success) {
-                   toast.success(response.data.message);
+                    toast.success(response.data.message);
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
             }
         },
-        async unSaveBook({},bookId){
+        async unSaveBook({ }, bookId) {
             try {
-                const response = await axiosInstance.delete(backend_url + "/api/saved/"+ bookId, {
+                const response = await axiosInstance.delete(backend_url + "/api/saved/" + bookId, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 });
                 if (response.data.success) {
-                   console.log("response.unSaveBook",response.data)
-                   
-                   toast.success(response.data.message);
+                    console.log("response.unSaveBook", response.data)
+
+                    toast.success(response.data.message);
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
             }
-        },        
-        async sendEmailResetPassword({},formData) {
+        },
+        async sendEmailResetPassword({ }, formData) {
             try {
                 const response = await axiosInstance.post(backend_url + "/api/reset/send", formData, {
                     headers: {
@@ -407,15 +407,15 @@ const store = createStore({
                 });
                 console.log("response", response)
                 if (response.data.success) {
-                    
+
                     toast.success(response.data.message);
-                 }
+                }
             } catch (error) {
                 console.error("Error sending email", error);
                 toast.error(error.response.data.message);
             }
         },
-        async resetPassword({},formData) {
+        async resetPassword({ }, formData) {
             try {
                 const response = await axiosInstance.post(backend_url + "/api/reset/", formData, {
                     headers: {
@@ -425,7 +425,7 @@ const store = createStore({
                 console.log("response", response)
                 if (response.data.success) {
                     toast.success(response.data.message);
-                 }
+                }
             } catch (error) {
                 console.error("Error reset password", error);
                 toast.error(error.response.data.message);

@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function(){
-    Route::get('',[BookController::class, 'getMyBooks']);
-    Route::get('{id}',[BookController::class, 'getMyBook']);
+Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('', [BookController::class, 'getMyBooks']);
+    Route::get('{id}', [BookController::class, 'getMyBook']);
 });
 
 Route::prefix('books')->group(function () {
@@ -38,12 +38,12 @@ Route::prefix('books')->group(function () {
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('',[UserController::class, 'index']);
+    Route::get('', [UserController::class, 'index']);
     Route::put('', [UserController::class, 'update']);
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('{uuid}',[UserController::class,'getUser']);
+    Route::get('{uuid}', [UserController::class, 'getUser']);
     Route::post('login', [LoginController::class, 'login']);
     Route::post('register', [RegisterController::class, 'register']);
 });
@@ -55,16 +55,16 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
 });
 
 
-Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function(){
-    Route::get('/auth',[AdminController::class, 'adminGetAuth']);
-    Route::get('/books',[AdminController::class, 'adminGetBooks']);
-    Route::get('/users',[AdminController::class, 'adminGetUsers']);
-    Route::get('/banners',[BannerController::class, 'adminGetBanners']);
-    Route::post('/banners',[BannerController::class, 'postBanners']);
-    Route::delete('/banners/{id}',[BannerController::class, 'deleteBanners']);
+Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function () {
+    Route::get('/auth', [AdminController::class, 'adminGetAuth']);
+    Route::get('/books', [AdminController::class, 'adminGetBooks']);
+    Route::get('/users', [AdminController::class, 'adminGetUsers']);
+    Route::get('/banners', [BannerController::class, 'adminGetBanners']);
+    Route::post('/banners', [BannerController::class, 'postBanners']);
+    Route::delete('/banners/{id}', [BannerController::class, 'deleteBanners']);
 });
 
-Route::prefix('reset')->group(function(){
-    Route::post('/',[UserController::class,'resetPassword']);
-    Route::post('/send',[UserController::class,'sendEmailResetPassword']);
+Route::prefix('reset')->group(function () {
+    Route::post('/', [UserController::class, 'resetPassword']);
+    Route::post('/send', [UserController::class, 'sendEmailResetPassword']);
 });
