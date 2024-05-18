@@ -1,18 +1,10 @@
-
-
 <template>
   <section>
-    <div
-      v-if="!isAdminRoute"
-      class="d-flex-center flex-column bg-white m-0 p-0"
-    >
+    <div v-if="!isAdminRoute" class="d-flex-center flex-column bg-white m-0 p-0" style="max-height: 4000px">
       <Nav />
 
-      <div
-        class="d-flex-center m-0 p-0 container align-items-start"
-        style="max-width: 1980px; min-height: 100vh"
-      >
-        <router-view class="mt-3" />
+      <div class="d-flex-center m-0 p-0 container" style="max-width: 1980px; min-height: 100vh">
+        <router-view />
       </div>
 
       <Footer />
@@ -20,8 +12,8 @@
     <Dashboard v-else />
   </section>
 </template>
-  
-  <script>
+
+<script>
 import Nav from "../components/Nav.vue";
 import Footer from "../components/Footer.vue";
 import Dashboard from "./admin/Dashboard.vue";
@@ -44,8 +36,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .loginPage {
   background-image: url(/img/login_background.png);
   background-size: cover;
