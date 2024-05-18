@@ -138,6 +138,10 @@ table {
   height: 3rem !important;
 }
 
+.h-50{
+  height: 50px !important;
+}
+
 .h-20 {
   height: 20% !important;
 }
@@ -207,6 +211,15 @@ table {
 }
 img{
   image-rendering: crisp-edges !important;
+}
+.form-label{
+  padding-top:11px !important; 
+}
+.form-control{
+  padding-top:11px !important; 
+}
+.p-11{
+  padding: 11px !important;
 }
 
 @media (max-width: 768px) {

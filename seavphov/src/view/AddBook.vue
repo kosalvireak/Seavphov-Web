@@ -1,20 +1,13 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
+    <a href="/home" class="text-gray">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
+    </a>
     <!-- cover -->
     <div class="d-flex justify-content-center logo">
-      <img src="/img/book.png" alt="booklogo" class="logoimg w-50 h-50" />
+      <img src="/img/book.png" alt="booklogo" class="logo_img" />
     </div>
     <!-- end -->
-    <a
-      @click="
-        () => {
-          this.$router.push('/home');
-        }
-      "
-      class="text-gray"
-    >
-      <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to home
-    </a>
 
     <div
       v-if="true"
@@ -30,7 +23,7 @@
               label="Title"
               id="title"
               v-model="book.title"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
@@ -40,7 +33,7 @@
               label="Author"
               id="author"
               v-model="book.author"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
@@ -50,18 +43,22 @@
               label="Descriptions"
               id="descriptions"
               v-model="book.descriptions"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
           <div class="input-group mb-4">
             <label
-              class="input-group-text"
+              class="input-group-text h-3rem"
               for="condition"
               style="height: 40px; width: 100px"
               >Condition</label
             >
-            <select class="form-select" id="condition" v-model="book.condition">
+            <select
+              class="form-select h-3rem"
+              id="condition"
+              v-model="book.condition"
+            >
               <option value="As-new">As-new</option>
               <option value="Good">Good</option>
               <option value="Well-worn">Well-worn</option>
@@ -70,13 +67,13 @@
 
           <div class="input-group mb-4">
             <label
-              class="input-group-text"
+              class="input-group-text h-3rem"
               for="categories"
-              style="height: 40px; width: 100px"
+              style="width: 100px"
               >Categories</label
             >
             <select
-              class="form-select"
+              class="form-select h-3rem"
               id="categories"
               v-model="book.categories"
             >
@@ -96,7 +93,7 @@
             >
             <input
               type="file"
-              class="form-control"
+              class="form-control h-3rem"
               id="images"
               name="images"
               @change="handleImageChange"
@@ -104,7 +101,7 @@
           </div>
           <div
             class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
-            style="width: 100%; height: 220px"
+            style="width: 100%; height: 264px"
           >
             <img
               v-if="book.images"
@@ -120,7 +117,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="col-2 btn mt-2">Add Book</button>
+          <button type="submit" class="btn mt-2">Add Book</button>
         </div>
       </form>
     </div>
@@ -226,5 +223,9 @@ export default {
 }
 .btn:hover {
   opacity: 50%;
+}
+.logo_img {
+  width: 150px;
+  height: auto;
 }
 </style>

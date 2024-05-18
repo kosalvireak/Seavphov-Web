@@ -1,12 +1,13 @@
 <template>
   <div
-    class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2"
+    class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100"
   >
     <span class="w-100 my-3 ms-4">
       <i
         @click="switchPage()"
-        class="fa fa-arrow-left fa-xl cursor-pointer"
+        class="fa fa-arrow-circle-left cursor-pointer"
       ></i>
+      {{ backText }}
     </span>
     <div class="d-flex-center">
       <img src="/img/book.png" alt="booklogo" class="logo_img img-fluid" />
@@ -28,7 +29,7 @@
             label="Email"
             id="email"
             v-model="sendEmail"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -53,7 +54,7 @@
             label="Email"
             id="email"
             v-model="email"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -63,7 +64,7 @@
             label="Token"
             id="token"
             v-model="token"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -73,7 +74,7 @@
             label="Password"
             id="password"
             v-model="password"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -83,7 +84,7 @@
             label="Confirm Password"
             id="password_confirmation"
             v-model="password_confirmation"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -141,16 +142,18 @@ export default {
       errorMessage: "",
       isShowPassword: false,
       page: "1",
+      backText: "Login",
     };
   },
   methods: {
     async SendEmail() {
-      this.isLoading = true;
-      const formData = new FormData();
-      formData.append("email", this.sendEmail);
-      await this.$store.dispatch("sendEmailResetPassword", formData);
-      this.isLoading = false;
+      // this.isLoading = true;
+      // const formData = new FormData();
+      // formData.append("email", this.sendEmail);
+      // await this.$store.dispatch("sendEmailResetPassword", formData);
+      // this.isLoading = false;
       this.page = 2;
+      this.backText = "Send gmail";
     },
     async SendResetPassword() {
       this.isLoading = true;
@@ -179,6 +182,7 @@ export default {
         this.$router.push("/login");
       } else if (this.page == 2) {
         this.page = 1;
+        this.backText = "Login";
       }
     },
   },
@@ -187,9 +191,9 @@ export default {
 
 <style>
 .ForgotPassword {
+  margin-top: 100px !important;
   max-width: 750px;
   min-height: 400px !important;
-  margin-bottom: 200px;
 }
 .ForgotPassword_top {
   height: 50px;

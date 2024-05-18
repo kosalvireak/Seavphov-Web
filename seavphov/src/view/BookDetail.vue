@@ -12,9 +12,9 @@
           />
           <div class="col-7 px-lg-4 px-sm-1 h-100">
             <div class="title_div h-50 overflow-auto">
-              <p class="book_title font-Roboto mt-3">
+              <h3 class="book_title font-Roboto mt-3">
                 {{ book.title }}
-              </p>
+              </h3>
             </div>
 
             <div class="h-50 BookDetailButtom">
@@ -106,8 +106,16 @@ export default {
     };
   },
   methods: {
-    async getBook(id) {
+    async getRelatedBooks() {
       this.isLoading = true;
+      this.filters.categories = this.book.categories;
+      this.relatedBooks = await this.$store.dispatch(
+        "fetchBooksWithFilter",
+        this.filters
+      );
+      this.isLoading = false;
+    },
+    async getBook(id) {
       this.formData.append("id", id);
       if (this.isLogin) {
         this.formData.append("uuid", this.$store.state.user.uuid);
@@ -116,12 +124,6 @@ export default {
         "fetchBookById",
         this.formData
       );
-      this.filters.categories = this.book.categories;
-      this.relatedBooks = await this.$store.dispatch(
-        "fetchBooksWithFilter",
-        this.filters
-      );
-      this.isLoading = false;
     },
     onSaveBook(bool) {
       this.isLoading1 = true;
@@ -139,13 +141,14 @@ export default {
       return this.$store.getters.isLogin;
     },
   },
-  beforeRouteUpdate(to, from, next) {
-    this.paramsId = to.params.id;
-    this.getBook(this.paramsId);
-    next();
+  watch: {
+    "$route.params.id"() {
+      this.$router.go(0);
+    },
   },
-  async mounted() {
-    this.getBook(this.paramsId);
+  async created() {
+    await this.getBook(this.paramsId);
+    await this.getRelatedBooks();
   },
 };
 </script>
@@ -169,7 +172,6 @@ export default {
 
 .book_title {
   color: black;
-  font-size: 40px;
   font-weight: bold;
 }
 

@@ -1,15 +1,11 @@
 <template>
-  <div class="Login row p-3 m-0">
-      <span>
-        <i
-          @click="redirectHome()"
-          class="fa fa-arrow-left fa-xl ms-3 cursor-pointer"
-        ></i>
-      </span>
+  <div class="Login row p-3 m-0 shadow-5">
+    <a href="/home" class="text-gray">
+      <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
+    </a>
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >
-  
       <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid" />
     </div>
     <div class="container col-md-6 col-sm-12">
@@ -21,7 +17,7 @@
             label="Email address"
             id="email"
             v-model="email"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -31,7 +27,7 @@
             label="Password"
             id="password"
             v-model="password"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -63,13 +59,22 @@
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <button
+        <!-- <button
           type="submit"
           class="btn btn-primary mt-2 d-flex-center btn_submit"
         >
           <span v-if="!isLoading">Login</span>
           <Loader v-else :size="20" :Color="'#FFFFFF'" />
-        </button>
+        </button> -->
+        <div class="form-floating d-flex-center">
+          <button
+            type="submit"
+            class="btn btn-primary mt-2 d-flex-center btn_submit"
+          >
+            <span v-if="!isLoading">Login</span>
+            <Loader v-else :size="15" :Color="'#FFFFFF'" />
+          </button>
+        </div>
       </form>
 
       <div class="text-center mt-3">
@@ -81,7 +86,7 @@
             }
           "
           class="text-seavphov"
-          >Sign up.</a
+          >Register!</a
         >
       </div>
     </div>
@@ -132,7 +137,7 @@ export default {
     forgotPassword() {
       this.$router.push("/forgot-password");
     },
-    redirectHome(){
+    redirectHome() {
       this.$router.push("/home");
     },
   },
@@ -141,7 +146,7 @@ export default {
   
 <style scoped>
 .Login {
-  margin-bottom: 100px !important ;
+  margin-top: 100px !important ;
 }
 .row {
   background-color: #fff;
@@ -184,7 +189,7 @@ label::after {
 .special-style {
   width: 430px !important;
 }
-button {
+/*button {
   text-align: center;
   background-color: #5c836e;
   color: #fff;
@@ -195,7 +200,7 @@ button {
   font-weight: bold;
   font-size: 25px;
   cursor: pointer;
-}
+} */
 
 button:hover {
   background-color: #444;
@@ -217,11 +222,16 @@ a {
   text-decoration: none;
 }
 
-.btn_submit {
+/* .btn_submit {
   width: 200px;
   height: 51px;
+} */
+.btn_submit {
+  width: 80px;
+  height: 40px;
+  background-color: #5c836e;
+  color: #ffffff;
 }
-
 @media (max-width: 768px) {
   .logoimg {
     max-width: 150px;
@@ -234,6 +244,9 @@ a {
   }
   .special-style {
     width: 370px !important;
+  }
+  .Login {
+    margin-top: 0px !important ;
   }
 }
 </style>

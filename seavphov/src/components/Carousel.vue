@@ -8,7 +8,7 @@
             <h1 class="mb-0">{{ book.title }}</h1>
             <div class="row my-3 ">
               <div class="col d-flex flex-row">
-                <h5 class="me-3">{{ book.author }}</h5>
+                <h5 class="me-3">By: {{ book.author }}</h5>
                 <h5>Condition: {{ book.condition }}</h5>
               </div>
             </div>

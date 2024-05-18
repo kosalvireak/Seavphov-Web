@@ -1,13 +1,6 @@
 <template>
   <div class="EditProfile w-100 mb-4 container-sm">
-    <a
-      @click="
-        () => {
-          this.$router.push('/profile');
-        }
-      "
-      class="text-gray"
-    >
+    <a href="/profile" class="text-gray">
       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to profile
     </a>
 
@@ -25,7 +18,7 @@
             >
             <input
               type="file"
-              class="form-control"
+              class="form-control h-3rem"
               id="picture"
               name="picture"
               @change="handleImageChange"
@@ -34,7 +27,7 @@
           <div class="mb-4 d-flex justify-content-center">
             <div
               class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
-              style="width: 155px; height: 155px"
+              style="width: 192px; height: 192px"
             >
               <img
                 v-if="user.picture"
@@ -55,7 +48,7 @@
               label="Name"
               id="name"
               v-model="user.name"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
@@ -65,7 +58,7 @@
               label="Email"
               id="email"
               v-model="user.email"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
@@ -77,7 +70,7 @@
               label="Phone number"
               id="phone"
               v-model="user.phone"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
               required
             />
           </div>
@@ -87,7 +80,7 @@
               label="Instagram link"
               id="instagram"
               v-model="user.instagram"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
           <div class="mb-4">
@@ -96,7 +89,7 @@
               label="Facebook link"
               id="facebook"
               v-model="user.facebook"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
           <div class="mb-4">
@@ -105,7 +98,7 @@
               label="Twitter link"
               id="twitter"
               v-model="user.twitter"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
           <div class="mb-4">
@@ -114,7 +107,7 @@
               label="Telegram link"
               id="telegram"
               v-model="user.telegram"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
           <div class="mb-4">
@@ -123,7 +116,7 @@
               label="Location"
               id="location"
               v-model="user.location"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
         </div>

@@ -1,18 +1,23 @@
 <template>
-  <div class="Signup row">
-    <div class="d-flex-center logo col-md-6 col-sm-12">
+  <div class="Register row shadow-5">
+    <a href="/home" class="text-gray">
+      <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
+    </a>
+    <div
+      class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
+    >
       <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid" />
     </div>
     <div class="container col-md-6 col-sm-12">
-      <h1>Sign Up</h1>
-      <form v-on:submit.prevent="Signup()">
+      <h1>Register</h1>
+      <form v-on:submit.prevent="Register()">
         <div class="form-floating mb-3">
           <MDBInput
             type="text"
             label="Name"
             id="name"
             v-model="name"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -22,7 +27,7 @@
             label="Email address"
             id="email"
             v-model="email"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -32,7 +37,7 @@
             label="Password"
             id="password"
             v-model="password"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -42,7 +47,7 @@
             label="Confirm Password"
             id="password_confirmation"
             v-model="password_confirmation"
-            wrapperClass="bg-white p-2"
+            wrapperClass="bg-white h-3rem"
             required
           />
         </div>
@@ -67,13 +72,22 @@
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <button
+        <!-- <button
           type="submit"
           class="btn btn-primary mt-2 d-flex-center btn_submit"
         >
-          <span v-if="!isLoading">Signup</span>
+          <span v-if="!isLoading">Register</span>
           <Loader v-else :size="20" :Color="'#FFFFFF'" />
-        </button>
+        </button> -->
+        <div class="form-floating d-flex-center">
+          <button
+            type="submit"
+            class="btn btn-primary mt-2 d-flex-center btn_submit"
+          >
+            <span v-if="!isLoading">Register</span>
+            <Loader v-else :size="15" :Color="'#FFFFFF'" />
+          </button>
+        </div>
       </form>
 
       <div class="text-center mt-3">
@@ -96,7 +110,7 @@
 import Loader from "../components/Loader.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
-  name: "Signup",
+  name: "Register",
   components: { Loader, MDBInput },
   data() {
     return {
@@ -111,17 +125,17 @@ export default {
     };
   },
   methods: {
-    async Signup() {
+    async Register() {
       if (this.password.length >= 8) {
         if (this.password == this.password_confirmation) {
-          const signupData = {
+          const RegisterData = {
             email: this.email,
             name: this.name,
             password: this.password,
             password_confirmation: this.password_confirmation,
           };
           this.isLoading = true;
-          await this.$store.dispatch("registerUser", signupData);
+          await this.$store.dispatch("registerUser", RegisterData);
           this.isLoading = false;
         } else {
           this.Error = true;
@@ -150,8 +164,8 @@ export default {
 </script>
   
 <style scoped>
-.Signup {
-  margin-bottom: 100px !important ;
+.Register {
+  margin-top: 100px !important ;
 }
 .row {
   background-color: #fff;
@@ -195,7 +209,7 @@ label::after {
 .special-style {
   width: 430px !important;
 }
-button {
+/* button {
   text-align: center;
   background-color: #5c836e;
   color: #fff;
@@ -210,7 +224,7 @@ button {
 
 button:hover {
   background-color: #444;
-}
+} */
 
 .btn {
   text-transform: unset !important;
@@ -228,8 +242,13 @@ a {
   text-decoration: none;
 }
 .btn_submit {
-  width: 200px;
-  height: 51px;
+  width: 80px;
+  height: 40px;
+  background-color: #5c836e;
+  color: #ffffff;
+}
+.btn_submit:hover {
+  background-color: #444;
 }
 
 @media (max-width: 768px) {
@@ -244,6 +263,9 @@ a {
   }
   .special-style {
     width: 370px !important;
+  }
+  .Register {
+    margin-top: 50px !important ;
   }
 }
 </style>

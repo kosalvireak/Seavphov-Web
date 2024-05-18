@@ -9,7 +9,7 @@
       <Nav />
 
       <div
-        class="d-flex-center m-0 p-0 container"
+        class="d-flex-center m-0 p-0 container align-items-start"
         style="max-width: 1980px; min-height: 100vh"
       >
         <router-view class="mt-3" />
