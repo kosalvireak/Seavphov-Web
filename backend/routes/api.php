@@ -31,6 +31,7 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
 
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'fetchBooksWithFilter']);
+    Route::get('/banner',  [BannerController::class, 'getBanner']);
     Route::post('{bookId}',  [BookController::class, 'fetchBookById']);
     Route::post('', [BookController::class, 'store'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
@@ -57,11 +58,14 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
 
 Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function(){
     Route::get('/auth',[AdminController::class, 'adminGetAuth']);
+    Route::get('/overview',[AdminController::class, 'adminGetOverviewData']);
     Route::get('/books',[AdminController::class, 'adminGetBooks']);
+    Route::get('/books/delete/{id}',[AdminController::class, 'adminDeleteBook']);
     Route::get('/users',[AdminController::class, 'adminGetUsers']);
     Route::get('/banners',[BannerController::class, 'adminGetBanners']);
     Route::post('/banners',[BannerController::class, 'postBanners']);
-    Route::delete('/banners/{id}',[BannerController::class, 'deleteBanners']);
+    Route::get('/banners/{id}',[BannerController::class, 'adminDeleteBanner']);
+    Route::get('/banners/selected/{id}',[BannerController::class, 'changeSelectedBanner']);
 });
 
 Route::prefix('reset')->group(function(){

@@ -1,7 +1,7 @@
 <template>
   <div class="EditProfile w-100 mb-4 container-sm">
     <a href="/profile" class="text-gray">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to profile
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Profile
     </a>
 
     <div

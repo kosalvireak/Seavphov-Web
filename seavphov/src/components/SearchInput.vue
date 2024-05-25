@@ -29,6 +29,13 @@ export default {
       this.$router.push({ path: "/search", query: { q: this.keyword } });
     },
   },
+  watch: {
+    "$route.name"() {
+      if (this.$route.name !== "search") {
+        this.keyword = "";
+      }
+    },
+  },
 };
 </script>
 

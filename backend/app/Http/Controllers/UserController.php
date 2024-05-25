@@ -54,7 +54,7 @@ class UserController extends Controller
                 
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully update profile.',
+                'message' => 'Done',
                 'data' => $user,
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $exception) {
@@ -79,7 +79,7 @@ class UserController extends Controller
             
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully get user profile.',
+                'message' => 'Done',
                 'data' => $filteredData,
             ], 201);
         }catch(Exception $exception){
@@ -114,7 +114,7 @@ class UserController extends Controller
             }
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully send token to your email.',
+                'message' => 'Token sent to your email',
             ], 200);
         }   catch(Exception $exception){
             return response()->json([
@@ -149,7 +149,7 @@ class UserController extends Controller
                             
                 return response()->json([
                     'success' => true,
-                    'message' => 'Successfully update password.',
+                    'message' => 'Updated password.',
                 ], 200);
                                 
             

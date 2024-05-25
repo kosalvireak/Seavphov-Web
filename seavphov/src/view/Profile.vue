@@ -62,7 +62,6 @@ export default {
       myBooks: [],
       savedBooks: [],
       isLoading: false,
-
       isLoadingProfile: false,
       User: {},
     };

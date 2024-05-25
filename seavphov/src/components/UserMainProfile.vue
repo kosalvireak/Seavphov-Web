@@ -8,12 +8,15 @@
       <Loader />
     </div>
     <div v-else>
-      <div class="container-sm cover_container w-1800 b-1 p-0">
+      <div
+        class="container-sm cover_container w-1800 b-1 p-0"
+        @click="handleClick"
+      >
         <img
-          src="/img/login_background.png"
+          :src="banner.image_url"
           class="w-100 h-100 b-1 rounded-7 img-fluid cover_img"
           style="object-fit: cover; max-height: 250px"
-          alt="profile cover"
+          :alt="banner.title"
         />
       </div>
       <div class="container-sm flex user_info b-1">
@@ -67,6 +70,22 @@ export default {
     user: { type: Object, required: true },
     fromProfile: { type: Boolean, required: true },
     loading: { type: Boolean, required: false },
+  },
+  data() {
+    return {
+      banner: {},
+    };
+  },
+  methods: {
+    async getBanner() {
+      this.banner = await this.$store.dispatch("getBanner");
+    },
+    handleClick() {
+      window.open(this.banner.link_url);
+    },
+  },
+  mounted() {
+    this.getBanner();
   },
 };
 </script>

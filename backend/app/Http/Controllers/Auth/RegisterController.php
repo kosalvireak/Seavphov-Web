@@ -25,7 +25,7 @@ class RegisterController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Successfully registered!',
+            'message' => 'Registered!',
             'data' => $user->toArray()
         ], 201);
     }

@@ -20,6 +20,14 @@
       <template #item-descriptions="books">
         <p class="ellipsis">{{ books.descriptions }}</p>
       </template>
+      <template #item-="books">
+        <button
+          class="ellipsis text-center btn btn-danger h-auto"
+          @click="adminDeleteBook(books.id)"
+        >
+          <i class="fa fa-trash fa-xl cursor-pointer" aria-hidden="true"></i>
+        </button>
+      </template>
     </EasyDataTable>
   </div>
 </template>
@@ -41,6 +49,7 @@ export default {
         { text: "AVAILABILITY", value: "availability", sortable: true },
         { text: "DESCRIPTIONS", value: "descriptions", width: 200 },
         { text: "CREATED_AT", value: "created_at", sortable: true },
+        { text: "ACTION", value: "" },
       ],
       books: [],
     };
@@ -51,6 +60,10 @@ export default {
       this.books = await this.$store.dispatch("adminGetBooks");
       this.serverItemsLength = this.books.length;
       this.isLoading = false;
+    },
+    async adminDeleteBook(id) {
+      await this.$store.dispatch("adminDeleteBook", id);
+      this.adminGetBooks();
     },
   },
   async mounted() {

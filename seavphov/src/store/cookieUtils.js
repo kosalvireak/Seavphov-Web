@@ -6,19 +6,21 @@ const secretKey = import.meta.env.VITE_secretKey;
 
 
 export function setCookie(user) {
-    var encryptedData = CryptoJS.AES.encrypt(JSON.stringify(user), secretKey).toString();
-    VueCookies.set('seavphov', encryptedData);
+    // var encryptedData = CryptoJS.AES.encrypt(JSON.stringify(user), secretKey).toString();
+    // VueCookies.set('seavphov', encryptedData);
+    VueCookies.set('seavphov', user);
 }
 
 export function getCookie() {
     var user = VueCookies.get('seavphov');
-    if(user){
-        var bytes  = CryptoJS.AES.decrypt(user,secretKey);
-        var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        return decryptedData;
-    } else {
-        return null;
-    }
+    return user;
+    // if(user){
+    //     var bytes  = CryptoJS.AES.decrypt(user,secretKey);
+    //     var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    //     return decryptedData;
+    // } else {
+    //     return null;
+    // }
 }
 
 export function removeCookie() {

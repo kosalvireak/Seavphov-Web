@@ -8,7 +8,8 @@
       "
       class="text-gray"
     >
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
+      <i class="fa fa-arrow-circle-left cursor-pointer" aria-hidden="true"></i>
+      Home
     </a>
 
     <div

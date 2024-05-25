@@ -1,41 +1,59 @@
 <template>
   <div
-    class="SearchResult container-sm mt-4 w-100 h-100 d-flex-center justify-content-start flex-column mh-100"
+    class="SearchResult container-sm mt-4 w-100 h-100 d-flex-center mh-100 row align-items-start"
   >
-    <a
-      @click="
-        () => {
-          this.$router.push('/home');
-        }
-      "
-      class="text-gray align-self-start"
-    >
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
-    </a>
-    <h4 class="mt-4">Search result for "{{ searchKeyword }}"</h4>
-    <RenderBook :books="Books" :loading="isLoading" />
+    <div class="col-9">
+      <a
+        @click="
+          () => {
+            this.$router.push('/home');
+          }
+        "
+        class="text-gray align-self-start cursor-pointer"
+      >
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
+      </a>
+      <h4 v-if="searchTitle" class="mt-4">
+        Search result for "{{ searchTitle }}"
+      </h4>
+      <h4 v-if="searchCategory" class="mt-4">
+        Search result for Category "{{ searchCategory }}"
+      </h4>
+      <h4 v-if="searchCondition" class="mt-4">
+        Search result for Condition "{{ searchCondition }}"
+      </h4>
+      <RenderBook :books="Books" :loading="isLoading" />
+    </div>
+    <Filter class="col-3 pt-5 h-100" />
   </div>
 </template>
 
 <script>
 import RenderBook from "../components/RenderBook.vue";
+import Filter from "../components/Filter.vue";
 export default {
   name: "SearchResult",
-  components: { RenderBook },
+  components: { RenderBook, Filter },
   data() {
     return {
-      searchKeyword: this.$route.query.q,
-      filters: {
-        title: "",
-      },
+      searchTitle: this.$route.query.q,
+      searchCategory: this.$route.query.categories,
+      searchCondition: this.$route.query.condition,
+      filters: {},
       Books: [],
       isLoading: false,
     };
   },
   methods: {
-    async getSearchBooks(keyword) {
+    async getSearchBooks(keyword, type) {
       this.isLoading = true;
-      this.filters.title = keyword;
+      if (type == "title") {
+        this.filters.title = keyword;
+      } else if (type == "categories") {
+        this.filters.categories = keyword;
+      } else {
+        this.filters.condition = keyword;
+      }
       this.Books = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters
@@ -45,18 +63,39 @@ export default {
   },
   computed: {
     params() {
-      return this.$route.query.q;
+      return (
+        this.$route.query.q ||
+        this.$route.query.categories ||
+        this.$route.query.condition
+      );
     },
   },
   mounted() {
-    this.searchKeyword = this.$route.query.q;
-    this.getSearchBooks(this.searchKeyword);
+    this.searchTitle = this.$route.query.q;
+    this.searchCategory = this.$route.query.categories;
+    this.searchCondition = this.$route.query.condition;
+    if (this.searchTitle) {
+      this.getSearchBooks(this.searchTitle, "title");
+    } else if (this.searchCategory) {
+      this.getSearchBooks(this.searchCategory, "categories");
+    } else {
+      this.getSearchBooks(this.searchCondition, "condition");
+    }
   },
   watch: {
-    params(newVal, oldVal) {
-      if (newVal != oldVal) {
-        this.searchKeyword = newVal;
-        this.getSearchBooks(this.searchKeyword);
+    params(newVal) {
+      if (this.searchTitle) {
+        this.searchTitle = newVal;
+        this.getSearchBooks(this.searchTitle, "title");
+        this.$router.go(0);
+      } else if (this.searchCategory) {
+        this.searchCategory = newVal;
+        this.getSearchBooks(this.searchCategory, "categories");
+        this.$router.go(0);
+      } else {
+        this.searchCondition = newVal;
+        this.getSearchBooks(this.searchCondition, "condition");
+        this.$router.go(0);
       }
     },
   },

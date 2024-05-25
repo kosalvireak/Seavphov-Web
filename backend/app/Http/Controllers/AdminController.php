@@ -24,10 +24,41 @@ class AdminController extends Controller
             ], 500);
         }
     }
+    public function adminDeleteBook($id){
+        try {
+            $book = Book::findOrFail($id);
+            $book->delete();
+            return response()->json([
+                'success' => true,
+                'message' =>  'Deleted "'.$book->title.'"',
+            ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
     public function adminGetUsers(){
         try {
-             $users = User::all();
-
+            $users = User::all()->map(function ($user) {
+                return [
+                  'name' => $user->name,
+                  'email' => $user->email,
+                  'created_at' => $user->created_at,
+                  'facebook' => $user->facebook,
+                  'instagram' => $user->instagram,
+                  'location' => $user->location,
+                  'phone' => $user->phone,
+                  'picture' => $user->picture,
+                  'telegram' => $user->telegram,
+                  'twitter' => $user->twitter,
+                  'uuid' => $user->uuid,
+                ];
+              })->toArray();
+              
+            
             return response()->json([
                 'success' => true,
                 'data' => $users,
@@ -52,6 +83,23 @@ class AdminController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while fetching books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+    public function adminGetOverviewData(){
+        try {
+             $totalUsers = User::count() -1 ;
+             $totalBooks = Book::count();
+
+            return response()->json([
+                'success' => true,
+                'data' => [$totalUsers,$totalBooks],
+            ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching users.',
                 'error' => $exception->getMessage()
             ], 500);
         }

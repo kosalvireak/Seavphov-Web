@@ -26,7 +26,7 @@ class UserBookController extends Controller
             
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully save '.$book->title,
+                'message' => 'Saved '.$book->title,
             ], 201);
             
                     
@@ -76,7 +76,7 @@ class UserBookController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Book removed successfully',
+            'message' => 'Removed',
         ], 201);
     
         } catch (\Exception $exception) {

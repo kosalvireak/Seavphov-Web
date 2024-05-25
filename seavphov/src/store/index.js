@@ -31,7 +31,6 @@ const store = createStore({
             return state.fetchBooks.filter(book => book.categories == category);
         },
         isLogin: () => {
-            // console.log("isLogin",getCookie() == null ? false : true);
             return getCookie() == null ? false : true;
         },
     },
@@ -172,6 +171,9 @@ const store = createStore({
             if (filters.categories) {
                 params.append('categories', filters.categories);
             }
+            if (filters.condition) {
+                params.append('condition', filters.condition);
+            }
             if (filters.owner_id) {
                 params.append('owner_id', filters.owner_id);
             }
@@ -201,6 +203,48 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
+        async adminDeleteBook({},id) { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/books/delete/'+ id,{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); 
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async adminDeleteBanner({},id) { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/banners/'+ id,{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); 
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async changeSelectedBanner({},id) { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/banners/selected/'+ id,{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); 
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
         async adminGetBanners() { 
             try {
                 const response = await axiosInstance.get(backend_url + '/api/admin/banners',{
@@ -208,6 +252,30 @@ const store = createStore({
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 }); 
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async adminGetOverviewData() { 
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/admin/overview',{
+                    headers: {
+                        'Authorization': `Bearer ${this.state.user.api_token}`,
+                    },
+                }); 
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+        async getBanner(){
+            try {
+                const response = await axiosInstance.get(backend_url + '/api/books/banner');
                 if (response.data.success) {
                     return response.data.data;
                 }

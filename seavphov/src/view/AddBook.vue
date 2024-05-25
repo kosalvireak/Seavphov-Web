@@ -1,7 +1,7 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
-    <a href="/home" class="text-gray">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to home
+    <a href="/home" class="text-gray cursor-pointer">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
     </a>
     <!-- cover -->
     <div class="d-flex justify-content-center logo">

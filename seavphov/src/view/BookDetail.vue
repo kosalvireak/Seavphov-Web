@@ -19,7 +19,7 @@
 
             <div class="h-50 BookDetailButtom">
               <p class="book_author my-2 mt-0">
-                <u class="fw-bold text-black">Author</u>: {{ book.owner }}
+                <u class="fw-bold text-black">Author</u>: {{ book.author }}
               </p>
               <p class="book_category my-2">
                 <u class="fw-bold text-black">Category</u>:
@@ -126,6 +126,7 @@ export default {
       );
     },
     onSaveBook(bool) {
+      this.book.issaved = bool;
       this.isLoading1 = true;
       if (bool) {
         this.$store.dispatch("saveBook", this.paramsId);

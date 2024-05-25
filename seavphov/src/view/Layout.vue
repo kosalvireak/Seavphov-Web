@@ -1,9 +1,16 @@
 <template>
   <section>
-    <div v-if="!isAdminRoute" class="d-flex-center flex-column bg-white m-0 p-0" style="max-height: 4000px">
+    <div
+      v-if="!isAdminRoute"
+      class="d-flex-center flex-column bg-white m-0 p-0"
+      style="max-height: 4000px"
+    >
       <Nav />
 
-      <div class="d-flex-center m-0 p-0 container" style="max-width: 1980px; min-height: 100vh">
+      <div
+        class="d-flex-center m-0 p-0 container"
+        style="max-width: 1980px; min-height: 100vh"
+      >
         <router-view />
       </div>
 

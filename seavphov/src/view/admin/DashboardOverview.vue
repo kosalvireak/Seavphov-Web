@@ -16,16 +16,26 @@ export default {
       items: [
         {
           title: "Total Users",
-          number: "55",
+          number: null,
           icon: "fa fa-2xl fa-users",
         },
         {
           title: "Total Books",
-          number: "189",
+          number: null,
           icon: " fa fa-2xl fa-book",
         },
       ],
     };
+  },
+  methods: {
+    async adminGetOverviewData() {
+      [this.items[0].number, this.items[1].number] = await this.$store.dispatch(
+        "adminGetOverviewData"
+      );
+    },
+  },
+  mounted() {
+    this.adminGetOverviewData();
   },
 };
 </script>

@@ -156,7 +156,9 @@ export default {
       return this.$store.getters.isLogin;
     },
     isAdmin() {
-      return false;
+      if (this.$store.getters.isLogin) {
+        return this.$store.state.user.uuid == "b8WbMnM7C9C9rN5e9fXwDpJ4bC3lZh";
+      }
     },
     hideNavbar() {
       if (this.$route.name) {

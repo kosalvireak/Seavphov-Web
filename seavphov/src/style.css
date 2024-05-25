@@ -154,6 +154,10 @@ table {
   min-height: 100vh;
 }
 
+.h-100vh{
+  height: 100vh !important;
+}
+
 .w-60{
   width: 60% !important;
 }

@@ -59,7 +59,7 @@ export default {
   props: { books: Array, loading: Boolean },
   computed: {
     isBooksEmpty() {
-      if (this.books & (this.books.length == 0)) {
+      if (this.books.length == 0) {
         return true;
       } else {
         return false;

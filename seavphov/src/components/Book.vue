@@ -55,8 +55,8 @@ export default {
 
 <style scoped>
 .Book {
-  height: 20rem;
-  width: 13rem;
+  height: 304px;
+  width: 180px;
 }
 @media (max-width: 768px) {
   .Book {

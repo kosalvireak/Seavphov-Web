@@ -2,7 +2,6 @@
   <section
     class="Banners shadow-5 rounded-7 d-flex-center p-2 flex-column w-100"
   >
-    <Carousel class="mt-5" />
     <div v-if="page == 1" class="Banners_table">
       <div class="d-flex-center m-3">
         <button type="submit" class="btn btn-primary" @click="changePage(2)">
@@ -25,12 +24,39 @@
             loading="lazy"
           />
         </template>
+        <template #item-order_priority="banners">
+          <p v-if="banners.order_priority == 1">True</p>
+          <p class="text-bold" v-else>False</p>
+        </template>
+        <template #item-="banners">
+          <div class="d-flex-center w-100">
+            <button
+              v-if="banners.order_priority == 0"
+              class="ellipsis text-center btn btn-primary h-auto"
+              @click="changeSelectedBanner(banners.id)"
+            >
+              Select
+            </button>
+            <button
+              class="ellipsis text-center btn btn-danger h-auto"
+              @click="adminDeleteBanner(banners.id)"
+            >
+              <i
+                class="fa fa-trash fa-xl cursor-pointer"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+        </template>
       </EasyDataTable>
     </div>
     <div v-if="page == 2" class="Add_Banners d-flex-center flex-column w-100">
       <a @click="changePage(1)" class="text-gray">
-        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to
-        banners table
+        <i
+          class="fa fa-arrow-circle-left cursor-pointer"
+          aria-hidden="true"
+        ></i>
+        Banners
       </a>
       <h4 class="my-4 text-gray fw-bold">Your are adding a new Banner</h4>
 
@@ -51,6 +77,7 @@
             />
           </div>
           <div class="mb-4">
+            <p>1 for selected banner, 0 for not selected.</p>
             <MDBInput
               type="text"
               label="Order"
@@ -124,11 +151,12 @@ export default {
       isLoading: false,
       headers: [
         { text: "ID", value: "id", sortable: true },
-        { text: "ORDER", value: "order_priority", sortable: true },
+        { text: "SELECTED", value: "order_priority", sortable: true },
         { text: "IMAGE", value: "image_url", width: 400 },
         { text: "TITLE", value: "title" },
         { text: "LINK", value: "link_url", width: 100 },
         { text: "CREATED_AT", value: "created_at" },
+        { text: "ACTION", value: "" },
       ],
       newBanner: {
         title: "",
@@ -143,6 +171,14 @@ export default {
     };
   },
   methods: {
+    async changeSelectedBanner(id) {
+      await this.$store.dispatch("changeSelectedBanner", id);
+      this.adminGetBanners();
+    },
+    async adminDeleteBanner(id) {
+      await this.$store.dispatch("adminDeleteBanner", id);
+      this.adminGetBanners();
+    },
     async adminGetBanners() {
       this.isLoading = true;
       this.banners = await this.$store.dispatch("adminGetBanners");
@@ -158,6 +194,7 @@ export default {
       );
       if (response) {
         this.page = 1;
+        this.adminGetBanners();
       }
     },
     async handleImageChange(event) {
@@ -209,6 +246,6 @@ export default {
   background-color: #fff;
   border-radius: 5px;
   position: absolute;
-  margin: 4px 0px 0px 1px;
+  margin: 1px 0px 0px 1px;
 }
 </style>

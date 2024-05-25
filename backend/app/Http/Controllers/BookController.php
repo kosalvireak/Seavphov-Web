@@ -16,10 +16,10 @@ class BookController extends Controller
     {
         $query = Book::query(); // Start with a base query
 
-        // Filter based on query parameters (example filters: title, author)
         $title = $request->get('title');
         $author = $request->get('author');
         $categories = $request->get('categories');
+        $condition = $request->get('condition');
         $uuid = $request->get('uuid');
 
         if ($title) {
@@ -27,6 +27,9 @@ class BookController extends Controller
         }
         if ($categories) {
             $query->where('categories', $categories); // Filter by categories
+        }
+        if ($condition) {
+            $query->where('condition', $condition); // Filter by categories
         }
         if ($author) {
             $query->where('author', $author); // Filter by author
@@ -79,7 +82,7 @@ class BookController extends Controller
         if(!$book){
             return response()->json([
                 'success' => false,
-                'message' => 'You do not have permission' ,
+                'message' => 'No permission' ,
             ], 200);
         }
         return response()->json([
@@ -156,7 +159,7 @@ class BookController extends Controller
             $book = Book::create($validatedData);
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully upload ' . $book->title,
+                'message' => 'Uploaded ' . $book->title,
                 'bookId' => $book->id
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $exception) {
@@ -201,7 +204,7 @@ class BookController extends Controller
             $book->update($validatedData);
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully updated '.$book->title,
+                'message' => 'Updated '.$book->title,
             ], 200);
         } catch (QueryException  $exception) {
             return response()->json([
@@ -223,14 +226,14 @@ class BookController extends Controller
             if($book->owner_id != $user->id){
                 return response()->json([
                     'success' => false,
-                    'message' => 'You do not have permission' ,
+                    'message' => 'No permission' ,
                 ], 403);
             }
         
             $book->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully delete "'.$book->title.'"',
+                'message' => 'Deleted "'.$book->title.'"',
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([

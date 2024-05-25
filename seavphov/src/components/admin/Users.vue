@@ -39,8 +39,7 @@ export default {
         { text: "INSTAGRAM", value: "instagram", sortable: true },
         { text: "TELEGRAM", value: "telegram", sortable: true },
         { text: "TWITTER", value: "twitter", width: 200 },
-        { text: "TOKEN", value: "api_token", sortable: true },
-        { text: "JOIN DATA", value: "created_at", sortable: true },
+        { text: "JOIN DATE", value: "created_at", sortable: true },
       ],
       users: [],
     };

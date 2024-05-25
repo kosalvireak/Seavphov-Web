@@ -3,9 +3,9 @@
     <div class="text-black">
       <i :class="icon"></i>
     </div>
-    <div class="ms-4 font-Roboto text-black">
-      <h2>{{ title }}</h2>
-      <h4 class="text-center">{{ number }}</h4>
+    <div class="ms-4 text-black">
+      <h4 class="font-Roboto">{{ title }}</h4>
+      <h4 class="font-Roboto text-center">{{ number }}</h4>
     </div>
   </section>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: "DataBanner",
   props: {
     title: String,
-    number: String,
+    number: Number,
     icon: String,
   },
 };
@@ -23,8 +23,8 @@ export default {
 
 <style>
 .DataBanner {
-  width: 20rem;
-  height: 10rem;
+  width: 18rem;
+  height: 9rem;
   background-color: white;
 }
 </style>

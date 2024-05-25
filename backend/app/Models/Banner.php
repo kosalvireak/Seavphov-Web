@@ -15,4 +15,10 @@ class Banner extends Model
         'link_url',
         'order_priority',
     ];
+
+    public function resetAllColumns(){
+        return self::update([
+            'order_priority' => 0,
+        ]);
+    }
 }

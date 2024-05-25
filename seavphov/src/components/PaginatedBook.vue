@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RenderBook :books="books" />
+    <RenderBook :books="books" :loading="isLoading" />
     <div
       class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
     >
@@ -42,6 +42,7 @@ export default {
       last_page: 5,
       current_page: 1,
       path: import.meta.env.VITE_BACKEND_URL + "/api/books?page=",
+      isLoading: false,
     };
   },
   computed: {
@@ -55,12 +56,14 @@ export default {
   methods: {
     async fetchBooks(path) {
       try {
+        this.isLoading = true;
         const response = await axios.get(path);
         if (response.data.success) {
           this.books = response.data.message.data;
           this.current_page = response.data.message.current_page;
           this.last_page = response.data.message.last_page;
         }
+        this.isLoading = false;
       } catch (error) {
         this.toast.error(error.response.data.message);
       }
