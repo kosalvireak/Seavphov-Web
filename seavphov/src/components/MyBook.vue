@@ -24,8 +24,8 @@
             </p>
           </div>
           <div class="">
-            <MDBDropdown btnGroup align="end" v-model="openDropdown">
-              <MDBDropdownToggle @click="openDropdown = !openDropdown" color="info" />
+            <MDBDropdown class="custom-dropdown" btnGroup align="end" v-model="openDropdown">
+              <MDBDropdownToggle @click="openDropdown = !openDropdown" color="custom-dropdown-toggle" />
               <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
                 <MDBDropdownItem tag="button" @click="editBook(book.id)">Edit</MDBDropdownItem>
                 <MDBDropdownItem tag="button" @click="deleteBook(book.id)">Delete</MDBDropdownItem>
@@ -102,5 +102,9 @@ export default {
     height: 12rem;
     width: 12rem;
   }
+}
+
+.custom-dropdown {
+  background-color: #9db673;
 }
 </style>

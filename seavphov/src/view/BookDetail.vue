@@ -1,5 +1,5 @@
 <template>
-  <div class="container-sm">
+  <div class="container-sm mt-3">
     <div class="row">
       <div class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 bg-seavphov-light ps-3">
         <div class="d-flex h-top row me-0">
