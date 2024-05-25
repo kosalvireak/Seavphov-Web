@@ -1,51 +1,28 @@
 <template>
   <div class="Login row p-3 m-0 shadow-5">
     <a href="/home" class="text-gray">
-      <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
+      <i class="fa fa-arrow-left pe-2" aria-hidden="true"></i>
     </a>
-    <div
-      class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
-    >
+    <div class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12">
       <img src="/img/book.png" alt="booklogo" class="logoimg img-fluid" />
     </div>
     <div class="container col-md-6 col-sm-12">
       <h1>Log In</h1>
       <form v-on:submit.prevent="Login()">
         <div class="form-floating mb-3">
-          <MDBInput
-            type="email"
-            label="Email address"
-            id="email"
-            v-model="email"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="email" label="Email address" id="email" v-model="email" wrapperClass="bg-white h-3rem"
+            required />
         </div>
         <div class="form-floating">
-          <MDBInput
-            type="password"
-            label="Password"
-            id="password"
-            v-model="password"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="password" label="Password" id="password" v-model="password" wrapperClass="bg-white h-3rem"
+            required />
         </div>
 
         <div class="d-flex align-items-start justify-content-between my-3">
           <div class="d-flex justify-content-center">
-            <div
-              class="form-check h-100 d-flex align-items-start justify-content-center"
-            >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="form1Example3"
-                checked
-                v-model="isShowPassword"
-                @click="showPassword"
-              />
+            <div class="form-check h-100 d-flex align-items-start justify-content-center">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked
+                v-model="isShowPassword" @click="showPassword" />
               <label class="form-check-label" for="form1Example3">
                 Show password
               </label>
@@ -53,9 +30,7 @@
           </div>
 
           <div class="text-seavphov">
-            <label @click="forgotPassword()" class="cursor-pointer"
-              >Forgot password?</label
-            >
+            <label @click="forgotPassword()" class="cursor-pointer">Forgot password?</label>
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
@@ -67,10 +42,7 @@
           <Loader v-else :size="20" :Color="'#FFFFFF'" />
         </button> -->
         <div class="form-floating d-flex-center">
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 d-flex-center btn_submit"
-          >
+          <button type="submit" class="btn btn-primary mt-2 d-flex-center btn_submit">
             <span v-if="!isLoading">Login</span>
             <Loader v-else :size="15" :Color="'#FFFFFF'" />
           </button>
@@ -79,21 +51,16 @@
 
       <div class="text-center mt-3">
         Doesn't have an account?
-        <a
-          @click="
-            () => {
-              this.$router.push('/signup');
-            }
-          "
-          class="text-seavphov"
-          >Register!</a
-        >
+        <a @click="() => {
+        this.$router.push('/signup');
+      }
+        " class="text-seavphov">Register!</a>
       </div>
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import Loader from "../components/Loader.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
@@ -143,11 +110,12 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 .Login {
-  margin-top: 100px !important ;
+  margin-top: 100px !important;
 }
+
 .row {
   background-color: #fff;
   border-radius: 30px;
@@ -162,6 +130,7 @@ export default {
 .logoimg {
   max-width: 300px;
 }
+
 h1 {
   font-size: 50px;
   font-weight: bold;
@@ -181,6 +150,7 @@ label {
   display: block;
   margin: 0 auto;
 }
+
 label::after {
   background-color: #d9d9d9 !important;
   width: 100% !important;
@@ -189,6 +159,7 @@ label::after {
 .special-style {
   width: 430px !important;
 }
+
 /*button {
   text-align: center;
   background-color: #5c836e;
@@ -232,21 +203,26 @@ a {
   background-color: #5c836e;
   color: #ffffff;
 }
+
 @media (max-width: 768px) {
   .logoimg {
     max-width: 150px;
   }
+
   .button {
     width: 200px;
   }
+
   .row {
     width: 100%;
   }
+
   .special-style {
     width: 370px !important;
   }
+
   .Login {
-    margin-top: 0px !important ;
+    margin-top: 0px !important;
   }
 }
 </style>

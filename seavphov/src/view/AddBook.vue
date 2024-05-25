@@ -1,7 +1,7 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
-    <a href="/home" class="text-gray cursor-pointer">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
+    <a href="/home" class="text-gray">
+      <i class="fa fa-arrow-left " aria-hidden="true"></i>
     </a>
     <!-- cover -->
     <div class="d-flex justify-content-center logo">
@@ -9,56 +9,26 @@
     </div>
     <!-- end -->
 
-    <div
-      v-if="true"
-      class="d-flex align-items-center justify-content-center flex-column"
-    >
+    <div v-if="true" class="d-flex align-items-center justify-content-center flex-column">
       <h4 class="my-4 text-gray fw-bold">You are adding a new book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <MDBInput
-              type="text"
-              label="Title"
-              id="title"
-              v-model="book.title"
-              wrapperClass="bg-white h-3rem"
-              required
-            />
+            <MDBInput type="text" label="Title" id="title" v-model="book.title" wrapperClass="bg-white h-3rem"
+              required />
           </div>
           <div class="mb-4">
-            <MDBInput
-              type="text"
-              label="Author"
-              id="author"
-              v-model="book.author"
-              wrapperClass="bg-white h-3rem"
-              required
-            />
+            <MDBInput type="text" label="Author" id="author" v-model="book.author" wrapperClass="bg-white h-3rem"
+              required />
           </div>
           <div class="mb-4">
-            <MDBInput
-              type="text"
-              label="Descriptions"
-              id="descriptions"
-              v-model="book.descriptions"
-              wrapperClass="bg-white h-3rem"
-              required
-            />
+            <MDBInput type="text" label="Descriptions" id="descriptions" v-model="book.descriptions"
+              wrapperClass="bg-white h-3rem" required />
           </div>
           <div class="input-group mb-4">
-            <label
-              class="input-group-text h-3rem"
-              for="condition"
-              style="height: 40px; width: 100px"
-              >Condition</label
-            >
-            <select
-              class="form-select h-3rem"
-              id="condition"
-              v-model="book.condition"
-            >
+            <label class="input-group-text h-3rem" for="condition" style="height: 40px; width: 100px">Condition</label>
+            <select class="form-select h-3rem" id="condition" v-model="book.condition">
               <option value="As-new">As-new</option>
               <option value="Good">Good</option>
               <option value="Well-worn">Well-worn</option>
@@ -66,17 +36,8 @@
           </div>
 
           <div class="input-group mb-4">
-            <label
-              class="input-group-text h-3rem"
-              for="categories"
-              style="width: 100px"
-              >Categories</label
-            >
-            <select
-              class="form-select h-3rem"
-              id="categories"
-              v-model="book.categories"
-            >
+            <label class="input-group-text h-3rem" for="categories" style="width: 100px">Categories</label>
+            <select class="form-select h-3rem" id="categories" v-model="book.categories">
               <option value="Fiction">Fiction</option>
               <option value="Novel">Novel</option>
               <option value="Text-Book">Text-Book</option>
@@ -88,28 +49,13 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <label for="images" class="form-label custom-file-upload"
-              >Book Image</label
-            >
-            <input
-              type="file"
-              class="form-control h-3rem"
-              id="images"
-              name="images"
-              @change="handleImageChange"
-            />
+            <label for="images" class="form-label custom-file-upload">Book Image</label>
+            <input type="file" class="form-control h-3rem" id="images" name="images" @change="handleImageChange" />
           </div>
-          <div
-            class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
-            style="width: 100%; height: 264px"
-          >
-            <img
-              v-if="book.images"
-              :src="book.images"
-              alt="preview_image"
-              class="img-fluid h-100"
-              style="object-fit: cover"
-            />
+          <div class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
+            style="width: 100%; height: 264px">
+            <img v-if="book.images" :src="book.images" alt="preview_image" class="img-fluid h-100"
+              style="object-fit: cover" />
             <div v-else>
               <Loader v-if="uploadingBook" />
               <p class="text-center" v-else>Your image will preview here</p>
@@ -121,10 +67,7 @@
         </div>
       </form>
     </div>
-    <div
-      v-else
-      class="d-flex align-items-center justify-content-center flex-column"
-    >
+    <div v-else class="d-flex align-items-center justify-content-center flex-column">
       <NoLoggin />
     </div>
   </div>
@@ -202,6 +145,7 @@ export default {
   border-style: solid !important;
   border-color: #bdbdbd !important;
 }
+
 .custom-file-upload {
   display: inline-block;
   padding: 4px 12px;
@@ -221,9 +165,11 @@ export default {
   background-color: #5c836e;
   color: #fff;
 }
+
 .btn:hover {
   opacity: 50%;
 }
+
 .logo_img {
   width: 150px;
   height: auto;
