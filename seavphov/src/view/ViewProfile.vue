@@ -1,14 +1,8 @@
 <template>
   <div class="Profile box h-100 w-100">
     <div class="container-sm box b-1 p-0">
-      <UserMainProfile
-        :fromProfile="false"
-        :user="User"
-        :loading="isLoadingProfile"
-      />
-      <div
-        class="flex book_options p-2 rounded-7 cursor-pointer book_option_child_selected fw-bold"
-      >
+      <UserMainProfile :fromProfile="false" :user="User" :loading="isLoadingProfile" />
+      <div class="flex book_options p-2 rounded-7 cursor-pointer book_option_child_selected fw-bold">
         <a class="text-black">Home</a>
       </div>
       <div>
@@ -17,8 +11,8 @@
     </div>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
@@ -65,8 +59,8 @@ export default {
   },
 };
 </script>
-    
-    <style scoped>
+
+<style scoped>
 .flex {
   display: flex;
   align-items: center;
@@ -86,21 +80,25 @@ export default {
   height: 50px;
   text-align: center;
 }
+
 .book_option_child:hover {
-  background-color: #37aba39a !important;
+  background-color: #467e60 !important;
   transition: 0.3s;
+  opacity: 70%;
 }
 
 .book_option_child_selected {
-  background-color: #37aba3 !important;
+  background-color: #467e60 !important;
 }
 
 a:link {
   text-decoration: none;
 }
+
 a:hover {
   color: darkgray;
 }
+
 @media only screen and (max-width: 991.98px) {
   .book_options {
     margin-top: 0px;
