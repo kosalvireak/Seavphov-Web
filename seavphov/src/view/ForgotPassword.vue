@@ -1,12 +1,8 @@
 <template>
   <div
-    class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100"
-  >
+    class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100">
     <span class="w-100 my-3 ms-4">
-      <i
-        @click="switchPage()"
-        class="fa fa-arrow-circle-left cursor-pointer"
-      ></i>
+      <i @click="switchPage()" class="fa fa-arrow-circle-left cursor-pointer"></i>
       {{ backText }}
     </span>
     <div class="d-flex-center">
@@ -17,21 +13,11 @@
       <h2 class="mt-2">Forgot Password</h2>
     </div>
 
-    <div
-      v-if="page == 1"
-      class="SendEmailForm d-flex-center flex-column mb-7 w-60"
-    >
+    <div v-if="page == 1" class="SendEmailForm d-flex-center flex-column mb-7 w-60">
       <h6 class="my-3">Enter your email address</h6>
       <form v-on:submit.prevent="SendEmail()" class="w-100">
         <div class="form-floating mb-3">
-          <MDBInput
-            type="email"
-            label="Email"
-            id="email"
-            v-model="sendEmail"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="email" label="Email" id="email" v-model="sendEmail" wrapperClass="bg-white h-3rem" required />
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
         <div class="form-floating d-flex-center justify-content-end">
@@ -42,66 +28,28 @@
         </div>
       </form>
     </div>
-    <div
-      v-if="page == 2"
-      class="ResetPasswordForm d-flex-center flex-column my-3 w-60"
-    >
+    <div v-if="page == 2" class="ResetPasswordForm d-flex-center flex-column my-3 w-60">
       <h5 class="my-3">Enter the token we sent to your email address.</h5>
       <form v-on:submit.prevent="SendResetPassword()" class="w-100">
         <div class="form-floating mb-3">
-          <MDBInput
-            type="email"
-            label="Email"
-            id="email"
-            v-model="email"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="email" label="Email" id="email" v-model="email" wrapperClass="bg-white h-3rem" required />
         </div>
         <div class="form-floating password mb-3">
-          <MDBInput
-            type="text"
-            label="Token"
-            id="token"
-            v-model="token"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="text" label="Token" id="token" v-model="token" wrapperClass="bg-white h-3rem" required />
         </div>
         <div class="form-floating password mb-3">
-          <MDBInput
-            type="password"
-            label="Password"
-            id="password"
-            v-model="password"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="password" label="Password" id="password" v-model="password" wrapperClass="bg-white h-3rem"
+            required />
         </div>
         <div class="form-floating mb-3">
-          <MDBInput
-            type="password"
-            label="Confirm Password"
-            id="password_confirmation"
-            v-model="password_confirmation"
-            wrapperClass="bg-white h-3rem"
-            required
-          />
+          <MDBInput type="password" label="Confirm Password" id="password_confirmation" v-model="password_confirmation"
+            wrapperClass="bg-white h-3rem" required />
         </div>
         <div class="d-flex align-items-start justify-content-between my-3">
           <div class="d-flex justify-content-center align-items-start">
-            <div
-              class="form-check h-100 d-flex align-items-start justify-content-center"
-            >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="form1Example3"
-                checked
-                v-model="isShowPassword"
-                @click="showPassword"
-              />
+            <div class="form-check h-100 d-flex align-items-start justify-content-center">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked
+                v-model="isShowPassword" @click="showPassword" />
               <label class="form-check-label" for="form1Example3">
                 Show password
               </label>
@@ -110,10 +58,7 @@
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
         <div class="form-floating d-flex-center justify-content-end">
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 d-flex-center btn_submit"
-          >
+          <button type="submit" class="btn btn-primary mt-2 d-flex-center btn_submit">
             <span v-if="!isLoading">Reset</span>
             <Loader v-else :size="15" :Color="'#FFFFFF'" />
           </button>
@@ -147,11 +92,11 @@ export default {
   },
   methods: {
     async SendEmail() {
-      // this.isLoading = true;
-      // const formData = new FormData();
-      // formData.append("email", this.sendEmail);
-      // await this.$store.dispatch("sendEmailResetPassword", formData);
-      // this.isLoading = false;
+      this.isLoading = true;
+      const formData = new FormData();
+      formData.append("email", this.sendEmail);
+      await this.$store.dispatch("sendEmailResetPassword", formData);
+      this.isLoading = false;
       this.page = 2;
       this.backText = "Send gmail";
     },
@@ -195,10 +140,12 @@ export default {
   max-width: 750px;
   min-height: 400px !important;
 }
+
 .ForgotPassword_top {
   height: 50px;
   width: 100%;
 }
+
 .btn_submit {
   width: 80px;
   height: 40px;
@@ -209,6 +156,7 @@ export default {
 .btn_submit:hover {
   background-color: #444;
 }
+
 .logo_img {
   width: 140px;
   height: auto;

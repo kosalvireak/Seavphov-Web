@@ -138,7 +138,7 @@ table {
   height: 3rem !important;
 }
 
-.h-50{
+.h-50 {
   height: 50px !important;
 }
 
@@ -150,15 +150,15 @@ table {
   height: 60% !important;
 }
 
-.mh-100{
+.mh-100 {
   min-height: 100vh;
 }
 
-.h-100vh{
+.h-100vh {
   height: 100vh !important;
 }
 
-.w-60{
+.w-60 {
   width: 60% !important;
 }
 
@@ -167,7 +167,7 @@ table {
 }
 
 .bg-seavphov {
-  background-color: #37aba3 !important;
+  background-color: #5c836e !important;
 }
 
 .bg-seavphov-light {
@@ -213,21 +213,25 @@ table {
   align-items: center;
   justify-content: center;
 }
-img{
+
+img {
   image-rendering: crisp-edges !important;
 }
-.form-label{
-  padding-top:11px !important; 
+
+.form-label {
+  padding-top: 11px !important;
 }
-.form-control{
-  padding-top:11px !important; 
+
+.form-control {
+  padding-top: 11px !important;
 }
-.p-11{
+
+.p-11 {
   padding: 11px !important;
 }
 
 @media (max-width: 768px) {
-  .w-60{
+  .w-60 {
     width: 100% !important;
   }
 }
