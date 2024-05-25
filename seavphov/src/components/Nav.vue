@@ -90,7 +90,7 @@
 
           <!-- Notification dropdown -->
           <li
-            v-if="isLogin"
+            v-if="false"
             class="nav-item dropdown me-3 d-flex align-items-sm-center cursor-pointer"
           >
             <a

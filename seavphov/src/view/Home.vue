@@ -1,7 +1,7 @@
 <template>
   <div class="w-100 h-100 mb-auto">
     <div
-      class="backgroundImg d-flex-center img-fluid rounded-7"
+      class="backgroundImg d-flex-center img-fluid"
       :style="getBackground"
       style="width: 100%; height: 500px"
     >
