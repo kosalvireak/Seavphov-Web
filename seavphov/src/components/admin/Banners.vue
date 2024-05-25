@@ -4,7 +4,11 @@
   >
     <div v-if="page == 1" class="Banners_table">
       <div class="d-flex-center m-3">
-        <button type="submit" class="btn btn-primary" @click="changePage(2)">
+        <button
+          type="submit"
+          class="btn btn-primary btn_submit"
+          @click="changePage(2)"
+        >
           Add new banner
         </button>
       </div>
@@ -33,6 +37,7 @@
             <button
               v-if="banners.order_priority == 0"
               class="ellipsis text-center btn btn-primary h-auto"
+              style="background-color: #5c836e"
               @click="changeSelectedBanner(banners.id)"
             >
               Select
@@ -226,7 +231,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* .Banners {
   width: 20rem;
   height: 10rem;
@@ -236,6 +241,13 @@ export default {
   height: 120px;
   width: 400px;
   object-fit: cover;
+}
+
+.btn_submit {
+  width: 180px;
+  height: 40px;
+  background-color: #5c836e;
+  color: #ffffff;
 }
 
 .custom-file-upload {

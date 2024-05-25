@@ -101,8 +101,8 @@ export default {
   components: { Loader, MDBInput },
   data() {
     return {
-      email: "virakvary@gmail.com",
-      password: "12345678",
+      email: "",
+      password: "",
       Error: false,
       errorMessage: "",
       isLoading: false,

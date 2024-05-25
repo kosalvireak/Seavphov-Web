@@ -143,7 +143,11 @@ class UserController extends Controller
                     'message' => 'Token do not match!',
                 ], 400);
             }
-                
+            DB::table('password_reset_tokens')
+            ->where([
+                'email'=>$request->get('email')
+            ])->delete();    
+
             User::where('email',$request->get('email'))
             ->update(['password' => bcrypt($validatedData['password'])]);
                             

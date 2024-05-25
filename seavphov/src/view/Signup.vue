@@ -114,10 +114,10 @@ export default {
   components: { Loader, MDBInput },
   data() {
     return {
-      email: "virakvary@gmail.com",
-      name: "virak",
-      password: "12345678",
-      password_confirmation: "12345678",
+      email: "",
+      name: "",
+      password: "",
+      password_confirmation: "",
       Error: false,
       errorMessage: "",
       isShowPassword: false,

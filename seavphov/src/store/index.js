@@ -64,7 +64,8 @@ const store = createStore({
                         name: responseData.data.name,
                         email: responseData.data.email,
                         api_token: responseData.data.api_token,
-                        uuid: responseData.data.uuid
+                        uuid: responseData.data.uuid,
+                        picture: responseData.data.picture,
                     }
                     setCookie(user);
                     dispatch('setUserFromCookies');

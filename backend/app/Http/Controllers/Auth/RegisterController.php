@@ -19,16 +19,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    protected function registered( $user)
-    {
-        $user->generateToken();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Registered!',
-            'data' => $user->toArray()
-        ], 201);
-    }
 
 
     public function register(Request $request)
@@ -51,7 +42,13 @@ class RegisterController extends Controller
             ]);
 
 
-            return $this->registered($request, $user);
+            $user->generateToken();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Registered!',
+                'data' => $user->toArray()
+            ], 201);
         } catch (ValidationException $exception) {
             return response()->json([
                 'success' => false,
