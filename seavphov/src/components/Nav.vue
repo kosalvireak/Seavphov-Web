@@ -101,9 +101,6 @@
               @click="checkDropdownVisibility"
             >
               <i class="fas fa-bell fa-xl"></i>
-              <span class="badge rounded-pill badge-notification bg-danger"
-                >12</span
-              >
             </a>
             <ul class="dropdown-menu NotificationDropdown" style="width: 400px">
               <NotificationDropdown :isShow="isDropdownVisible" />
