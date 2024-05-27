@@ -155,10 +155,9 @@ export default {
 }
 
 .notification-ui_dd-content {
-  max-height: 500px;
-  overflow: auto;
+  overflow: hidden;
   /* min-height: 397px; */
-  min-width: 203px;
+  min-width: 210px;
 }
 
 .notification-list {

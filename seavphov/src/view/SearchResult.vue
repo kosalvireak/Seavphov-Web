@@ -14,13 +14,20 @@
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
       </a>
       <h4 v-if="searchTitle" class="mt-4">
-        Search result for "{{ searchTitle }}"
+        Search result for "<span class="fw-bold">{{ searchTitle }}</span
+        >"
       </h4>
       <h4 v-if="searchCategory" class="mt-4">
-        Search result for Category "{{ searchCategory }}"
+        Search result for Category "<span class="fw-bold">{{
+          searchCategory
+        }}</span
+        >"
       </h4>
       <h4 v-if="searchCondition" class="mt-4">
-        Search result for Condition "{{ searchCondition }}"
+        Search result for Condition "<span class="fw-bold">{{
+          searchCondition
+        }}</span
+        >"
       </h4>
       <RenderBook :books="Books" :loading="isLoading" />
     </div>
