@@ -140,7 +140,7 @@ class BookController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function createBook(Request $request)
     {
         $user = $request->attributes->get('user');
         try {

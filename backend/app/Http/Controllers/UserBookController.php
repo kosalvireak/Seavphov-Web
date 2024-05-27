@@ -43,7 +43,7 @@ class UserBookController extends Controller
         }
       
     }
-    public function getSaveBook (Request $request){
+    public function fetchSavedBook (Request $request){
         try {
             
             $user = $request->attributes->get('user');
@@ -110,7 +110,7 @@ class UserBookController extends Controller
             ], 500);
         }
     }
-    public function removeBook(Request $request, $bookId)
+    public function unSaveBook(Request $request, $bookId)
     {
         try{
             

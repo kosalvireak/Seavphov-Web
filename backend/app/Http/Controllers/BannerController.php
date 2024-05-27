@@ -69,7 +69,7 @@ class BannerController extends Controller
     }
 
     
-    public function postBanners(Request $request) {
+    public function adminAddBanner(Request $request) {
         try {
             
             $validatedData = $request->validate([

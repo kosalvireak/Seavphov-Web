@@ -22,7 +22,7 @@ class RegisterController extends Controller
 
 
 
-    public function register(Request $request)
+    public function registerUser(Request $request)
     {
         try {
             $validatedData = $request->validate([

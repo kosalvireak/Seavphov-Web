@@ -400,7 +400,6 @@ const store = createStore({
                         'Content-Type': 'multipart/form-data',
                     },
                 });
-                console.log("response", response)
                 toast.success(response.data.message);
                 this.state.newBookId = response.data.bookId;
             } catch (error) {

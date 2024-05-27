@@ -14,7 +14,7 @@ use App\Mail\SendMail;
 
 class UserController extends Controller
 {
-    public function index(Request $request){
+    public function fetchUserProfile(Request $request){
         $user = collect($request->attributes->get('user'));
 
         $filteredUser = $user->except(['api_token']);
@@ -32,7 +32,7 @@ class UserController extends Controller
             ], 500);
         }
     }
-    public function update(Request $request){
+    public function modifyUserProfile(Request $request){
         
         try {
             $user = $request->attributes->get('user');
@@ -72,7 +72,7 @@ class UserController extends Controller
         }
     }
 
-    public function getUser(Request $request,$uuid){
+    public function fetchOtherUserProfile(Request $request,$uuid){
         try{
             $user = collect(User::where('uuid',$uuid) -> first());
             $filteredData = $user->except(['email','api_token','remember_token']);
