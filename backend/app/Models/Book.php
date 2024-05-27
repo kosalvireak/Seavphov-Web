@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Book extends Model
 {
@@ -29,6 +30,8 @@ class Book extends Model
 
     public function savedByUsers()
     {
-        return $this->belongsToMany(User::class);
+        return DB::table('book_user')
+            ->where('book_id', $this->id)
+            ->get(['user_id', 'book_id','created_at']);
     }
 }

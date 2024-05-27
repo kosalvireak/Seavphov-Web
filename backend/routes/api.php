@@ -50,6 +50,7 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('notification', [UserBookController::class, 'getSavedBooksNotification']);
     Route::get('{bookId}', [UserBookController::class, 'saveBook']);
     Route::get('', [UserBookController::class, 'getSaveBook']);
     Route::delete('{bookId}', [UserBookController::class, 'removeBook']);

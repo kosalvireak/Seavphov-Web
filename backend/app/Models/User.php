@@ -78,6 +78,6 @@ class User extends Authenticatable
 
     public function savedBooks()
     {
-        return $this->belongsToMany(Book::class);
+        return $this->belongsToMany(Book::class, 'book_user')->withTimestamps();;
     }
 }

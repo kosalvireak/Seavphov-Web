@@ -8,53 +8,44 @@
         Notification
       </h5>
     </div>
-    <div class="notification-ui_dd-content">
-      <div class="notification-list notification-list--unread">
-        <div class="notification-list_img">
-          <img src="https://i.imgur.com/zYxDCQT.jpg" alt="user" />
-        </div>
-        <div class="notification-list_detail">
-          <p><b>John Doe</b> saved your book</p>
-          <p><small>1 day ago</small></p>
-        </div>
-        <div class="notification-list_feature-img">
-          <img src=" " alt="Feature image" />
-        </div>
+    <div class="notification-ui_dd-content d-flex-center flex-column">
+      <div v-if="isLoading" class="notification-list loader d-flex-center">
+        <Loader :size="20" />
       </div>
-      <div class="notification-list notification-list--unread">
-        <div class="notification-list_img">
-          <img src="https://i.imgur.com/w4Mp4ny.jpg" alt="user" />
+      <div v-else>
+        <div v-if="items.length > 0">
+          <div v-for="item in items" :key="item">
+            <router-link
+              class="notification-list text-black"
+              :to="`/book/${item.book_id}`"
+            >
+              <div class="notification-list_img">
+                <img
+                  :src="item.user[0].picture"
+                  alt="user"
+                  class="notification_img"
+                />
+              </div>
+              <div class="notification-list_detail">
+                <p>
+                  <b>{{ item.user[0].name }}</b> {{ item.text }}
+                </p>
+                <p>
+                  <small>{{ getDateDisplay(item.date) }}</small>
+                </p>
+              </div>
+              <div class="notification-list_feature-img">
+                <img
+                  :src="item.book[0].images"
+                  alt="Feature image"
+                  class="book_img"
+                />
+              </div>
+            </router-link>
+          </div>
         </div>
-        <div class="notification-list_detail">
-          <p><b>Richard Miles</b> saved your book</p>
-          <p><small>1 day ago</small></p>
-        </div>
-        <div class="notification-list_feature-img">
-          <img src=" " alt="Feature image" />
-        </div>
-      </div>
-      <div class="notification-list">
-        <div class="notification-list_img">
-          <img src="https://i.imgur.com/ltXdE4K.jpg" alt="user" />
-        </div>
-        <div class="notification-list_detail">
-          <p><b>Brian Cumin</b> saved your book</p>
-          <p><small>1 day ago</small></p>
-        </div>
-        <div class="notification-list_feature-img">
-          <img src="" alt="Feature image" />
-        </div>
-      </div>
-      <div class="notification-list">
-        <div class="notification-list_img">
-          <img src="https://i.imgur.com/CtAQDCP.jpg" alt="user" />
-        </div>
-        <div class="notification-list_detail">
-          <p><b>Lance Bogrol</b> saved your book</p>
-          <p><small>1 day ago</small></p>
-        </div>
-        <div class="notification-list_feature-img">
-          <img src="" alt="Feature image" />
+        <div v-else class="notification-list loader d-flex-center">
+          Your notification is empty
         </div>
       </div>
     </div>
@@ -62,7 +53,48 @@
 </template>
 
 <script>
-export default {};
+import Loader from "./Loader.vue";
+export default {
+  name: "NotificationDropdown",
+  components: { Loader },
+  props: {
+    isShow: Boolean,
+  },
+  data() {
+    return {
+      items: [],
+      isLoading: false,
+    };
+  },
+  methods: {
+    async getNotification() {
+      this.isLoading = true;
+      this.items = await this.$store.dispatch("getSavedBooksNotification");
+      console.log("this.items", this.items.length);
+      this.isLoading = false;
+    },
+    getDateDisplay(num) {
+      if (num == 0) {
+        return "Today";
+      } else {
+        return num + " days ago";
+      }
+    },
+  },
+
+  watch: {
+    isShow: {
+      handler(oldAuthor, newAuthor) {
+        if (newAuthor == true) {
+          this.getNotification();
+        }
+      },
+    },
+  },
+  async mounted() {
+    this.getNotification();
+  },
+};
 </script>
 
 <style  scoped>
@@ -122,9 +154,11 @@ export default {};
   margin-bottom: 0;
 }
 
-.notification-ui_dd .notification-ui_dd-content {
+.notification-ui_dd-content {
   max-height: 500px;
   overflow: auto;
+  /* min-height: 397px; */
+  min-width: 203px;
 }
 
 .notification-list {
@@ -165,13 +199,6 @@ export default {};
   line-height: 1.2;
 }
 
-.notification-list_feature-img img {
-  height: 48px;
-  width: 48px;
-  border-radius: 5px;
-  margin-left: 20px;
-}
-
 .white-mode {
   text-decoration: none;
   padding: 17px 40px;
@@ -182,5 +209,22 @@ export default {};
   position: fixed;
   left: 15px;
   bottom: 15px;
+}
+.loader {
+  width: 87%;
+  height: 101px;
+  justify-content: center;
+}
+
+.notification_img {
+  height: 38px;
+  width: 38px;
+  object-fit: cover;
+}
+.book_img {
+  height: 60px;
+  width: 38px;
+  object-fit: cover;
+  margin-left: 20px;
 }
 </style>
