@@ -182,9 +182,16 @@ const store = createStore({
             if (filters.uuid) {
                 params.append('uuid', filters.uuid);
             }
+            if (filters.all) {
+                params.append('all', true);
+            }
             try {
                 const response = await axiosInstance.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
+                
                 if (response.data.success) {
+                    if (filters.all) {
+                        return response.data.message;
+                    }
                     return response.data.message.data;
                 }
             } catch (error) {

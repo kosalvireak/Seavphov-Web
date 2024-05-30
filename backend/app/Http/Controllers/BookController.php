@@ -14,14 +14,25 @@ class BookController extends Controller
 {
     public function fetchBooksWithFilter(Request $request)
     {
-        $query = Book::query(); // Start with a base query
 
+        $all = $request->get('all');
         $title = $request->get('title');
         $author = $request->get('author');
         $categories = $request->get('categories');
         $condition = $request->get('condition');
         $uuid = $request->get('uuid');
+        
+        if ($all) {
+            $books = Book::all();
+            return response()->json([
+                'success' => true,
+                'message' => $books,
+            ], 200);
+        } 
 
+        $query = Book::query(); // Start with a base query
+        
+        
         if ($title) {
             $query->where('title', 'like', '%' . $title . '%'); // Filter by title
         }
@@ -38,9 +49,10 @@ class BookController extends Controller
             $user = User::where('uuid',$uuid)->first();
             $query->where('owner_id', $user->id); // Filter by uuid
         }
+
         
         $books = $query->paginate(10); // Apply pagination 
-
+        
         try {
             return response()->json([
                 'success' => true,

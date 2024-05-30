@@ -19,19 +19,23 @@
               class="notification-list text-black"
               :to="`/book/${item.book_id}`"
             >
-              <div class="notification-list_img">
+              <div class="notification-list_img d-flex-center">
                 <img
                   :src="item.user[0].picture"
                   alt="user"
                   class="notification_img"
                 />
               </div>
-              <div class="notification-list_detail">
+              <div
+                class="notification-list_detail d-flex flex-column justify-content-center"
+              >
                 <p>
                   <b>{{ item.user[0].name }}</b> {{ item.text }}
                 </p>
                 <p>
-                  <small>{{ getDateDisplay(item.date) }}</small>
+                  <small class="text-gray">{{
+                    getDateDisplay(item.date)
+                  }}</small>
                 </p>
               </div>
               <div class="notification-list_feature-img">
