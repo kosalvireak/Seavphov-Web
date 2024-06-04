@@ -33,10 +33,6 @@
 ![Search](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_6.png)
 ![Search](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_7.png)
 ![Search](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_8.png)
-
-
-A
-
 ![Book Detail](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_9.png)
 ![User profile](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_10.png)
 ![Our profile](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_11.png)
