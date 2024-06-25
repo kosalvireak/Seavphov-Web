@@ -1,29 +1,4 @@
-## Start the project
-> /seavphov
-
-```npm install```
-
-```npm run dev```
-
->/backend
-
-```composer install```
-
-```php artisan serve```
-
-
-## backend API
-
-
-> **get** `/api/books`
-
-> **get** `/api/books/{id}`
-
-> **post** `/api/books`
-
-> **put** `/api/books/{id}`
-
-> **delete** `/api/books/{id}`
+## Image
 
 ![Login](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_1.png)
 ![Register](https://raw.githubusercontent.com/kosalvireak/WCT-Project/vue/seavphov/src/assets/Screenshot_2.png)
