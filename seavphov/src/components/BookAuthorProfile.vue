@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column col-sm-12 col-lg-4 ps-lg-3 p-0 rounded-7">
     <div
-      class="bg-seavphov rounded-7 d-flex align-items-center justify-content-center flex-wrap flex-row mt-3 mt-lg-0 bg-seavphov-light px-3"
+      class="rounded-7 d-flex align-items-center justify-content-center flex-wrap flex-row mt-3 mt-lg-0 px-3"
       style="height: 150px"
     >
       <a :href="profileUrl">
@@ -15,9 +15,7 @@
     </div>
 
     <!-- User Contact -->
-    <div
-      class="rounded-7 d-flex flex-wrap flex-column mt-3 bg-seavphov-light h-100 px-3"
-    >
+    <div class="rounded-7 d-flex flex-wrap flex-column mt-3 h-100 px-3">
       <div class="d-flex flex-column w-100">
         <h4 class="mx-3 mt-3 font-Roboto">Contact</h4>
         <div class="d-flex flex-row my-2 mx-3">

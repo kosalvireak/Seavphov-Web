@@ -1,9 +1,15 @@
 <template>
   <div class="container-sm mt-3">
     <div class="row">
-      <div class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 bg-seavphov-light ps-3">
+      <div
+        class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 ps-3"
+      >
         <div class="d-flex h-top row me-0">
-          <img :src="book.images" class="book_cover img-fluid col-5 h-100 p-3" alt="book cover" />
+          <img
+            :src="book.images"
+            class="book_cover img-fluid col-5 h-100 p-3"
+            alt="book cover"
+          />
           <div class="col-7 px-lg-4 px-sm-1 h-100">
             <div class="title_div h-50 overflow-auto">
               <h3 class="book_title font-Roboto mt-3">
@@ -25,22 +31,40 @@
               </p>
 
               <!-- Bookmark -->
-              <button class="border-0 my-1 bg-seavphov-light p-0" v-if="isLogin">
+              <button
+                class="border-0 my-1 bg-seavphov-light p-0"
+                v-if="isLogin"
+              >
                 <Loader v-if="isLoading1" :size="10" :Color="'#000000'" />
                 <div v-if="!isLoading1">
-                  <i class="fa-solid fa-bookmark fa-2xl" style="color: yellow" v-if="book.issaved"
-                    @click="onSaveBook(false)"></i>
-                  <i class="fa-regular fa-bookmark fa-2xl" style="color: darkgrey" v-else @click="onSaveBook(true)"></i>
+                  <i
+                    class="fa-solid fa-bookmark fa-2xl"
+                    style="color: yellow"
+                    v-if="book.issaved"
+                    @click="onSaveBook(false)"
+                  ></i>
+                  <i
+                    class="fa-regular fa-bookmark fa-2xl"
+                    style="color: darkgrey"
+                    v-else
+                    @click="onSaveBook(true)"
+                  ></i>
                 </div>
               </button>
             </div>
           </div>
         </div>
         <div class="pe-3 h-buttom">
-          <h3 class="d-flex ps-1 font-Roboto" style="color: black; font-weight: bold">
+          <h3
+            class="d-flex ps-1 font-Roboto"
+            style="color: black; font-weight: bold"
+          >
             Description
           </h3>
-          <div class="d-flex overflow-auto mx-1 my-1" style="width: 100%; height: 120px">
+          <div
+            class="d-flex overflow-auto mx-1 my-1"
+            style="width: 100%; height: 120px"
+          >
             <p>
               {{ book.descriptions }}
             </p>
@@ -144,7 +168,7 @@ export default {
   text-overflow: ellipsis;
 }
 
-.title_div>p {
+.title_div > p {
   overflow: visible;
 }
 
@@ -171,7 +195,7 @@ export default {
 .btn:focus,
 .btn:active,
 .btn.active,
-.open>.dropdown-toggle.btn {
+.open > .dropdown-toggle.btn {
   color: black;
   background-color: #588157;
   border-color: black;

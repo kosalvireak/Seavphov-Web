@@ -16,7 +16,7 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">Your are editing a book.</h4>
+      <h4 class="my-4 text-gray fw-bold">Edit book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="modifyBook()" class="row">
         <div class="col-12 col-md-6">

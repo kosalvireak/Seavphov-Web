@@ -5,7 +5,7 @@
     <span class="w-100 my-3 ms-4">
       <i
         @click="switchPage()"
-        class="fa fa-arrow-circle-left cursor-pointer"
+        class="fa fa-arrow-circle-left cursor-pointer pe-2"
       ></i>
       {{ backText }}
     </span>

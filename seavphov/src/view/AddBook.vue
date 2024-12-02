@@ -3,17 +3,11 @@
     <a href="/home" class="text-gray cursor-pointer">
       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
     </a>
-    <!-- cover -->
-    <div class="d-flex justify-content-center logo">
-      <img src="/img/book.png" alt="booklogo" class="logo_img" />
-    </div>
-    <!-- end -->
-
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">You are adding a new book</h4>
+      <h4 class="my-4 text-gray fw-bold">Create book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
