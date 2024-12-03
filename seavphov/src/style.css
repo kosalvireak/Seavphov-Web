@@ -6,9 +6,9 @@
 @tailwind utilities;
 
 :root {
-  --seavphov-primary: #5c836e;
-  --seavphov-secondary: #467e60;
-  --seavphov-white: #edf8f5;
+  --sp-primary: #5c836e; /* please refer to tailwind.config.js */
+  --sp-secondary: #467e60;
+  --sp-tertiary: #edf8f5;
 
   --primary-color: #f5a807;
 
@@ -24,10 +24,25 @@
 
   --max-width-img-sm: 20rem; /*320px*/
   --max-width-img-md: 48.125rem; /*770px*/
-  --navbar-height: 80px;
+  --navbar-height: 60px;
   --navbar-height-mobile: 60px;
   --max-width: 1920px;
 }
+
+.sp-logo-sm{
+  width: 30px;
+  height: 30px;
+}
+
+.sp-logo-md{
+  width: 50px;
+  height: 50px;
+}
+
+.h-navbar{
+  height: var(--navbar-height);
+}
+
 
 .h-3rem {
   height: 3rem !important;

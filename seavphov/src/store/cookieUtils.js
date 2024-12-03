@@ -10,10 +10,11 @@ export function setCookie(user) {
     VueCookies.set('seavphov', encryptedData);
 }
 
+
 export function getCookie() {
     var user = VueCookies.get('seavphov');
-    if(user){
-        var bytes  = CryptoJS.AES.decrypt(user,secretKey);
+    if (user) {
+        var bytes = CryptoJS.AES.decrypt(user, secretKey);
         var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         return decryptedData;
     } else {

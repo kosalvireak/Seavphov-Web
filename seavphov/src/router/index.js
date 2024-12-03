@@ -19,6 +19,7 @@ import store from '../store/index.js'
 import UserLayout from '../layout/UserLayout.vue'
 import AuthLayout from '../layout/AuthLayout.vue'
 import AdminLayout from '../layout/AdminLayout.vue'
+import DashboardOverview from '../view/admin/DashboardOverview.vue'
 
 
 const router = createRouter({
@@ -60,7 +61,7 @@ const router = createRouter({
                 {
                     path: '',
                     name: 'admin.dashboard',
-                    component: Dashboard,
+                    component: DashboardOverview,
                     meta: { requiredAdminAuth: true },
                 },
                 {

@@ -10,9 +10,7 @@
       <div
         class="Dashboard_left h-100vh bg-white text-black p-0"
         :class="collab"
-      >
-        <LeftSidePanel @collab-click="collabLeftSide" />
-      </div>
+      ></div>
       <div
         class="Dashboard_right h-100vh bg-seavphov-light m-0 p-0"
         :class="collabRight"
@@ -33,8 +31,7 @@
 import Books from "../../components/admin/Books.vue";
 import Users from "../../components/admin/Users.vue";
 import Banners from "../../components/admin/Banners.vue";
-import LeftSidePanel from "../../components/admin/LeftSidePanel.vue";
-import AdminNav from "../../components/admin/AdminNav.vue";
+import AdminNav from "../../components/admin/AdminNavbar.vue";
 import DashboardOverview from "./DashboardOverview.vue";
 import Loader from "../../components/Loader.vue";
 export default {
@@ -42,7 +39,6 @@ export default {
   components: {
     DashboardOverview,
     AdminNav,
-    LeftSidePanel,
     Users,
     Books,
     Banners,
