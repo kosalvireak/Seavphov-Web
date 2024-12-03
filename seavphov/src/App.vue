@@ -1,17 +1,22 @@
-
-
-<template>
-  <Layout />
-</template>
-
 <script>
-import Layout from "./view/Layout.vue";
-
+import { RouterView } from "vue-router";
 export default {
-  name: "App",
-  components: { Layout },
+  name: "app",
+  components: { RouterView },
 };
 </script>
 
+<template>
+  <div class="app flex-center">
+    <RouterView />
+  </div>
+</template>
+
 <style scoped>
+.app {
+  width: 100%;
+  height: 100vh;
+  max-width: var(--max-width);
+  background-color: aqua;
+}
 </style>

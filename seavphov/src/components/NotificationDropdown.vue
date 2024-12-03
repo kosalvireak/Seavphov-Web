@@ -8,8 +8,8 @@
         Notification
       </h5>
     </div>
-    <div class="notification-ui_dd-content d-flex-center flex-column">
-      <div v-if="isLoading" class="notification-list loader d-flex-center">
+    <div class="notification-ui_dd-content flex-center flex-column">
+      <div v-if="isLoading" class="notification-list loader flex-center">
         <Loader :size="20" />
       </div>
       <div v-else>
@@ -19,7 +19,7 @@
               class="notification-list text-black"
               :to="`/book/${item.book_id}`"
             >
-              <div class="notification-list_img d-flex-center">
+              <div class="notification-list_img flex-center">
                 <img
                   :src="item.user[0].picture"
                   alt="user"
@@ -48,7 +48,7 @@
             </router-link>
           </div>
         </div>
-        <div v-else class="notification-list loader d-flex-center">
+        <div v-else class="notification-list loader flex-center">
           Your notification is empty
         </div>
       </div>

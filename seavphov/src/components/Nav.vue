@@ -57,22 +57,6 @@
             </a>
           </li>
           <li
-            v-if="isAdmin"
-            class="nav-item me-2 d-flex align-items-sm-center cursor-pointer"
-          >
-            <a
-              class="nav-link"
-              @click="
-                () => {
-                  this.$router.push('/admin');
-                }
-              "
-            >
-              <span><i class="fas fa-unlock fa-xl"></i></span>
-              <strong class="ms-1">Admin</strong>
-            </a>
-          </li>
-          <li
             v-if="isLogin"
             class="nav-item me-2 d-flex align-items-sm-center cursor-pointer"
           >
@@ -107,13 +91,6 @@
             </ul>
           </li>
           <!-- Notification dropdown -->
-
-          <!-- Logout -->
-          <li class="nav-item me-2 d-flex align-items-sm-center">
-            <a class="nav-link" @click="Logout()">
-              <span><i class="fa-solid fa-right-from-bracket fa-xl"></i></span>
-            </a>
-          </li>
         </ul>
         <a
           class="navbar-brand-center cursor-pointer"
@@ -129,7 +106,7 @@
             class="img-fluid"
             style="height: 45px"
         /></a>
-        <div class="SeachInput">
+        <div class="SearchInput">
           <SearchInput class="d-flex" role="search" />
         </div>
       </div>
@@ -162,11 +139,6 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin;
     },
-    isAdmin() {
-      if (this.$store.getters.isLogin) {
-        return this.$store.state.user.uuid == "b8WbMnM7C9C9rN5e9fXwDpJ4bC3lZh";
-      }
-    },
     hideNavbar() {
       if (this.$route.name) {
         if (
@@ -196,7 +168,7 @@ export default {
   display: none;
 }
 
-.SeachInput {
+.SearchInput {
   min-width: 20rem;
   order: -1;
   margin-bottom: 0px;
@@ -229,7 +201,7 @@ export default {
     display: none;
   }
 
-  .SeachInput {
+  .SearchInput {
     width: 100%;
     order: -1;
     margin-bottom: 8px;

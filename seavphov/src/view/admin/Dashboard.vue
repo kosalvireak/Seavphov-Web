@@ -1,6 +1,6 @@
 <template>
   <div
-    class="Admin Dashboard container-xl w-100 h-100 p-0 m-0 mt-0 d-flex-center"
+    class="Admin Dashboard container-xl w-100 h-100 p-0 m-0 mt-0 flex-center"
   >
     <Loader v-if="isLoading" />
     <div

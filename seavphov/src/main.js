@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
+import '../node_modules/flowbite-vue/dist/index.css'
 import 'mdb-vue-ui-kit/css/mdb.min.css';
+
 import 'mdb-vue-ui-kit/js/mdb.es.min.js';
 import App from './App.vue'
 import router from './router/index';
@@ -22,6 +24,6 @@ app.use(Toast, {
 app.use(VueCookies)
 app.component('EasyDataTable', Vue3EasyDataTable);
 
-VueCookies.config('30d','','',true);
+VueCookies.config('30d', '', '', true);
 store.dispatch("setUserFromCookies");
 app.mount("#app");

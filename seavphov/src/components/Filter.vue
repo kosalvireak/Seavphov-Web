@@ -1,6 +1,6 @@
 <template>
   <section class="Filter d-flex flex-column justify-content-start">
-    <h5>Category</h5>
+    <h5 class="text-xl">Category</h5>
     <ul>
       <li @click="SearchCategory('Fiction')">Fiction</li>
       <li @click="SearchCategory('Novel')">Novel</li>

@@ -1,7 +1,7 @@
 <template>
   <div class="MyBook card my-4">
     <div class="row container-sm m-0 p-2">
-      <router-link :to="`/book/${book.id}`" class="col-md-3 d-flex-center bg-success-subtle hover-zoom rounded-7 p-2">
+      <router-link :to="`/book/${book.id}`" class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2">
         <img :src="book.images" class="card-img img-fluid m-2 book_image p-1 rounded-7" alt="book_image"
           style="object-fit: contain" />
       </router-link>

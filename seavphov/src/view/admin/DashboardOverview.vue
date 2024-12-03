@@ -1,5 +1,5 @@
 <template>
-  <section class="DashboardOverview p-5 d-flex-center justify-content-start">
+  <section class="DashboardOverview p-5 flex-center justify-content-start">
     <div v-for="item in items" :key="item">
       <DataBanner :title="item.title" :number="item.number" :icon="item.icon" />
     </div>

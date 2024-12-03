@@ -16,6 +16,9 @@ import Books from '../components/admin/Books.vue'
 import ForgotPassword from '../view/ForgotPassword.vue'
 import { getCookie } from "../store/cookieUtils.js"
 import store from '../store/index.js'
+import UserLayout from '../layout/UserLayout.vue'
+import AuthLayout from '../layout/AuthLayout.vue'
+import AdminLayout from '../layout/AdminLayout.vue'
 
 
 const router = createRouter({
@@ -27,90 +30,108 @@ const router = createRouter({
             component: Home,
         },
         {
-            path: "/login",
-            name: "login",
-            component: Login,
-        },
-        {
-            path: "/signup",
-            name: "signup",
-            component: Signup,
-        },
-        {
-            path: "/forgot-password",
-            name: "forgot-password",
-            component: ForgotPassword,
-        },
-        {
-            path: "/profile",
-            name: "profile",
-            component: Profile,
-            meta: { requiresCookie: true }
-        },
-        
-        {
-            path: "/profile/:uuid",
-            name: "user-profile",
-            component: ViewProfile,
-        },
-        {
-            path: "/edit-profile",
-            name: "edit-profile",
-            component: EditProfile,
-            meta: { requiresCookie: true }
-        },
-        {
-            path: "/home",
-            name: "home",
-            component: Home,
-        },
-        {
-            path: "/search",
-            name: "search",
-            component: SearchResult,
-        },
-        {
-            path: "/book/new",
-            name: "newbook",
-            component: AddBook,
-            meta: { requiresCookie: true }
-        },
-        {
-            path: "/book/edit/:id",
-            name: "editbook",
-            component: EditBook,
-            meta: { requiresCookie: true }
-        },
-        {
-            path: '/book/:id',
-            name: 'book-detail',
-            component: BookDetail,
-        },
-        {
-            path: '/admin',
-            name: 'admin',
-            component: Dashboard,
-            meta: {  requiredAdminAuth: true},
+            path: "/auth",
+            name: "auth",
+            component: AuthLayout,
             children: [
                 {
-                  path: 'users',
-                  name: 'admin.users',
-                  component: Users,
-                  meta: {  requiredAdminAuth: true},
+                    path: "/login",
+                    name: "login",
+                    component: Login,
+                },
+                {
+                    path: "/signup",
+                    name: "signup",
+                    component: Signup,
+                },
+                {
+                    path: "/forgot-password",
+                    name: "forgot-password",
+                    component: ForgotPassword,
+                },
+            ]
+        },
+        {
+            path: "/admin",
+            name: "admin",
+            component: AdminLayout,
+            meta: { requiredAdminAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'admin.dashboard',
+                    component: Dashboard,
+                    meta: { requiredAdminAuth: true },
+                },
+                {
+                    path: 'users',
+                    name: 'admin.users',
+                    component: Users,
+                    meta: { requiredAdminAuth: true },
                 },
                 {
                     path: 'books',
                     name: 'admin.books',
                     component: Books,
-                    meta: {  requiredAdminAuth: true},
-                  },
+                    meta: { requiredAdminAuth: true },
+                },
                 {
                     path: 'banners',
                     name: 'admin.banners',
                     component: Banners,
-                    meta: {  requiredAdminAuth: true},
-                  },
-              ]
+                    meta: { requiredAdminAuth: true },
+                },
+            ]
+        },
+        {
+            path: "/",
+            name: "user",
+            component: UserLayout,
+            children: [{
+                path: "/profile",
+                name: "profile",
+                component: Profile,
+                meta: { requiresCookie: true }
+            },
+            {
+                path: "/profile/:uuid",
+                name: "user-profile",
+                component: ViewProfile,
+            },
+            {
+                path: "/edit-profile",
+                name: "edit-profile",
+                component: EditProfile,
+                meta: { requiresCookie: true }
+            },
+            {
+                path: "/home",
+                name: "home",
+                component: Home,
+            },
+            {
+                path: "/search",
+                name: "search",
+                component: SearchResult,
+            },
+            {
+                path: "/book/new",
+                name: "newbook",
+                component: AddBook,
+                meta: { requiresCookie: true }
+            },
+            {
+                path: "/book/edit/:id",
+                name: "edit-book",
+                component: EditBook,
+                meta: { requiresCookie: true }
+            },
+            {
+                path: '/book/:id',
+                name: 'book-detail',
+                component: BookDetail,
+            },
+            ]
         },
         {
             path: "/:pathMatch(.*)*",
@@ -122,22 +143,22 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresCookie) {
-      if (await getCookie()) {
-        next();
-      } else {
-        next('/login');  
-      }
-    } else if(to.meta.requiredAdminAuth){
+        if (await getCookie()) {
+            next();
+        } else {
+            next('/login');
+        }
+    } else if (to.meta.requiredAdminAuth) {
         const auth = await store.dispatch("adminGetAuth")
         if (auth == true) {
             next();
         } else {
-            next('/home');  
+            next('/home');
         }
     } else {
-      next();
+        next();
     }
-  });
+});
 
 
 export default router

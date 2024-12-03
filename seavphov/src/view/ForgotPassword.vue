@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ForgotPassword shadow-5 d-flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100"
+    class="ForgotPassword shadow-5 flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100"
   >
     <span class="w-100 my-3 ms-4">
       <i
@@ -9,17 +9,17 @@
       ></i>
       {{ backText }}
     </span>
-    <div class="d-flex-center">
+    <div class="flex-center">
       <img src="/img/book.png" alt="booklogo" class="logo_img img-fluid" />
     </div>
 
-    <div class="ForgotPassword_top d-flex-center">
+    <div class="ForgotPassword_top flex-center">
       <h2 class="mt-2">Forgot Password</h2>
     </div>
 
     <div
       v-if="page == 1"
-      class="SendEmailForm d-flex-center flex-column mb-7 w-60"
+      class="SendEmailForm flex-center flex-column mb-7 w-60"
     >
       <h6 class="my-3">Enter your email address</h6>
       <form v-on:submit.prevent="SendEmail()" class="w-100">
@@ -34,8 +34,8 @@
           />
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <div class="form-floating d-flex-center justify-content-end">
-          <button type="submit" class="btn mt-2 d-flex-center btn_submit">
+        <div class="form-floating flex-center justify-content-end">
+          <button type="submit" class="btn mt-2 flex-center btn_submit">
             <span v-if="!isLoading">Next</span>
             <Loader v-else :size="15" :Color="'#FFFFFF'" />
           </button>
@@ -44,7 +44,7 @@
     </div>
     <div
       v-if="page == 2"
-      class="ResetPasswordForm d-flex-center flex-column my-3 w-60"
+      class="ResetPasswordForm flex-center flex-column my-3 w-60"
     >
       <h5 class="my-3">Enter the token we sent to your email address.</h5>
       <form v-on:submit.prevent="SendResetPassword()" class="w-100">
@@ -109,10 +109,10 @@
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <div class="form-floating d-flex-center justify-content-end">
+        <div class="form-floating flex-center justify-content-end">
           <button
             type="submit"
-            class="btn btn-primary mt-2 d-flex-center btn_submit"
+            class="btn btn-primary mt-2 flex-center btn_submit"
           >
             <span v-if="!isLoading">Reset</span>
             <Loader v-else :size="15" :Color="'#FFFFFF'" />

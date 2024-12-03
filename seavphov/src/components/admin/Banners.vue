@@ -1,9 +1,7 @@
 <template>
-  <section
-    class="Banners shadow-5 rounded-7 d-flex-center p-2 flex-column w-100"
-  >
+  <section class="Banners shadow-5 rounded-7 flex-center p-2 flex-column w-100">
     <div v-if="page == 1" class="Banners_table">
-      <div class="d-flex-center m-3">
+      <div class="flex-center m-3">
         <button
           type="submit"
           class="btn btn-primary btn_submit"
@@ -33,7 +31,7 @@
           <p class="text-bold" v-else>False</p>
         </template>
         <template #item-="banners">
-          <div class="d-flex-center w-100">
+          <div class="flex-center w-100">
             <button
               v-if="banners.order_priority == 0"
               class="ellipsis text-center btn btn-primary h-auto"
@@ -55,7 +53,7 @@
         </template>
       </EasyDataTable>
     </div>
-    <div v-if="page == 2" class="Add_Banners d-flex-center flex-column w-100">
+    <div v-if="page == 2" class="Add_Banners flex-center flex-column w-100">
       <a @click="changePage(1)" class="text-gray">
         <i
           class="fa fa-arrow-circle-left cursor-pointer"

@@ -3,7 +3,7 @@
     class="LeftSidePanel w-100 h-100 d-flex flex-column align-items-start shadow-5"
   >
     <ul class="w-100">
-      <div class="text-sm d-flex-center py-3">
+      <div class="text-sm flex-center py-3">
         <a
           class="navbar-brand cursor-pointer"
           @click="

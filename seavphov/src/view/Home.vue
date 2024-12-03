@@ -1,11 +1,11 @@
 <template>
   <div class="w-100 h-100 mb-auto">
     <div
-      class="backgroundImg d-flex-center img-fluid"
+      class="backgroundImg flex-center img-fluid"
       :style="getBackground"
       style="width: 100%; height: 500px"
     >
-      <div class="d-flex-center p-3 w-75 h-100">
+      <div class="flex-center p-3 w-75 h-100">
         <Carousel v-if="TopBooks.length" :books="TopBooks" />
       </div>
     </div>

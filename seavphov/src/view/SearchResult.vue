@@ -2,7 +2,7 @@
   <section
     class="SearchResult container-sm d-flex flex-column w-100 h-100 align-items-start mb-auto"
   >
-    <div class="mt-4 w-100 d-flex-center row align-items-start">
+    <div class="mt-4 w-100 flex-center row align-items-start">
       <div class="col-9">
         <a
           @click="
@@ -35,7 +35,7 @@
       <Filter class="col-3 pt-5 h-100" />
     </div>
     <div
-      class="Vue3Carousel_Container mt-4 w-100 d-flex-center row align-items-start my-5"
+      class="Vue3Carousel_Container mt-4 w-100 flex-center row align-items-start my-5"
       style="min-height: 220px; margin-top: 200px !important"
     >
       <Vue3Carousel />
