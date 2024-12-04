@@ -1,26 +1,20 @@
 <script>
 import { RouterView } from "vue-router";
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "UserLayout",
-  components: { RouterView },
+  components: { RouterView, Navbar, Footer },
 };
 </script>
 
 <template>
-  <div class="UserLayout">
+  <div class="UserLayout flex-center flex-column">
+    <Navbar />
     <RouterView />
+    <Footer />
   </div>
 </template>
 
 <style scoped>
-.UserLayout {
-  margin-top: var(--navbar-height);
-}
-
-@media (max-width: 640px) {
-  /*medium*/
-  .UserLayout {
-    margin-top: var(--navbar-height-mobile);
-  }
-}
 </style>

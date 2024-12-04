@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="hideNavbar" class="navbar navbar-expand-md bg-seavphov p-0 w-100">
+  <nav class="navbar navbar-expand-md bg-seavphov p-0 w-100">
     <div class="container-xxl">
       <a
         class="navbar-brand"
@@ -138,20 +138,6 @@ export default {
   computed: {
     isLogin() {
       return this.$store.getters.isLogin;
-    },
-    hideNavbar() {
-      if (this.$route.name) {
-        if (
-          this.$route.name == "login" ||
-          this.$route.name == "signup" ||
-          this.$route.name == "forgot-password" ||
-          this.$route.name.startsWith("admin")
-        ) {
-          return false;
-        } else {
-          return true;
-        }
-      }
     },
   },
 };

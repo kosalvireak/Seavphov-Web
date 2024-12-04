@@ -15,8 +15,7 @@ export default {
 <style scoped>
 .app {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   max-width: var(--max-width);
-  background-color: aqua;
 }
 </style>
