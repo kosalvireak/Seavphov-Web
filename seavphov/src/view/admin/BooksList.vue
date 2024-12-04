@@ -1,5 +1,5 @@
 <template>
-  <div class="Books w-100 p-2 p-lg-5">
+  <div class="BooksList w-100">
     <EasyDataTable
       :server-items-length="serverItemsLength"
       :headers="headers"
@@ -78,7 +78,7 @@ export default {
   width: 62px;
   object-fit: cover;
 }
-.Books {
+.BooksList {
   max-width: 100vw;
 }
 </style>

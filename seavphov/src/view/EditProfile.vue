@@ -4,20 +4,38 @@
       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Profile
     </a>
 
-    <div v-if="isLogin" class="d-flex align-items-center justify-content-center flex-column">
+    <div
+      v-if="isLogin"
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
       <h4 class="my-4 text-gray fw-bold">Your are editing your profile</h4>
 
       <form style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <label for="picture" class="form-label custom-file-upload">Profile Image</label>
-            <input type="file" class="form-control h-3rem" id="picture" name="picture" @change="handleImageChange" />
+            <label for="picture" class="form-label custom-file-upload"
+              >Profile Image</label
+            >
+            <input
+              type="file"
+              class="form-control h-3rem"
+              id="picture"
+              name="picture"
+              @change="handleImageChange"
+            />
           </div>
           <div class="mb-4 d-flex justify-content-center">
-            <div class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
-              style="width: 192px; height: 192px">
-              <img v-if="user.picture" :src="user.picture" alt="preview_image"
-                class="img-fluid h-100 w-100 cover_image b-1 rounded-circle" style="object-fit: cover" />
+            <div
+              class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
+              style="width: 192px; height: 192px"
+            >
+              <img
+                v-if="user.picture"
+                :src="user.picture"
+                alt="preview_image"
+                class="img-fluid h-100 w-100 cover_image b-1 rounded-circle"
+                style="object-fit: cover"
+              />
               <div v-else>
                 <Loader v-if="uploadingBook" />
                 <p class="text-center" v-else>Your image will preview here</p>
@@ -25,37 +43,81 @@
             </div>
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Name" id="name" v-model="user.name" wrapperClass="bg-white h-3rem" required />
+            <MDBInput
+              type="text"
+              label="Name"
+              id="name"
+              v-model="user.name"
+              wrapperClass="bg-white h-3rem"
+              required
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="email" label="Email" id="email" v-model="user.email" wrapperClass="bg-white h-3rem"
-              required />
+            <MDBInput
+              type="email"
+              label="Email"
+              id="email"
+              v-model="user.email"
+              wrapperClass="bg-white h-3rem"
+              required
+            />
           </div>
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <MDBInput type="text" label="Phone number" id="phone" v-model="user.phone" wrapperClass="bg-white h-3rem"
-              required />
+            <MDBInput
+              type="text"
+              label="Phone number"
+              id="phone"
+              v-model="user.phone"
+              wrapperClass="bg-white h-3rem"
+              required
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Instagram link" id="instagram" v-model="user.instagram"
-              wrapperClass="bg-white h-3rem" />
+            <MDBInput
+              type="text"
+              label="Instagram link"
+              id="instagram"
+              v-model="user.instagram"
+              wrapperClass="bg-white h-3rem"
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Facebook link" id="facebook" v-model="user.facebook"
-              wrapperClass="bg-white h-3rem" />
+            <MDBInput
+              type="text"
+              label="Facebook link"
+              id="facebook"
+              v-model="user.facebook"
+              wrapperClass="bg-white h-3rem"
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Twitter link" id="twitter" v-model="user.twitter"
-              wrapperClass="bg-white h-3rem" />
+            <MDBInput
+              type="text"
+              label="Twitter link"
+              id="twitter"
+              v-model="user.twitter"
+              wrapperClass="bg-white h-3rem"
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Telegram link" id="telegram" v-model="user.telegram"
-              wrapperClass="bg-white h-3rem" />
+            <MDBInput
+              type="text"
+              label="Telegram link"
+              id="telegram"
+              v-model="user.telegram"
+              wrapperClass="bg-white h-3rem"
+            />
           </div>
           <div class="mb-4">
-            <MDBInput type="text" label="Location" id="location" v-model="user.location"
-              wrapperClass="bg-white h-3rem" />
+            <MDBInput
+              type="text"
+              label="Location"
+              id="location"
+              v-model="user.location"
+              wrapperClass="bg-white h-3rem"
+            />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
@@ -63,7 +125,10 @@
         </div>
       </form>
     </div>
-    <div v-else class="d-flex align-items-center justify-content-center flex-column">
+    <div
+      v-else
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
       <NoLoggin />
     </div>
   </div>
@@ -72,13 +137,12 @@
 <script>
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import Loader from "../components/Loader.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import { useToast } from "vue-toastification";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "EditProfile",
-  components: { Loader, NoLoggin, MDBInput },
+  components: { NoLoggin, MDBInput },
   data() {
     return {
       toast: useToast(),

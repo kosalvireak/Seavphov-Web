@@ -1,6 +1,6 @@
 
 <template>
-  <div class="Users w-100 p-2 p-lg-5">
+  <div class="UsersList w-100">
     <EasyDataTable
       :server-items-length="serverItemsLength"
       :headers="headers"
@@ -11,20 +11,17 @@
       buttons-pagination
     >
       <template #item-picture="users">
-        <img
-          :src="users.picture"
-          class="img-fluid rounded-circle navbar_img border border-1 mt-2"
-          alt="img"
-          loading="lazy"
-        />
+        <FwbAvatar :img="users.picture" rounded size="md" />
       </template>
     </EasyDataTable>
   </div>
 </template>
   
   <script>
+import { FwbAvatar } from "flowbite-vue";
 export default {
-  name: "Users",
+  name: "UsersList",
+  components: { FwbAvatar },
   data() {
     return {
       isLoading: false,
@@ -58,13 +55,11 @@ export default {
 };
 </script>
   
-  <style scoped>
-.navbar_img {
-  height: 55px;
-  width: 55px;
-  object-fit: cover;
-}
-.Users {
+<style scoped>
+.UsersList {
   max-width: 100vw;
+}
+:deep(img) {
+  object-fit: cover;
 }
 </style>

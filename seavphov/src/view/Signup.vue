@@ -107,11 +107,10 @@
 </template>
   
 <script>
-import Loader from "../components/Loader.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "Register",
-  components: { Loader, MDBInput },
+  components: { MDBInput },
   data() {
     return {
       email: "",

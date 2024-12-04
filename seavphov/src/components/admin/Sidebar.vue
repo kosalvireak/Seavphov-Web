@@ -16,7 +16,7 @@
         <li
           v-for="navigation in navigationItems"
           :key="navigation"
-          :class="{ 'bg-gray-200': currentRoute(navigation.route) }"
+          :class="{ 'bg-white': currentRoute(navigation.route) }"
           class="flex align-items-center text-black hover:bg-gray-200 cursor-pointer py-3 px-4"
           @click="toRouteName(navigation.route)"
         >
@@ -27,7 +27,7 @@
     </nav>
     <button
       @click="toggleNav"
-      class="toggle-btn bg-sp-primary absolute text-center rounded-2 cursor-pointer"
+      class="toggle-btn bg-sp-primary absolute text-center rounded-2 cursor-pointer z-40"
     >
       <span v-if="isCollapsed">→</span>
       <span v-else>←</span>
@@ -44,7 +44,7 @@ export default {
         { route: "admin.dashboard", name: "Dashboard", icon: "fa-table" },
         { route: "admin.users", name: "Users", icon: "fa-users" },
         { route: "admin.books", name: "All Books", icon: "fa-book" },
-        { route: "admin.banners", name: "Banner", icon: "fa-th-large" },
+        { route: "admin.banners", name: "Banners", icon: "fa-th-large" },
       ],
       isCollapsed: false,
     };

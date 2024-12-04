@@ -51,11 +51,10 @@
     
     <script>
 import Book from "../components/Book.vue";
-import Loader from "../components/Loader.vue";
 
 export default {
   name: "RenderBook",
-  components: { Book, Loader },
+  components: { Book },
   props: { books: Array, loading: Boolean },
   computed: {
     isBooksEmpty() {

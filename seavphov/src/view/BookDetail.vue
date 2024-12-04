@@ -86,10 +86,9 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import BookAuthorProfile from "../components/BookAuthorProfile.vue";
-import Loader from "../components/Loader.vue";
 export default {
   name: "BookDetail",
-  components: { RenderBook, BookAuthorProfile, Loader },
+  components: { RenderBook, BookAuthorProfile },
   data() {
     return {
       paramsId: this.$route.params.id,

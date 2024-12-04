@@ -62,10 +62,9 @@
 <script>
 import SocialMediaList from "./SocialMediaList.vue";
 
-import Loader from "../components/Loader.vue";
 export default {
   name: "UserMainProfile",
-  components: { SocialMediaList, Loader },
+  components: { SocialMediaList },
   props: {
     user: { type: Object, required: true },
     fromProfile: { type: Boolean, required: true },

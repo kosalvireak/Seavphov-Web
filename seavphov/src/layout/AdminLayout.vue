@@ -13,9 +13,9 @@ export default {
     <!-- Left Navigation -->
     <Sidebar />
     <!-- Main Content Area -->
-    <main class="admin-content">
+    <main class="admin-content bg-white">
       <AdminNavbar />
-      <RouterView />
+      <RouterView class="p-5" />
     </main>
   </div>
 </template>
@@ -28,8 +28,6 @@ export default {
 /* Right content area */
 .admin-content {
   flex: 1;
-  background-color: #c1c1c1;
-  color: black;
   overflow-y: auto;
 }
 </style>

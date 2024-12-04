@@ -128,12 +128,11 @@
 import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import Loader from "../components/Loader.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import { useToast } from "vue-toastification";
 export default {
   name: "AddBook",
-  components: { Loader, NoLoggin, MDBInput },
+  components: { NoLoggin, MDBInput },
   data() {
     return {
       toast: useToast(),

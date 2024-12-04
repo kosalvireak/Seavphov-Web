@@ -9,10 +9,9 @@ import AddBook from "../view/AddBook.vue"
 import EditBook from "../view/EditBook.vue"
 import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
-import Dashboard from '../view/admin/Dashboard.vue'
-import Users from '../components/admin/Users.vue'
-import Banners from '../components/admin/Banners.vue'
-import Books from '../components/admin/Books.vue'
+import UsersList from '../view/admin/UsersList.vue'
+import Banners from '../view/admin/Banners.vue'
+import BooksList from '../view/admin/BooksList.vue'
 import ForgotPassword from '../view/ForgotPassword.vue'
 import { getCookie } from "../store/cookieUtils.js"
 import store from '../store/index.js'
@@ -67,13 +66,13 @@ const router = createRouter({
                 {
                     path: 'users',
                     name: 'admin.users',
-                    component: Users,
+                    component: UsersList,
                     meta: { requiredAdminAuth: true },
                 },
                 {
                     path: 'books',
                     name: 'admin.books',
-                    component: Books,
+                    component: BooksList,
                     meta: { requiredAdminAuth: true },
                 },
                 {

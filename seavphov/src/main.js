@@ -16,6 +16,8 @@ import 'vue3-easy-data-table/dist/style.css';
 
 import { RouterMixin } from './store/routerUtils';
 
+import Loader from './components/Loader.vue';
+
 const app = createApp(App)
 // Bind global variable //
 app.config.globalProperties.$logoUrl =
@@ -28,6 +30,7 @@ app.use(Toast, {
 });
 app.use(VueCookies)
 app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('Loader', Loader);
 
 
 app.mixin(RouterMixin)

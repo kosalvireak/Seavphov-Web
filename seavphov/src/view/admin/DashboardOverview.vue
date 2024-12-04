@@ -1,16 +1,16 @@
 <template>
-  <section class="DashboardOverview p-5 flex-center justify-content-start">
+  <section class="DashboardOverview flex-center justify-content-start">
     <div v-for="item in items" :key="item">
-      <DataBanner :title="item.title" :number="item.number" :icon="item.icon" />
+      <InfoCard :title="item.title" :number="item.number" :icon="item.icon" />
     </div>
   </section>
 </template>
 
 <script>
-import DataBanner from "../../components/admin/DataBanner.vue";
+import InfoCard from "../../components/admin/InfoCard.vue";
 export default {
   name: "DashboardOverview",
-  components: { DataBanner },
+  components: { InfoCard },
   data() {
     return {
       items: [

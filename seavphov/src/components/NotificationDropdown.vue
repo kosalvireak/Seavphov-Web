@@ -57,10 +57,8 @@
 </template>
 
 <script>
-import Loader from "./Loader.vue";
 export default {
   name: "NotificationDropdown",
-  components: { Loader },
   props: {
     isShow: Boolean,
   },
