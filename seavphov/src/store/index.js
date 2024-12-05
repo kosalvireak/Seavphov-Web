@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
 import router from '../router';
 import axiosInstance from '../../axiosInstance';
+import { getData, postJson, postForm} from "./apiUtils.js";
 
 import { setCookie, getCookie, removeCookie } from './cookieUtils';
 
@@ -109,6 +110,7 @@ const store = createStore({
         },
         async fetchUserProfile() {
             try {
+                // const response = await getData("profile")
                 const response = await axiosInstance.get(backend_url + "/api/profile", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
@@ -123,6 +125,7 @@ const store = createStore({
         },
         async fetchOtherUserProfile({ }, uuid) {
             try {
+                // const response = await getData("user/" + uuid)
                 const response = await axiosInstance.get(backend_url + "/api/user/" + uuid, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,

@@ -1,6 +1,6 @@
 import axiosInstance from "../../axiosInstance.js";
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
+const backend_url = import.meta.env.VITE_BACKEND_URL + '/api/';
 const apiToken = this.$store.state.user.api_token || null
 
 export async function getData(route, auth = false){
