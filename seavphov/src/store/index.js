@@ -31,7 +31,7 @@ const store = createStore({
             return state.fetchBooks.filter(book => book.categories == category);
         },
         isLogin: () => {
-            return getCookie() == null ? false : true;
+            return getCookie() != null;
         },
     },
 
@@ -70,7 +70,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push({ path: '/home' })
+                    this.toRouteName(home)
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -431,7 +431,6 @@ const store = createStore({
         },
         async deleteBook({ }, id) {
             try {
-
                 const response = await axiosInstance.delete(backend_url + "/api/books/" + id, {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,

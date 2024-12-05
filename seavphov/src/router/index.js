@@ -10,7 +10,7 @@ import EditBook from "../view/EditBook.vue"
 import EditProfile from "../view/EditProfile.vue"
 import ViewProfile from "../view/ViewProfile.vue"
 import UsersList from '../view/admin/UsersList.vue'
-import Banners from '../view/admin/Banners.vue'
+import BannersList from '../view/admin/BannersList.vue'
 import BooksList from '../view/admin/BooksList.vue'
 import ForgotPassword from '../view/ForgotPassword.vue'
 import { getCookie } from "../store/cookieUtils.js"
@@ -78,7 +78,7 @@ const router = createRouter({
                 {
                     path: 'banners',
                     name: 'admin.banners',
-                    component: Banners,
+                    component: BannersList,
                     meta: { requiredAdminAuth: true },
                 },
             ]
@@ -150,7 +150,7 @@ router.beforeEach(async (to, from, next) => {
         }
     } else if (to.meta.requiredAdminAuth) {
         const auth = await store.dispatch("adminGetAuth")
-        if (auth == true) {
+        if (auth === true) {
             next();
         } else {
             next('/home');

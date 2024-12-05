@@ -6,7 +6,7 @@ export const RouterMixin = {
         },
         async logout() {
             await this.$store.dispatch("logoutUser");
-            this.$router.push("/login");
+            this.toRouteName('login')
         }
     }
 }

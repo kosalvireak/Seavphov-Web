@@ -1,5 +1,5 @@
 <template>
-  <section class="Banners shadow-5 rounded-7 flex-center p-2 flex-column w-100">
+  <section class="BannersList shadow-5 rounded-7 flex-center p-2 flex-column w-100">
     <div v-if="page == 1" class="Banners_table">
       <div class="flex-center m-3">
         <button
@@ -146,7 +146,7 @@ import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default {
-  name: "Banners",
+  name: "BannersList",
   components: { Carousel, MDBInput },
   data() {
     return {

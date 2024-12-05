@@ -13,14 +13,4 @@ export default {
 </template>
 
 <style scoped>
-.AuthLayout {
-  margin-top: var(--navbar-height);
-}
-
-@media (max-width: 640px) {
-  /*medium*/
-  .AuthLayout {
-    margin-top: var(--navbar-height-mobile);
-  }
-}
 </style>

@@ -11,9 +11,9 @@ export default {
 <template>
   <div class="AdminLayout w-full d-flex flex-row">
     <!-- Left Navigation -->
-    <Sidebar />
+    <Sidebar class="Left-Admin-Content" />
     <!-- Main Content Area -->
-    <main class="admin-content bg-white">
+    <main class="Right-Admin-Content bg-white">
       <AdminNavbar />
       <RouterView class="p-5" />
     </main>
@@ -26,7 +26,7 @@ export default {
 }
 
 /* Right content area */
-.admin-content {
+.Right-Admin-Content {
   flex: 1;
   overflow-y: auto;
 }

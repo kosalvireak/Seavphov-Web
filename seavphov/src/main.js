@@ -19,9 +19,14 @@ import { RouterMixin } from './store/routerUtils';
 import Loader from './components/Loader.vue';
 
 const app = createApp(App)
+
 // Bind global variable //
 app.config.globalProperties.$logoUrl =
     'https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.jpg'
+
+// Bind global component //
+app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('Loader', Loader);
 
 app.use(router);
 app.use(store);
@@ -29,9 +34,6 @@ app.use(Toast, {
     position: POSITION.BOTTOM_RIGHT
 });
 app.use(VueCookies)
-app.component('EasyDataTable', Vue3EasyDataTable);
-app.component('Loader', Loader);
-
 
 app.mixin(RouterMixin)
 
