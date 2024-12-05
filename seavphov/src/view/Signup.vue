@@ -95,7 +95,7 @@
         <a
           @click="
             () => {
-              this.$router.push('/login');
+              this.toRouteName('/login');
             }
           "
           class="text-seavphov"
@@ -126,7 +126,7 @@ export default {
   methods: {
     async Register() {
       if (this.password.length >= 8) {
-        if (this.password == this.password_confirmation) {
+        if (this.password === this.password_confirmation) {
           const RegisterData = {
             email: this.email,
             name: this.name,
@@ -156,7 +156,7 @@ export default {
       }
     },
     forgotPassword() {
-      this.$router.push("/forgot-password");
+      this.toRouteName("forgot-password");
     },
   },
 };

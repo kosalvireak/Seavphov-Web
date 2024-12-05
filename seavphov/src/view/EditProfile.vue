@@ -174,7 +174,7 @@ export default {
       this.formData.append("telegram", this.user.telegram);
       this.formData.append("location", this.user.location);
       await this.$store.dispatch("modifyUserProfile", this.formData);
-      this.$router.push({ path: "/profile" });
+      this.toRouteName("profile" );
     },
     async handleImageChange(event) {
       this.uploadingBook = true;

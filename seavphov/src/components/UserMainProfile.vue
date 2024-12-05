@@ -46,7 +46,7 @@
               class="mx-3 text-gray cursor-pointer"
               @click="
                 () => {
-                  this.$router.push({ path: '/edit-profile' });
+                  this.toRouteName( 'edit-profile' );
                 }
               "
             >

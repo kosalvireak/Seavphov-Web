@@ -18,7 +18,7 @@
       <a
         @click="
           () => {
-            this.$router.push('/login');
+            toRouteName('login');
           }
         "
         class="text-gray"

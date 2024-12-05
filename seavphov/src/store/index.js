@@ -99,7 +99,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    router.push({ path: '/home' })
+                    this.toRouteName('home')
 
 
                 }

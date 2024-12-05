@@ -164,7 +164,7 @@ export default {
       await this.$store.dispatch("resetPassword", formData);
       this.isLoading = false;
       if (this.page == 2) {
-        this.$router.push("/login");
+        this.toRouteName("login");
       }
     },
     showPassword() {
@@ -178,7 +178,7 @@ export default {
     },
     switchPage() {
       if (this.page == 1) {
-        this.$router.push("/login");
+        this.toRouteName("login");
       } else if (this.page == 2) {
         this.page = 1;
         this.backText = "Login";

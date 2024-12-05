@@ -82,7 +82,7 @@
         <a
           @click="
             () => {
-              this.$router.push('/signup');
+              this.toRouteName('signup');
             }
           "
           class="text-seavphov"
@@ -134,10 +134,10 @@ export default {
       }
     },
     forgotPassword() {
-      this.$router.push("/forgot-password");
+      this.toRouteName("forgot-password");
     },
     redirectHome() {
-      this.$router.push("/home");
+      this.toRouteName("home");
     },
   },
 };

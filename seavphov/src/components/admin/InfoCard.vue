@@ -1,13 +1,4 @@
 <template>
-  <!-- <section class="DataBanner shadow-5 rounded-7 flex-center m-2">
-    <div class="text-black">
-      <i :class="icon"></i>
-    </div>
-    <div class="ms-4 text-black">
-      <h4 class="font-Roboto">{{ title }}</h4>
-      <h4 class="font-Roboto text-center">{{ number }}</h4>
-    </div>
-  </section> -->
   <fwb-card href="#">
     <div class="p-5">
       <h5

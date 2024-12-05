@@ -7,7 +7,7 @@
         <a
           @click="
             () => {
-              this.$router.push('/home');
+              this.toRouteName('/home');
             }
           "
           class="text-gray align-self-start cursor-pointer"
