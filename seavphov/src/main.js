@@ -7,14 +7,14 @@ import 'mdb-vue-ui-kit/css/mdb.min.css';
 import 'mdb-vue-ui-kit/js/mdb.es.min.js';
 import App from './App.vue'
 import router from './router/index';
-import store from './store/index'
+import store from './utils/store'
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import VueCookies from 'vue-cookies';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
-import { RouterMixin } from './store/routerUtils';
+import { RouterMixin } from './utils/routerUtils';
 
 import Loader from './components/Loader.vue';
 
@@ -28,12 +28,15 @@ app.config.globalProperties.$logoUrl =
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component('Loader', Loader);
 
+
 app.use(router);
 app.use(store);
 app.use(Toast, {
     position: POSITION.BOTTOM_RIGHT
 });
 app.use(VueCookies)
+
+
 
 app.mixin(RouterMixin)
 

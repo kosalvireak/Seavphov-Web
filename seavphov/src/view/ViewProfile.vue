@@ -1,8 +1,14 @@
 <template>
   <div class="Profile box h-100 w-100">
     <div class="container-sm box b-1 p-0">
-      <UserMainProfile :fromProfile="false" :user="User" :loading="isLoadingProfile" />
-      <div class="flex book_options p-2 rounded-7 cursor-pointer book_option_child_selected fw-bold">
+      <UserMainProfile
+        :fromProfile="false"
+        :user="User"
+        :loading="isLoadingProfile"
+      />
+      <div
+        class="flex book_options p-2 rounded-7 cursor-pointer book_option_child_selected fw-bold"
+      >
         <a class="text-black">Home</a>
       </div>
       <div>

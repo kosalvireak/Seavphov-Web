@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
-import router from '../router';
-import axiosInstance from '../../axiosInstance';
-import { getData, postJson, postForm} from "./apiUtils.js";
+import router from '../router/index.js';
+import axiosInstance from '../../axiosInstance.js';
+import { getData, postJson, postForm } from "./apiUtils.js";
 
-import { setCookie, getCookie, removeCookie } from './cookieUtils';
+import { setCookie, getCookie, removeCookie } from './cookieUtils.js';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
@@ -100,8 +100,6 @@ const store = createStore({
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
                     this.toRouteName('home')
-
-
                 }
             } catch (error) {
                 console.error("Error login user:", error);
@@ -189,8 +187,7 @@ const store = createStore({
                 params.append('all', true);
             }
             try {
-                const response = await axiosInstance.get(backend_url + `/api/books?${params.toString()}`); // Add params to URL
-                
+                const response = await getData(`/api/books?${params.toString()}`)
                 if (response.data.success) {
                     if (filters.all) {
                         return response.data.message;
@@ -273,11 +270,7 @@ const store = createStore({
         },
         async adminGetOverviewData() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/overview', {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData('/api/admin/overview', true, this.state.user.api_token);
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -287,7 +280,7 @@ const store = createStore({
         },
         async getBanner() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/books/banner');
+                const response = await getData('/api/books/banner');
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -297,11 +290,7 @@ const store = createStore({
         },
         async adminGetUsers() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/users', {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                }); // Add params to URL
+                const response = await getData('/api/admin/users', true, this.state.user.api_token)
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -311,11 +300,7 @@ const store = createStore({
         },
         async adminGetAuth() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/auth', {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData('/api/admin/auth', true, this.state.user.api_token);
                 if (response.data.success) {
                     return response.data.data;
                 } else {
@@ -462,13 +447,13 @@ const store = createStore({
         },
         async getSavedBooksNotification() {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/saved/notification" , {
+                const response = await axiosInstance.get(backend_url + "/api/saved/notification", {
                     headers: {
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 });
                 if (response.data.success) {
-                   return response.data.data;
+                    return response.data.data;
                 }
             } catch (error) {
                 toast.error(error.response.data.message);
@@ -526,5 +511,6 @@ const store = createStore({
 
     },
 })
+
 
 export default store
