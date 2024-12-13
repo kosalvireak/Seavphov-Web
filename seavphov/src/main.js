@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import './style.css'
 import './assets/reset.css'
+import 'flowbite';
 import '../node_modules/flowbite-vue/dist/index.css'
 import 'mdb-vue-ui-kit/css/mdb.min.css';
-
 import 'mdb-vue-ui-kit/js/mdb.es.min.js';
 import App from './App.vue'
 import router from './router/index';
@@ -22,7 +22,7 @@ const app = createApp(App)
 
 // Bind global variable //
 app.config.globalProperties.$logoUrl =
-    'https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.jpg'
+    'https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.png'
 
 // Bind global component //
 app.component('EasyDataTable', Vue3EasyDataTable);

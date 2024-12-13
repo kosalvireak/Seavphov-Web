@@ -1,79 +1,107 @@
 <template>
   <div>
-    <div class="notification-ui_dd-header">
+    <div class="NotificationDropdown w-96">
       <h5
-        class="d-flex align-items-center justify-content-center fw-bold"
+        class="d-flex align-items-center justify-content-center fw-bold mb-0"
         style="height: 50px; border-bottom: 1px solid gray"
       >
         Notification
       </h5>
     </div>
-    <div class="notification-ui_dd-content flex-center flex-column">
+    <div class="NotificationContent w-96 flex-center flex-column">
       <div v-if="isLoading" class="notification-list loader flex-center">
         <Loader :size="20" />
       </div>
-      <div v-else>
-        <div v-if="items.length > 0">
-          <div v-for="item in items" :key="item">
-            <router-link
-              class="notification-list text-black"
-              :to="`/book/${item.book_id}`"
-            >
-              <div class="notification-list_img flex-center">
-                <img
-                  :src="item.user[0].picture"
-                  alt="user"
-                  class="notification_img"
-                />
-              </div>
-              <div
-                class="notification-list_detail d-flex flex-column justify-content-center"
-              >
-                <p>
-                  <b>{{ item.user[0].name }}</b> {{ item.text }}
-                </p>
-                <p>
-                  <small class="text-gray">{{
-                    getDateDisplay(item.date)
-                  }}</small>
-                </p>
-              </div>
-              <div class="notification-list_feature-img">
-                <img
-                  :src="item.book[0].images"
-                  alt="Feature image"
-                  class="book_img"
-                />
-              </div>
-            </router-link>
-          </div>
-        </div>
+      <template v-else>
+        <template v-if="items.length > 0">
+          <NotificationItem v-for="item in items" :key="item" :item="item" />
+        </template>
         <div v-else class="notification-list loader flex-center">
           Your notification is empty
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import NotificationItem from "./home/NotificationItem.vue";
 export default {
   name: "NotificationDropdown",
+  components: { NotificationItem },
   props: {
     isShow: Boolean,
   },
   data() {
     return {
-      items: [],
+      items: [
+        {
+          user: [
+            {
+              name: "AA",
+              picture:
+                "https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg",
+            },
+          ],
+          text: "saved your book",
+          book: [
+            {
+              title: "The Khmer Book of First Words",
+              images:
+                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
+            },
+          ],
+          book_id: 46,
+          date: 200,
+        },
+        {
+          user: [
+            {
+              name: "aaa",
+              picture:
+                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fmaxresdefault%20(2).jpg?alt=media&token=1d50149b-d21b-4166-a378-934ef0a89fa7",
+            },
+          ],
+          text: "saved your book",
+          book: [
+            {
+              title: "The Khmer Book of First Words",
+              images:
+                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
+            },
+          ],
+          book_id: 46,
+          date: 83,
+        },
+        {
+          user: [
+            {
+              name: "apple",
+              picture:
+                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fimages.jpg?alt=media&token=c8f85394-c41b-4bb8-a85c-db7ace65469b",
+            },
+          ],
+          text: "saved your book",
+          book: [
+            {
+              title: "The Khmer Book of First Words",
+              images:
+                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
+            },
+          ],
+          book_id: 46,
+          date: 197,
+        },
+      ],
       isLoading: false,
     };
   },
   methods: {
     async getNotification() {
-      this.isLoading = true;
-      this.items = await this.$store.dispatch("getSavedBooksNotification");
-      console.log("this.items", this.items.length);
-      this.isLoading = false;
+      // this.isLoading = true;
+      // this.items = await this.$store.dispatch("getSavedBooksNotification");
+      // console.log("this.items", this.items.length);
+      // this.isLoading = false;
     },
     getDateDisplay(num) {
       if (num == 0) {
@@ -99,133 +127,4 @@ export default {
 };
 </script>
 
-<style  scoped>
-.cd__main {
-  display: block !important;
-}
-
-.notification-ui a:after {
-  display: none;
-}
-
-.notification-ui_icon {
-  position: relative;
-}
-
-.notification-ui_icon .unread-notification {
-  display: inline-block;
-  height: 7px;
-  width: 7px;
-  border-radius: 7px;
-  background-color: #66bb6a;
-  position: absolute;
-  top: 7px;
-  left: 12px;
-}
-
-@media (min-width: 900px) {
-  .notification-ui_icon .unread-notification {
-    left: 20px;
-  }
-}
-
-.notification-ui_dd {
-  padding: 0;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 5px 20px -3px rgba(0, 0, 0, 0.16);
-  box-shadow: 0 5px 20px -3px rgba(0, 0, 0, 0.16);
-  border: 0;
-  max-width: 400px;
-}
-
-@media (min-width: 900px) {
-  .notification-ui_dd {
-    min-width: 400px;
-    position: absolute;
-    left: -192px;
-    top: 70px;
-  }
-}
-
-.notification-ui_dd .notification-ui_dd-header {
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
-}
-
-.notification-ui_dd .notification-ui_dd-header h3 {
-  margin-bottom: 0;
-}
-
-.notification-ui_dd-content {
-  overflow: hidden;
-  /* min-height: 397px; */
-  min-width: 210px;
-}
-
-.notification-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 20px 0;
-  margin: 0 25px;
-  border-bottom: 1px solid #ddd;
-}
-
-.notification-list--unread {
-  position: relative;
-}
-
-.notification-list--unread:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -25px;
-  height: calc(100% + 1px);
-  border-left: 2px solid #29b6f6;
-}
-
-.notification-list_img img {
-  height: 48px;
-  width: 48px;
-  border-radius: 50px;
-  margin-right: 20px;
-}
-
-.notification-list_detail p {
-  width: 211px;
-  margin-bottom: 5px;
-  line-height: 1.2;
-}
-
-.white-mode {
-  text-decoration: none;
-  padding: 17px 40px;
-  background-color: yellow;
-  border-radius: 3px;
-  color: black;
-  transition: 0.35s ease-in-out;
-  position: fixed;
-  left: 15px;
-  bottom: 15px;
-}
-.loader {
-  width: 87%;
-  height: 101px;
-  justify-content: center;
-}
-
-.notification_img {
-  height: 38px;
-  width: 38px;
-  object-fit: cover;
-}
-.book_img {
-  height: 60px;
-  width: 38px;
-  object-fit: cover;
-  margin-left: 20px;
-}
-</style>
+<style  scoped></style>

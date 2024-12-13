@@ -9,7 +9,7 @@ export default {
 <template>
   <div class="AuthLayout">
     <RouterView />
-  </div>w
+  </div>
 </template>
 
 <style scoped>

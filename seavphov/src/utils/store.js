@@ -129,7 +129,6 @@ const store = createStore({
                         'Authorization': `Bearer ${this.state.user.api_token}`,
                     },
                 })
-
                 if (response.data.success) {
                     return response.data.data;
                 }

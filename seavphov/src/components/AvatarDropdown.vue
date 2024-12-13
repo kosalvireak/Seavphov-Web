@@ -1,35 +1,41 @@
 <template>
-  <div class="flex justify-center space-x-2 cursor-pointer">
-    <fwb-avatar :img="imgUrl" rounded />
-    <fwb-dropdown :text="name">
-      <fwb-list-group class="w-auto m-0 p-0">
-        <fwb-list-group-item
-          class="hover:bg-gray-200"
-          @click="toRouteName('profile')"
-        >
-          Profile
-        </fwb-list-group-item>
-        <fwb-list-group-item class="hover:bg-gray-200" @click="logout()">
-          Logout
-        </fwb-list-group-item>
-      </fwb-list-group>
-    </fwb-dropdown>
-  </div>
+  <Dropdown id="user-profile-dropdown" id2="user-profile-dropdown2">
+    <template #button>
+      <img
+        class="sp-logo-md rounded-full ring-1 ring-gray-300"
+        :src="imgUrl"
+        alt="User Profile"
+    /></template>
+    <template #content>
+      <ul class="py-2 mt-0" :aria-labelledby="id">
+        <li>
+          <p :class="dropdownItemCss" @click="toRouteName('profile')">
+            Profile
+          </p>
+        </li>
+        <li>
+          <p :class="dropdownItemCss" @click="logout()">Logout</p>
+        </li>
+      </ul>
+    </template>
+  </Dropdown>
 </template>
 
 <script >
-import {
-  FwbAvatar,
-  FwbDropdown,
-  FwbListGroup,
-  FwbListGroupItem,
-} from "flowbite-vue";
+import Dropdown from "./Dropdown.vue";
 export default {
   name: "AvatarDropdown",
-  components: { FwbAvatar, FwbDropdown, FwbListGroup, FwbListGroupItem },
+  components: { Dropdown },
   props: {
     name: String,
     imgUrl: String,
+    id: String,
+    id2: String,
+  },
+  computed: {
+    dropdownItemCss() {
+      return "block px-4 py-2 mb-0 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer";
+    },
   },
 };
 </script>

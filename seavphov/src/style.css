@@ -9,18 +9,8 @@
   --sp-primary: #5c836e; /* please refer to tailwind.config.js */
   --sp-secondary: #467e60;
   --sp-tertiary: #edf8f5;
-
-  --primary-color: #f5a807;
-
-  --secondary-color: #021b4b;
-  --sub-primary-color: #f5aa07c5;
-  --sub-secondary-color: #01153a;
-
-  --color-cr-gray-darker: #1f2937; /* text-gray-800 */
-  --color-cr-gray-dark: #6b7280; /* text-gray-600 */
-
-  --color-cr-gray-light: #f3f4f6; /* text-gray-100 */
-  --color-cr-gray-light-hover: #d1d5db; /* text-gray-300 */
+  --sp-dark: #000000;
+  --sp-dark-light: #6b7280; /* text-gray-600 */
 
   --max-width-img-sm: 20rem; /*320px*/
   --max-width-img-md: 48.125rem; /*770px*/
@@ -37,6 +27,10 @@
 .sp-logo-md{
   width: 50px;
   height: 50px;
+}
+
+.sp-top-4{
+  top: 1rem !important;
 }
 
 .h-navbar{
@@ -126,6 +120,7 @@
 
 img {
   image-rendering: crisp-edges !important;
+  object-fit: cover;
 }
 
 .form-label {
