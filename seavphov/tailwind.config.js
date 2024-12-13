@@ -12,7 +12,11 @@ export default {
         'sp-primary': '#5c836e', // please refer to style.css
         'sp-secondary': '#467e60',
         'sp-tertiary': '#edf8f5',
+        'sp-dark-light': '#6b7280',
       },
+      height: {
+        '500': '500px'
+      }
     },
   },
   plugins: [

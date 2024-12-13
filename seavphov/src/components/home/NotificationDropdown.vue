@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import NotificationItem from "./home/NotificationItem.vue";
+import NotificationItem from "./NotificationItem.vue";
 export default {
   name: "NotificationDropdown",
   components: { NotificationItem },

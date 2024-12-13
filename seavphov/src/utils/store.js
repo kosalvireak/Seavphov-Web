@@ -1,8 +1,8 @@
 import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
-import router from '../router/index.js';
 import axiosInstance from '../../axiosInstance.js';
 import { getData, postJson, postForm } from "./apiUtils.js";
+import { RouterMixin } from './routerUtils.js';
 
 import { setCookie, getCookie, removeCookie } from './cookieUtils.js';
 
@@ -71,7 +71,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    this.toRouteName(home)
+                    RouterMixin.methods.toRouteName('home')
                 }
             } catch (error) {
                 console.error("Error register user:", error);
@@ -99,7 +99,7 @@ const store = createStore({
                     setCookie(user);
                     dispatch('setUserFromCookies');
                     toast.success(responseData.message);
-                    this.toRouteName('home')
+                    toRouteName('home')
                 }
             } catch (error) {
                 console.error("Error login user:", error);

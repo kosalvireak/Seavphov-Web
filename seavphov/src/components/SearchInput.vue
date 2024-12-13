@@ -1,15 +1,15 @@
 <template>
-  <form class="max-w-xl mx-auto" v-on:submit.prevent="SearchBooks()">
+  <form class="max-w-xl mx-auto" v-on:submit.prevent="searchBooks()">
     <div class="flex">
       <label
         for="search-dropdown"
-        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        class="mb-2 text-sm font-medium text-gray-900 sr-only"
         >Your Email</label
       >
       <button
         id="dropdown-button"
         data-dropdown-toggle="dropdown"
-        class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+        class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200"
         type="button"
       >
         All categories
@@ -31,42 +31,19 @@
       </button>
       <div
         id="dropdown"
-        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
       >
         <ul
-          class="py-2 text-sm text-gray-700 dark:text-gray-200"
+          class="py-2 text-sm text-gray-700"
           aria-labelledby="dropdown-button"
         >
-          <li>
+          <li v-for="category in categories" :key="category">
             <button
+              @click="searchCategory(category)"
               type="button"
-              class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
             >
-              Mockups
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Templates
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Design
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Logos
+              {{ category }}
             </button>
           </li>
         </ul>
@@ -76,7 +53,7 @@
           type="search"
           v-model="keyword"
           id="search-dropdown"
-          class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300"
           placeholder="Search..."
           required
         />
@@ -114,11 +91,25 @@ export default {
   data() {
     return {
       keyword: "",
+      categories: [
+        "Fiction",
+        "Novel",
+        "Text-Book",
+        "History",
+        "Science",
+        "Fantasy",
+      ],
     };
   },
   methods: {
-    SearchBooks() {
+    searchBooks() {
       this.$router.push({ path: "/search", query: { q: this.keyword } });
+    },
+    searchCategory(param) {
+      this.$router.push({
+        path: "/search",
+        query: { categories: param },
+      });
     },
   },
   watch: {

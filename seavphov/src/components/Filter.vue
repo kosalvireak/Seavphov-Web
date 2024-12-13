@@ -2,18 +2,18 @@
   <section class="Filter d-flex flex-column justify-content-start">
     <h5 class="text-xl">Category</h5>
     <ul>
-      <li @click="SearchCategory('Fiction')">Fiction</li>
-      <li @click="SearchCategory('Novel')">Novel</li>
-      <li @click="SearchCategory('Text-Book')">Text-Book</li>
-      <li @click="SearchCategory('History')">History</li>
-      <li @click="SearchCategory('Science')">Science</li>
-      <li @click="SearchCategory('Fantasy')">Fantasy</li>
+      <li @click="searchCategory('Fiction')">Fiction</li>
+      <li @click="searchCategory('Novel')">Novel</li>
+      <li @click="searchCategory('Text-Book')">Text-Book</li>
+      <li @click="searchCategory('History')">History</li>
+      <li @click="searchCategory('Science')">Science</li>
+      <li @click="searchCategory('Fantasy')">Fantasy</li>
     </ul>
     <h5>Condition</h5>
     <ul>
-      <li @click="SearchCondition('As-new')">As-new</li>
-      <li @click="SearchCondition('Good')">Good</li>
-      <li @click="SearchCondition('Well-worn')">Well-worn</li>
+      <li @click="searchCondition('As-new')">As-new</li>
+      <li @click="searchCondition('Good')">Good</li>
+      <li @click="searchCondition('Well-worn')">Well-worn</li>
     </ul>
   </section>
 </template>
@@ -22,13 +22,13 @@
 export default {
   name: "Filter",
   methods: {
-    SearchCategory(param) {
+    searchCategory(param) {
       this.$router.push({
         path: "/search",
         query: { categories: param },
       });
     },
-    SearchCondition(param) {
+    searchCondition(param) {
       this.$router.push({
         path: "/search",
         query: { condition: param },

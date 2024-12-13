@@ -1,19 +1,14 @@
 <template>
   <div class="w-100 h-100 mb-auto">
     <div
-      class="backgroundImg flex-center img-fluid"
+      class="hidden md:flex backgroundImg img-fluid w-100 align-items-center justify-content-center"
       :style="getBackground"
-      style="width: 100%; height: 500px"
     >
-      <div class="flex-center p-3 w-75 h-100">
-        <Carousel v-if="TopBooks.length" :books="TopBooks" />
-      </div>
+      <Carousel v-if="TopBooks.length" :books="TopBooks" />
     </div>
 
-    <div class="mt-3 w-auto row">
-      <div class="col-9"></div>
-      <PaginatedBook class="col-9" />
-      <Filter class="col-3 pt-5" />
+    <div class="mt-3 w-100">
+      <PaginatedBook />
     </div>
   </div>
 </template>
@@ -21,12 +16,11 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
-import Filter from "../components/Filter.vue";
 import Carousel from "../components/Carousel.vue";
 
 export default {
   name: "Home",
-  components: { RenderBook, PaginatedBook, Filter, Carousel },
+  components: { RenderBook, PaginatedBook, Carousel },
   data() {
     return {
       reloaded: false,
@@ -73,20 +67,15 @@ export default {
 </script>
 
 <style scoped>
-label {
-  font-size: 0.9rem;
-}
-
-.h-3rem {
-  height: 3rem !important;
-}
-
-.margin-top {
-  margin-top: 20px !important;
-}
-
 .backgroundImg {
   background-repeat: no-repeat;
   background-size: cover;
+  height: 450px;
+}
+
+@media (max-width: 640px) {
+  .backgroundImg {
+    height: 288px;
+  }
 }
 </style>

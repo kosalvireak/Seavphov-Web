@@ -63,7 +63,7 @@
 import SearchInput from "./SearchInput.vue";
 import Dropdown from "./Dropdown.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
-import NotificationDropdown from "./NotificationDropdown.vue";
+import NotificationDropdown from "./home/NotificationDropdown.vue";
 export default {
   name: "UserNavbar",
   components: { SearchInput, AvatarDropdown, Dropdown, NotificationDropdown },

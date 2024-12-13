@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import './style.css'
 import './assets/reset.css'
 import 'flowbite';
+import { FwbButton } from 'flowbite-vue'
 import '../node_modules/flowbite-vue/dist/index.css'
 import 'mdb-vue-ui-kit/css/mdb.min.css';
 import 'mdb-vue-ui-kit/js/mdb.es.min.js';
@@ -27,6 +28,7 @@ app.config.globalProperties.$logoUrl =
 // Bind global component //
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component('Loader', Loader);
+app.component('FwbButton', FwbButton);
 
 
 app.use(router);
