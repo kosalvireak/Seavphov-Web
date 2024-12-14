@@ -51,7 +51,7 @@ class BookController extends Controller
         }
 
         
-        $books = $query->paginate(10); // Apply pagination 
+        $books = $query->paginate(12); // Apply pagination 
         
         try {
             return response()->json([

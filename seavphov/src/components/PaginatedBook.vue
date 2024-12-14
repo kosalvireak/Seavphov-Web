@@ -4,26 +4,28 @@
     <div
       class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
     >
-      <a
+      <p
         @click="previous()"
         :disabled="isDisabledPrev"
         :class="{ 'pe-none': isDisabledPrev }"
-        >&laquo;</a
       >
-      <a
+        &laquo;
+      </p>
+      <p
         v-for="page in last_page"
         :key="page"
         :class="[page == current_page ? 'active' : '']"
         @click="changePage(page)"
       >
         {{ page }}
-      </a>
-      <a
+      </p>
+      <p
         @click="next()"
         :disabled="isDisabledNext"
         :class="{ 'pe-none': isDisabledNext }"
-        >&raquo;</a
       >
+        &raquo;
+      </p>
     </div>
   </div>
 </template>
@@ -96,20 +98,20 @@ export default {
   display: inline-block;
 }
 
-.pagination a {
+.pagination p {
   color: black;
-  float: left;
   padding: 0.5rem 1rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.pagination a.active {
+.pagination p.active {
   background-color: #4caf50;
   color: white;
   border-radius: 5px;
 }
 
-.pagination a:hover:not(.active) {
+.pagination p:hover:not(.active) {
   background-color: rgba(56, 151, 83, 0.388);
   border-radius: 5px;
 }

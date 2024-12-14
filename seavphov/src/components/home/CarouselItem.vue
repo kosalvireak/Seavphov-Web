@@ -7,13 +7,13 @@
         <h5>Condition: {{ book.condition }}</h5>
         <div class="ellipsis-4">{{ book.descriptions }}</div>
 
-        <FwbButton @click="$router.push(`/book/${book.id}`)" color="green"
+        <FwbButton @click="toRouteName('book-detail', book.id)" gradient="green"
           >READ MORE</FwbButton
         >
       </div>
 
       <div class="col-start-10 col-end-12">
-        <img :src="book.images" alt="Book Cover" class="sp-img-lg" />
+        <img :src="book.images" alt="Book Cover" class="sp-img-md ml-auto" />
       </div>
     </div>
   </section>

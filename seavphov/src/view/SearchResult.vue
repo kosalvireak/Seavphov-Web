@@ -7,7 +7,7 @@
         <a
           @click="
             () => {
-              this.toRouteName('/home');
+              toRouteName('home');
             }
           "
           class="text-gray align-self-start cursor-pointer"

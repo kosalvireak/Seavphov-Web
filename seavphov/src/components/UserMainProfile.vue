@@ -41,17 +41,6 @@
               :telegram="user.telegram"
               :twitter="user.twitter"
             />
-            <a
-              v-if="fromProfile"
-              class="mx-3 text-gray cursor-pointer"
-              @click="
-                () => {
-                  this.toRouteName( 'edit-profile' );
-                }
-              "
-            >
-              <i class="fas fa-pencil fa-xl"></i>
-            </a>
           </div>
         </div>
       </div>

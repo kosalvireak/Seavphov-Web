@@ -7,10 +7,15 @@
         alt="User Profile"
     /></template>
     <template #content>
-      <ul class="py-2 mt-0 w-28" :aria-labelledby="id">
+      <ul class="py-2 mt-0 w-fit" :aria-labelledby="id">
         <li>
           <p :class="dropdownItemCss" @click="toRouteName('profile')">
-            Profile
+            My Profile
+          </p>
+        </li>
+        <li>
+          <p :class="dropdownItemCss" @click="toRouteName('edit-profile')">
+            Profile Setting
           </p>
         </li>
         <li>

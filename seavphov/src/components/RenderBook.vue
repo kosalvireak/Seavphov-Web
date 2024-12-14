@@ -1,69 +1,34 @@
 <template>
-  <div class="RenderBook w-100 h-auto">
-    <div
-      v-if="loading"
-      class="h-100 w-100 d-flex align-items-center justify-content-center"
-      style="height: 400px !important"
-    >
-      <Loader />
+  <div class="RenderBook container w-100 h-auto">
+    <div v-if="loading" class="h-96 w-100 flex-center">
+      <Loader :size="40" />
     </div>
-    <div v-else>
-      <div v-if="!isBooksEmpty">
-        <div
-          class="d-flex align-items-center justify-content-end m-1"
-          style="height: 40px"
-        >
-          <h6 class="p-0 m-0 fw-bold font-75">
-            Result: {{ books.length }} Books
-          </h6>
-        </div>
-        <div
-          class="d-flex align-items-center justify-content-center flex-row flex-wrap"
-        >
-          <div v-for="book in books" :key="book.id" class="m-0 p-0">
-            <Book :book="book" :key="book.id" class="m-0 p-0" />
-          </div>
-        </div>
+    <template v-else-if="books.length">
+      <div class="h-10 d-flex align-items-center justify-content-end m-1">
+        <h6 class="p-0 m-0 fw-bold font-75">
+          Result: {{ books.length }} Books
+        </h6>
       </div>
-      <div v-else class="h-100 w-100">
-        <div
-          class="d-flex align-items-center justify-content-end m-1"
-          style="height: 40px"
-        >
-          <h6 class="p-0 m-0 fw-bold font-75">
-            Result: {{ books.length }} Book
-          </h6>
-        </div>
-        <div
-          class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
-        >
-          <img
-            src="/img/notfound.png"
-            alt="not found"
-            class="w-25 img-fluid mb-3 rounded rounded-7"
-          />
-          <h3>No books found...!</h3>
-        </div>
+      <div class="d-flex gap-4 flex-wrap justify-content-center">
+        <Book v-for="book in books" :book="book" :key="book.id" />
       </div>
-    </div>
+    </template>
+    <NoResult v-else />
   </div>
 </template>
     
-    <script>
+  <script>
 import Book from "../components/Book.vue";
-
+import NoResult from "./NoResult.vue";
 export default {
   name: "RenderBook",
-  components: { Book },
-  props: { books: Array, loading: Boolean },
-  computed: {
-    isBooksEmpty() {
-      if (this.books.length == 0) {
-        return true;
-      } else {
-        return false;
-      }
+  components: { Book, NoResult },
+  props: {
+    books: {
+      type: Array,
+      required: true,
     },
+    loading: Boolean,
   },
 };
 </script>
