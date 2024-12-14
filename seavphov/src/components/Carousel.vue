@@ -1,7 +1,7 @@
 <template>
   <div
     id="carouselInterval"
-    class="carousel container absolute slide w-100 h-100 rounded-7 justify-content-center align-content-center"
+    class="carousel container slide w-100 sp-height-450 rounded-7 justify-content-center align-content-center sp-absolute"
     data-bs-ride="carousel"
     data-bs-interval="5000"
   >
@@ -14,7 +14,7 @@
         <CarouselItem :book="book" :key="book.id" />
       </div>
     </div>
-    <div class="carousel-indicators relative bottom-0 w-100 m-0">
+    <div class="carousel-indicators relative bottom-6 w-100 m-0">
       <button
         v-for="(book, index) in books"
         :key="index"
@@ -67,12 +67,12 @@ export default {
 
 
 <style scoped>
+.bottom-6 {
+  bottom: 1.75rem;
+}
 @media (max-width: 576px) {
   .carousel-img {
     height: 250px !important;
   }
-}
-.carousel-indicators {
-  position: relative !important;
 }
 </style>

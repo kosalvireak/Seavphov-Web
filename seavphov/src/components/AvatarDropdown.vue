@@ -2,7 +2,7 @@
   <Dropdown id="user-profile-dropdown" id2="user-profile-dropdown2">
     <template #button>
       <img
-        class="sp-logo-md rounded-full ring-1 ring-gray-300"
+        class="sp-logo-sm rounded-full ring-1 ring-gray-300"
         :src="imgUrl"
         alt="User Profile"
     /></template>
