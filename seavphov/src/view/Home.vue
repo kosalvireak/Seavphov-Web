@@ -5,6 +5,7 @@
       :style="getBackground"
     >
       <Carousel v-if="TopBooks.length" :books="TopBooks" />
+      <Loader v-if="isLoading" :size="40" />
     </div>
 
     <div class="mt-3 w-100">
@@ -28,6 +29,7 @@ export default {
         categories: "Text-Book",
       },
       TopBooks: [],
+      isLoading: false,
       banner: {},
       defaultBanner:
         "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fbggreen.png?alt=media&token=192e76f7-53b6-42c3-8e20-c7ecb27451b8",
@@ -35,10 +37,12 @@ export default {
   },
   methods: {
     async getBook() {
+      this.isLoading = true;
       this.TopBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters
       );
+      this.isLoading = false;
     },
     async getBanner() {
       this.banner = await this.$store.dispatch("getBanner");

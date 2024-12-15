@@ -3,7 +3,7 @@
     <template #button>
       <img
         class="sp-logo-sm rounded-full ring-1 ring-gray-300"
-        :src="imgUrl"
+        :src="$store.state.user.picture"
         alt="User Profile"
     /></template>
     <template #content>

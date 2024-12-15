@@ -4,9 +4,9 @@
       <Loader :size="40" />
     </div>
     <template v-else-if="books.length">
-      <div class="h-10 d-flex align-items-center justify-content-end m-1">
+      <div class="h-10 d-flex align-items-center justify-content-end">
         <h6 class="p-0 m-0 fw-bold font-75">
-          Result: {{ books.length }} Books
+          Result: {{ books.length }} {{ resultBook }}
         </h6>
       </div>
       <div class="d-flex gap-4 flex-wrap justify-content-center">
@@ -29,6 +29,15 @@ export default {
       required: true,
     },
     loading: Boolean,
+  },
+  computed: {
+    resultBook() {
+      if (this.books.length == 1) {
+        return "Book";
+      } else {
+        return "Books";
+      }
+    },
   },
 };
 </script>

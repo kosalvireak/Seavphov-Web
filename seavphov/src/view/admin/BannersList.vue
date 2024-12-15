@@ -1,5 +1,7 @@
 <template>
-  <section class="BannersList shadow-5 rounded-7 flex-center p-2 flex-column w-100">
+  <section
+    class="BannersList shadow-5 rounded-7 flex-center p-2 flex-column w-100"
+  >
     <div v-if="page == 1" class="Banners_table">
       <div class="flex-center m-3">
         <button
@@ -61,7 +63,7 @@
         ></i>
         Banners
       </a>
-      <h4 class="my-4 text-gray fw-bold">Your are adding a new Banner</h4>
+      <h4 class="mb-4 text-gray fw-bold">Your are adding a new Banner</h4>
 
       <form
         style="width: 100%"

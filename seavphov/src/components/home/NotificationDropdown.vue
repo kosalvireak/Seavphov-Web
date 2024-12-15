@@ -34,74 +34,17 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          user: [
-            {
-              name: "AA",
-              picture:
-                "https://pbs.twimg.com/profile_images/685700874434314240/80T5j3HF_400x400.jpg",
-            },
-          ],
-          text: "saved your book",
-          book: [
-            {
-              title: "The Khmer Book of First Words",
-              images:
-                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
-            },
-          ],
-          book_id: 46,
-          date: 200,
-        },
-        {
-          user: [
-            {
-              name: "aaa",
-              picture:
-                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fmaxresdefault%20(2).jpg?alt=media&token=1d50149b-d21b-4166-a378-934ef0a89fa7",
-            },
-          ],
-          text: "saved your book",
-          book: [
-            {
-              title: "The Khmer Book of First Words",
-              images:
-                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
-            },
-          ],
-          book_id: 46,
-          date: 83,
-        },
-        {
-          user: [
-            {
-              name: "apple",
-              picture:
-                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fimages.jpg?alt=media&token=c8f85394-c41b-4bb8-a85c-db7ace65469b",
-            },
-          ],
-          text: "saved your book",
-          book: [
-            {
-              title: "The Khmer Book of First Words",
-              images:
-                "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2F61rHvi9IaCS._SY466_.jpg?alt=media&token=3a309d3c-1299-4469-8241-d9ec981aed32",
-            },
-          ],
-          book_id: 46,
-          date: 197,
-        },
-      ],
+      items: [],
       isLoading: false,
     };
   },
   methods: {
     async getNotification() {
-      // this.isLoading = true;
-      // this.items = await this.$store.dispatch("getSavedBooksNotification");
-      // console.log("this.items", this.items.length);
-      // this.isLoading = false;
+      console.log("getNotification");
+
+      this.isLoading = true;
+      this.items = await this.$store.dispatch("getSavedBooksNotification");
+      this.isLoading = false;
     },
     getDateDisplay(num) {
       if (num == 0) {
@@ -115,9 +58,9 @@ export default {
   watch: {
     isShow: {
       handler(oldAuthor, newAuthor) {
-        if (newAuthor == true) {
-          this.getNotification();
-        }
+        // if (newAuthor == true) {
+        //   this.getNotification();
+        // }
       },
     },
   },

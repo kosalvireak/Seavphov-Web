@@ -7,7 +7,7 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">Create book</h4>
+      <h4 class="mb-4 text-gray fw-bold">Create book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">

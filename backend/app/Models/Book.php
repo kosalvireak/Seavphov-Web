@@ -24,7 +24,7 @@ class Book extends Model
     public function owner()
     {
         $user = $this->belongsTo(User::class, 'owner_id')->first();
-        $user->makeHidden([ 'email','api_token','remember_token','created_at']);
+        $user->makeHidden([ 'email','api_token','remember_token']);
         return $user;
     }
 

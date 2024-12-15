@@ -430,7 +430,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-        async saveBook({ }, bookId) {
+        async toggleSaveBook({ }, bookId) {
             try {
                 const response = await axiosInstance.get(backend_url + "/api/saved/" + bookId, {
                     headers: {
@@ -439,9 +439,10 @@ const store = createStore({
                 });
                 if (response.data.success) {
                     toast.success(response.data.message);
+                    return true;
                 }
             } catch (error) {
-                toast.error(error.response.data.message);
+                toast.error(error.message);
             }
         },
         async getSavedBooksNotification() {
@@ -453,22 +454,6 @@ const store = createStore({
                 });
                 if (response.data.success) {
                     return response.data.data;
-                }
-            } catch (error) {
-                toast.error(error.response.data.message);
-            }
-        },
-        async unSaveBook({ }, bookId) {
-            try {
-                const response = await axiosInstance.delete(backend_url + "/api/saved/" + bookId, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
-                if (response.data.success) {
-                    console.log("response.unSaveBook", response.data)
-
-                    toast.success(response.data.message);
                 }
             } catch (error) {
                 toast.error(error.response.data.message);

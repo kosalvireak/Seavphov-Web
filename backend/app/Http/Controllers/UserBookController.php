@@ -24,16 +24,24 @@ class UserBookController extends Controller
                     'message' => 'Book not found!',
                 ], 404);
             }
+
+            $isSaved = $user->savedBooks()->where('book_id', $bookId)->exists();
             
-            $user->savedBooks()->attach($bookId,[
-                'created_at' => Carbon::now(),
-            ]);
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Saved '.$book->title,
-            ], 201);
-            
+            if ($isSaved) {
+                $user->savedBooks()->detach($bookId);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Unsaved ' . $book->title,
+                ], 200); 
+            } else {
+                $user->savedBooks()->attach($bookId, [
+                    'created_at' => Carbon::now(),
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Saved ' . $book->title,
+                ], 201);
+            }
                     
         } catch (\Exception $exception) {
             return response()->json([
@@ -107,35 +115,6 @@ class UserBookController extends Controller
                 'success' => false,
                 'message' => 'An error occurred while fetching books.',
                 'error' => $exception->getMessage()
-            ], 500);
-        }
-    }
-    public function unSaveBook(Request $request, $bookId)
-    {
-        try{
-            
-        $user = $request->attributes->get('user');
-
-        $book = Book::find($bookId);
-
-        if(!$book){
-            return response()->json([
-                'success' => false,
-                'message' => 'Book not found!',
-            ], 404);
-        }
-
-        $user->savedBooks()->detach($bookId);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Removed',
-        ], 201);
-    
-        } catch (\Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Internal Server Error',
             ], 500);
         }
     }

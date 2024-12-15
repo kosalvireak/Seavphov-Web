@@ -19,7 +19,7 @@
           <template #button> <i class="fas fa-bell fa-2xl"></i></template>
           <template #content><NotificationDropdown /> </template>
         </Dropdown>
-        <AvatarDropdown :imgUrl="$store.state.user.picture1" />
+        <AvatarDropdown />
         <button
           data-collapse-toggle="navbar-user"
           type="button"

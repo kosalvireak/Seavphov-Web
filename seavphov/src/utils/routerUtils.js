@@ -7,6 +7,10 @@ export const RouterMixin = {
         async logout() {
             await this.$store.dispatch("logoutUser");
             this.toRouteName('login')
+        },
+        getFormattedDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(date).toLocaleDateString('en-US', options);
         }
     }
 }
