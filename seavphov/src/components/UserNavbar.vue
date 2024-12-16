@@ -5,21 +5,38 @@
         <img :src="$logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </a>
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
-        <div
-          class="d-flex align-items-sm-center cursor-pointer"
-          @click="toRouteName('add-book')"
-        >
-          <i class="fas fa-plus-circle fa-xl"></i>
-        </div>
-        <Dropdown
-          id="notification-dropdown"
-          id2="notification-dropdown2"
-          cssContent="sp-top-4"
-        >
-          <template #button> <i class="fas fa-bell fa-2xl"></i></template>
-          <template #content><NotificationDropdown /> </template>
-        </Dropdown>
-        <AvatarDropdown />
+        <template v-if="this.$store.getters.isLogin">
+          <div
+            class="d-flex align-items-sm-center cursor-pointer"
+            @click="toRouteName('add-book')"
+          >
+            <i class="fas fa-plus-circle fa-xl"></i>
+          </div>
+          <Dropdown
+            id="notification-dropdown"
+            id2="notification-dropdown2"
+            cssContent="sp-top-4"
+          >
+            <template #button> <i class="fas fa-bell fa-2xl"></i></template>
+            <template #content><NotificationDropdown /> </template>
+          </Dropdown>
+          <AvatarDropdown />
+        </template>
+        <template v-else>
+          <FwbButton
+            @click="toRouteName('login')"
+            gradient="green"
+            class="px-2 text-xs w-fit"
+            >Login</FwbButton
+          >
+          <p class="text-white m-0 mx-2">Or</p>
+          <FwbButton
+            @click="toRouteName('signup')"
+            gradient="green"
+            class="m-0 px-2 text-xs w-fit"
+            >Signup</FwbButton
+          >
+        </template>
         <button
           data-collapse-toggle="navbar-user"
           type="button"

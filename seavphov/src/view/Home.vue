@@ -61,11 +61,6 @@ export default {
   async mounted() {
     await this.getBanner();
     await this.getBook(this.paramsId);
-
-    if (!localStorage.getItem("reloaded")) {
-      location.reload();
-      localStorage.setItem("reloaded", true);
-    }
   },
 };
 </script>

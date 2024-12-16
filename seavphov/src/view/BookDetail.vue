@@ -9,27 +9,9 @@
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
           <div class="flex">
-            <h3 class="text-black font-bold">
+            <h3 class="text-black font-bold pr-10">
               {{ book.title }}
             </h3>
-            <!-- Bookmark -->
-            <div class="min-w-10 h-10">
-              <button
-                class="absolute top-1 end-0 w-10 h-10 justify-items-center"
-                v-if="isLogin"
-              >
-                <Loader v-if="loadingSaveBook" :size="10" />
-                <template v-else>
-                  <i
-                    class="fa-bookmark fa-2xl w-10 h-10"
-                    :class="
-                      book.issaved ? 'fa-solid text-yellow-200' : 'fa-regular'
-                    "
-                    @click="toggleSaveBook()"
-                  ></i>
-                </template>
-              </button>
-            </div>
           </div>
           <div class="text-black space-y-3">
             <p><span class="font-bold">By</span> {{ book.author }}</p>
@@ -42,14 +24,28 @@
               {{ book.condition }}
             </p>
             <h5 class="font-bold">Overview</h5>
-            <div
-              class="max-h-44 lg:h-44 overflow-auto ring-1 ring-gray-300 p-2"
-            >
+            <div class="max-h-44 lg:h-44 overflow-auto">
               <p>
                 {{ book.descriptions }}
               </p>
             </div>
           </div>
+          <!-- Bookmark -->
+          <button
+            class="absolute top-1 end-0 w-10 h-10 justify-items-center"
+            v-if="isLogin"
+          >
+            <Loader v-if="loadingSaveBook" :size="10" />
+            <template v-else>
+              <i
+                class="fa-bookmark fa-2xl w-10 h-10"
+                :class="
+                  book.issaved ? 'fa-solid text-yellow-200' : 'fa-regular'
+                "
+                @click="toggleSaveBook()"
+              ></i>
+            </template>
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-12 gap-4 mt-4">

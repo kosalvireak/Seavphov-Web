@@ -1,5 +1,5 @@
 <template>
-  <section class="BookAuthorProfile space-y-3">
+  <section class="BookAuthorProfile space-y-3 ring-1 ring-gray-300 p-6">
     <a
       :href="`/profile/${owner.uuid}`"
       class="d-flex text-decoration-none space-x-3 text-black"
@@ -17,13 +17,13 @@
       </div>
     </a>
     <div class="d-flex">
-      <span class="w-8"><i class="fas fa-phone fa-lg me-1"></i></span>
+      <span class="min-w-8"><i class="fas fa-phone fa-lg me-1"></i></span>
       <p>
         {{ owner.phone }}
       </p>
     </div>
     <div class="d-flex">
-      <span class="w-8"><i class="fas fa-map-pin fa-lg me-1"></i></span>
+      <span class="min-w-8"><i class="fas fa-map-pin fa-lg me-1"></i></span>
       <p>
         {{ owner.location }}
       </p>

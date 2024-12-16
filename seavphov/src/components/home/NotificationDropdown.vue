@@ -8,8 +8,10 @@
         Notification
       </h5>
     </div>
-    <div class="NotificationContent w-96 flex-center flex-column">
-      <div v-if="isLoading" class="notification-list loader flex-center">
+    <div
+      class="NotificationContent min-h-60 max-h-96 w-96 flex-center flex-column justify-content-start"
+    >
+      <div v-if="isLoading" class="flex-center min-h-60">
         <Loader :size="20" />
       </div>
       <template v-else>

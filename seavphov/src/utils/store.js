@@ -44,7 +44,6 @@ const store = createStore({
             }
         },
         async logoutUser({ commit }) {
-            localStorage.removeItem("reloaded");
             removeCookie();
             const name = "Not logged in";
             const email = null;
