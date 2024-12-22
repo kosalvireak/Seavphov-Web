@@ -45,6 +45,12 @@
   aspect-ratio: 3/5;
 }
 
+.sp-img-xs{
+  max-height: 11rem;
+  aspect-ratio: 3/5;
+}
+
+
 .sp-img-sm{
   max-height: 13rem;
   aspect-ratio: 3/5;
@@ -79,6 +85,10 @@
 
 .h-60 {
   height: 60% !important;
+}
+
+.h-94 {
+  height: 22rem;
 }
 
 .mh-100 {

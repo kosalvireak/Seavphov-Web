@@ -52,7 +52,7 @@
         <div class="col-span-12 lg:col-span-4">
           <BookAuthorProfile v-if="bookOwner" :owner="bookOwner" />
         </div>
-        <div class="col-span-12 lg:col-span-8">Comment</div>
+        <div class="col-span-12 lg:col-span-8"><BookReview /></div>
       </div>
     </div>
     <div class="RelatedBooks mt-5">
@@ -66,9 +66,10 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import BookAuthorProfile from "../components/BookAuthorProfile.vue";
+import BookReview from "../components/BookReview.vue";
 export default {
   name: "BookDetail",
-  components: { RenderBook, BookAuthorProfile },
+  components: { RenderBook, BookAuthorProfile, BookReview },
   data() {
     return {
       paramsId: this.$route.params.id,

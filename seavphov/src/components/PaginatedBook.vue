@@ -7,14 +7,17 @@
       <p
         @click="previous()"
         :disabled="isDisabledPrev"
-        :class="{ 'pe-none': isDisabledPrev }"
+        :class="{ '!cursor-not-allowed': isDisabledPrev || isLoading }"
       >
         &laquo;
       </p>
       <p
         v-for="page in last_page"
         :key="page"
-        :class="[page == current_page ? 'active' : '']"
+        :class="[
+          page == current_page ? 'active' : '',
+          { '!cursor-not-allowed': isLoading },
+        ]"
         @click="changePage(page)"
       >
         {{ page }}
@@ -22,7 +25,7 @@
       <p
         @click="next()"
         :disabled="isDisabledNext"
-        :class="{ 'pe-none': isDisabledNext }"
+        :class="{ '!cursor-not-allowed': isDisabledNext || isLoading }"
       >
         &raquo;
       </p>
