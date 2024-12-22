@@ -1,5 +1,8 @@
 <template>
-  <Dropdown id="user-profile-dropdown" id2="user-profile-dropdown2">
+  <Dropdown
+    id="user-profile-dropdown"
+    id_content="user-profile-dropdown_content"
+  >
     <template #button>
       <img
         class="sp-logo-sm rounded-full ring-1 ring-gray-300"

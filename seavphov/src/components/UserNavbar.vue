@@ -14,7 +14,7 @@
           </div>
           <Dropdown
             id="notification-dropdown"
-            id2="notification-dropdown2"
+            id_content="notification-dropdown_content"
             cssContent="sp-top-4"
           >
             <template #button> <i class="fas fa-bell fa-2xl"></i></template>
