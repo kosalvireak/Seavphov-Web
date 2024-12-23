@@ -9,13 +9,13 @@ import 'mdb-vue-ui-kit/js/mdb.es.min.js';
 import App from './App.vue'
 import router from './router/index';
 import store from './utils/store'
-import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import VueCookies from 'vue-cookies';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
 import { RouterMixin } from './utils/routerUtils';
+import toastPlugin from './utils/toastPlugin';
 
 import Loader from './components/Loader.vue';
 
@@ -33,9 +33,7 @@ app.component('FwbButton', FwbButton);
 
 app.use(router);
 app.use(store);
-app.use(Toast, {
-    position: POSITION.BOTTOM_RIGHT
-});
+app.use(toastPlugin);
 app.use(VueCookies)
 
 

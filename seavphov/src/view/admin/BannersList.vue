@@ -218,7 +218,7 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
     },
     changePage(page) {

@@ -138,14 +138,12 @@
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
-import { useToast } from "vue-toastification";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "EditProfile",
   components: { NoLoggin, MDBInput },
   data() {
     return {
-      toast: useToast(),
       user: {
         name: "",
         email: "",
@@ -193,7 +191,7 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
     },
   },

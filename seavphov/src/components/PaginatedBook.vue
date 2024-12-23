@@ -36,13 +36,11 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import axios from "axios";
-import { useToast } from "vue-toastification";
 export default {
   name: "PaginatedBook",
   components: { RenderBook },
   data() {
     return {
-      toast: useToast(),
       books: [],
       last_page: 5,
       current_page: 1,
@@ -70,7 +68,7 @@ export default {
         }
         this.isLoading = false;
       } catch (error) {
-        this.toast.error(error.response.data.message);
+        this.$toast.error(error.response.data.message);
       }
     },
     previous() {

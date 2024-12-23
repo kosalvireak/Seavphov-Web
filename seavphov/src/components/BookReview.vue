@@ -1,8 +1,11 @@
 <template>
   <section class="BookReview">
-    <h5 class="font-bold text-black">Reader reviews</h5>
-    <form v-on:submit.prevent="AddBook()">
-      <div class="mb-2">
+    <h5 class="font-bold text-black">Reviews</h5>
+    <form
+      v-on:submit.prevent="addReview()"
+      class="d-flex flex-column align-items-end"
+    >
+      <div class="w-100 mb-2">
         <MDBTextarea
           label="Enter your review"
           rows="3"
@@ -22,8 +25,15 @@ export default {
   components: { MDBTextarea },
   data() {
     return {
-      commentBody: "",
+      commentBody: "asd",
     };
+  },
+  methods: {
+    addReview() {
+      if (!this.commentBody.trim()) {
+        this.$toast.warning("Review can't be empty");
+      }
+    },
   },
 };
 </script>

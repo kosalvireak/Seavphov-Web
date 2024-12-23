@@ -3,7 +3,9 @@
     class="BookItem cursor-pointer"
     @click="toRouteName('book-detail', book.id)"
   >
-    <div class="w-48 h-78 bg-white rounded-lg border border-gray-200 shadow-md">
+    <div
+      class="w-48 h-full bg-white rounded-lg border border-gray-200 shadow-md"
+    >
       <div class="overflow-hidden">
         <img
           :alt="book.title"

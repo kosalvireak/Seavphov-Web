@@ -129,13 +129,11 @@ import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
-import { useToast } from "vue-toastification";
 export default {
   name: "AddBook",
   components: { NoLoggin, MDBInput },
   data() {
     return {
-      toast: useToast(),
       book: {
         title: "",
         author: "",
@@ -177,7 +175,7 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
     },
   },

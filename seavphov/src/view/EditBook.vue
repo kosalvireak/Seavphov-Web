@@ -134,14 +134,12 @@ import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
-import { useToast } from "vue-toastification";
 export default {
   name: "EditBook",
   components: { NoLoggin, MDBInput },
   data() {
     return {
       paramsId: this.$route.params.id,
-      toast: useToast(),
       book: {
         id: "",
         title: "",
@@ -170,7 +168,7 @@ export default {
       this.$router.push({ path: `/book/${this.paramsId}` });
     },
     async handleImageChange(event) {
-      this.toast.success("Uploading image.");
+      this.$toast.success("Uploading image.");
       this.uploadingBook = true;
       try {
         const selectedFile = event.target.files[0];
@@ -186,7 +184,7 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
     },
     async getBook(id) {
