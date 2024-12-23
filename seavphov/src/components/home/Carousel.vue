@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import CarouselItem from "./home/CarouselItem.vue";
+import CarouselItem from "./CarouselItem.vue";
 export default {
   name: "Carousel",
   components: { CarouselItem },

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-8">
     <div class="BookDetail">
       <div class="grid grid-cols-12 gap-4 h-100">
         <div
@@ -65,8 +65,8 @@
 
 <script>
 import RenderBook from "../components/RenderBook.vue";
-import BookAuthorProfile from "../components/BookAuthorProfile.vue";
-import BookReview from "../components/BookReview.vue";
+import BookAuthorProfile from "../components/book-detail/BookAuthorProfile.vue";
+import BookReview from "../components/book-detail/BookReview.vue";
 export default {
   name: "BookDetail",
   components: { RenderBook, BookAuthorProfile, BookReview },

@@ -17,7 +17,7 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
-import Carousel from "../components/Carousel.vue";
+import Carousel from "../components/home/Carousel.vue";
 
 export default {
   name: "Home",

@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import SearchInput from "./SearchInput.vue";
-import Dropdown from "./Dropdown.vue";
+import SearchInput from "./home/SearchInput.vue";
+import Dropdown from "./common/Dropdown.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
 import NotificationDropdown from "./home/NotificationDropdown.vue";
 export default {

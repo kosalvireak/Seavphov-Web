@@ -17,7 +17,7 @@ import 'vue3-easy-data-table/dist/style.css';
 import { RouterMixin } from './utils/routerUtils';
 import toastPlugin from './utils/toastPlugin';
 
-import Loader from './components/Loader.vue';
+import Loader from './components/common/Loader.vue';
 
 const app = createApp(App)
 

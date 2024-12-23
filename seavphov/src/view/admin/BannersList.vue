@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import Carousel from "../../components/Carousel.vue";
+import Carousel from "../../components/home/Carousel.vue";
 
 import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../../firebase";

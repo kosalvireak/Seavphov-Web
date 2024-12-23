@@ -18,8 +18,8 @@
 </template>
     
   <script>
-import Book from "../components/Book.vue";
-import NoResult from "./NoResult.vue";
+import Book from "./common/Book.vue";
+import NoResult from "./common/NoResult.vue";
 export default {
   name: "RenderBook",
   components: { Book, NoResult },

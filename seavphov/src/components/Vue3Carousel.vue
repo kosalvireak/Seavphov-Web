@@ -37,7 +37,7 @@
   <script>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
-import Book from "../components/Book.vue";
+import Book from "./common/Book.vue";
 export default {
   name: "App",
   components: {
