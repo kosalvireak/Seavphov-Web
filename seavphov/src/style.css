@@ -11,13 +11,17 @@
   --sp-secondary: #467e60;
   --sp-tertiary: #edf8f5;
   --sp-dark: #000000;
-  --sp-dark-light: #6b7280; /* text-gray-600 */
+  --sp-gray: #6b7280; /* text-gray-600 */
 
   --max-width-img-sm: 20rem; /*320px*/
   --max-width-img-md: 48.125rem; /*770px*/
   --navbar-height: 60px;
   --navbar-height-mobile: 60px;
   --max-width: 1920px;
+}
+
+body{
+  color: var(--sp-dark);
 }
 
 .sp-logo-sm{

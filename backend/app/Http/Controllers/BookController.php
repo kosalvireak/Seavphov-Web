@@ -140,7 +140,7 @@ class BookController extends Controller
         } catch (ModelNotFoundException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Book not found!',
+                'message' => 'Book not found! method: fetchBookById',
                 'error' => $exception->getMessage()
             ], 404);
         } catch (\Exception $exception) {

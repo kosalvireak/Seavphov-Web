@@ -12,7 +12,8 @@ export default {
         'sp-primary': '#5c836e', // please refer to style.css
         'sp-secondary': '#467e60',
         'sp-tertiary': '#edf8f5',
-        'sp-dark-light': '#6b7280',
+        'sp-gray': '#6b7280',
+        'sp-dark': '#000000'
       },
       height: {
         '500': '500px'

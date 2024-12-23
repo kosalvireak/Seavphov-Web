@@ -34,4 +34,8 @@ class Book extends Model
             ->where('book_id', $this->id)
             ->get(['user_id', 'book_id','created_at']);
     }
+
+    public function getReviews(){
+        return $this->hasMany(BookReview::class, 'book_id');
+    }
 }

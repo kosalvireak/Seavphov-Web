@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BookReviewController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthorization;
@@ -36,6 +37,10 @@ Route::prefix('books')->group(function () {
     Route::post('', [BookController::class, 'createBook'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('{id}', [BookController::class, 'deleteBook'])->middleware([ApiTokenAuthentication::class]);
+});
+
+Route::prefix('review')->group(function () {
+    Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {

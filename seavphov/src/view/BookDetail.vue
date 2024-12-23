@@ -52,7 +52,9 @@
         <div class="col-span-12 lg:col-span-4">
           <BookAuthorProfile v-if="bookOwner" :owner="bookOwner" />
         </div>
-        <div class="col-span-12 lg:col-span-8"><BookReview /></div>
+        <div class="col-span-12 lg:col-span-8">
+          <BookReview :book_id="book.id" />
+        </div>
       </div>
     </div>
     <div class="RelatedBooks mt-5">
