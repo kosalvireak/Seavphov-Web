@@ -38,8 +38,11 @@ export default {
       this.formData.append("book_id", this.book_id);
       const data = await this.$store.dispatch("createReview", this.formData);
       if (data) {
-        console.log("Review", data);
+        this.$emit("onAddReview", data);
       }
+    },
+    resetForm() {
+      this.review.body = "";
     },
   },
 };

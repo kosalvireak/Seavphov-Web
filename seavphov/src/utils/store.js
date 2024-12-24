@@ -478,15 +478,20 @@ const store = createStore({
 
 
         //BookReview
+        async fetchBookReviews({ }, bookId) {
+            try {
+                const response = await getData(`/api/review/book/${bookId}`);
+                if (response.data.success) {
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
 
         async createReview({ }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/review/add", formData, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm('/api/review/add', formData, true, this.state.user.api_token);
                 if (response.data.success) {
                     toast.success(response.data.message);
                     return response.data.data;

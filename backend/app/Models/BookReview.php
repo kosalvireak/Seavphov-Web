@@ -11,16 +11,25 @@ class BookReview extends Model
     
     protected $fillable = [
     'id',
-    'user_id',
     'book_id',
+    'user_id',
     'body',
     'helpful_vote',
     'not_helpful_vote',
     ];
 
-    public function owner(){
-        $user = $this->belongsTo(User::class, 'user_id')->first();
-        $user->get([ 'name','uuid','picture']);
-        return $user;
+     public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->get();
+    }
+
+    public function getData(){
+        return [
+            'user' => $this->owner(),
+            'body' => $this->body,
+            'helpful_vote' => $this->helpful_vote,
+            'not_helpful_vote' => $this->not_helpful_vote,
+            'created_at' => $this->created_at
+        ];
     }
 }

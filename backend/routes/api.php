@@ -40,6 +40,7 @@ Route::prefix('books')->group(function () {
 });
 
 Route::prefix('review')->group(function () {
+    Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews']);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
 });
 

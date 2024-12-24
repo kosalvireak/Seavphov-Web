@@ -27,6 +27,7 @@ class ApiTokenAuthentication
         }
 
         $user = User::where('api_token', $token)->first();
+        
         if (!$user) {
             return response()->json([
                 'success' => false,

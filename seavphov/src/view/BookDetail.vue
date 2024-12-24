@@ -131,7 +131,7 @@ export default {
   },
   async created() {
     await this.getBook(this.paramsId);
-    await this.getRelatedBooks();
+    // await this.getRelatedBooks();
   },
 };
 </script>

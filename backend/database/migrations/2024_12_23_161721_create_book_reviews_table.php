@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('not_helpful_vote');
             $table->timestamps();
 
-
             
             // Define foreign key constraints
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
