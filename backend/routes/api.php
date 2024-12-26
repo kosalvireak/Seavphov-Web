@@ -41,6 +41,8 @@ Route::prefix('books')->group(function () {
 
 Route::prefix('review')->group(function () {
     Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews']);
+    Route::get('/like/{id}', [BookReviewController::class, 'likeReview'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/dislike/{id}', [BookReviewController::class, 'dislikeReview'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
 });
 

@@ -26,9 +26,7 @@
           required
         />
       </div>
-      <FwbButton gradient="green" class="ml-auto text-sm" disabled>
-        Submit
-      </FwbButton>
+      <FwbButton gradient="green" class="ml-auto text-sm"> Submit </FwbButton>
     </form>
   </section>
 </template>

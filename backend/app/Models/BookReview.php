@@ -25,6 +25,7 @@ class BookReview extends Model
 
     public function getData(){
         return [
+            'id' => $this->id,
             'user' => $this->owner(),
             'body' => $this->body,
             'helpful_vote' => $this->helpful_vote,

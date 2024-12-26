@@ -15,7 +15,7 @@ export const RouterMixin = {
     },
     computed: {
         isLogin() {
-            return getCookie() != null
+            return !!getCookie();
         }
     }
 }

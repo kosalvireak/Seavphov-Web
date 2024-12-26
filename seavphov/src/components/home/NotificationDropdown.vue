@@ -31,9 +31,6 @@ import NotificationItem from "./NotificationItem.vue";
 export default {
   name: "NotificationDropdown",
   components: { NotificationItem },
-  props: {
-    isShow: Boolean,
-  },
   data() {
     return {
       items: [],
@@ -42,8 +39,6 @@ export default {
   },
   methods: {
     async getNotification() {
-      console.log("getNotification");
-
       this.isLoading = true;
       this.items = await this.$store.dispatch("getSavedBooksNotification");
       this.isLoading = false;
@@ -54,16 +49,6 @@ export default {
       } else {
         return num + " days ago";
       }
-    },
-  },
-
-  watch: {
-    isShow: {
-      handler(oldAuthor, newAuthor) {
-        // if (newAuthor == true) {
-        //   this.getNotification();
-        // }
-      },
     },
   },
   async mounted() {

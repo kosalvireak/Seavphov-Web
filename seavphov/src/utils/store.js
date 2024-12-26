@@ -399,7 +399,6 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-
         async createReview({ }, formData) {
             try {
                 const response = await postForm('/api/review/add', formData, true);
@@ -409,6 +408,29 @@ const store = createStore({
                 }
             } catch (error) {
                 console.error("Error adding book:", error);
+                toast.error(error.response.data.message);
+            }
+        },
+        async likeReview({ }, reviewId) {
+            try {
+                const response = await getData(`/api/review/like/${reviewId}`, true);
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                    return response.data.data;
+                }
+            } catch (error) {
+                toast.error(error.response.data.message);
+            }
+        },
+
+        async dislikeReview({ }, reviewId) {
+            try {
+                const response = await getData(`/api/review/dislike/${reviewId}`, true);
+                if (response.data.success) {
+                    toast.success(response.data.message);
+                    return response.data.data;
+                }
+            } catch (error) {
                 toast.error(error.response.data.message);
             }
         },
@@ -423,9 +445,7 @@ const store = createStore({
                 toast.error(error.response.data.message);
             }
         },
-
     },
 })
-
 
 export default store

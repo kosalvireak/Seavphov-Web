@@ -2,7 +2,7 @@ import axiosInstance from "../../axiosInstance.js";
 import { getCookie } from "./cookieUtils.js";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
-const { api_token } = getCookie();
+const api_token = getCookie()?.api_token || null;
 
 export async function getData(route, auth = false) {
   const headers = auth ? {

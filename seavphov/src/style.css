@@ -136,7 +136,7 @@ body{
 }
 
 .clickable {
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .ellipsis-2 {

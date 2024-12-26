@@ -14,15 +14,31 @@
       {{ review.body }}
     </div>
 
-    <div class="d-flex justify-content-end space-x-4">
-      <span class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md">
-        <i class="fa-regular fa-thumbs-down fa-xl mr-1"></i
-        >{{ review.helpful_vote }}
-      </span>
-      <span class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md">
-        <i class="fa-regular fa-thumbs-up fa-xl mr-1"></i>
-        {{ review.not_helpful_vote }}
-      </span>
+    <div class="d-flex justify-content-end">
+      <div class="flex-center w-16 h-7">
+        <Loader v-if="isLoadingDislike" />
+        <span
+          v-else
+          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
+          @click="dislikeReview(review.id)"
+        >
+          <i class="fa-regular fa-thumbs-down fa-xl mr-1"></i
+          >{{ review.not_helpful_vote }}
+        </span>
+      </div>
+      <div class="flex-center w-16 h-7">
+        <Loader v-if="isLoadingLike" />
+        <span
+          v-else
+          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
+          @click="likeReview(review.id)"
+        >
+          <i class="fa-regular fa-thumbs-up fa-xl mr-1"></i>
+          {{ review.helpful_vote }}
+        </span>
+      </div>
     </div>
   </section>
 </template>
@@ -34,6 +50,31 @@ export default {
   components: { MDBTextarea },
   props: {
     review: Object,
+  },
+  data() {
+    return {
+      isLoadingLike: false,
+      isLoadingDislike: false,
+    };
+  },
+  methods: {
+    async likeReview(id) {
+      this.isLoadingLike = true;
+      const data = await this.$store.dispatch("likeReview", id);
+      if (data) {
+        this.review.helpful_vote = data.helpful_vote;
+      }
+
+      this.isLoadingLike = false;
+    },
+    async dislikeReview(id) {
+      this.isLoadingDislike = true;
+      const data = await this.$store.dispatch("dislikeReview", id);
+      if (data) {
+        this.review.not_helpful_vote = data.not_helpful_vote;
+      }
+      this.isLoadingDislike = false;
+    },
   },
 };
 </script>
