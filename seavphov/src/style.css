@@ -135,6 +135,10 @@ body{
   color: #5c836e !important;
 }
 
+.clickable {
+  cursor: pointer !important;
+}
+
 .ellipsis-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -155,10 +159,6 @@ body{
 
 .ellipsis-container {
   overflow: hidden;
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 
 .flex-center {

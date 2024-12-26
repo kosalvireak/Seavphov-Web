@@ -8,7 +8,7 @@
       "
       class="text-gray"
     >
-      <i class="fa fa-arrow-circle-left cursor-pointer" aria-hidden="true"></i>
+      <i class="fa fa-arrow-circle-left clickable" aria-hidden="true"></i>
       Home
     </a>
 

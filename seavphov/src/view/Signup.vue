@@ -1,6 +1,6 @@
 <template>
   <div class="Register row shadow-5">
-    <a href="/home" class="text-gray">
+    <a @click="backRoute()" class="text-gray clickable">
       <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
     </a>
     <div
@@ -92,13 +92,7 @@
 
       <div class="text-center mt-3">
         Already have an account?
-        <a
-          @click="
-            () => {
-              this.toRouteName('/login');
-            }
-          "
-          class="text-seavphov"
+        <a @click="toRouteName('login')" class="text-seavphov clickable"
           >Login.</a
         >
       </div>

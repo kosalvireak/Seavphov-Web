@@ -119,11 +119,6 @@ export default {
       this.loadingSaveBook = false;
     },
   },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-  },
   watch: {
     "$route.params.id"() {
       this.$router.go(0);

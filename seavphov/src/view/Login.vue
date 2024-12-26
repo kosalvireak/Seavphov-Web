@@ -1,6 +1,6 @@
 <template>
   <div class="Login row p-3 m-0 shadow-5">
-    <a href="/home" class="text-gray">
+    <a @click="backRoute()" class="text-gray clickable">
       <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
     </a>
     <div
@@ -53,7 +53,7 @@
           </div>
 
           <div class="text-seavphov">
-            <label @click="forgotPassword()" class="cursor-pointer"
+            <label @click="forgotPassword()" class="clickable"
               >Forgot password?</label
             >
           </div>
@@ -85,7 +85,7 @@
               this.toRouteName('signup');
             }
           "
-          class="text-seavphov"
+          class="text-seavphov clickable"
           >Register!</a
         >
       </div>

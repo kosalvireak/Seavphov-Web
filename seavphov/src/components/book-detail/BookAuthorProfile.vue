@@ -12,7 +12,7 @@
       <div class="d-flex flex-column justify-content-evenly">
         <p class="m-0 text-lg font-bold">{{ owner.name }}</p>
         <p class="m-0">
-          <span>Member since: </span>{{ getFormattedDate(owner.created_at) }}
+          <span>Member since: </span>{{ formatDate(owner.created_at) }}
         </p>
       </div>
     </a>

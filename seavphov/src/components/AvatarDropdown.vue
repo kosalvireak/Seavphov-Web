@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     dropdownItemCss() {
-      return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-100 cursor-pointer";
+      return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-100 clickable";
     },
   },
 };

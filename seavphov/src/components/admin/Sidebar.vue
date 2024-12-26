@@ -7,7 +7,7 @@
       <div class="flex-center w-full">
         <img
           :src="this.$logoUrl"
-          class="sp-logo-md cursor-pointer"
+          class="sp-logo-md clickable"
           alt="Seavphov Logo"
           @click="toRouteName('home')"
         />
@@ -17,7 +17,7 @@
           v-for="navigation in navigationItems"
           :key="navigation"
           :class="{ 'bg-white': currentRoute(navigation.route) }"
-          class="flex align-items-center text-black hover:bg-gray-200 cursor-pointer py-3 px-4"
+          class="flex align-items-center text-black hover:bg-gray-200 clickable py-3 px-4"
           @click="toRouteName(navigation.route)"
         >
           <i class="w-12 fa fa-xl" :class="navigation.icon"></i>
@@ -27,7 +27,7 @@
     </nav>
     <button
       @click="toggleNav"
-      class="toggle-btn bg-sp-primary absolute text-center rounded-2 cursor-pointer z-40"
+      class="toggle-btn bg-sp-primary absolute text-center rounded-2 clickable z-40"
     >
       <span v-if="isCollapsed">→</span>
       <span v-else>←</span>

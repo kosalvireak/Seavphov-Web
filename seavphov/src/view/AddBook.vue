@@ -1,6 +1,6 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
-    <a href="/home" class="text-gray cursor-pointer">
+    <a href="/home" class="text-gray clickable">
       <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
     </a>
     <div
@@ -177,11 +177,6 @@ export default {
       } catch (error) {
         this.$toast.error(error);
       }
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
 };

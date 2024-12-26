@@ -195,11 +195,6 @@ export default {
       }
     },
   },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-  },
   async mounted() {
     const response = await this.$store.dispatch("fetchUserProfile");
     this.user.name = response.name;

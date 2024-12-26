@@ -46,10 +46,7 @@
               class="ellipsis text-center btn btn-danger h-auto"
               @click="adminDeleteBanner(banners.id)"
             >
-              <i
-                class="fa fa-trash fa-xl cursor-pointer"
-                aria-hidden="true"
-              ></i>
+              <i class="fa fa-trash fa-xl clickable" aria-hidden="true"></i>
             </button>
           </div>
         </template>
@@ -57,10 +54,7 @@
     </div>
     <div v-if="page == 2" class="Add_Banners flex-center flex-column w-100">
       <a @click="changePage(1)" class="text-gray">
-        <i
-          class="fa fa-arrow-circle-left cursor-pointer"
-          aria-hidden="true"
-        ></i>
+        <i class="fa fa-arrow-circle-left clickable" aria-hidden="true"></i>
         Banners
       </a>
       <h4 class="mb-4 text-gray fw-bold">Your are adding a new Banner</h4>

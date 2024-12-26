@@ -25,7 +25,7 @@
           class="ellipsis text-center btn btn-danger h-auto"
           @click="adminDeleteBook(books.id)"
         >
-          <i class="fa fa-trash fa-xl cursor-pointer" aria-hidden="true"></i>
+          <i class="fa fa-trash fa-xl clickable" aria-hidden="true"></i>
         </button>
       </template>
     </EasyDataTable>

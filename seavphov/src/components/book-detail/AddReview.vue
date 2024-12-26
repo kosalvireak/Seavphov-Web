@@ -1,18 +1,36 @@
 <template>
-  <form
-    v-on:submit.prevent="addReview()"
-    class="d-flex flex-column align-items-end"
-  >
-    <div class="w-100 mb-2">
-      <MDBTextarea
-        label="Enter your review"
-        rows="3"
-        v-model="review.body"
-        required
-      />
+  <section>
+    <div
+      v-if="!isLogin"
+      class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
+    >
+      <p class="mb-0">Sign up to leave a review!</p>
+
+      <FwbButton
+        @click="toRouteName('signup')"
+        gradient="green"
+        class="m-0 px-2 text-xs w-fit"
+        >Signup</FwbButton
+      >
     </div>
-    <FwbButton gradient="green" class="ml-auto text-sm"> Submit </FwbButton>
-  </form>
+    <form
+      v-else
+      v-on:submit.prevent="addReview()"
+      class="d-flex flex-column align-items-end"
+    >
+      <div class="w-100 mb-2">
+        <MDBTextarea
+          label="Enter your review"
+          rows="3"
+          v-model="review.body"
+          required
+        />
+      </div>
+      <FwbButton gradient="green" class="ml-auto text-sm" disabled>
+        Submit
+      </FwbButton>
+    </form>
+  </section>
 </template>
 
 <script>

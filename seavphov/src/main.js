@@ -15,6 +15,7 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
 import { RouterMixin } from './utils/routerUtils';
+import { DateMixin } from './utils/dateMixin';
 import toastPlugin from './utils/toastPlugin';
 
 import Loader from './components/common/Loader.vue';
@@ -39,6 +40,7 @@ app.use(VueCookies)
 
 
 app.mixin(RouterMixin)
+app.mixin(DateMixin)
 
 VueCookies.config('30d', '', '', true);
 store.dispatch("setUserFromCookies");

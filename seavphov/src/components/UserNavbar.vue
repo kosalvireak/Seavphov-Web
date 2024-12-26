@@ -1,13 +1,13 @@
 <template>
   <nav class="bg-seavphov w-full">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
-      <a @click="toRouteName('home')" class="flex items-center cursor-pointer">
+      <a @click="toRouteName('home')" class="flex items-center clickable">
         <img :src="$logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </a>
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
-        <template v-if="this.$store.getters.isLogin">
+        <template v-if="isLogin">
           <div
-            class="d-flex align-items-sm-center cursor-pointer"
+            class="d-flex align-items-sm-center clickable"
             @click="toRouteName('add-book')"
           >
             <i class="fas fa-plus-circle fa-xl"></i>
@@ -23,13 +23,6 @@
           <AvatarDropdown />
         </template>
         <template v-else>
-          <FwbButton
-            @click="toRouteName('login')"
-            gradient="green"
-            class="px-2 text-xs w-fit"
-            >Login</FwbButton
-          >
-          <p class="text-white m-0 mx-2">Or</p>
           <FwbButton
             @click="toRouteName('signup')"
             gradient="green"

@@ -10,7 +10,7 @@
               toRouteName('home');
             }
           "
-          class="text-gray align-self-start cursor-pointer"
+          class="text-gray align-self-start clickable"
         >
           <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
         </a>

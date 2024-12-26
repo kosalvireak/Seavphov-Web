@@ -7,7 +7,7 @@
         :loading="isLoadingProfile"
       />
       <div
-        class="flex book_options p-2 rounded-7 cursor-pointer book_option_child_selected fw-bold"
+        class="flex book_options p-2 rounded-7 clickable book_option_child_selected fw-bold"
       >
         <a class="text-black">Home</a>
       </div>

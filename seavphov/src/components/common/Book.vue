@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="BookItem cursor-pointer"
-    @click="toRouteName('book-detail', book.id)"
-  >
+  <div class="BookItem clickable" @click="toRouteName('book-detail', book.id)">
     <div
       class="w-48 h-full bg-white rounded-lg border border-gray-200 shadow-md"
     >

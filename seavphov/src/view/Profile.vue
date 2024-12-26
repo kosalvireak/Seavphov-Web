@@ -1,23 +1,47 @@
 <template>
   <div class="Profile container box h-100 w-100">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
-      <UserMainProfile :fromProfile="true" :user="User" :loading="isLoadingProfile" />
+      <UserMainProfile
+        :fromProfile="true"
+        :user="User"
+        :loading="isLoadingProfile"
+      />
       <div class="flex book_options p-2">
-        <div class="flex book_option_child rounded-7 cursor-pointer"
-          :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }">
-          <a class="text-black font-75" @click="toggleMyBooksPage('mybooks')">My Books</a>
+        <div
+          class="flex book_option_child rounded-7 clickable"
+          :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
+        >
+          <a class="text-black font-75" @click="toggleMyBooksPage('mybooks')"
+            >My Books</a
+          >
         </div>
-        <div class="flex book_option_child rounded-7 cursor-pointer"
-          :class="{ 'book_option_child_selected fw-bold': !isMyBooksPage }">
-          <a class="text-black font-75" @click="toggleMyBooksPage('savedbooks')">Saved Books</a>
+        <div
+          class="flex book_option_child rounded-7 clickable"
+          :class="{ 'book_option_child_selected fw-bold': !isMyBooksPage }"
+        >
+          <a class="text-black font-75" @click="toggleMyBooksPage('savedbooks')"
+            >Saved Books</a
+          >
         </div>
       </div>
       <div>
-        <RenderBook v-if="!isMyBooksPage" :books="savedBooks" :loading="isLoading" />
-        <RenderMyBook v-else :books="myBooks" :loading="isLoading" @call-get-book-2.once="getBooks()" />
+        <RenderBook
+          v-if="!isMyBooksPage"
+          :books="savedBooks"
+          :loading="isLoading"
+        />
+        <RenderMyBook
+          v-else
+          :books="myBooks"
+          :loading="isLoading"
+          @call-get-book-2.once="getBooks()"
+        />
       </div>
     </div>
-    <div v-else class="d-flex align-items-center justify-content-center flex-column">
+    <div
+      v-else
+      class="d-flex align-items-center justify-content-center flex-column"
+    >
       <NoLoggin />
     </div>
   </div>
@@ -80,11 +104,6 @@ export default {
       this.isLoading = true;
       this.savedBooks = await this.$store.dispatch("fetchSavedBook");
       this.isLoading = false;
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
 };
