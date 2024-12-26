@@ -1,10 +1,12 @@
 import axiosInstance from "../../axiosInstance.js";
+import { getCookie } from "./cookieUtils.js";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
+const { api_token } = getCookie();
 
-export async function getData(route, auth = false, apiToken = null) {
+export async function getData(route, auth = false) {
   const headers = auth ? {
-    'Authorization': `Bearer ${apiToken}`
+    'Authorization': `Bearer ${api_token}`
   } : {}
   return await axiosInstance.get(backend_url + route, { headers })
 }
@@ -17,14 +19,23 @@ export async function postJson(route, body) {
   });
 }
 
-export async function postForm(route, body, auth = false, apiToken = null) {
+export async function postForm(route, body, auth = false) {
   const headers = {
     'Content-Type': 'multipart/form-data'
   };
   if (auth) {
-    headers.Authorization = `Bearer ${apiToken}`;
+    headers.Authorization = `Bearer ${api_token}`;
   }
   return await axiosInstance.post(backend_url + route, body, {
+    headers
+  });
+}
+
+export async function deleteData(route) {
+  const headers = {
+    'Authorization': `Bearer ${api_token}`
+  }
+  return await axiosInstance.delete(backend_url + route, {
     headers
   });
 }

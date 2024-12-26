@@ -1,14 +1,7 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
-    <a
-      @click="
-        () => {
-          this.toRouteName('home');
-        }
-      "
-      class="text-gray"
-    >
-      <i class="fa fa-arrow-circle-left clickable" aria-hidden="true"></i>
+    <a @click="backRoute()" class="text-gray clickable">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
       Home
     </a>
 
@@ -197,11 +190,6 @@ export default {
       this.book.descriptions = response.descriptions;
       this.book.condition = response.condition;
       this.book.categories = response.categories;
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
   async mounted() {

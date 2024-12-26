@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { useToast } from "vue-toastification"
 import axiosInstance from '../../axiosInstance.js';
-import { getData, postJson, postForm } from "./apiUtils.js";
+import { getData, deleteData, postForm } from "./apiUtils.js";
 import { RouterMixin } from './routerUtils.js';
 
 import { setCookie, getCookie, removeCookie } from './cookieUtils.js';
@@ -30,9 +30,6 @@ const store = createStore({
     getters: {
         booksByCategory: (state) => (category) => {
             return state.fetchBooks.filter(book => book.categories == category);
-        },
-        isLogin: () => {
-            return getCookie() != null;
         },
     },
 
@@ -85,9 +82,7 @@ const store = createStore({
                     },
                 });
                 const responseData = await response.data;
-                console.log("responseData", responseData);
                 if (responseData.success) {
-                    console.log("user", responseData.data);
                     const user = {
                         name: responseData.data.name,
                         email: responseData.data.email,
@@ -107,12 +102,7 @@ const store = createStore({
         },
         async fetchUserProfile() {
             try {
-                // const response = await getData("profile")
-                const response = await axiosInstance.get(backend_url + "/api/profile", {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                })
+                const response = await getData("/api/profile", true)
                 if (response.data.success) {
                     return response.data.message;
                 }
@@ -122,12 +112,8 @@ const store = createStore({
         },
         async fetchOtherUserProfile({ }, uuid) {
             try {
-                // const response = await getData("user/" + uuid)
-                const response = await axiosInstance.get(backend_url + "/api/user/" + uuid, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                })
+                const response = await getData(`/api/user/${uuid}`, true)
+
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -137,12 +123,7 @@ const store = createStore({
         },
         async modifyUserProfile({ dispatch }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/profile", formData, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm('/api/profile', formData, true);
                 if (response.data.success) {
                     const responseData = response.data.data;
                     const user = {
@@ -198,11 +179,7 @@ const store = createStore({
         },
         async adminGetBooks() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/books', {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                }); // Add params to URL
+                const response = await getData('/api/admin/books', true)
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -212,11 +189,7 @@ const store = createStore({
         },
         async adminDeleteBook({ }, id) {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/books/delete/' + id, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData(`/api/admin/books/delete/${id}`, true)
                 if (response.data.success) {
                     toast.success(response.data.message);
                 }
@@ -226,11 +199,7 @@ const store = createStore({
         },
         async adminDeleteBanner({ }, id) {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/banners/' + id, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData(`/api/admin/banners/${id}`, true)
                 if (response.data.success) {
                     toast.success(response.data.message);
                 }
@@ -240,11 +209,7 @@ const store = createStore({
         },
         async changeSelectedBanner({ }, id) {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/banners/selected/' + id, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData(`/api/admin/banners/selected/${id}`, true)
                 if (response.data.success) {
                     toast.success(response.data.message);
                 }
@@ -254,11 +219,7 @@ const store = createStore({
         },
         async adminGetBanners() {
             try {
-                const response = await axiosInstance.get(backend_url + '/api/admin/banners', {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData('/api/admin/banners', true)
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -268,7 +229,7 @@ const store = createStore({
         },
         async adminGetOverviewData() {
             try {
-                const response = await getData('/api/admin/overview', true, this.state.user.api_token);
+                const response = await getData('/api/admin/overview', true);
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -288,7 +249,7 @@ const store = createStore({
         },
         async adminGetUsers() {
             try {
-                const response = await getData('/api/admin/users', true, this.state.user.api_token)
+                const response = await getData('/api/admin/users', true)
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -298,7 +259,7 @@ const store = createStore({
         },
         async adminGetAuth() {
             try {
-                const response = await getData('/api/admin/auth', true, this.state.user.api_token);
+                const response = await getData('/api/admin/auth', true);
                 if (response.data.success) {
                     return response.data.data;
                 } else {
@@ -311,12 +272,7 @@ const store = createStore({
         },
         async adminAddBanner({ }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/admin/banners/", formData, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm('/api/admin/banners/', formData, true);
                 toast.success(response.data.message);
                 if (response.data.success) {
                     return response.data.success;
@@ -329,11 +285,7 @@ const store = createStore({
         async fetchBookById({ }, formData) {
             try {
                 let id = formData.get("id");
-                const response = await axiosInstance.post(backend_url + "/api/books/" + id, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm(`/api/books/${id}`, formData);
                 if (response.data.success) {
                     return [response.data.book, response.data.owner];
                 }
@@ -343,11 +295,7 @@ const store = createStore({
         },
         async getMyBooks() {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/auth/book", {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                })
+                const response = await getData('/api/auth/book', true)
                 if (response.data.success) {
                     return response.data.message;
                 }
@@ -357,11 +305,7 @@ const store = createStore({
         },
         async getMyBook({ }, id) {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/auth/book/" + id, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                })
+                const response = await getData(`/api/auth/book/${id}`, true);
                 if (response.data.success) {
                     return response.data.message;
                 } else {
@@ -373,11 +317,7 @@ const store = createStore({
         },
         async fetchSavedBook() {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/saved", {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                })
+                const response = await getData('/api/saved', true)
                 if (response.data.success) {
                     return response.data.message;
                 }
@@ -387,12 +327,7 @@ const store = createStore({
         },
         async createBook({ }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/books/", formData, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm('/api/books/', formData, true);
                 toast.success(response.data.message);
                 this.state.newBookId = response.data.bookId;
             } catch (error) {
@@ -403,12 +338,7 @@ const store = createStore({
         async modifyBook({ }, formData) {
             try {
                 let id = formData.get("id");
-                const response = await axiosInstance.post(backend_url + "/api/books/" + id, formData, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await postForm(`/api/books/${id}`, formData, true);
                 toast.success(response.data.message);
             } catch (error) {
                 console.error("Error adding book:", error);
@@ -417,13 +347,8 @@ const store = createStore({
         },
         async deleteBook({ }, id) {
             try {
-                const response = await axiosInstance.delete(backend_url + "/api/books/" + id, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await deleteData(`/api/books/${id}`)
                 toast.success(response.data.message);
-
             } catch (error) {
                 console.error("Error adding book:", error);
                 toast.error(error.response.data.message);
@@ -431,11 +356,7 @@ const store = createStore({
         },
         async toggleSaveBook({ }, bookId) {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/saved/" + bookId, {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData(`/api/saved/${bookId}`, true)
                 if (response.data.success) {
                     toast.success(response.data.message);
                     return true;
@@ -446,11 +367,7 @@ const store = createStore({
         },
         async getSavedBooksNotification() {
             try {
-                const response = await axiosInstance.get(backend_url + "/api/saved/notification", {
-                    headers: {
-                        'Authorization': `Bearer ${this.state.user.api_token}`,
-                    },
-                });
+                const response = await getData('/api/saved/notification', true)
                 if (response.data.success) {
                     return response.data.data;
                 }
@@ -460,14 +377,8 @@ const store = createStore({
         },
         async sendEmailResetPassword({ }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/reset/send", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log("response", response)
+                const response = await postForm('/api/reset/send', formData, true);
                 if (response.data.success) {
-
                     toast.success(response.data.message);
                 }
             } catch (error) {
@@ -491,7 +402,7 @@ const store = createStore({
 
         async createReview({ }, formData) {
             try {
-                const response = await postForm('/api/review/add', formData, true, this.state.user.api_token);
+                const response = await postForm('/api/review/add', formData, true);
                 if (response.data.success) {
                     toast.success(response.data.message);
                     return response.data.data;
@@ -503,12 +414,7 @@ const store = createStore({
         },
         async resetPassword({ }, formData) {
             try {
-                const response = await axiosInstance.post(backend_url + "/api/reset/", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log("response", response)
+                const response = await postForm('/api/reset/', formData, true);
                 if (response.data.success) {
                     toast.success(response.data.message);
                 }
