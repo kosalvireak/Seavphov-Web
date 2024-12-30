@@ -1,27 +1,32 @@
 <template>
   <div class="w-100 h-100 mb-auto">
     <div
-      class="hidden md:flex backgroundImg img-fluid w-100 align-items-center justify-content-center"
+      class="backgroundImg flex-center img-fluid"
       :style="getBackground"
+      style="width: 100%; height: 500px"
     >
-      <Carousel v-if="TopBooks.length" :books="TopBooks" />
-      <Loader v-if="isLoading" :size="40" />
+      <div class="flex-center p-3 w-75 h-100">
+        <Carousel v-if="TopBooks.length" :books="TopBooks" />
+      </div>
     </div>
 
-    <div class="mt-3 w-100">
-      <PaginatedBook />
+    <div class="mt-3 w-auto row">
+      <div class="col-9"></div>
+      <PaginatedBook class="col-9" />
+      <Filter class="col-3 pt-5" />
     </div>
   </div>
 </template>
 
 <script>
-import RenderBook from "../components/RenderBook.vue";
-import PaginatedBook from "../components/PaginatedBook.vue";
-import Carousel from "../components/home/Carousel.vue";
+import RenderBook from "../components/common/RenderBook.vue";
+import PaginatedBook from "../components/common/PaginatedBook.vue";
+import Filter from "../components/Filter.vue";
+import Carousel from "../components/Carousel.vue";
 
 export default {
   name: "Home",
-  components: { RenderBook, PaginatedBook, Carousel },
+  components: { RenderBook, PaginatedBook, Filter, Carousel },
   data() {
     return {
       reloaded: false,
@@ -29,7 +34,6 @@ export default {
         categories: "Text-Book",
       },
       TopBooks: [],
-      isLoading: false,
       banner: {},
       defaultBanner:
         "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fbggreen.png?alt=media&token=192e76f7-53b6-42c3-8e20-c7ecb27451b8",
@@ -37,12 +41,10 @@ export default {
   },
   methods: {
     async getBook() {
-      this.isLoading = true;
       this.TopBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters
       );
-      this.isLoading = false;
     },
     async getBanner() {
       this.banner = await this.$store.dispatch("getBanner");
@@ -61,20 +63,30 @@ export default {
   async mounted() {
     await this.getBanner();
     await this.getBook(this.paramsId);
+
+    if (!localStorage.getItem("reloaded")) {
+      location.reload();
+      localStorage.setItem("reloaded", true);
+    }
   },
 };
 </script>
 
 <style scoped>
+label {
+  font-size: 0.9rem;
+}
+
+.h-3rem {
+  height: 3rem !important;
+}
+
+.margin-top {
+  margin-top: 20px !important;
+}
+
 .backgroundImg {
   background-repeat: no-repeat;
   background-size: cover;
-  height: 450px;
-}
-
-@media (max-width: 640px) {
-  .backgroundImg {
-    height: 288px;
-  }
 }
 </style>

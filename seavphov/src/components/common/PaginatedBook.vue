@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import RenderBook from "../components/RenderBook.vue";
+import RenderBook from "./RenderBook.vue";
 import axios from "axios";
 export default {
   name: "PaginatedBook",

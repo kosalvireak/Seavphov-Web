@@ -1,5 +1,5 @@
 <template>
-  <div class="RenderMyBook w-100 h-auto">
+  <div class="RenderBook w-100 h-auto">
     <div
       v-if="loading"
       class="h-100 w-100 d-flex align-items-center justify-content-center"
@@ -10,20 +10,19 @@
     <div v-else>
       <div v-if="!isBooksEmpty">
         <div
-          class="d-flex align-items-center justify-content-end m-1 mt-4"
+          class="d-flex align-items-center justify-content-end m-1"
           style="height: 40px"
         >
           <h6 class="p-0 m-0 fw-bold font-75">
             Result: {{ books.length }} Books
           </h6>
         </div>
-        <div v-for="book in books" :key="book.id">
-          <MyBook
-            :book="book"
-            :key="book.id"
-            class="m-0 p-0"
-            @call-get-book.once="$emit('callGetBook2')"
-          />
+        <div
+          class="d-flex align-items-center justify-content-center flex-row flex-wrap"
+        >
+          <div v-for="book in books" :key="book.id" class="m-0 p-0">
+            <Book :book="book" :key="book.id" class="m-0 p-0" />
+          </div>
         </div>
       </div>
       <div v-else class="h-100 w-100">
@@ -51,15 +50,15 @@
 </template>
     
     <script>
-import MyBook from "./profile/MyBook.vue";
+import Book from "./Book.vue";
 
 export default {
-  name: "RenderMyBook",
-  components: { MyBook },
+  name: "RenderBook",
+  components: { Book },
   props: { books: Array, loading: Boolean },
   computed: {
     isBooksEmpty() {
-      if (this.books & (this.books.length == 0)) {
+      if (this.books.length == 0) {
         return true;
       } else {
         return false;
@@ -68,10 +67,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-@media only screen and (max-width: 576px) {
-  .font-75 {
-    font-size: 75%;
-  }
-}
-</style>
