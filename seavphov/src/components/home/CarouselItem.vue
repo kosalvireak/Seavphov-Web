@@ -1,5 +1,5 @@
 <template>
-  <section class="CarouselItem block">
+  <section class="CarouselItem block m-4">
     <div class="grid grid-cols-12">
       <div class="col-start-2 col-end-9 text-start text-sp-tertiary space-y-3">
         <h1 class="ellipsis-2">{{ book.title }}</h1>

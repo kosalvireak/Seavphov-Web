@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import SocialMediaList from "./SocialMediaList.vue";
+import SocialMediaList from "../SocialMediaList.vue";
 
 export default {
   name: "UserMainProfile",

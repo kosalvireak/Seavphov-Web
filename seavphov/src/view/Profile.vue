@@ -50,7 +50,7 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import RenderMyBook from "../components/RenderMyBook.vue";
-import UserMainProfile from "../components/UserMainProfile.vue";
+import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import MyBook from "../components/MyBook.vue";
 export default {
