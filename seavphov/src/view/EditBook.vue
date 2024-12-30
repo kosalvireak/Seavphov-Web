@@ -1,14 +1,7 @@
 <template>
   <div class="AddBook w-100 mb-4 container-sm">
-    <a
-      @click="
-        () => {
-          this.toRouteName('home');
-        }
-      "
-      class="text-gray"
-    >
-      <i class="fa fa-arrow-circle-left cursor-pointer" aria-hidden="true"></i>
+    <a @click="backRoute()" class="text-gray clickable">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
       Home
     </a>
 
@@ -16,7 +9,7 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">Edit book</h4>
+      <h4 class="mb-4 text-gray fw-bold">Edit book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="modifyBook()" class="row">
         <div class="col-12 col-md-6">
@@ -133,15 +126,13 @@
 import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import NoLoggin from "../components/common/NoLoggin.vue";
-import { useToast } from "vue-toastification";
+import NoLoggin from "../components/NoLoggin.vue";
 export default {
   name: "EditBook",
   components: { NoLoggin, MDBInput },
   data() {
     return {
       paramsId: this.$route.params.id,
-      toast: useToast(),
       book: {
         id: "",
         title: "",
@@ -170,7 +161,7 @@ export default {
       this.$router.push({ path: `/book/${this.paramsId}` });
     },
     async handleImageChange(event) {
-      this.toast.success("Uploading image.");
+      this.$toast.success("Uploading image.");
       this.uploadingBook = true;
       try {
         const selectedFile = event.target.files[0];
@@ -186,7 +177,7 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
     },
     async getBook(id) {
@@ -199,11 +190,6 @@ export default {
       this.book.descriptions = response.descriptions;
       this.book.condition = response.condition;
       this.book.categories = response.categories;
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
   async mounted() {

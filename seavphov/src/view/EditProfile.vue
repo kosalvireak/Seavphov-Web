@@ -8,7 +8,7 @@
       v-if="isLogin"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="my-4 text-gray fw-bold">Your are editing your profile</h4>
+      <h4 class="mb-4 text-gray fw-bold">Edit profile</h4>
 
       <form style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="col-12 col-md-6">
@@ -137,15 +137,13 @@
 <script>
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import NoLoggin from "../components/common/NoLoggin.vue";
-import { useToast } from "vue-toastification";
+import NoLoggin from "../components/NoLoggin.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "EditProfile",
   components: { NoLoggin, MDBInput },
   data() {
     return {
-      toast: useToast(),
       user: {
         name: "",
         email: "",
@@ -174,7 +172,7 @@ export default {
       this.formData.append("telegram", this.user.telegram);
       this.formData.append("location", this.user.location);
       await this.$store.dispatch("modifyUserProfile", this.formData);
-      this.toRouteName("profile" );
+      this.toRouteName("profile");
     },
     async handleImageChange(event) {
       this.uploadingBook = true;
@@ -193,13 +191,8 @@ export default {
           );
         }
       } catch (error) {
-        this.toast.error(error);
+        this.$toast.error(error);
       }
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
     },
   },
   async mounted() {

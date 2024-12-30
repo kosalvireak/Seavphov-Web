@@ -51,7 +51,7 @@
 </template>
     
     <script>
-import MyBook from "./profile/MyBook.vue";
+import MyBook from "./MyBook.vue";
 
 export default {
   name: "RenderMyBook",

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AvatarDropdown from "../common/AvatarDropdown.vue";
+import AvatarDropdown from "../AvatarDropdown.vue";
 export default {
   name: "AdminNavbar",
   components: { AvatarDropdown },

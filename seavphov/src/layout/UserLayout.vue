@@ -1,16 +1,16 @@
 <script>
 import { RouterView } from "vue-router";
-import Navbar from "../components/common/Navbar.vue";
-import Footer from "../components/common/Footer.vue";
+import Footer from "../components/Footer.vue";
+import UserNavbar from "../components/UserNavbar.vue";
 export default {
   name: "UserLayout",
-  components: { RouterView, Navbar, Footer },
+  components: { RouterView, Footer, UserNavbar },
 };
 </script>
 
 <template>
-  <div class="UserLayout flex-center flex-column">
-    <Navbar />
+  <div class="UserLayout flex-center flex-column w-100">
+    <UserNavbar />
     <RouterView />
     <Footer />
   </div>

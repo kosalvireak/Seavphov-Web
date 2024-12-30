@@ -54,7 +54,7 @@ export default {
       this.isCollapsed = !this.isCollapsed;
     },
     currentRoute(route) {
-      return this.$route.name === route;
+      return this.$route.name == route;
     },
   },
 };

@@ -16,7 +16,11 @@
       <h5 class="mt-3">Please login.</h5>
       <br />
       <a
-        @click="toRouteName('login')"
+        @click="
+          () => {
+            toRouteName('login');
+          }
+        "
         class="text-gray"
       >
         <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>

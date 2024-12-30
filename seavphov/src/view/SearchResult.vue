@@ -34,15 +34,22 @@
       </div>
       <Filter class="col-3 pt-5 h-100" />
     </div>
+    <div
+      class="Vue3Carousel_Container mt-4 w-100 flex-center row align-items-start my-5"
+      style="min-height: 220px; margin-top: 200px !important"
+    >
+      <Vue3Carousel />
+    </div>
   </section>
 </template>
 
 <script>
-import RenderBook from "../components/common/RenderBook.vue";
+import RenderBook from "../components/RenderBook.vue";
 import Filter from "../components/Filter.vue";
+import Vue3Carousel from "../components/Vue3Carousel.vue";
 export default {
   name: "SearchResult",
-  components: { RenderBook, Filter },
+  components: { RenderBook, Filter, Vue3Carousel },
   data() {
     return {
       searchTitle: this.$route.query.q,

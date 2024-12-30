@@ -1,79 +1,61 @@
 <template>
-  <div class="container-sm mt-3">
-    <div class="row">
-      <div
-        class="LeftSide d-flex flex-column flex-wrap col-sm-12 col-lg-8 p-0 rounded-7 ps-3"
-      >
-        <div class="d-flex h-top row me-0">
-          <img
-            :src="book.images"
-            class="book_cover img-fluid col-5 h-100 p-3"
-            alt="book cover"
-          />
-          <div class="col-7 px-lg-4 px-sm-1 h-100">
-            <div class="title_div h-50 overflow-auto">
-              <h3 class="book_title font-Roboto mt-3">
-                {{ book.title }}
-              </h3>
-            </div>
-
-            <div class="h-50 BookDetailButtom">
-              <p class="book_author my-2 mt-0">
-                <u class="fw-bold text-black">Author</u>: {{ book.author }}
-              </p>
-              <p class="book_category my-2">
-                <u class="fw-bold text-black">Category</u>:
-                {{ book.categories }}
-              </p>
-              <p class="book_condition my-2">
-                <u class="fw-bold text-black">Book Condition</u>:
-                {{ book.condition }}
-              </p>
-
-              <!-- Bookmark -->
-              <button
-                class="border-0 my-1 bg-seavphov-light p-0"
-                v-if="isLogin"
-              >
-                <Loader v-if="isLoading1" :size="10" :Color="'#000000'" />
-                <div v-if="!isLoading1">
-                  <i
-                    class="fa-solid fa-bookmark fa-2xl"
-                    style="color: yellow"
-                    v-if="book.issaved"
-                    @click="onSaveBook(false)"
-                  ></i>
-                  <i
-                    class="fa-regular fa-bookmark fa-2xl"
-                    style="color: darkgrey"
-                    v-else
-                    @click="onSaveBook(true)"
-                  ></i>
-                </div>
-              </button>
-            </div>
-          </div>
+  <div class="container mt-8">
+    <div class="BookDetail">
+      <div class="grid grid-cols-12 gap-4 h-100">
+        <div
+          class="col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300"
+        >
+          <img :src="book.images" class="sp-img-lg" alt="book cover" />
         </div>
-        <div class="pe-3 h-buttom">
-          <h3
-            class="d-flex ps-1 font-Roboto"
-            style="color: black; font-weight: bold"
-          >
-            Description
-          </h3>
-          <div
-            class="d-flex overflow-auto mx-1 my-1"
-            style="width: 100%; height: 120px"
-          >
-            <p>
-              {{ book.descriptions }}
-            </p>
+        <div class="col-span-12 lg:col-span-8 relative">
+          <div class="flex">
+            <h3 class="text-black font-bold pr-10">
+              {{ book.title }}
+            </h3>
           </div>
+          <div class="text-black space-y-3">
+            <p><span class="font-bold">By</span> {{ book.author }}</p>
+            <p>
+              <span class="font-bold">Category</span>:
+              {{ book.categories }}
+            </p>
+            <p>
+              <span class="font-bold">Condition</span>:
+              {{ book.condition }}
+            </p>
+            <h5 class="font-bold">Overview</h5>
+            <div class="max-h-44 lg:h-44 overflow-auto">
+              <p>
+                {{ book.descriptions }}
+              </p>
+            </div>
+          </div>
+          <!-- Bookmark -->
+          <button
+            class="absolute top-1 end-0 w-10 h-10 justify-items-center"
+            v-if="isLogin"
+          >
+            <Loader v-if="loadingSaveBook" :size="10" />
+            <template v-else>
+              <i
+                class="fa-bookmark fa-2xl w-10 h-10"
+                :class="
+                  book.issaved ? 'fa-solid text-yellow-200' : 'fa-regular'
+                "
+                @click="toggleSaveBook()"
+              ></i>
+            </template>
+          </button>
         </div>
       </div>
-
-      <!-- Right Container -->
-      <BookAuthorProfile v-if="owner" :owner="owner" />
+      <div class="grid grid-cols-12 gap-4 mt-4">
+        <div class="col-span-12 lg:col-span-4">
+          <BookAuthorProfile v-if="bookOwner" :owner="bookOwner" />
+        </div>
+        <div class="col-span-12 lg:col-span-8">
+          <BookReview :book_id="book.id" />
+        </div>
+      </div>
     </div>
     <div class="RelatedBooks mt-5">
       <hr />
@@ -84,11 +66,12 @@
 </template>
 
 <script>
-import RenderBook from "../components/common/RenderBook.vue";
-import BookAuthorProfile from "../components/BookAuthorProfile.vue";
+import RenderBook from "../components/RenderBook.vue";
+import BookAuthorProfile from "../components/book-detail/BookAuthorProfile.vue";
+import BookReview from "../components/book-detail/BookReview.vue";
 export default {
   name: "BookDetail",
-  components: { RenderBook, BookAuthorProfile },
+  components: { RenderBook, BookAuthorProfile, BookReview },
   data() {
     return {
       paramsId: this.$route.params.id,
@@ -97,9 +80,9 @@ export default {
       filters: {
         categories: "",
       },
-      owner: {},
+      bookOwner: {},
       isLoading: false,
-      isLoading1: false,
+      loadingSaveBook: false,
       issaved: true,
       formData: new FormData(),
     };
@@ -119,26 +102,21 @@ export default {
       if (this.isLogin) {
         this.formData.append("uuid", this.$store.state.user.uuid);
       }
-      [this.book, this.owner] = await this.$store.dispatch(
+      [this.book, this.bookOwner] = await this.$store.dispatch(
         "fetchBookById",
         this.formData
       );
     },
-    onSaveBook(bool) {
-      this.book.issaved = bool;
-      this.isLoading1 = true;
-      if (bool) {
-        this.$store.dispatch("saveBook", this.paramsId);
-        this.isLoading1 = false;
-      } else {
-        this.$store.dispatch("unSaveBook", this.paramsId);
-        this.isLoading1 = false;
+    async toggleSaveBook() {
+      this.loadingSaveBook = true;
+      const response = await this.$store.dispatch(
+        "toggleSaveBook",
+        this.paramsId
+      );
+      if (response) {
+        this.book.issaved = !this.book.issaved;
       }
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
+      this.loadingSaveBook = false;
     },
   },
   watch: {
@@ -148,113 +126,13 @@ export default {
   },
   async created() {
     await this.getBook(this.paramsId);
-    await this.getRelatedBooks();
+    // await this.getRelatedBooks();
   },
 };
 </script>
 
 <style scoped>
-.book_cover {
-  object-fit: contain;
-  max-width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  flex-direction: column;
-}
-
-.title_div {
-  overflow: visible;
-  text-overflow: ellipsis;
-}
-
-.title_div > p {
-  overflow: visible;
-}
-
-.book_title {
-  color: black;
-  font-weight: bold;
-}
-
-.text-active {
-  font-size: 12px;
-}
-
-.mobile_image {
-  border-radius: 9999px;
-  border: 2px solid white;
-}
-
-.btn {
-  color: #fff;
-  background-color: #588157;
-}
-
-.btn:hover,
-.btn:focus,
-.btn:active,
-.btn.active,
-.open > .dropdown-toggle.btn {
-  color: black;
-  background-color: #588157;
-  border-color: black;
-  opacity: 0.75;
-  /*set the color you want here*/
-}
-
-u {
-  text-decoration: none;
-}
-
-.custom-hr {
-  height: 2px;
-  background-color: black;
-}
-
-.h-top {
-  height: 70%;
-}
-
-.h-buttom {
-  height: 30%;
-}
-
-@media (max-width: 992px) {
-  .book_cover {
-    max-width: 200px;
-    height: 300px;
-  }
-
-  .book_title {
-    font-size: 30px;
-  }
-
-  .h-top {
-    height: 60%;
-  }
-
-  .h-buttom {
-    height: 40%;
-  }
-
-  .LeftSide {
-    height: 500px;
-  }
-}
-
-@media (max-width: 576px) {
-  .book_cover {
-    max-width: 200px;
-    max-height: 250px;
-  }
-
-  .book_title {
-    font-size: 20px;
-    height: 40%;
-  }
-
-  .BookDetailButtom {
-    height: 60%;
-  }
+p {
+  margin: 0;
 }
 </style>

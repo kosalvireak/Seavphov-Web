@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import RenderBook from "../components/common/RenderBook.vue";
-import UserMainProfile from "../components/profile/UserMainProfile.vue";
-import NoLoggin from "../components/common/NoLoggin.vue";
+import RenderBook from "../components/RenderBook.vue";
+import UserMainProfile from "../components/UserMainProfile.vue";
+import NoLoggin from "../components/NoLoggin.vue";
 export default {
   name: "ViewProfile",
   components: { UserMainProfile, RenderBook, NoLoggin },
