@@ -15,7 +15,7 @@
         v-for="page in last_page"
         :key="page"
         :class="[
-          page == current_page ? 'active' : '',
+          page === current_page ? 'active' : '',
           { '!cursor-not-allowed': isLoading },
         ]"
         @click="changePage(page)"
@@ -50,10 +50,10 @@ export default {
   },
   computed: {
     isDisabledNext() {
-      return this.current_page == this.last_page;
+      return this.current_page === this.last_page;
     },
     isDisabledPrev() {
-      return this.current_page == 1;
+      return this.current_page === 1;
     },
   },
   methods: {

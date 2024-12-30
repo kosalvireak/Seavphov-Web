@@ -6,7 +6,7 @@
     <nav :class="{ hidden: isCollapsed }" class="side-bar-wrapper-inner">
       <div class="flex-center w-full">
         <img
-          :src="this.$logoUrl"
+          :src="logoUrl"
           class="sp-logo-md clickable"
           alt="Seavphov Logo"
           @click="toRouteName('home')"

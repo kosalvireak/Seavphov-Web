@@ -21,7 +21,7 @@ import Loader from './components/common/Loader.vue';
 const app = createApp(App)
 
 // Bind global variable //
-app.config.globalProperties.$logoUrl =
+app.config.globalProperties.logoUrl =
     'https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.jpg'
 
 // Bind global component //

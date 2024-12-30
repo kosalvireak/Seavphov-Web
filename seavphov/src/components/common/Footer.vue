@@ -7,7 +7,7 @@
             <div class="footer-logo">
               <a href="/home"
                 ><img
-                  :src="this.$logoUrl"
+                  :src="logoUrl"
                   class="img-fluid"
                   alt="logo"
                   style="height: 65px"

@@ -1,7 +1,7 @@
 <template>
   <div class="RenderMyBook w-100 h-auto">
     <div
-      v-if="loading"
+      v-if="isLoading"
       class="h-100 w-100 d-flex align-items-center justify-content-center"
       style="height: 400px !important"
     >
@@ -22,7 +22,7 @@
             :book="book"
             :key="book.id"
             class="m-0 p-0"
-            @call-get-book.once="$emit('callGetBook2')"
+            @on-delete-book="deleteBook(book.id)"
           />
         </div>
       </div>
@@ -56,14 +56,28 @@ import MyBook from "./profile/MyBook.vue";
 export default {
   name: "RenderMyBook",
   components: { MyBook },
-  props: { books: Array, loading: Boolean },
+  data(){
+    return {
+      books:[],
+      isLoading: false,
+    }
+  },
+  async mounted() {
+    this.isLoading = true;
+    this.books = await this.$store.dispatch("getMyBooks");
+    this.isLoading = false;
+  },
+  methods:{
+    deleteBook(id){
+      const index = this.books.findIndex(book => book.id === id)
+      if (index !== -1){
+        this.books.slice(index, 1)
+      }
+    }
+  },
   computed: {
     isBooksEmpty() {
-      if (this.books & (this.books.length == 0)) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.books && (this.books.length === 0);
     },
   },
 };
