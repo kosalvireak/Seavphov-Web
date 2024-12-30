@@ -6,12 +6,12 @@
         :user="User"
         :loading="isLoadingProfile"
       />
-      <div v-if="isLoadingProfile" class="flex book_options p-2">
+      <div class="flex book_options p-2">
         <div
           class="flex book_option_child rounded-7 clickable"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
         >
-          <a class="text-black font-75" @click="selectedMyBooks(true)"
+          <a class="text-black font-75" @click="toggleMyBooksPage('mybooks')"
             >My Books</a
           >
         </div>
@@ -19,7 +19,7 @@
           class="flex book_option_child rounded-7 clickable"
           :class="{ 'book_option_child_selected fw-bold': !isMyBooksPage }"
         >
-          <a class="text-black font-75" @click="selectedMyBooks(false)"
+          <a class="text-black font-75" @click="toggleMyBooksPage('savedbooks')"
             >Saved Books</a
           >
         </div>
@@ -32,6 +32,9 @@
         />
         <RenderMyBook
           v-else
+          :books="myBooks"
+          :loading="isLoading"
+          @call-get-book-2.once="getBooks()"
         />
       </div>
     </div>
@@ -56,6 +59,7 @@ export default {
   data() {
     return {
       isMyBooksPage: true,
+      myBooks: [],
       savedBooks: [],
       isLoading: false,
       isLoadingProfile: false,
@@ -63,6 +67,7 @@ export default {
     };
   },
   async mounted() {
+    this.getBooks();
     this.isLoadingProfile = true;
     this.isLoading = true;
     const response = await this.$store.dispatch("fetchUserProfile");
@@ -77,15 +82,23 @@ export default {
     this.User.twitter = response.twitter;
     this.User.telegram = response.telegram;
     this.User.location = response.location;
-    // Object.assign(this.User, response);
+
     this.isLoadingProfile = false;
   },
   methods: {
-    async selectedMyBooks(myBooksPage) {
-      this.isMyBooksPage = myBooksPage;
-      if (!myBooksPage){
+    async toggleMyBooksPage(page) {
+      if (page == "mybooks") {
+        this.isMyBooksPage = true;
+        await this.getBooks();
+      } else if (page == "savedbooks") {
+        this.isMyBooksPage = false;
         await this.getSavedBooks();
       }
+    },
+    async getBooks() {
+      this.isLoading = true;
+      this.myBooks = await this.$store.dispatch("getMyBooks");
+      this.isLoading = false;
     },
     async getSavedBooks() {
       this.isLoading = true;
