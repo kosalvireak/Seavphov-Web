@@ -1,8 +1,6 @@
 <template>
-  <div class="AddBook w-100 mb-4 container-sm">
-    <a href="/home" class="text-gray clickable">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Home
-    </a>
+  <div class="AddBook w-100 mb-4 container-sm mt-8">
+    <BackRoute />
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
@@ -82,9 +80,6 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <label for="images" class="form-label custom-file-upload"
-              >Book Image</label
-            >
             <input
               type="file"
               class="form-control h-3rem"

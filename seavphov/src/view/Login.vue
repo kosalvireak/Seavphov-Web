@@ -1,8 +1,6 @@
 <template>
   <div class="Login row p-3 m-0 shadow-5">
-    <a @click="backRoute()" class="text-gray clickable">
-      <i class="fa fa-arrow-circle-left pe-2" aria-hidden="true"></i>Home
-    </a>
+    <BackRoute />
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >

@@ -14,7 +14,7 @@
             </h3>
           </div>
           <div class="text-black space-y-3">
-            <p><span class="font-bold">By</span> {{ book.author }}</p>
+            <p><span class="font-bold">By</span>: {{ book.author }}</p>
             <p>
               <span class="font-bold">Category</span>:
               {{ book.categories }}
@@ -126,7 +126,7 @@ export default {
   },
   async created() {
     await this.getBook(this.paramsId);
-    // await this.getRelatedBooks();
+    await this.getRelatedBooks();
   },
 };
 </script>

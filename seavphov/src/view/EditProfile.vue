@@ -1,32 +1,29 @@
 <template>
-  <div class="EditProfile w-100 mb-4 container-sm">
-    <a href="/profile" class="text-gray">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Profile
-    </a>
-
+  <div class="EditProfile w-100 mb-4 mt-8 container-sm">
+    <BackRoute />
     <div
       v-if="isLogin"
       class="d-flex align-items-center justify-content-center flex-column"
     >
       <h4 class="mb-4 text-gray fw-bold">Edit profile</h4>
-
-      <form style="width: 100%" v-on:submit.prevent="Save()" class="row">
+      <div v-if="isLoading" class="flex-center h-96">
+        <Loader :size="40" />
+      </div>
+      <form v-else style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <label for="picture" class="form-label custom-file-upload"
-              >Profile Image</label
-            >
             <input
               type="file"
               class="form-control h-3rem"
               id="picture"
+              ref="fileInput"
               name="picture"
               @change="handleImageChange"
             />
           </div>
           <div class="mb-4 d-flex justify-content-center">
             <div
-              class="d-flex align-items-center justify-content-center border border-bdbdbd rounded-circle"
+              class="d-flex align-items-center justify-content-center border rounded-circle"
               style="width: 192px; height: 192px"
             >
               <img
@@ -144,6 +141,7 @@ export default {
   components: { NoLoggin, MDBInput },
   data() {
     return {
+      isLoading: false,
       user: {
         name: "",
         email: "",
@@ -196,28 +194,22 @@ export default {
     },
   },
   async mounted() {
+    // this.isLoading = true;
     const response = await this.$store.dispatch("fetchUserProfile");
-    this.user.name = response.name;
-    this.user.email = response.email;
-    this.user.picture = response.picture;
-    this.user.phone = response.phone;
-    this.user.facebook = response.facebook;
-    this.user.instagram = response.instagram;
-    this.user.location = response.location;
-    this.user.twitter = response.twitter;
-    this.user.telegram = response.telegram;
-    this.user.location = response.location;
+    Object.assign(this.user, response);
+    var file = new File(["content of the file"], response.picture, {
+      type: "text/plain",
+      lastModified: new Date(),
+    });
+    var fileList = new DataTransfer();
+    fileList.items.add(file);
+    this.$refs.fileInput.files = fileList.files;
+    this.isLoading = false;
   },
 };
 </script>
 
 <style scoped>
-.border-bdbdbd {
-  border: 1px !important;
-  border-style: solid !important;
-  border-color: #bdbdbd !important;
-}
-
 .cover_image {
   object-fit: cover;
 }

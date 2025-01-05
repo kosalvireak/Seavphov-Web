@@ -1,9 +1,6 @@
 <template>
-  <div class="AddBook w-100 mb-4 container-sm">
-    <a @click="backRoute()" class="text-gray clickable">
-      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
-      Home
-    </a>
+  <div class="AddBook w-100 mb-4 mt-8 container-sm">
+    <BackRoute />
 
     <div
       v-if="true"

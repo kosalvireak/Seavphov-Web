@@ -19,6 +19,7 @@ import { DateMixin } from './utils/dateMixin';
 import toastPlugin from './utils/toastPlugin';
 
 import Loader from './components/common/Loader.vue';
+import BackRoute from './components/common/BackRoute.vue';
 
 const app = createApp(App)
 
@@ -30,6 +31,7 @@ app.config.globalProperties.$logoUrl =
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component('Loader', Loader);
 app.component('FwbButton', FwbButton);
+app.component('BackRoute', BackRoute);
 
 
 app.use(router);

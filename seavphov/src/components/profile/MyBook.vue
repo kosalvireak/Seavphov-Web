@@ -1,18 +1,17 @@
 <template>
-  <div class="MyBook card my-4">
-    <div class="row container-sm m-0 p-2">
+  <div class="MyBook card my-4 relative">
+    <div class="row container-sm m-0 p-2 ">
       <router-link :to="`/book/${book.id}`" class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2">
         <img :src="book.images" class="card-img img-fluid m-2 book_image p-1 rounded-7" alt="book_image"
           style="object-fit: contain" />
       </router-link>
-      <div class="col-md-9">
+      <div class="col-md-9 ">
         <div class="d-flex justify-content-between p-2">
           <div>
             <h5 class="card-title fw-bold truncate-2-lines">{{ book.title }}</h5>
             <p class="card-text truncate-2-lines">
               {{ book.descriptions }}
             </p>
-
             <p class="card-text">
             <ul>
               <li> <span class="fw-bold">Author:</span>{{ book.author }}</li>
@@ -23,15 +22,7 @@
             </ul>
             </p>
           </div>
-          <div class="">
-            <MDBDropdown class="custom-dropdown" btnGroup align="end" v-model="openDropdown">
-              <MDBDropdownToggle @click="openDropdown = !openDropdown" color="custom-dropdown-toggle" />
-              <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-                <MDBDropdownItem tag="button" @click="editBook(book.id)">Edit</MDBDropdownItem>
-                <MDBDropdownItem tag="button" @click="deleteBook(book.id)">Delete</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </div>
+          <MyBookDropdown :id="book.id" class="absolute top-2 right-2"/>
         </div>
       </div>
     </div>
@@ -39,35 +30,13 @@
 </template>
 
 <script>
-import {
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-} from "mdb-vue-ui-kit";
+import MyBookDropdown from "./MyBookDropdown.vue";
 export default {
   name: "MyBook",
   components: {
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
-    MDBDropdownItem,
+    MyBookDropdown,
   },
   props: { book: Object },
-  data() {
-    return {
-      openDropdown: false,
-    };
-  },
-  methods: {
-    editBook(id) {
-      this.$router.push(`/book/edit/${id}`);
-    },
-    async deleteBook(id) {
-      await this.$store.dispatch("deleteBook", id);
-      this.$emit("callGetBook");
-    },
-  },
 };
 </script>
 

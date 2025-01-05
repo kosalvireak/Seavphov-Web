@@ -3,6 +3,7 @@
     <button
       type="button"
       class="flex text-sm rounded-full md:me-0"
+      :class="cssButton"
       :id="id"
       aria-expanded="false"
       :data-dropdown-toggle="id_content"
@@ -35,17 +36,17 @@ export default {
       default: "dropdown-toggle",
     },
     cssContent: String,
+    cssButton: String,
   },
   data() {
     return {
-      contentHtml: this.$refs.content,
       hiddenContent: false,
     };
   },
   methods: {
     onToggleDropdown() {
-      this.contentHtml = this.$refs.content;
-      this.hiddenContent = !!this.contentHtml.classList.contains("hidden");
+      this.$refs.content.classList.toggle("hidden");
+      this.hiddenContent = !this.$refs.content.classList.contains("hidden");
     },
   },
 };

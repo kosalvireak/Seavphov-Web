@@ -10,7 +10,7 @@
         alt="User Profile"
     /></template>
     <template #content>
-      <ul class="py-2 mt-0 w-fit" :aria-labelledby="id">
+      <ul class="py-2 mt-0 w-fit">
         <li>
           <p :class="dropdownItemCss" @click="toRouteName('profile')">
             My Profile
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     dropdownItemCss() {
-      return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-100 clickable";
+      return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable";
     },
   },
 };

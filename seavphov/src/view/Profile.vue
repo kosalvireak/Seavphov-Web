@@ -6,7 +6,7 @@
         :user="User"
         :loading="isLoadingProfile"
       />
-      <div class="flex book_options p-2">
+      <div v-if="!isLoading" class="flex book_options p-2">
         <div
           class="flex book_option_child rounded-7 clickable"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
@@ -52,7 +52,7 @@ import RenderBook from "../components/RenderBook.vue";
 import RenderMyBook from "../components/RenderMyBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
-import MyBook from "../components/MyBook.vue";
+import MyBook from "../components/profile/MyBook.vue";
 export default {
   name: "Profile",
   components: { UserMainProfile, RenderBook, NoLoggin, MyBook, RenderMyBook },
