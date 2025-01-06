@@ -3,7 +3,7 @@
     <div class="BookDetail">
       <div class="grid grid-cols-12 gap-4 h-100">
         <div
-          class="col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300"
+          class="col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300 rounded-2"
         >
           <img :src="book.images" class="sp-img-lg" alt="book cover" />
         </div>
@@ -93,7 +93,7 @@ export default {
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters,
+        this.filters
       );
       this.isLoading = false;
     },
@@ -104,14 +104,14 @@ export default {
       }
       [this.book, this.bookOwner] = await this.$store.dispatch(
         "fetchBookById",
-        this.formData,
+        this.formData
       );
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId,
+        this.paramsId
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

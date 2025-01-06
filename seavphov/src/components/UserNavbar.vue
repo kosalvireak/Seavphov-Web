@@ -59,11 +59,9 @@
         class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
         id="navbar-user"
       >
-        <ul
-          class="flex flex-col font-medium my-2 md:p-0 border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 dark:border-gray-700"
-        >
-          <SearchInput class="d-flex" role="search" />
-        </ul>
+        <div class="flex-center my-2">
+          <SearchInput role="search" />
+        </div>
       </div>
     </div>
   </nav>
@@ -71,12 +69,11 @@
 
 <script>
 import SearchInput from "./home/SearchInput.vue";
-import Dropdown from "./common/Dropdown.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
 import NotificationDropdown from "./home/NotificationDropdown.vue";
 export default {
   name: "UserNavbar",
-  components: { SearchInput, AvatarDropdown, Dropdown, NotificationDropdown },
+  components: { SearchInput, AvatarDropdown, NotificationDropdown },
 };
 </script>
 

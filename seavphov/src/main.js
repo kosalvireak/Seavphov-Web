@@ -23,15 +23,19 @@ import store from "./utils/store";
 import { RouterMixin } from "./utils/routerUtils";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./utils/toastPlugin";
+import mobileUtils from "./utils/mobileUtils";
 
 // component
 import { FwbButton } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
+import Dropdown from "./components/common/Dropdown.vue";
 
 const app = createApp(App);
 
+
 // global variable
+app.config.globalProperties.isMobile = mobileUtils.isMobile()
 app.config.globalProperties.logoUrl =
   "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.png";
 
@@ -40,6 +44,7 @@ app.component("EasyDataTable", Vue3EasyDataTable);
 app.component("Loader", Loader);
 app.component("FwbButton", FwbButton);
 app.component("BackRoute", BackRoute);
+app.component("Dropdown", Dropdown);
 
 // global mixin
 app.mixin(RouterMixin);
@@ -57,3 +62,4 @@ store.dispatch("setUserFromCookies");
 
 // mounted
 app.mount("#app");
+

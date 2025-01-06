@@ -1,5 +1,7 @@
 <template>
-  <section class="BookAuthorProfile space-y-3 ring-1 ring-gray-300 p-6">
+  <section
+    class="BookAuthorProfile space-y-3 ring-1 ring-gray-300 p-6 rounded-2"
+  >
     <a
       :href="`/profile/${owner.uuid}`"
       class="d-flex text-decoration-none space-x-3 text-black"

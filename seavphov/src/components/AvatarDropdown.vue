@@ -30,10 +30,8 @@
 </template>
 
 <script>
-import Dropdown from "./common/Dropdown.vue";
 export default {
   name: "AvatarDropdown",
-  components: { Dropdown },
   props: {
     name: String,
     imgUrl: String,
