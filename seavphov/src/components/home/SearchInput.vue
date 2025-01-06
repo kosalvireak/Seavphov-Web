@@ -4,7 +4,11 @@
     v-on:submit.prevent="searchBooks()"
   >
     <div class="flex">
-      <Dropdown class="w-auto">
+      <Dropdown
+        class="w-auto"
+        id="search-dropdown"
+        id_content="search-dropdown_content"
+      >
         <template #button>
           <button
             type="button"
@@ -16,7 +20,7 @@
         </template>
         <template #content>
           <ul
-            class="py-2 text-sm text-gray-700"
+            class="w-fit py-2 text-sm text-gray-700"
             aria-labelledby="dropdown-button"
           >
             <li v-for="category in categories" :key="category">

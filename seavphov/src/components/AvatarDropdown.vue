@@ -32,12 +32,6 @@
 <script>
 export default {
   name: "AvatarDropdown",
-  props: {
-    name: String,
-    imgUrl: String,
-    id: String,
-    id2: String,
-  },
   computed: {
     dropdownItemCss() {
       return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable";

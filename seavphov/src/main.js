@@ -30,6 +30,7 @@ import { FwbButton } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
+import LoadingButton from "./components/common/LoadingButton.vue";
 
 const app = createApp(App);
 
@@ -45,6 +46,7 @@ app.component("Loader", Loader);
 app.component("FwbButton", FwbButton);
 app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
+app.component("LoadingButton", LoadingButton);
 
 // global mixin
 app.mixin(RouterMixin);

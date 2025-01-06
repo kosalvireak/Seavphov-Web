@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import { useToast } from "vue-toastification";
 import axiosInstance from "../../axiosInstance.js";
 import { getData, deleteData, postForm } from "./apiUtils.js";
-import { RouterMixin } from "./routerUtils.js";
+import router from "../router/index.js";
 
 import { setCookie, getCookie, removeCookie } from "./cookieUtils.js";
 
@@ -73,7 +73,7 @@ const store = createStore({
           setCookie(user);
           dispatch("setUserFromCookies");
           toast.success(responseData.message);
-          RouterMixin.methods.toRouteName("home");
+          router.push("/home");
         }
       } catch (error) {
         console.error("Error register user:", error);
@@ -103,7 +103,7 @@ const store = createStore({
           setCookie(user);
           dispatch("setUserFromCookies");
           toast.success(responseData.message);
-          toRouteName("home");
+          router.push("/home");
         }
       } catch (error) {
         console.error("Error login user:", error);
@@ -120,7 +120,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async fetchOtherUserProfile({}, uuid) {
+    async fetchOtherUserProfile({ }, uuid) {
       try {
         const response = await getData(`/api/user/${uuid}`, true);
 
@@ -152,7 +152,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async fetchBooksWithFilter({}, filters) {
+    async fetchBooksWithFilter({ }, filters) {
       const params = new URLSearchParams();
       if (filters.title) {
         params.append("title", filters.title);
@@ -197,7 +197,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBook({}, id) {
+    async adminDeleteBook({ }, id) {
       try {
         const response = await getData(`/api/admin/books/delete/${id}`, true);
         if (response.data.success) {
@@ -207,7 +207,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBanner({}, id) {
+    async adminDeleteBanner({ }, id) {
       try {
         const response = await getData(`/api/admin/banners/${id}`, true);
         if (response.data.success) {
@@ -217,7 +217,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async changeSelectedBanner({}, id) {
+    async changeSelectedBanner({ }, id) {
       try {
         const response = await getData(
           `/api/admin/banners/selected/${id}`,
@@ -283,7 +283,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminAddBanner({}, formData) {
+    async adminAddBanner({ }, formData) {
       try {
         const response = await postForm("/api/admin/banners/", formData, true);
         toast.success(response.data.message);
@@ -295,7 +295,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async fetchBookById({}, formData) {
+    async fetchBookById({ }, formData) {
       try {
         let id = formData.get("id");
         const response = await postForm(`/api/books/${id}`, formData);
@@ -316,7 +316,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async getMyBook({}, id) {
+    async getMyBook({ }, id) {
       try {
         const response = await getData(`/api/auth/book/${id}`, true);
         if (response.data.success) {
@@ -338,7 +338,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async createBook({}, formData) {
+    async createBook({ }, formData) {
       try {
         const response = await postForm("/api/books/", formData, true);
         toast.success(response.data.message);
@@ -348,7 +348,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async modifyBook({}, formData) {
+    async modifyBook({ }, formData) {
       try {
         let id = formData.get("id");
         const response = await postForm(`/api/books/${id}`, formData, true);
@@ -358,7 +358,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async deleteBook({}, id) {
+    async deleteBook({ }, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);
         toast.success(response.data.message);
@@ -367,7 +367,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async toggleSaveBook({}, bookId) {
+    async toggleSaveBook({ }, bookId) {
       try {
         const response = await getData(`/api/saved/${bookId}`, true);
         if (response.data.success) {
@@ -388,7 +388,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async sendEmailResetPassword({}, formData) {
+    async sendEmailResetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/send", formData, true);
         if (response.data.success) {
@@ -401,7 +401,7 @@ const store = createStore({
     },
 
     //BookReview
-    async fetchBookReviews({}, bookId) {
+    async fetchBookReviews({ }, bookId) {
       try {
         const response = await getData(`/api/review/book/${bookId}`);
         if (response.data.success) {
@@ -411,7 +411,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async createReview({}, formData) {
+    async createReview({ }, formData) {
       try {
         const response = await postForm("/api/review/add", formData, true);
         if (response.data.success) {
@@ -423,7 +423,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async likeReview({}, reviewId) {
+    async likeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/like/${reviewId}`, true);
         if (response.data.success) {
@@ -435,7 +435,7 @@ const store = createStore({
       }
     },
 
-    async dislikeReview({}, reviewId) {
+    async dislikeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/dislike/${reviewId}`, true);
         if (response.data.success) {
@@ -446,7 +446,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async resetPassword({}, formData) {
+    async resetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/", formData, true);
         if (response.data.success) {

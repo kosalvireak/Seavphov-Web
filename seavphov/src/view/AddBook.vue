@@ -106,7 +106,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="btn mt-2">Add Book</button>
+          <LoadingButton :isLoading="isLoading" text="Add Book" type="submit" />
         </div>
       </form>
     </div>
@@ -137,12 +137,14 @@ export default {
         condition: "Good",
         categories: "Novel",
       },
+      isLoading: false,
       formData: new FormData(),
       uploadingBook: false,
     };
   },
   methods: {
     async AddBook() {
+      this.isLoading = true;
       this.formData.append("title", this.book.title);
       this.formData.append("author", this.book.author);
       this.formData.append("categories", this.book.categories);
@@ -153,6 +155,8 @@ export default {
       if (this.$store.state.newBookId) {
         this.$router.push({ path: `/home/${this.$store.state.newBookId}` });
       }
+
+      this.isLoading = false;
     },
     async handleImageChange(event) {
       this.uploadingBook = true;
@@ -166,7 +170,7 @@ export default {
               this.book.images = url;
               this.formData.append("images", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {
@@ -198,13 +202,6 @@ export default {
   padding: 0.375rem 0.75rem !important;
 }
 
-.btn {
-  background-color: #5c836e;
-  color: #fff;
-}
-.btn:hover {
-  opacity: 50%;
-}
 .logo_img {
   width: 150px;
   height: auto;

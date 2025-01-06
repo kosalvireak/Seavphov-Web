@@ -1,5 +1,5 @@
 <template>
-  <div class="Profile container box h-100 w-100">
+  <div class="Profile container box h-100 w-100 mt-8">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile
         :fromProfile="true"

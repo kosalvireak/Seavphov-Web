@@ -57,21 +57,8 @@
           </div>
         </div>
         <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
-        <!-- <button
-          type="submit"
-          class="btn btn-primary mt-2 flex-center btn_submit"
-        >
-          <span v-if="!isLoading">Login</span>
-          <Loader v-else :size="20" :Color="'#FFFFFF'" />
-        </button> -->
         <div class="form-floating flex-center">
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 flex-center btn_submit"
-          >
-            <span v-if="!isLoading">Login</span>
-            <Loader v-else :size="15" :Color="'#FFFFFF'" />
-          </button>
+          <LoadingButton :isLoading="isLoading" text="Login" type="submit" />
         </div>
       </form>
 
@@ -186,27 +173,6 @@ label::after {
 .special-style {
   width: 430px !important;
 }
-/*button {
-  text-align: center;
-  background-color: #5c836e;
-  color: #fff;
-  padding: 7px 70px;
-  max-width: 300px;
-  margin: auto;
-  border-radius: 15px;
-  font-weight: bold;
-  font-size: 25px;
-  cursor: pointer;
-} */
-
-button:hover {
-  background-color: #444;
-}
-
-.btn {
-  text-transform: unset !important;
-}
-
 .no-account {
   margin-top: 15px;
   font-size: 12px;

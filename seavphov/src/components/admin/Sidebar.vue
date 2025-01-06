@@ -3,15 +3,7 @@
     :class="{ collapsed: isCollapsed }"
     class="side-bar-wrapper relative bg-sp-tertiary"
   >
-    <nav :class="{ hidden: isCollapsed }" class="side-bar-wrapper-inner">
-      <div class="flex-center w-full">
-        <img
-          :src="logoUrl"
-          class="sp-logo-md clickable"
-          alt="Seavphov Logo"
-          @click="toRouteName('home')"
-        />
-      </div>
+    <nav :class="{ hidden: isCollapsed }">
       <ul class="p-0 m-0">
         <li
           v-for="navigation in navigationItems"
@@ -61,6 +53,10 @@ export default {
 </script>
 
 <style scoped>
+.side-bar-wrapper-inner {
+  height: var(--navbar-height);
+}
+
 .side-bar-wrapper {
   width: 250px;
   color: white;

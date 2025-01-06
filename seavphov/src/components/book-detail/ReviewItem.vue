@@ -14,8 +14,8 @@
       {{ review.body }}
     </div>
 
-    <div class="d-flex justify-content-end">
-      <div class="flex-center w-16 h-7">
+    <div class="d-flex justify-content-end space-x-2">
+      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-200 rounded-lg">
         <Loader v-if="isLoadingDislike" />
         <span
           v-else
@@ -23,11 +23,10 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="dislikeReview(review.id)"
         >
-          <i class="fa-regular fa-thumbs-down fa-xl mr-1"></i
-          >{{ review.not_helpful_vote }}
+          Not Helpful: {{ review.not_helpful_vote }}
         </span>
       </div>
-      <div class="flex-center w-16 h-7">
+      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-200 rounded-lg">
         <Loader v-if="isLoadingLike" />
         <span
           v-else
@@ -35,7 +34,7 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="likeReview(review.id)"
         >
-          <i class="fa-regular fa-thumbs-up fa-xl mr-1"></i>
+          Helpful:
           {{ review.helpful_vote }}
         </span>
       </div>

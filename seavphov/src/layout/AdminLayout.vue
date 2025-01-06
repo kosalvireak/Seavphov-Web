@@ -1,10 +1,10 @@
 <script>
 import Sidebar from "../components/admin/Sidebar.vue";
-import AdminNavbar from "../components/admin/AdminNavbar.vue";
+import UserNavbar from "../components/UserNavbar.vue";
 import { RouterView } from "vue-router";
 export default {
   name: "AdminLayout",
-  components: { RouterView, Sidebar, AdminNavbar },
+  components: { RouterView, Sidebar, UserNavbar },
 };
 </script>
 
@@ -14,7 +14,7 @@ export default {
     <Sidebar class="Left-Admin-Content" />
     <!-- Main Content Area -->
     <main class="Right-Admin-Content bg-white">
-      <AdminNavbar />
+      <UserNavbar />
       <RouterView class="p-5" />
     </main>
   </div>

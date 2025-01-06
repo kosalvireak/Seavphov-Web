@@ -1,25 +1,23 @@
 <template>
-  <Dropdown
-    id="my-book-dropdown"
-    id_content="my-book-dropdown_content"
-    cssButton="ml-auto"
-  >
-    <template #button>
-      <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-        <i class="fas fa-ellipsis-v fa-xl"></i>
-      </div>
-    </template>
-    <template #content>
-      <ul class="py-2 mt-0">
-        <li>
-          <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
-        </li>
-        <li>
-          <p :class="dropdownItemCss" @click="deleteBook(id)">Delete</p>
-        </li>
-      </ul>
-    </template>
-  </Dropdown>
+  <div class="MyBookDropdown">
+    <Dropdown id="my-book-dropdown" id_content="my-book-dropdown_content">
+      <template #button>
+        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
+          <i class="fas fa-ellipsis-v fa-xl"></i>
+        </div>
+      </template>
+      <template #content>
+        <ul class="py-2 mt-0">
+          <li>
+            <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
+          </li>
+          <li>
+            <p :class="dropdownItemCss" @click="deleteBook(id)">Delete</p>
+          </li>
+        </ul>
+      </template>
+    </Dropdown>
+  </div>
 </template>
 
 <script>

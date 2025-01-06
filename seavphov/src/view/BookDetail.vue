@@ -60,7 +60,7 @@
     <div class="RelatedBooks mt-5">
       <hr />
       <h5 class="fw-bold">Related Books</h5>
-      <RenderBook :books="relatedBooks" :loading="isLoading" />
+      <RenderBook :books="relatedBooks" :loading="isLoadingRelatedBooks" />
     </div>
   </div>
 </template>
@@ -81,7 +81,7 @@ export default {
         categories: "",
       },
       bookOwner: {},
-      isLoading: false,
+      isLoadingRelatedBooks: false,
       loadingSaveBook: false,
       issaved: true,
       formData: new FormData(),
@@ -89,13 +89,13 @@ export default {
   },
   methods: {
     async getRelatedBooks() {
-      this.isLoading = true;
+      this.isLoadingRelatedBooks = true;
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters
       );
-      this.isLoading = false;
+      this.isLoadingRelatedBooks = false;
     },
     async getBook(id) {
       this.formData.append("id", id);

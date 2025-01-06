@@ -78,13 +78,7 @@
           <Loader v-else :size="20" :Color="'#FFFFFF'" />
         </button> -->
         <div class="form-floating flex-center">
-          <button
-            type="submit"
-            class="btn btn-primary mt-2 flex-center btn_submit"
-          >
-            <span v-if="!isLoading">Register</span>
-            <Loader v-else :size="15" :Color="'#FFFFFF'" />
-          </button>
+          <LoadingButton :isLoading="isLoading" text="Register" type="submit" />
         </div>
       </form>
 

@@ -26,7 +26,7 @@
           required
         />
       </div>
-      <FwbButton gradient="green" class="ml-auto text-sm"> Submit </FwbButton>
+      <LoadingButton :isLoading="isLoading" text="Submit" type="submit" />
     </form>
   </section>
 </template>
@@ -42,7 +42,7 @@ export default {
       review: {
         body: "",
       },
-      formData: new FormData(),
+      isLoading: false,
     };
   },
   methods: {
@@ -50,9 +50,13 @@ export default {
       if (!this.review.body.trim()) {
         this.$toast.warning("Review can't be empty");
       }
-      this.formData.append("body", this.review.body);
-      this.formData.append("book_id", this.book_id);
-      const data = await this.$store.dispatch("createReview", this.formData);
+      this.isLoading = true;
+      let formData = new FormData();
+      formData.append("body", this.review.body);
+      formData.append("book_id", this.book_id);
+      const data = await this.$store.dispatch("createReview", formData);
+      this.resetForm();
+      this.isLoading = false;
       if (data) {
         this.$emit("onAddReview", data);
       }

@@ -1,6 +1,6 @@
 <template>
-  <div class="MyBook card my-4 relative">
-    <div class="row container-sm m-0 p-2">
+  <div class="MyBook card my-4">
+    <div class="row container-sm m-0 p-2 relative">
       <router-link
         :to="`/book/${book.id}`"
         class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2"
@@ -36,7 +36,11 @@
               <li v-else><span class="fw-bold">Available: </span>False</li>
             </ul>
           </div>
-          <MyBookDropdown :id="book.id" class="absolute top-2 right-2" />
+          <MyBookDropdown
+            :id="book.id"
+            :key="book.id"
+            class="absolute right-4"
+          />
         </div>
       </div>
     </div>

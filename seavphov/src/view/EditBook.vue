@@ -15,8 +15,9 @@
               type="text"
               label="Title"
               id="title"
+              class="h-3rem"
               v-model="book.title"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white "
               required
             />
           </div>
@@ -26,7 +27,7 @@
               label="Author"
               id="author"
               v-model="book.author"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white "
               required
             />
           </div>
@@ -36,7 +37,7 @@
               label="Descriptions"
               id="descriptions"
               v-model="book.descriptions"
-              wrapperClass="bg-white p-2"
+              wrapperClass="bg-white "
               required
             />
           </div>
@@ -77,9 +78,6 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <label for="images" class="form-label custom-file-upload"
-              >Book Image</label
-            >
             <input
               type="file"
               class="form-control"
@@ -106,7 +104,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="col-2 btn btn-primary mt-2">Save</button>
+          <LoadingButton type="submit" text="Save" :isLoading="isLoading" />
         </div>
       </form>
     </div>
@@ -139,6 +137,7 @@ export default {
         condition: "Good",
         categories: "Novel",
       },
+      isLoading: false,
       author: {},
       formData: new FormData(),
       uploadingBook: false,
@@ -146,6 +145,7 @@ export default {
   },
   methods: {
     async modifyBook() {
+      this.isLoading = true;
       this.formData.append("_method", "put");
       this.formData.append("title", this.book.title);
       this.formData.append("id", this.paramsId);
@@ -156,6 +156,7 @@ export default {
       this.formData.append("availability", 1);
       await this.$store.dispatch("modifyBook", this.formData);
       this.$router.push({ path: `/book/${this.paramsId}` });
+      this.isLoading = false;
     },
     async handleImageChange(event) {
       this.$toast.success("Uploading image.");
@@ -170,7 +171,7 @@ export default {
               this.book.images = url;
               this.formData.append("images", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {
@@ -197,11 +198,6 @@ export default {
 </script>
 
 <style scoped>
-.border-bdbdbd {
-  border: 1px !important;
-  border-style: solid !important;
-  border-color: #bdbdbd !important;
-}
 .custom-file-upload {
   display: inline-block;
   padding: 4px 12px;
@@ -211,9 +207,5 @@ export default {
   border-radius: 5px;
   position: absolute;
   margin: 2px 0px 0px 1px;
-}
-
-.form-control {
-  padding: 0.375rem 0.75rem !important;
 }
 </style>
