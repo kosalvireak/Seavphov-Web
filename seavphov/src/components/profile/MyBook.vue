@@ -1,28 +1,42 @@
 <template>
   <div class="MyBook card my-4 relative">
-    <div class="row container-sm m-0 p-2 ">
-      <router-link :to="`/book/${book.id}`" class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2">
-        <img :src="book.images" class="card-img img-fluid m-2 book_image p-1 rounded-7" alt="book_image"
-          style="object-fit: contain" />
+    <div class="row container-sm m-0 p-2">
+      <router-link
+        :to="`/book/${book.id}`"
+        class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2"
+      >
+        <img
+          :src="book.images"
+          class="card-img img-fluid m-2 book_image p-1 rounded-7"
+          alt="book_image"
+          style="object-fit: contain"
+        />
       </router-link>
-      <div class="col-md-9 ">
+      <div class="col-md-9">
         <div class="d-flex justify-content-between p-2">
           <div>
-            <h5 class="card-title fw-bold truncate-2-lines">{{ book.title }}</h5>
+            <h5 class="card-title fw-bold truncate-2-lines">
+              {{ book.title }}
+            </h5>
             <p class="card-text truncate-2-lines">
               {{ book.descriptions }}
             </p>
-            <p class="card-text">
+            <p class="card-text"></p>
             <ul>
-              <li> <span class="fw-bold">Author:</span>{{ book.author }}</li>
-              <li><span class="fw-bold">Condition: </span>{{ book.condition }}</li>
-              <li><span class="fw-bold">Category: </span>{{ book.categories }}</li>
-              <li v-if="book.availability"><span class="fw-bold">Available:</span> True</li>
+              <li><span class="fw-bold">Author:</span>{{ book.author }}</li>
+              <li>
+                <span class="fw-bold">Condition: </span>{{ book.condition }}
+              </li>
+              <li>
+                <span class="fw-bold">Category: </span>{{ book.categories }}
+              </li>
+              <li v-if="book.availability">
+                <span class="fw-bold">Available:</span> True
+              </li>
               <li v-else><span class="fw-bold">Available: </span>False</li>
             </ul>
-            </p>
           </div>
-          <MyBookDropdown :id="book.id" class="absolute top-2 right-2"/>
+          <MyBookDropdown :id="book.id" class="absolute top-2 right-2" />
         </div>
       </div>
     </div>
