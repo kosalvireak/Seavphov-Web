@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book_reviews', function (Blueprint $table) {
+        Schema::create('notification', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('receiver_id');
             $table->unsignedBigInteger('book_id');
-            $table->mediumText('body');
-            $table->integer('helpful_vote');
-            $table->integer('not_helpful_vote');
+            $table->string('body');
             $table->timestamps();
-
             
             // Define foreign key constraints
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_reviews');
+        Schema::dropIfExists('notification');
     }
 };

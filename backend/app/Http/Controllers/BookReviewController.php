@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 class BookReviewController extends Controller{
     public function likeReview(Request $request, $reviewId){
         try{
-            
             // TODO: store user in notification
             $review = BookReview::find($reviewId);
             $review->helpful_vote = $review->helpful_vote + 1;
@@ -55,6 +54,14 @@ class BookReviewController extends Controller{
         foreach($reviews as $review){
             $items[]=$review->getData();
         }
+
+        if(empty($items)){
+            return response()->json([
+            'success' => true,
+            'message' => 'No reviews found',
+            ], 200);
+        }
+        
         return response()->json([
             'success' => true,
             'message' => 'Successfully fetched book reviews',
