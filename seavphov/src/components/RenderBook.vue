@@ -16,8 +16,8 @@
     <NoResult v-else />
   </div>
 </template>
-    
-  <script>
+
+<script>
 import Book from "./common/Book.vue";
 import NoResult from "./common/NoResult.vue";
 export default {

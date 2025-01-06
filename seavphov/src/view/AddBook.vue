@@ -166,7 +166,7 @@ export default {
               this.book.images = url;
               this.formData.append("images", url);
               this.uploadingBook = false;
-            }
+            },
           );
         }
       } catch (error) {

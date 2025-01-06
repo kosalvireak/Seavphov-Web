@@ -26,7 +26,7 @@ export default {
         if (this.book_id === undefined) return;
         this.reviews = await this.$store.dispatch(
           "fetchBookReviews",
-          this.book_id
+          this.book_id,
         );
       },
     },
@@ -34,5 +34,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

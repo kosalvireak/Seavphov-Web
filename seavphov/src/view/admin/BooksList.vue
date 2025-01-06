@@ -31,8 +31,8 @@
     </EasyDataTable>
   </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
   name: "Books",
   data() {
@@ -71,8 +71,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .admin_book {
   height: 100px;
   width: 62px;

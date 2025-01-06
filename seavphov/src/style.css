@@ -1,6 +1,5 @@
-
-@import '/node_modules/flowbite-vue/dist/index.css';
-@import './assets/reset.css';
+@import "/node_modules/flowbite-vue/dist/index.css";
+@import "./assets/reset.css";
 
 @tailwind base;
 @tailwind components;
@@ -20,59 +19,58 @@
   --max-width: 1920px;
 }
 
-body{
+body {
   color: var(--sp-dark);
 }
 
-.sp-logo-sm{
+.sp-logo-sm {
   width: 40px;
   height: 40px;
 }
 
-.sp-logo-md{
+.sp-logo-md {
   width: 50px;
   height: 50px;
 }
 
-.sp-logo-lg{
+.sp-logo-lg {
   width: 80px; /* w-20 */
   height: 80px;
 }
 
-.sp-img-lg{
+.sp-img-lg {
   max-height: 25rem;
   aspect-ratio: 3/5;
 }
 
-.sp-img-md{
+.sp-img-md {
   max-height: 18rem;
   aspect-ratio: 3/5;
 }
 
-.sp-img-xs{
+.sp-img-xs {
   max-height: 11rem;
   aspect-ratio: 3/5;
 }
 
-
-.sp-img-sm{
+.sp-img-sm {
   max-height: 13rem;
   aspect-ratio: 3/5;
 }
 
-.sp-top-4{
+.sp-top-4 {
   top: 1rem !important;
 }
 
-.h-navbar{
+.h-navbar {
   height: var(--navbar-height);
 }
 
-.sp-absolute{
-  position: absolute  !important;
+.sp-absolute {
+  position: absolute !important;
 }
 
-.sp-height-450{
+.sp-height-450 {
   height: 450px;
 }
 .h-3rem {
@@ -171,8 +169,6 @@ img {
   object-fit: cover;
 }
 
-
-
 .form-label {
   padding-top: 11px !important;
 }
@@ -185,12 +181,13 @@ img {
   padding: 11px !important;
 }
 
-@media (max-width: 768px) { /* tailwind css md*/
+@media (max-width: 768px) {
+  /* tailwind css md*/
 
-.sp-img-lg{
-  max-height: 18rem;
-  aspect-ratio: 3/5;
-}
+  .sp-img-lg {
+    max-height: 18rem;
+    aspect-ratio: 3/5;
+  }
 
   .w-60 {
     width: 100% !important;

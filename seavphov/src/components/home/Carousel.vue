@@ -65,7 +65,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .bottom-6 {
   bottom: 1.75rem;

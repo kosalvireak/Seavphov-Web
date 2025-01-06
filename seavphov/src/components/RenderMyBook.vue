@@ -49,8 +49,8 @@
     </div>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import MyBook from "./profile/MyBook.vue";
 
 export default {

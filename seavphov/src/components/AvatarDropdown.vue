@@ -29,7 +29,7 @@
   </Dropdown>
 </template>
 
-<script >
+<script>
 import Dropdown from "./common/Dropdown.vue";
 export default {
   name: "AvatarDropdown",

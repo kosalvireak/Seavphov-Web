@@ -97,7 +97,7 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
@@ -153,7 +153,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 .Register {
   margin-top: 100px !important ;

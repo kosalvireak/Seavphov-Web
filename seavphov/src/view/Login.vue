@@ -90,8 +90,8 @@
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
   name: "Login",
@@ -140,7 +140,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 .Login {
   margin-top: 100px !important ;

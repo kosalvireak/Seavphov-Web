@@ -30,7 +30,7 @@ export default {
   methods: {
     async adminGetOverviewData() {
       [this.items[0].number, this.items[1].number] = await this.$store.dispatch(
-        "adminGetOverviewData"
+        "adminGetOverviewData",
       );
     },
   },
@@ -40,5 +40,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

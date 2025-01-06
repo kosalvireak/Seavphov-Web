@@ -40,7 +40,7 @@ export default {
       this.isLoading = true;
       this.TopBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters
+        this.filters,
       );
       this.isLoading = false;
     },

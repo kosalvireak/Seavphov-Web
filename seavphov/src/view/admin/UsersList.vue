@@ -1,4 +1,3 @@
-
 <template>
   <div class="UsersList w-100">
     <EasyDataTable
@@ -16,8 +15,8 @@
     </EasyDataTable>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { FwbAvatar } from "flowbite-vue";
 export default {
   name: "UsersList",
@@ -54,7 +53,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped>
 .UsersList {
   max-width: 100vw;
