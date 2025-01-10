@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookReviewController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthorization;
@@ -41,8 +42,8 @@ Route::prefix('books')->group(function () {
 
 Route::prefix('review')->group(function () {
     Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews']);
-    Route::get('/like/{id}', [BookReviewController::class, 'likeReview'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('/dislike/{id}', [BookReviewController::class, 'dislikeReview'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/like/{id}', [BookReviewController::class, 'voteHelpful'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/dislike/{id}', [BookReviewController::class, 'voteNotHelpful'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
 });
 
@@ -58,9 +59,12 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('notification', [UserBookController::class, 'getSavedBooksNotification']);
     Route::get('{bookId}', [UserBookController::class, 'saveBook']);
     Route::get('', [UserBookController::class, 'fetchSavedBook']);
+});
+
+Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('', [NotificationController::class, 'getNotifications']);
 });
 
 

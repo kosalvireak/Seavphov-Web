@@ -378,9 +378,9 @@ const store = createStore({
         toast.error(error.message);
       }
     },
-    async getSavedBooksNotification() {
+    async getNotifications() {
       try {
-        const response = await getData("/api/saved/notification", true);
+        const response = await getData("/api/notification", true);
         if (response.data.success) {
           return response.data.data;
         }
@@ -423,7 +423,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async likeReview({ }, reviewId) {
+    async voteHelpful({ }, reviewId) {
       try {
         const response = await getData(`/api/review/like/${reviewId}`, true);
         if (response.data.success) {
@@ -435,7 +435,7 @@ const store = createStore({
       }
     },
 
-    async dislikeReview({ }, reviewId) {
+    async voteNotHelpful({ }, reviewId) {
       try {
         const response = await getData(`/api/review/dislike/${reviewId}`, true);
         if (response.data.success) {

@@ -18,8 +18,8 @@
         <template v-if="items.length > 0">
           <NotificationItem v-for="item in items" :key="item" :item="item" />
         </template>
-        <div v-else class="notification-list loader flex-center">
-          Your notification is empty
+        <div v-else class="notification-list min-h-60 loader flex-center">
+          <p>Your notification is empty!</p>
         </div>
       </template>
     </div>
@@ -40,15 +40,8 @@ export default {
   methods: {
     async getNotification() {
       this.isLoading = true;
-      this.items = await this.$store.dispatch("getSavedBooksNotification");
+      this.items = await this.$store.dispatch("getNotifications");
       this.isLoading = false;
-    },
-    getDateDisplay(num) {
-      if (num == 0) {
-        return "Today";
-      } else {
-        return num + " days ago";
-      }
     },
   },
   async mounted() {
