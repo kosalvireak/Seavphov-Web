@@ -3,45 +3,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\BookReview;
+use App\Service\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
 
 class BookReviewController extends Controller{
-    public function likeReview(Request $request, $reviewId){
+    public function voteHelpful(Request $request, $reviewId){
         try{
-            // TODO: store user in notification
+            // review owner ( receiver_id )
+            // book owner ( sender_id )
+            $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
+
+            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'mark your review as helpful!');
+            
             $review->helpful_vote = $review->helpful_vote + 1;
             $review->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully liked a review',
+                'message' => 'Successfully vote review as helpful',
                 'data' => $review->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot like review!',
+                'message' => 'Cannot vote review!',
                 'error' => $exception->getMessage()
             ], 500);
         }
     }
-        public function dislikeReview(Request $request, $reviewId){
+        public function voteNotHelpful(Request $request, $reviewId){
         try{
-            // TODO: store user in notification
+            // review owner ( receiver_id )
+            // book owner ( sender_id )
+            $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
+            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'mark your review as not helpful!');
+            
             $review->not_helpful_vote = $review->not_helpful_vote + 1;
             $review->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully disliked a review',
+                'message' => 'Successfully vote review as not helpful',
                 'data' => $review->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot dislike review!',
+                'message' => 'Cannot vote review!',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -58,6 +69,7 @@ class BookReviewController extends Controller{
         if(empty($items)){
             return response()->json([
             'success' => true,
+            'data' => [],
             'message' => 'No reviews found',
             ], 200);
         }
@@ -79,13 +91,20 @@ class BookReviewController extends Controller{
                 'book_id' => 'required|int',
             ]);
 
+            $book_id = $validatedData['book_id'];
+
             $review = BookReview::create([
                 'body' => $validatedData['body'],
-                'book_id' => $validatedData['book_id'],
+                'book_id' => $book_id,
                 'user_id' => $user->id,
                 'helpful_vote' => 0,
                 'not_helpful_vote' => 0,
             ]);
+            
+            $book = Book::findOrFail($book_id);
+            
+            // receiver_id is book owner_id
+            NotificationService::storeNotification($user->id, $book->owner_id, $book_id, 'added a review!');
              return response()->json([
                 'success' => true,
                 'message' => 'Successfully added a review',

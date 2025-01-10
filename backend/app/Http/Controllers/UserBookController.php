@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\User;
+use App\Service\NotificationService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -29,6 +30,8 @@ class UserBookController extends Controller
             
             if ($isSaved) {
                 $user->savedBooks()->detach($bookId);
+
+                 // Unsave
                 return response()->json([
                     'success' => true,
                     'message' => 'Unsaved ' . $book->title,
@@ -37,6 +40,9 @@ class UserBookController extends Controller
                 $user->savedBooks()->attach($bookId, [
                     'created_at' => Carbon::now(),
                 ]);
+                // Save
+                NotificationService::storeNotification($user->id, $book->owner_id, $book->id, 'saved your book!');
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Saved ' . $book->title,
@@ -70,52 +76,52 @@ class UserBookController extends Controller
             ], 500);
         }
     }
-    public function getSavedBooksNotification (Request $request){
+    // public function getSavedBooksNotification (Request $request){
        
-        try {
+    //     try {
             
             
-            $owner = $request->attributes->get('user');
+    //         $owner = $request->attributes->get('user');
 
-            $myBooks = $owner->books()->get();
+    //         $myBooks = $owner->books()->get();
 
-            $items = [];
-            $userName = '';
-            $bookTitle = '';
+    //         $items = [];
+    //         $userName = '';
+    //         $bookTitle = '';
 
-            foreach($myBooks as $book){
-                $savedByUsers = $book->savedByUsers();
+    //         foreach($myBooks as $book){
+    //             $savedByUsers = $book->savedByUsers();
 
-                foreach ($savedByUsers as $data) {
-                    $user_id = $data->user_id;
-                    if($user_id != $owner->id){
-                    $book_id = $data->book_id;
-                    $created_at = $data->created_at;
-                    $differentDate = (int) Carbon::now()->diffInDays($created_at,true);
-                    $userName = User::where('id',$user_id)->get(['name','picture']); 
-                    $bookTitle = Book::where('id', $book_id)->get(['title','images']); 
-                    $items[]=[
-                        'user' => $userName,
-                        'text' => 'saved your book',
-                        'book' => $bookTitle,
-                        'book_id' => $book_id,
-                        'date' => $differentDate,
-                    ];
-                }
-                }
-            }
+    //             foreach ($savedByUsers as $data) {
+    //                 $user_id = $data->user_id;
+    //                 if($user_id != $owner->id){
+    //                 $book_id = $data->book_id;
+    //                 $created_at = $data->created_at;
+    //                 $differentDate = (int) Carbon::now()->diffInDays($created_at,true);
+    //                 $userName = User::where('id',$user_id)->get(['name','picture']); 
+    //                 $bookTitle = Book::where('id', $book_id)->get(['title','images']); 
+    //                 $items[]=[
+    //                     'user' => $userName,
+    //                     'text' => 'saved your book',
+    //                     'book' => $bookTitle,
+    //                     'book_id' => $book_id,
+    //                     'date' => $differentDate,
+    //                 ];
+    //             }
+    //             }
+    //         }
             
         
-            return response()->json([
-                'success' => true,
-                'data' => $items,
-            ], 200);
-        } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching books.',
-                'error' => $exception->getMessage()
-            ], 500);
-        }
-    }
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $items,
+    //         ], 200);
+    //     } catch (QueryException  $exception) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'An error occurred while fetching books.',
+    //             'error' => $exception->getMessage()
+    //         ], 500);
+    //     }
+    //}
 }

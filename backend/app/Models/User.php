@@ -78,6 +78,11 @@ class User extends Authenticatable
 
     public function savedBooks()
     {
-        return $this->belongsToMany(Book::class, 'book_user')->withTimestamps();;
+        return $this->belongsToMany(Book::class, 'book_user')->withTimestamps();
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'receiver_id');
     }
 }
