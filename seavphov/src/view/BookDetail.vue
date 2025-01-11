@@ -67,8 +67,11 @@
     </div>
     <div class="RelatedBooks mt-5">
       <hr />
-      <h5 class="fw-bold">Related Books</h5>
-      <RenderBook :books="relatedBooks" :loading="isLoadingRelatedBooks" />
+      <RenderBook
+        header="Related books"
+        :books="relatedBooks"
+        :loading="isLoadingRelatedBooks"
+      />
     </div>
   </div>
 </template>
@@ -101,7 +104,7 @@ export default {
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters,
+        this.filters
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -112,14 +115,14 @@ export default {
       }
       [this.book, this.bookOwner] = await this.$store.dispatch(
         "fetchBookById",
-        this.formData,
+        this.formData
       );
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId,
+        this.paramsId
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

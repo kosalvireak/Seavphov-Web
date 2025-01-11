@@ -1,5 +1,8 @@
 <template>
-  <div class="BookItem clickable" @click="toRouteName('book-detail', book.id)">
+  <div
+    class="BookItem clickable relative"
+    @click="toRouteName('book-detail', book.id)"
+  >
     <div
       class="w-48 h-full bg-white rounded-lg border border-gray-200 shadow-md"
     >
@@ -10,16 +13,18 @@
           :src="book.images"
         />
       </div>
-      <div class="flex flex-col p-2 h-38 justify-between !space-y-2">
+      <div class="flex flex-col p-2 min-h-24 !space-y-2">
         <h6 class="text-sm mb-0 font-semibold ellipsis-2">
           {{ book.title }}
         </h6>
-        <p class="text-xs" v-if="this.book.reviews_count">
+        <p class="absolute right-2 bottom-2 text-xs" v-if="book.reviews_count">
           {{ book.reviews_count }} {{ reviewCountText }}
         </p>
-        <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
-          buttonText
-        }}</FwbButton>
+        <FwbButton
+          :color="buttonColor"
+          class="absolute left-2 bottom-2 px-2 text-xs w-fit"
+          >{{ buttonText }}</FwbButton
+        >
       </div>
     </div>
   </div>
