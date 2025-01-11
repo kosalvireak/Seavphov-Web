@@ -19,9 +19,6 @@ const store = createStore({
       picture:
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     },
-    filteredFetchBook: [],
-    book: {},
-    newBookId: null,
   },
   mutations: {
     SET_USER(state, userData) {
@@ -149,6 +146,26 @@ const store = createStore({
         }
       } catch (error) {
         console.error("Error adding book:", error);
+        toast.error(error.response.data.message);
+      }
+    },
+    async fetchNewestAddition() {
+      try {
+        const response = await getData('/api/books/newest');
+        if (response.data.success) {
+          return response.data.message;
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    },
+    async getMostReviewed() {
+      try {
+        const response = await getData('/api/books/mostReviewed');
+        if (response.data.success) {
+          return response.data.message;
+        }
+      } catch (error) {
         toast.error(error.response.data.message);
       }
     },

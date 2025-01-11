@@ -14,7 +14,9 @@
         <h6 class="text-sm mb-0 font-semibold ellipsis-2">
           {{ book.title }}
         </h6>
-        <p class="text-xs">6 Reviews</p>
+        <p class="text-xs" v-if="this.book.reviews_count">
+          {{ book.reviews_count }} {{ reviewCountText }}
+        </p>
         <FwbButton :gradient="buttonColor" class="px-2 text-xs w-fit">{{
           buttonText
         }}</FwbButton>
@@ -33,6 +35,9 @@ export default {
     },
     buttonText() {
       return this.book.availability ? "AVAILABLE" : "NOT AVAILABLE";
+    },
+    reviewCountText() {
+      return this.book.reviews_count == 1 ? "Review" : "Reviews";
     },
   },
 };

@@ -8,20 +8,30 @@
       <Loader v-if="isLoading" :size="40" />
     </div>
 
-    <div class="mt-3 w-100">
+    <div class="mt-3 w-100 space-y-8">
+      <MostReviewed />
+      <NewestAddition />
       <PaginatedBook />
     </div>
   </div>
 </template>
 
 <script>
+import MostReviewed from "../components/home/MostReviewed.vue";
+import NewestAddition from "../components/home/NewestAddition.vue";
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
 import Carousel from "../components/home/Carousel.vue";
 
 export default {
   name: "Home",
-  components: { RenderBook, PaginatedBook, Carousel },
+  components: {
+    RenderBook,
+    PaginatedBook,
+    Carousel,
+    NewestAddition,
+    MostReviewed,
+  },
   data() {
     return {
       reloaded: false,
@@ -40,7 +50,7 @@ export default {
       this.isLoading = true;
       this.TopBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters,
+        this.filters
       );
       this.isLoading = false;
     },

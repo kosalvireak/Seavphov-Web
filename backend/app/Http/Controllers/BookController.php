@@ -12,6 +12,44 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    public function getNewest(){
+        try {
+            $books = Book::orderBy('created_at', 'desc')->take(5)->get();
+            
+            return response()->json([
+                'success' => true,
+                'message' => $books,
+            ], 200);
+
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching newest books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+        public function getMostReviewed(){
+        try {
+            $books = Book::withCount('reviews') // Count the number of reviews
+                ->orderBy('reviews_count', 'desc') // Order by the review count
+                ->take(5) // Limit the result to the top 5 books
+                ->get();
+            
+            return response()->json([
+                'success' => true,
+                'message' => $books,
+            ], 200);
+
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching newest books.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
     public function fetchBooksWithFilter(Request $request)
     {
 

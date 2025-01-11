@@ -23,6 +23,11 @@ class BookReview extends Model
         return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->get();
     }
 
+    public function book()
+    {
+        return $this->belongsTo(Book::class,'user_id');
+    }
+
     public function getData(){
         return [
             'id' => $this->id,

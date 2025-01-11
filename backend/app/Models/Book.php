@@ -35,7 +35,12 @@ class Book extends Model
             ->get(['user_id', 'book_id','created_at']);
     }
 
-    public function getReviews(){
+    public function getReviewCountAttribute()
+    {
+        return $this->reviews()->count();
+    }
+
+    public function reviews(){
         return $this->hasMany(BookReview::class, 'book_id');
     }
 }
