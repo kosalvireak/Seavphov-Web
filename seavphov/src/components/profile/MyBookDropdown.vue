@@ -1,6 +1,10 @@
 <template>
   <div class="MyBookDropdown">
-    <Dropdown id="my-book-dropdown" id_content="my-book-dropdown_content">
+    <Dropdown
+      id="my-book-dropdown"
+      id_content="my-book-dropdown_content"
+      placement="bottom-end"
+    >
       <template #button>
         <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
           <i class="fas fa-ellipsis-v fa-xl"></i>
@@ -8,6 +12,11 @@
       </template>
       <template #content>
         <ul class="py-2 mt-0">
+          <li>
+            <p :class="dropdownItemCss" @click="changeAvailability(id)">
+              Mark as {{ buttonText }}
+            </p>
+          </li>
           <li>
             <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
           </li>
@@ -31,14 +40,25 @@ export default {
   },
   props: {
     id: Number,
+    book: Object,
   },
   methods: {
     editBook(id) {
       this.$router.push(`/book/edit/${id}`);
     },
+    async changeAvailability(id) {
+      const response = await this.$store.dispatch("changeAvailability", id);
+      if (response) {
+        this.$emit("change");
+      }
+    },
     async deleteBook(id) {
       await this.$store.dispatch("deleteBook", id);
-      this.$emit("callGetBook");
+    },
+  },
+  computed: {
+    buttonText() {
+      return !this.book.availability ? "AVAILABLE" : "NOT AVAILABLE";
     },
   },
 };

@@ -227,7 +227,34 @@ class BookController extends Controller
         }
     }
 
-    public function deleteBook(Request $request, $id)
+    public function changeAvailability(Request $request, $id){
+        try{
+            $user = $request->attributes->get('user');
+            $book = Book::findOrFail($id);
+
+            if($book->owner_id != $user->id){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You do not have permission' ,
+                ], 403);
+            }
+            $book->availability = !$book->availability;
+            $book->save();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully changed availability',
+            ], 200);
+        }
+        catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot change Book!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+   public function deleteBook(Request $request, $id)
     {
         try{
             $user = $request->attributes->get('user');

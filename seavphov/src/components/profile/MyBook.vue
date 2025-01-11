@@ -30,16 +30,19 @@
               <li>
                 <span class="fw-bold">Category: </span>{{ book.categories }}
               </li>
-              <li v-if="book.availability">
-                <span class="fw-bold">Available:</span> True
-              </li>
-              <li v-else><span class="fw-bold">Available: </span>False</li>
+              <FwbButton
+                :gradient="buttonColor"
+                class="mt-2 px-2 text-xs w-fit"
+                >{{ buttonText }}</FwbButton
+              >
             </ul>
           </div>
           <MyBookDropdown
             :id="book.id"
             :key="book.id"
+            :book="book"
             class="absolute right-4"
+            @change="ChangeAvailability()"
           />
         </div>
       </div>
@@ -55,6 +58,19 @@ export default {
     MyBookDropdown,
   },
   props: { book: Object },
+  methods: {
+    ChangeAvailability() {
+      this.book.availability = !this.book.availability;
+    },
+  },
+  computed: {
+    buttonColor() {
+      return this.book.availability ? "green" : "red";
+    },
+    buttonText() {
+      return this.book.availability ? "AVAILABLE" : "NOT AVAILABLE";
+    },
+  },
 };
 </script>
 

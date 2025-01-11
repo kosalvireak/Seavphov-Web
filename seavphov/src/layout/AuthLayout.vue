@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-  <div class="AuthLayout">
+  <div class="AuthLayout w-100 flex-center">
     <RouterView />
   </div>
 </template>

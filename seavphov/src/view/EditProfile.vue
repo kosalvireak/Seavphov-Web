@@ -118,7 +118,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <button type="submit" class="col-2 btn mt-2">Save</button>
+          <LoadingButton type="submit" text="Save" :isLoading="isLoading" />
         </div>
       </form>
     </div>
@@ -185,7 +185,7 @@ export default {
               this.formData.append("picture", url);
               this.uploadingBook = false;
               console.log("EditProfile this.user.picture", this.user.picture);
-            },
+            }
           );
         }
       } catch (error) {
@@ -194,16 +194,18 @@ export default {
     },
   },
   async mounted() {
-    // this.isLoading = true;
+    this.isLoading = true;
     const response = await this.$store.dispatch("fetchUserProfile");
-    Object.assign(this.user, response);
-    var file = new File(["content of the file"], response.picture, {
-      type: "text/plain",
-      lastModified: new Date(),
-    });
-    var fileList = new DataTransfer();
-    fileList.items.add(file);
-    this.$refs.fileInput.files = fileList.files;
+    this.user.name = response.name;
+    this.user.email = response.email;
+    this.user.picture = response.picture;
+    this.user.phone = response.phone;
+    this.user.facebook = response.facebook;
+    this.user.instagram = response.instagram;
+    this.user.location = response.location;
+    this.user.twitter = response.twitter;
+    this.user.telegram = response.telegram;
+    this.user.location = response.location;
     this.isLoading = false;
   },
 };

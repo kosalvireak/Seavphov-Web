@@ -7,9 +7,9 @@
     >
       <Loader />
     </div>
-    <div v-else>
+    <template v-else>
       <div
-        class="container-sm cover_container w-1800 b-1 p-0"
+        class="hidden md:flex container-sm cover_container w-1800 h-full b-1 p-0"
         @click="handleClick"
       >
         <img
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -186,12 +186,10 @@ a:link {
 @media only screen and (max-width: 576px) {
   .user_info {
     height: 300px;
-    top: -60px;
   }
 
   .user_info_left {
-    flex-direction: column;
-    height: 240px;
+    height: 120px;
   }
 
   .profile_image {

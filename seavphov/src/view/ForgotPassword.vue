@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ForgotPassword shadow-5 flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2 w-100"
+    class="ForgotPassword shadow-5 flex-center flex-column col-md-6 col-sm-12 justify-content-between m-3 p-2"
   >
     <span class="w-100 my-3 ms-4">
       <i
@@ -44,7 +44,7 @@
     </div>
     <div
       v-if="page == 2"
-      class="ResetPasswordForm flex-center flex-column my-3 w-60"
+      class="ResetPasswordForm flex-center flex-column my-3 w-60 h-full"
     >
       <h5 class="my-3">Enter the token we sent to your email address.</h5>
       <form v-on:submit.prevent="SendResetPassword()" class="w-100">
@@ -140,7 +140,7 @@ export default {
       Error: false,
       errorMessage: "",
       isShowPassword: false,
-      page: "1",
+      page: "2",
       backText: "Login",
     };
   },
@@ -190,7 +190,6 @@ export default {
 
 <style>
 .ForgotPassword {
-  margin-top: 100px !important;
   max-width: 750px;
   min-height: 400px !important;
 }

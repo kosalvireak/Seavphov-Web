@@ -367,6 +367,16 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
+    async changeAvailability({ }, id) {
+      try {
+        const response = await getData(`/api/books/availability/${id}`, true);
+        toast.success(response.data.message);
+        return response.data.success;
+      } catch (error) {
+        console.error("Error change book status:", error);
+        toast.error(error.response.data.message);
+      }
+    },
     async toggleSaveBook({ }, bookId) {
       try {
         const response = await getData(`/api/saved/${bookId}`, true);

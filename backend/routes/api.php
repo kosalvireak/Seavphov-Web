@@ -34,6 +34,7 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'fetchBooksWithFilter']);
     Route::get('/banner',  [BannerController::class, 'getBanner']);
+    Route::get('/availability/{id}',  [BookController::class, 'changeAvailability'])->middleware([ApiTokenAuthentication::class]);
     Route::post('{bookId}',  [BookController::class, 'fetchBookById']);
     Route::post('', [BookController::class, 'createBook'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);

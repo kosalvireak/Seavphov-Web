@@ -23,6 +23,12 @@
               <span class="font-bold">Condition</span>:
               {{ book.condition }}
             </p>
+            <FwbButton
+              v-if="book.availability"
+              :gradient="buttonColor"
+              class="mt-3 mb-1 px-2 text-xs w-fit"
+              >{{ buttonText }}</FwbButton
+            >
             <h5 class="font-bold">Overview</h5>
             <div class="max-h-44 lg:h-44 overflow-auto">
               <p>
@@ -122,6 +128,14 @@ export default {
   watch: {
     "$route.params.id"() {
       this.$router.go(0);
+    },
+  },
+  computed: {
+    buttonColor() {
+      return this.book.availability ? "green" : "red";
+    },
+    buttonText() {
+      return this.book.availability ? "AVAILABLE" : "NOT AVAILABLE";
     },
   },
   async created() {
