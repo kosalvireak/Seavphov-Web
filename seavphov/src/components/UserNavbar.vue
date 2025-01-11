@@ -7,7 +7,7 @@
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
         <template v-if="isLogin">
           <div
-            class="d-flex align-items-sm-center clickable"
+            class="d-flex align-items-sm-center clickable text-white"
             @click="toRouteName('add-book')"
           >
             <i class="fas fa-plus-circle fa-xl"></i>
@@ -15,9 +15,11 @@
           <Dropdown
             id="notification-dropdown"
             id_content="notification-dropdown_content"
-            cssContent="sp-top-4"
+            cssContent="sp-top-4 "
           >
-            <template #button> <i class="fas fa-bell fa-2xl"></i></template>
+            <template #button>
+              <i class="fas fa-bell fa-2xl text-white"></i
+            ></template>
             <template #content><NotificationDropdown /> </template>
           </Dropdown>
           <AvatarDropdown />

@@ -151,11 +151,8 @@ export default {
       this.formData.append("condition", this.book.condition);
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
-      await this.$store.dispatch("createBook", this.formData);
-      if (this.$store.state.newBookId) {
-        this.$router.push({ path: `/home/${this.$store.state.newBookId}` });
-      }
-
+      const response = await this.$store.dispatch("createBook", this.formData);
+      this.$router.push({ path: `/home/${response}` });
       this.isLoading = false;
     },
     async handleImageChange(event) {

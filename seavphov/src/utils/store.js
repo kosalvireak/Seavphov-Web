@@ -342,7 +342,7 @@ const store = createStore({
       try {
         const response = await postForm("/api/books/", formData, true);
         toast.success(response.data.message);
-        this.state.newBookId = response.data.bookId;
+        return response.data.bookId;
       } catch (error) {
         console.error("Error adding book:", error);
         toast.error(error.response.data.message);

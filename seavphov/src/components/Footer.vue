@@ -27,10 +27,9 @@
               <h3>Useful Links</h3>
             </div>
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">about</a></li>
-              <li><a href="#">services</a></li>
-              <li><a href="#">portfolio</a></li>
+              <li><a href="/home">Home</a></li>
+              <li><a href="/profile">Profile</a></li>
+              <li><a href="/search">Search</a></li>
             </ul>
           </div>
         </div>
@@ -45,9 +44,13 @@
                 below.
               </p>
             </div>
-            <div class="subscribe-form">
+            <div class="subscribe-form sp-gray-light">
               <form action="#">
-                <input type="text" placeholder="Email Address" />
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  class="bg-white border-0"
+                />
                 <button><i class="fab fa-telegram-plane"></i></button>
               </form>
             </div>
@@ -61,8 +64,8 @@
           <div class="col-xl-6 col-lg-6 text-center text-lg-left">
             <div class="copyright-text">
               <p>
-                Copyright &copy; 2018, All Right Reserved
-                <a href="https://codepen.io/anupkumar92/">Anup</a>
+                Copyright &copy; 2025, All Right Reserved
+                <a href="#">Seavphov</a>
               </p>
             </div>
           </div>
