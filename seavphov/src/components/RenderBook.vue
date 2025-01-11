@@ -1,5 +1,8 @@
 <template>
   <div class="RenderBook container w-100 h-auto">
+    <div class="h-10 d-flex align-items-center justify-content-start">
+      <h3 class="p-0 m-0 fw-bold font-50">All books</h3>
+    </div>
     <div v-if="loading" class="h-96 w-100 flex-center">
       <Loader :size="40" />
     </div>

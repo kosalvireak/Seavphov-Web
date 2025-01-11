@@ -17,7 +17,7 @@
         <p class="text-xs" v-if="this.book.reviews_count">
           {{ book.reviews_count }} {{ reviewCountText }}
         </p>
-        <FwbButton :gradient="buttonColor" class="px-2 text-xs w-fit">{{
+        <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
           buttonText
         }}</FwbButton>
       </div>

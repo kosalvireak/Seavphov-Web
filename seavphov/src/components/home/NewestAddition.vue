@@ -1,9 +1,9 @@
 <template>
   <div
-    class="NewestAddition container w-100 h-auto bg-seavphov-light p-4 rounded-lg space-y-4"
+    class="NewestAddition container w-100 h-auto p-4 rounded-lg space-y-4"
   >
     <div class="h-10 d-flex align-items-center justify-content-start">
-      <h3 class="p-0 m-0 fw-bold font-75">Top 5 Newest addition!</h3>
+      <h3 class="p-0 m-0 fw-bold font-50">Newest addition!</h3>
     </div>
     <div v-if="isLoading" class="h-96 w-100 flex-center">
       <Loader :size="40" />

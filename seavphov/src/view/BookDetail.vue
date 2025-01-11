@@ -14,7 +14,7 @@
             </h3>
           </div>
           <div class="text-black space-y-3">
-            <p><span class="font-bold">By</span>: {{ book.author }}</p>
+            <p><span class="font-bold">by</span> {{ book.author }}</p>
             <p>
               <span class="font-bold">Category</span>:
               {{ book.categories }}
@@ -25,7 +25,7 @@
             </p>
             <FwbButton
               v-if="book.availability"
-              :gradient="buttonColor"
+              :color="buttonColor"
               class="mt-3 mb-1 px-2 text-xs w-fit"
               >{{ buttonText }}</FwbButton
             >
@@ -46,7 +46,7 @@
               <i
                 class="fa-bookmark fa-2xl w-10 h-10"
                 :class="
-                  book.issaved ? 'fa-solid text-yellow-200' : 'fa-regular'
+                  book.issaved ? 'fa-solid text-yellow-300 border-2 border-black rounded-md' : 'fa-regular'
                 "
                 @click="toggleSaveBook()"
               ></i>
