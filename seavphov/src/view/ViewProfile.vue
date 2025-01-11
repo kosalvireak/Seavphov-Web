@@ -59,7 +59,7 @@ export default {
     async getBooks() {
       this.Books = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters
+        this.filters,
       );
       this.isLoading = false;
     },

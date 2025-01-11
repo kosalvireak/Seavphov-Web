@@ -34,9 +34,8 @@ import LoadingButton from "./components/common/LoadingButton.vue";
 
 const app = createApp(App);
 
-
 // global variable
-app.config.globalProperties.isMobile = mobileUtils.isMobile()
+app.config.globalProperties.isMobile = mobileUtils.isMobile();
 app.config.globalProperties.logoUrl =
   "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
 
@@ -64,4 +63,3 @@ store.dispatch("setUserFromCookies");
 
 // mounted
 app.mount("#app");
-

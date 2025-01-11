@@ -46,7 +46,9 @@
               <i
                 class="fa-bookmark fa-2xl w-10 h-10"
                 :class="
-                  book.issaved ? 'fa-solid text-yellow-300 border-2 border-black rounded-md' : 'fa-regular'
+                  book.issaved
+                    ? 'fa-solid text-yellow-300 border-2 border-black rounded-md'
+                    : 'fa-regular'
                 "
                 @click="toggleSaveBook()"
               ></i>
@@ -99,7 +101,7 @@ export default {
       this.filters.categories = this.book.categories;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters
+        this.filters,
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -110,14 +112,14 @@ export default {
       }
       [this.book, this.bookOwner] = await this.$store.dispatch(
         "fetchBookById",
-        this.formData
+        this.formData,
       );
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId
+        this.paramsId,
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

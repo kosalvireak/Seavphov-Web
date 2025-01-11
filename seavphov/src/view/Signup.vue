@@ -4,7 +4,11 @@
     <div
       class="d-flex align-items-center justify-content-center logo col-md-6 col-sm-12"
     >
-      <img src="/img/Seavphov Logo.png" alt="booklogo" class="logoimg img-fluid" />
+      <img
+        src="/img/Seavphov Logo.png"
+        alt="booklogo"
+        class="logoimg img-fluid"
+      />
     </div>
     <div class="container col-md-6 col-sm-12">
       <h1>Register</h1>
