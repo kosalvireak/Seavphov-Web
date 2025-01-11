@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ApiTokenAuthentication;
+use App\Http\Middleware\OptionalApiTokenAuthentication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,10 +45,11 @@ Route::prefix('books')->group(function () {
 });
 
 Route::prefix('review')->group(function () {
-    Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews']);
+    Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/like/{id}', [BookReviewController::class, 'voteHelpful'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [BookReviewController::class, 'voteNotHelpful'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
+    Route::delete('/delete/{id}', [BookReviewController::class, 'deleteReview'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {

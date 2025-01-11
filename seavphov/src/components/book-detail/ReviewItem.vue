@@ -1,14 +1,26 @@
 <template>
   <section
-    class="ReviewItem container w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300"
+    class="ReviewItem container w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
+    <!-- Review header -->
     <a
       :href="`/profile/${review.user[0].uuid}`"
-      class="d-flex justify-content-start align-items-center text-decoration-none clickable"
+      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
       <img class="sp-logo-sm rounded-full mr-2" :src="review.user[0].picture" />
       <p class="m-0 text-sp-dark">{{ review.user[0].name }}</p>
     </a>
+
+    <!-- Review delete Button -->
+    <FwbButton
+      @click="deleteReview(review.id)"
+      color="red"
+      class="absolute right-2 top-0"
+      v-if="review.delete_able"
+      >Delete</FwbButton
+    >
+
+    <!-- Review Date -->
     <p class="text-xs text-sp-gray">
       Reviewed on {{ formatDate(review.created_at) }}
     </p>
@@ -65,7 +77,6 @@ export default {
       if (data) {
         this.review.helpful_vote = data.helpful_vote;
       }
-
       this.isLoadingLike = false;
     },
     async voteNotHelpful(id) {
@@ -75,6 +86,12 @@ export default {
         this.review.not_helpful_vote = data.not_helpful_vote;
       }
       this.isLoadingDislike = false;
+    },
+    async deleteReview(id) {
+      const response = await this.$store.dispatch("deleteReview", id);
+      if (response) {
+        this.$emit("onRemove", id);
+      }
     },
   },
 };

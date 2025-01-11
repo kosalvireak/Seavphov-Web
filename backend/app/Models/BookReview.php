@@ -28,13 +28,15 @@ class BookReview extends Model
         return $this->belongsTo(Book::class,'user_id');
     }
 
-    public function getData(){
+    public function getData($userId){
+        $deleteAble = $userId == null ? false : $userId == $this->user_id;
         return [
             'id' => $this->id,
             'user' => $this->owner(),
             'body' => $this->body,
             'helpful_vote' => $this->helpful_vote,
             'not_helpful_vote' => $this->not_helpful_vote,
+            'delete_able'=> $deleteAble,
             'created_at' => $this->created_at
         ];
     }

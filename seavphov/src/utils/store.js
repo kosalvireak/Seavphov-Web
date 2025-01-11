@@ -384,6 +384,19 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
+    async deleteReview({ }, id) {
+      try {
+        const response = await deleteData(`/api/review/delete/${id}`);
+        if (response.data.success) {
+          toast.success(response.data.message);
+
+          return response.data.message
+        }
+      } catch (error) {
+        console.error("Error adding book:", error);
+        toast.error(error.response.data.message);
+      }
+    },
     async changeAvailability({ }, id) {
       try {
         const response = await getData(`/api/books/availability/${id}`, true);
@@ -430,7 +443,7 @@ const store = createStore({
     //BookReview
     async fetchBookReviews({ }, bookId) {
       try {
-        const response = await getData(`/api/review/book/${bookId}`);
+        const response = await getData(`/api/review/book/${bookId}`, true);
         if (response.data.success) {
           return response.data.data;
         }

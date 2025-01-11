@@ -10,6 +10,35 @@ use Exception;
 use Illuminate\Http\Request;
 
 class BookReviewController extends Controller{
+
+      public function deleteReview(Request $request, $id)
+    {
+        try{
+            $user = $request->attributes->get('user');
+
+            $review = BookReview::findOrFail($id);
+            
+            if($review->user_id != $user->id){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No permission' ,
+                ], 403);
+            }
+            
+            $review->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Deleted Review Success',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot delete Review!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+        
+    }
     public function voteHelpful(Request $request, $reviewId){
         try{
             // review owner ( receiver_id )
@@ -57,13 +86,21 @@ class BookReviewController extends Controller{
             ], 500);
         }
     }
-    public function fetchBookReviews($bookId){
+
+    public function fetchBookReviews(Request $request,$bookId){
+
+        $userId = null;
+
+        // Check if the user attribute exists and get the user ID
+        if ($request->attributes->has('user')) {
+            $userId = $request->attributes->get('user')->id;
+        }
         
         $items = [];
         $reviews = BookReview::where('book_id', $bookId)->get();
         
         foreach($reviews as $review){
-            $items[]=$review->getData();
+            $items[]=$review->getData($userId);
         }
 
         if(empty($items)){
