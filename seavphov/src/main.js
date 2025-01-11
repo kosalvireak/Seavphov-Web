@@ -38,7 +38,7 @@ const app = createApp(App);
 // global variable
 app.config.globalProperties.isMobile = mobileUtils.isMobile()
 app.config.globalProperties.logoUrl =
-  "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/seavphov_logo.png";
+  "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
