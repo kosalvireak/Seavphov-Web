@@ -18,7 +18,7 @@
         />
       </template>
       <template #item-descriptions="books">
-        <p class="ellipsis">{{ books.descriptions }}</p>
+        {{ books.descriptions }}
       </template>
       <template #item-="books">
         <button
