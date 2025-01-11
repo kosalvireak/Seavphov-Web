@@ -107,7 +107,7 @@ export default {
 }
 
 .pagination p.active {
-  background-color: #4caf50;
+  background-color: #5c836e;
   color: white;
   border-radius: 5px;
 }
