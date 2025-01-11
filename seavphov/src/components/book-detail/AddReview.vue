@@ -57,6 +57,7 @@ export default {
       const data = await this.$store.dispatch("createReview", formData);
       this.resetForm();
       this.isLoading = false;
+      data.delete_able = true;
       if (data) {
         this.$emit("onAddReview", data);
       }

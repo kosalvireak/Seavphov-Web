@@ -28,7 +28,7 @@ class BookReview extends Model
         return $this->belongsTo(Book::class,'user_id');
     }
 
-    public function getData($userId){
+    public function getData($userId = null){
         $deleteAble = $userId == null ? false : $userId == $this->user_id;
         return [
             'id' => $this->id,

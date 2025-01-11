@@ -40,6 +40,7 @@ class UserBookController extends Controller
                 $user->savedBooks()->attach($bookId, [
                     'created_at' => Carbon::now(),
                 ]);
+                
                 // Save
                 NotificationService::storeNotification($user->id, $book->owner_id, $book->id, 'saved your book!');
 
