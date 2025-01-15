@@ -195,13 +195,12 @@ img {
   }
 }
 
-
 /* Override style */
 
 .p-6 {
   padding: 0.75rem !important; /* p-2.5 -> AddDiscussionForm */
 }
 
-.border-b.border-gray-200.p-4.rounded-t.flex.justify-between.items-center{
-    padding: 0.75rem !important; /* p-2.5 -> fwb-modal */
+.border-b.border-gray-200.p-4.rounded-t.flex.justify-between.items-center {
+  padding: 0.75rem !important; /* p-2.5 -> fwb-modal */
 }
