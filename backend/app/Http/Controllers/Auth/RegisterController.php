@@ -7,10 +7,7 @@ use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -32,13 +29,13 @@ class RegisterController extends Controller
             ]);
 
             $uuid = Str::random(30);
-            
+
             $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
-                'picture'=>'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                'uuid'=>$uuid
+                'picture' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                'uuid' => $uuid
             ]);
 
 

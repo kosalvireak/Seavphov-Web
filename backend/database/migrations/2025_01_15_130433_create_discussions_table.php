@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('not_helpful_vote');
             $table->timestamps();
 
-                        
+
             // Define foreign key constraints
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->integer('not_helpful_vote');
             $table->timestamps();
 
-                        
+
             // Define foreign key constraints
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('discussion_id')->references('id')->on('discussions')->onDelete('cascade');

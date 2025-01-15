@@ -26,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function(){
-    Route::get('',[BookController::class, 'getMyBooks']);
-    Route::get('{id}',[BookController::class, 'getMyBook']);
+Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('', [BookController::class, 'getMyBooks']);
+    Route::get('{id}', [BookController::class, 'getMyBook']);
 });
 
 Route::prefix('books')->group(function () {
@@ -52,17 +52,17 @@ Route::prefix('review')->group(function () {
 });
 
 Route::prefix('discussions')->group(function () {
-    Route::get('',[DiscussionController::class, 'fetchDiscussions'])->middleware([OptionalApiTokenAuthentication::class]);
-    Route::post('',[DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('', [DiscussionController::class, 'fetchDiscussions'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::post('', [DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('',[UserController::class, 'fetchUserProfile']);
+    Route::get('', [UserController::class, 'fetchUserProfile']);
     Route::put('', [UserController::class, 'modifyUserProfile']);
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('{uuid}',[UserController::class,'fetchOtherUserProfile']);
+    Route::get('{uuid}', [UserController::class, 'fetchOtherUserProfile']);
     Route::post('login', [LoginController::class, 'loginUser']);
     Route::post('register', [RegisterController::class, 'registerUser']);
 });
@@ -77,19 +77,19 @@ Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->grou
 });
 
 
-Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function(){
-    Route::get('/auth',[AdminController::class, 'adminGetAuth']);
-    Route::get('/overview',[AdminController::class, 'adminGetOverviewData']);
-    Route::get('/books',[AdminController::class, 'adminGetBooks']);
-    Route::get('/books/delete/{id}',[AdminController::class, 'adminDeleteBook']);
-    Route::get('/users',[AdminController::class, 'adminGetUsers']);
-    Route::get('/banners',[BannerController::class, 'adminGetBanners']);
-    Route::post('/banners',[BannerController::class, 'adminAddBanner']);
-    Route::get('/banners/{id}',[BannerController::class, 'adminDeleteBanner']);
-    Route::get('/banners/selected/{id}',[BannerController::class, 'changeSelectedBanner']);
+Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function () {
+    Route::get('/auth', [AdminController::class, 'adminGetAuth']);
+    Route::get('/overview', [AdminController::class, 'adminGetOverviewData']);
+    Route::get('/books', [AdminController::class, 'adminGetBooks']);
+    Route::get('/books/delete/{id}', [AdminController::class, 'adminDeleteBook']);
+    Route::get('/users', [AdminController::class, 'adminGetUsers']);
+    Route::get('/banners', [BannerController::class, 'adminGetBanners']);
+    Route::post('/banners', [BannerController::class, 'adminAddBanner']);
+    Route::get('/banners/{id}', [BannerController::class, 'adminDeleteBanner']);
+    Route::get('/banners/selected/{id}', [BannerController::class, 'changeSelectedBanner']);
 });
 
-Route::prefix('reset')->group(function(){
-    Route::post('/',[UserController::class,'resetPassword']);
-    Route::post('/send',[UserController::class,'sendEmailResetPassword']);
+Route::prefix('reset')->group(function () {
+    Route::post('/', [UserController::class, 'resetPassword']);
+    Route::post('/send', [UserController::class, 'sendEmailResetPassword']);
 });

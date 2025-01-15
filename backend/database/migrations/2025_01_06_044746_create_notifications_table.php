@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('book_id');
             $table->string('body');
             $table->timestamps();
-            
+
             // Define foreign key constraints
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

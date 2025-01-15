@@ -16,7 +16,8 @@ class Banner extends Model
         'order_priority',
     ];
 
-    public function resetAllColumns(){
+    public function resetAllColumns()
+    {
         return self::update([
             'order_priority' => 0,
         ]);

@@ -21,9 +21,9 @@ class DiscussionController extends Controller
                 $userId = $request->attributes->get('user')->id;
             }
             $discussions = Discussion::orderBy('created_at', 'desc')
-    ->orderBy('helpful_vote', 'desc')
-    ->get();
-            
+                ->orderBy('helpful_vote', 'desc')
+                ->get();
+
             $items = [];
             foreach ($discussions as $discussion) {
                 $items[] = $discussion->getData($userId);

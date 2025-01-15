@@ -15,5 +15,4 @@ class Notification extends Model
         'book_id',
         'body',
     ];
-
 }
