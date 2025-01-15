@@ -6,14 +6,13 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookReviewController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAuthorization;
-use App\Http\Middleware\CorsMiddleware;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +49,11 @@ Route::prefix('review')->group(function () {
     Route::get('/dislike/{id}', [BookReviewController::class, 'voteNotHelpful'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [BookReviewController::class, 'deleteReview'])->middleware([ApiTokenAuthentication::class]);
+});
+
+Route::prefix('discussions')->group(function () {
+    Route::get('',[DiscussionController::class, 'getDiscussions']);
+    Route::post('',[DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
