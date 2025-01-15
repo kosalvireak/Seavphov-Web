@@ -19,6 +19,7 @@ import UserLayout from "../layout/UserLayout.vue";
 import AuthLayout from "../layout/AuthLayout.vue";
 import AdminLayout from "../layout/AdminLayout.vue";
 import DashboardOverview from "../view/admin/DashboardOverview.vue";
+import Discussion from "../view/Discussion.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -130,6 +131,11 @@ const router = createRouter({
           path: "/book/:id",
           name: "book-detail",
           component: BookDetail,
+        },
+        {
+          path: "/discussion",
+          name: "discussion",
+          component: Discussion,
         },
       ],
     },
