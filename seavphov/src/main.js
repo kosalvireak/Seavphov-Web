@@ -26,7 +26,7 @@ import toastPlugin from "./utils/toastPlugin";
 import mobileUtils from "./utils/mobileUtils";
 
 // component
-import { FwbButton } from "flowbite-vue";
+import { FwbButton, FwbModal } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
@@ -43,6 +43,7 @@ app.config.globalProperties.logoUrl =
 app.component("EasyDataTable", Vue3EasyDataTable);
 app.component("Loader", Loader);
 app.component("FwbButton", FwbButton);
+app.component("FwbModal", FwbModal);
 app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);

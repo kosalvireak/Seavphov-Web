@@ -4,14 +4,20 @@
       class="hidden md:flex backgroundImg img-fluid w-100 align-items-center justify-content-center"
       :style="getBackground"
     >
-      <Carousel v-if="TopBooks.length" :books="TopBooks" />
+      <!-- <Carousel v-if="TopBooks.length" :books="TopBooks" /> -->
       <Loader v-if="isLoading" :size="40" />
     </div>
 
     <div class="mt-3 w-100 space-y-8">
-      <MostReviewed />
+      <FwbButton
+        @click="toRouteName('discussion')"
+        gradient="green"
+        class="px-2 text-xs mx-auto"
+        >Check our Discussions</FwbButton
+      >
+      <!-- <MostReviewed />
       <NewestAddition />
-      <PaginatedBook />
+      <PaginatedBook /> -->
     </div>
   </div>
 </template>
@@ -50,7 +56,7 @@ export default {
       this.isLoading = true;
       this.TopBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters,
+        this.filters
       );
       this.isLoading = false;
     },
@@ -69,8 +75,8 @@ export default {
     },
   },
   async mounted() {
-    await this.getBanner();
-    await this.getBook(this.paramsId);
+    // await this.getBanner();
+    // await this.getBook(this.paramsId);
   },
 };
 </script>

@@ -1,15 +1,34 @@
 <script>
 export default {
   name: "LoadingButton",
-  props: { isLoading: Boolean, type: String, text: String, disabled: Boolean },
+  props: {
+    isLoading: Boolean,
+    type: String,
+    text: String,
+    disabled: Boolean,
+    color: {
+      type: String,
+      default: "primary",
+    },
+  },
+  computed: {
+    backgroundColor() {
+      if (this.color == "primary") return "--sp-primary";
+      if (this.color == "danger") return "--sp-danger";
+    },
+    shouldDisabled() {
+      return this.isLoading || this.disabled;
+    },
+  },
 };
 </script>
 
 <template>
   <button
     :type="type"
-    :disabled="isLoading || disabled"
+    :disabled="shouldDisabled"
     class="btn btn-primary flex-center sp-btn-loading"
+    :style="{ 'background-color': 'var(' + backgroundColor + ')' }"
   >
     <span v-if="!isLoading">{{ text }}</span>
     <Loader v-else :size="15" :Color="'#FFFFFF'" />

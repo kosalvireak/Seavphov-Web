@@ -25,11 +25,12 @@ class Discussion extends Model
     }
 
     public function getData($userId = null){
-        $deleteAble = $userId == null ? false : $userId == $this->user_id;
+        $deleteAble = $userId == null ? false : $userId == $this->owner_id;
         return [
             'id' => $this->id,
             'user' => $this->owner(),
             'body' => $this->body,
+            'image' => $this->image,
             'number_of_comments' => $this->comments,
             'helpful_vote' => $this->helpful_vote,
             'not_helpful_vote' => $this->not_helpful_vote,
