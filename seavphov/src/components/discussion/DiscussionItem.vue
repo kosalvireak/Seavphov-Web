@@ -31,44 +31,46 @@
     >
 
     <!-- Discussion Body -->
-    <div class="w-100 py-2">
+    <div class="w-100 ml-2">
       {{ data.body }}
     </div>
     <div class="w-100 max-h-72 border border-gray-100 rounded-lg flex-center">
       <img :src="data.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
-        <Loader v-if="isLoadingDislike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteNotHelpful(review.id)"
-        >
-          Not Helpful: {{ data.not_helpful_vote }}
-        </span>
-      </div>
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
+      <div class="flex-center w-fit min-w-16">
         <Loader v-if="isLoadingLike" />
         <span
           v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(review.id)"
         >
-          Helpful:
+        <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ data.helpful_vote }}
+        
+        </span>
+      </div>
+      <div class="flex-center w-fit min-w-16">
+        <Loader v-if="isLoadingDislike" />
+        <span
+          v-else
+          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
+          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
+          @click="voteNotHelpful(review.id)"
+        >
+        <i class="fa-regular fa-thumbs-down fa-xl"></i>
+        {{ data.not_helpful_vote }}
         </span>
       </div>
       <div
-        class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg hover:bg-gray-200"
+        class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200"
       >
         <span
           class="clickable px-2 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(review.id)"
-          ><i class="fa fa-commenting" aria-hidden="true"> </i>:
+          ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
           {{ data.number_of_comments }}
         </span>
       </div>
