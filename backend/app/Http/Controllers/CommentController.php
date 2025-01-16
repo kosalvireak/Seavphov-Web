@@ -39,7 +39,7 @@ class CommentController extends Controller
             ], 500);
         }
     }
-    public function voteHelpful(Request $request, $commentId)
+    public function voteCommentHelpful(Request $request, $commentId)
     {
         try {
             // review owner ( receiver_id )
@@ -64,7 +64,9 @@ class CommentController extends Controller
             ], 500);
         }
     }
-    public function voteNotHelpful(Request $request, $commentId)
+
+
+    public function voteCommentNotHelpful(Request $request, $commentId)
     {
         try {
             // review owner ( receiver_id )
