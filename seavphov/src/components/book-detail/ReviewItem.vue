@@ -12,13 +12,14 @@
     </a>
 
     <!-- Review delete Button -->
-    <FwbButton
-      @click="deleteReview(review.id)"
-      color="red"
-      class="absolute right-2 top-0"
+    <LoadingButton
       v-if="review.delete_able"
-      >Delete</FwbButton
-    >
+      :isLoading="isDeleting"
+      class="absolute right-2 top-0"
+      color="danger"
+      text="Delete"
+      @click="deleteReview(review.id)"
+    />
 
     <!-- Review Date -->
     <p class="text-xs text-sp-gray">
@@ -68,6 +69,7 @@ export default {
     return {
       isLoadingLike: false,
       isLoadingDislike: false,
+      isDeleting: false,
     };
   },
   methods: {
@@ -88,10 +90,12 @@ export default {
       this.isLoadingDislike = false;
     },
     async deleteReview(id) {
+      this.isDeleting = true;
       const response = await this.$store.dispatch("deleteReview", id);
       if (response) {
         this.$emit("onRemove", id);
       }
+      this.isDeleting = false;
     },
   },
 };

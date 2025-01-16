@@ -22,7 +22,11 @@ import ReviewItem from "./ReviewItem.vue";
 export default {
   name: "BookReview",
   components: { AddReview, ReviewItem, Loader },
-  props: { book_id: Number },
+  props: {
+    book_id: {
+      type: [Number, String],
+    },
+  },
   data() {
     return {
       reviews: [],
@@ -45,7 +49,7 @@ export default {
         this.isLoading = true;
         this.reviews = await this.$store.dispatch(
           "fetchBookReviews",
-          this.book_id,
+          this.book_id
         );
         this.isLoading = false;
       },

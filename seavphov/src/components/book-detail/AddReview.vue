@@ -36,7 +36,11 @@ import { MDBTextarea } from "mdb-vue-ui-kit";
 export default {
   name: "AddReview",
   components: { MDBTextarea },
-  props: { book_id: Number },
+  props: {
+    book_id: {
+      type: [Number, String],
+    },
+  },
   data() {
     return {
       review: {

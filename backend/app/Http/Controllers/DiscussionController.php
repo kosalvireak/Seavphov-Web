@@ -10,6 +10,32 @@ use Illuminate\Http\Request;
 class DiscussionController extends Controller
 {
 
+    public function fetchDiscussionById(Request $request,$id) {
+        try{
+
+            $userId = null;
+
+            // Check if the user attribute exists and get the user ID
+            if ($request->attributes->has('user')) {
+                $userId = $request->attributes->get('user')->id;
+            }
+            $discussion = Discussion::findOrFail($id);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully get discussion',
+                'data' => $discussion->getData($userId)
+            ], 200);
+        }catch(Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get discussion!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+        
+    }
+
     public function fetchDiscussions(Request $request)
     {
         try {

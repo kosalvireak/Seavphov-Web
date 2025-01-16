@@ -53,6 +53,7 @@ Route::prefix('review')->group(function () {
 
 Route::prefix('discussions')->group(function () {
     Route::get('', [DiscussionController::class, 'fetchDiscussions'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('{id}', [DiscussionController::class, 'fetchDiscussionById'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::post('', [DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 

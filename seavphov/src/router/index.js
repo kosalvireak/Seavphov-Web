@@ -20,6 +20,7 @@ import AuthLayout from "../layout/AuthLayout.vue";
 import AdminLayout from "../layout/AdminLayout.vue";
 import DashboardOverview from "../view/admin/DashboardOverview.vue";
 import Discussion from "../view/Discussion.vue";
+import DiscussionDetail from "../view/DiscussionDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -136,6 +137,11 @@ const router = createRouter({
           path: "/discussion",
           name: "discussion",
           component: Discussion,
+        },
+        {
+          path: "/discussion/:id",
+          name: "discussion-detail",
+          component: DiscussionDetail,
         },
       ],
     },

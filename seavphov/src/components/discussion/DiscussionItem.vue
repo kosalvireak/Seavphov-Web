@@ -1,9 +1,10 @@
 <template>
   <section
+    v-if="data.user"
     class="DiscussionItem container rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
     <!-- Discussion header -->
-     
+
     <a
       :href="`/profile/${data.user[0].uuid}`"
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
@@ -16,19 +17,20 @@
 
         <!-- Discussion Date -->
         <p class="text-xs text-sp-gray">
-        posted on {{ formatDate(data.created_at) }}
-      </p>
+          posted on {{ formatDate(data.created_at) }}
+        </p>
       </div>
     </a>
-    
 
     <!-- Discussion delete Button -->
-    <FwbButton
+    <LoadingButton
       v-if="data.delete_able"
-      color="red"
+      :isLoading="isDeleting"
       class="absolute right-2 top-0"
-      >Delete</FwbButton
-    >
+      color="danger"
+      text="Delete"
+      @click="deleteDiscussion(data.id)"
+    />
 
     <!-- Discussion Body -->
     <div class="w-100 ml-2">
@@ -46,9 +48,8 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(review.id)"
         >
-        <i class="fa-regular fa-thumbs-up fa-xl"></i>
+          <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ data.helpful_vote }}
-        
         </span>
       </div>
       <div class="flex-center w-fit min-w-16">
@@ -59,18 +60,15 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteNotHelpful(review.id)"
         >
-        <i class="fa-regular fa-thumbs-down fa-xl"></i>
-        {{ data.not_helpful_vote }}
+          <i class="fa-regular fa-thumbs-down fa-xl"></i>
+          {{ data.not_helpful_vote }}
         </span>
       </div>
-      <div
-        class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200"
-      >
+      <div class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200">
         <span
           class="clickable px-2 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteHelpful(review.id)"
-          ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
+          @click="toRouteName('discussion-detail', data.id)"
+          ><i class="fa fa-commenting" aria-hidden="true"> </i>:
           {{ data.number_of_comments }}
         </span>
       </div>
@@ -83,6 +81,19 @@ export default {
   name: "DiscussionItem",
   props: {
     data: Object,
+  },
+  data() {
+    return {
+      isDeleting: false,
+    };
+  },
+  methods: {
+    async deleteDiscussion(id) {
+      this.isDeleting = true;
+      const response = await this.$store.dispatch("deleteDiscussion", id);
+      this.toRouteName("discussions");
+      this.isDeleting = false;
+    },
   },
   // {
   //   "id": 1,
