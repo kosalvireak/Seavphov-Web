@@ -52,7 +52,7 @@ class DiscussionController extends Controller
 
             $items = [];
             foreach ($discussions as $discussion) {
-                $items[] = $discussion->getData($userId);
+                $items[] = $discussion->getData($userId, true);
             }
 
             return response()->json([

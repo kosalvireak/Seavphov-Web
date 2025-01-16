@@ -29,12 +29,18 @@
       class="absolute right-2 top-0"
       color="danger"
       text="Delete"
-      @click="deleteDiscussion(data.id)"
+      @click="deleteDiscussion()"
     />
 
     <!-- Discussion Body -->
     <div class="w-100 ml-2">
       {{ data.body }}
+      <span
+        v-if="data.has_more_text"
+        @click="toDiscussionDetail()"
+        class="text-gray-400 text-sm italic clickable"
+        >...see more</span
+      >
     </div>
     <div class="w-100 max-h-72 border border-gray-100 rounded-lg flex-center">
       <img :src="data.image" class="max-h-64" alt="discussion image" />
@@ -67,7 +73,7 @@
       <div class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200">
         <span
           class="clickable px-2 py-1 rounded-lg text-md h-100"
-          @click="toRouteName('discussion-detail', data.id)"
+          @click="toDiscussionDetail()"
           ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
           {{ data.number_of_comments }}
         </span>
@@ -88,9 +94,16 @@ export default {
     };
   },
   methods: {
-    async deleteDiscussion(id) {
+    toDiscussionDetail() {
+      this.toRouteName("discussion-detail", this.data.id);
+    },
+
+    async deleteDiscussion() {
       this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteDiscussion", id);
+      const response = await this.$store.dispatch(
+        "deleteDiscussion",
+        this.data.id
+      );
       this.toRouteName("discussions");
       this.isDeleting = false;
     },

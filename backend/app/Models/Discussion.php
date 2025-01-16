@@ -24,13 +24,16 @@ class Discussion extends Model
         return $this->belongsTo(User::class, 'owner_id')->select(['name', 'picture', 'uuid'])->get();
     }
 
-    public function getData($userId = null)
+    public function getData($userId = null, $truncate = false)
     {
         $deleteAble = $userId == null ? false : $userId == $this->owner_id;
+
+        $body = $truncate ? substr($this->body, 0, 255)  : $this->body;
         return [
             'id' => $this->id,
             'user' => $this->owner(),
-            'body' => $this->body,
+            'body' => $body,
+            'has_more_text' => $this->body != $body,
             'image' => $this->image,
             'number_of_comments' => $this->comments,
             'helpful_vote' => $this->helpful_vote,
