@@ -3,13 +3,24 @@
     class="DiscussionItem container rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
     <!-- Discussion header -->
+     
     <a
       :href="`/profile/${data.user[0].uuid}`"
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
-      <img class="sp-logo-sm rounded-full mr-2" :src="data.user[0].picture" />
-      <p class="m-0 text-sp-dark">{{ data.user[0].name }}</p>
+      <img class="sp-logo-md rounded-full m-2" :src="data.user[0].picture" />
+
+      <div class="flex-col mt-3">
+        <!-- User Name -->
+        <p class="m-0 text-sp-dark">{{ data.user[0].name }}</p>
+
+        <!-- Discussion Date -->
+        <p class="text-xs text-sp-gray">
+        posted on {{ formatDate(data.created_at) }}
+      </p>
+      </div>
     </a>
+    
 
     <!-- Discussion delete Button -->
     <FwbButton
@@ -18,11 +29,6 @@
       class="absolute right-2 top-0"
       >Delete</FwbButton
     >
-
-    <!-- Discussion Date -->
-    <p class="text-xs text-sp-gray">
-      posted on {{ formatDate(data.created_at) }}
-    </p>
 
     <!-- Discussion Body -->
     <div class="w-100 py-2">

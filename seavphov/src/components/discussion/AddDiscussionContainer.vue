@@ -1,14 +1,14 @@
 <template>
-  <section>
+  <section class="AddDiscussionContainer">
     <div
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
     >
-      <p class="mb-0">Sign up to add a discussion!</p>
+      <p class="mb-0">Sign in to add a discussion!</p>
 
       <FwbButton
         @click="toRouteName('signup')"
-        gradient="green"
+        color="green"
         class="m-0 px-2 text-xs w-fit"
         >Signup</FwbButton
       >

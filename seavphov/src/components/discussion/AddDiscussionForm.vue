@@ -11,7 +11,7 @@
       />
       <div
         @click="showModal"
-        class="w-full ring-1 ring-gray-300 rounded-lg p-2 hover:bg-gray-300 clickable"
+        class="w-full rounded-lg p-2 hover:bg-gray-300 clickable"
       >
         What's on your mind?
       </div>
