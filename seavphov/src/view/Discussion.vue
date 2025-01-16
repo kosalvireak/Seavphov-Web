@@ -9,7 +9,7 @@
       <DiscussionItem
         v-for="discussion in discussions"
         :key="discussion"
-        :data="discussion"
+        :discussion="discussion"
       />
     </div>
     <div class="col-span-3 bg-green-400">Right</div>

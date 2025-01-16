@@ -31,7 +31,7 @@
                 <span class="fw-bold">Category: </span>{{ book.categories }}
               </li>
               <FwbButton
-                :gradient="buttonColor"
+                :color="buttonColor"
                 class="mt-2 px-2 text-xs w-fit"
                 >{{ buttonText }}</FwbButton
               >
