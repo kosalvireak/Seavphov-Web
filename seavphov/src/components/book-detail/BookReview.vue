@@ -6,7 +6,7 @@
       v-for="review in reviews"
       :key="review.id"
       :review="review"
-      @on-remove="onReviewReview($event)"
+      @on-remove="onRemoveReview($event)"
     />
     <div v-if="isLoading" class="w-100 h-24 flex-center">
       <Loader :size="30" />
@@ -37,7 +37,7 @@ export default {
     onAddReview(review) {
       this.reviews.push(review);
     },
-    onReviewReview(id) {
+    onRemoveReview(id) {
       this.reviews = this.reviews.filter((review) => review.id !== id);
     },
   },
@@ -49,7 +49,7 @@ export default {
         this.isLoading = true;
         this.reviews = await this.$store.dispatch(
           "fetchBookReviews",
-          this.book_id,
+          this.book_id
         );
         this.isLoading = false;
       },

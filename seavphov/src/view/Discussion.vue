@@ -44,3 +44,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.Discussion {
+  min-height: 100vh;
+}
+</style>
