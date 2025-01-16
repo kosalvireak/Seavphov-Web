@@ -68,7 +68,7 @@
         <span
           class="clickable px-2 py-1 rounded-lg text-md h-100"
           @click="toRouteName('discussion-detail', data.id)"
-          ><i class="fa fa-commenting" aria-hidden="true"> </i>:
+          ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
           {{ data.number_of_comments }}
         </span>
       </div>
