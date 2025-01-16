@@ -42,12 +42,12 @@ class CommentController extends Controller
     public function voteCommentHelpful(Request $request, $commentId)
     {
         try {
-            // review owner ( receiver_id )
+            // comment owner ( receiver_id )
             // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
 
-            NotificationService::storeNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your review as helpful!');
+            NotificationService::storeCommentNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your comment as helpful!');
 
             $comment->helpful_vote = $comment->helpful_vote + 1;
             $comment->save();
@@ -69,11 +69,11 @@ class CommentController extends Controller
     public function voteCommentNotHelpful(Request $request, $commentId)
     {
         try {
-            // review owner ( receiver_id )
+            // comment owner ( receiver_id )
             // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
-            NotificationService::storeNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your comment as not helpful!');
+            NotificationService::storeCommentNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your comment as not helpful!');
 
             $comment->not_helpful_vote = $comment->not_helpful_vote + 1;
             $comment->save();
@@ -135,7 +135,7 @@ class CommentController extends Controller
 
             $discussion_id = $validatedData['discussion_id'];
 
-            $review = Comment::create([
+            $comment = Comment::create([
                 'body' => $validatedData['body'],
                 'discussion_id' => $discussion_id,
                 'owner_id' => $user->id,
@@ -146,16 +146,16 @@ class CommentController extends Controller
             $discussion = Discussion::findOrFail($discussion_id);
 
             // receiver_id is book owner_id
-            NotificationService::storeNotification($user->id, $discussion->owner_id, $discussion_id, 'added a comment!');
+            NotificationService::storeCommentNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully added a review',
-                'data' => $review->getData(),
+                'message' => 'Successfully added a comment',
+                'data' => $comment->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot add review!',
+                'message' => 'Cannot add comment!',
                 'error' => $exception->getMessage()
             ], 500);
         }

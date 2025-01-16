@@ -17,12 +17,14 @@ class NotificationController extends Controller
             
             foreach ($notifications as $notification) {
                 $user = User::Find($notification->user_id);
+
                  $items[]=[
                         'user_picture' =>  $user->picture,
                         'user_name' =>  $user->name,
-                        'book_image' => Book::Find($notification->book_id)->images,
+                        'object_image' => $notification->getObjectImage(),
                         'body' => $notification->body,
-                        'book_id' =>  $notification->book_id,
+                        'object_id' =>  $notification->object_id,
+                        'type'=> $notification->type,
                         'date' => $notification->created_at,
                     ];
             }

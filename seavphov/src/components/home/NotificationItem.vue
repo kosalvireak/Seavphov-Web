@@ -2,7 +2,7 @@
   <div class="NotificationItem w-100 my-2">
     <router-link
       class="notification-list text-black"
-      :to="`/book/${item.book_id}`"
+      :to="`/${item.type}/${item.object_id}`"
     >
       <div class="grid grid-cols-12 items-center px-2">
         <img
@@ -21,7 +21,7 @@
           </p>
         </div>
         <img
-          :src="item.book_image"
+          :src="item.object_image"
           alt="Feature image"
           class="col-span-2 h-16 w-10 justify-self-end"
         />

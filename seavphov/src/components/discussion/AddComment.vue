@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="AddComment container p-0">
     <div
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
@@ -22,7 +22,7 @@
         <MDBTextarea
           label="Add a comment"
           rows="3"
-          v-model="review.body"
+          v-model="comment.body"
           required
         />
       </div>
@@ -51,14 +51,14 @@ export default {
   },
   methods: {
     async addComment() {
-      if (!this.review.body.trim()) {
+      if (!this.comment.body.trim()) {
         this.$toast.warning("Comment can't be empty");
       }
       this.isLoading = true;
       let formData = new FormData();
-      formData.append("body", this.review.body);
+      formData.append("body", this.comment.body);
       formData.append("discussion_id", this.discussion_id);
-      const data = await this.$store.dispatch("addComment", formData);
+      const data = await this.$store.dispatch("createComment", formData);
       this.resetForm();
       this.isLoading = false;
       data.delete_able = true;

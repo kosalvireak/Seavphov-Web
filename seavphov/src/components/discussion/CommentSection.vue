@@ -1,10 +1,10 @@
 <template>
-  <section class="CommentSection">
-    <AddReview
+  <section class="CommentSection space-y-2">
+    <AddComment
       :discussion_id="discussion_id"
       @on-add-comment="onAddComment($event)"
     />
-    <ReviewItem
+    <CommentItem
       v-for="comment in comments"
       :key="comment.id"
       :comment="comment"

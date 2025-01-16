@@ -25,7 +25,7 @@ class Comment extends Model
 
     public function getData($userId = null)
     {
-        $deleteAble = $userId == null ? false : $userId == $this->user_id;
+        $deleteAble = $userId == null ? false : $userId == $this->owner_id;
         return [
             'id' => $this->id,
             'user' => $this->owner(),
