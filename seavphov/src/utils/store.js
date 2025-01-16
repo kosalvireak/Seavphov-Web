@@ -547,7 +547,7 @@ const store = createStore({
           return response.data.message;
         }
       } catch (error) {
-        console.error("Error adding comment:", error);
+        console.error("Error deleting comment:", error);
         toast.error(error.response.data.message);
       }
     },

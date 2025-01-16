@@ -19,7 +19,13 @@ class CommentController extends Controller
 
             $comment = Comment::findOrFail($id);
 
-            if ($comment->user_id != $user->id) {
+            
+            $discussion = Discussion::findOrFail($comment->discussion_id);
+
+            $discussion->comments = $discussion->comments - 1;
+            $discussion->save();
+
+            if ($comment->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'No permission',
@@ -144,6 +150,9 @@ class CommentController extends Controller
             ]);
 
             $discussion = Discussion::findOrFail($discussion_id);
+
+            $discussion->comments = $discussion->comments + 1;
+            $discussion->save();
 
             // receiver_id is book owner_id
             NotificationService::storeCommentNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
