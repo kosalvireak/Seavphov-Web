@@ -11,7 +11,6 @@
   </section>
 </template>
 
-
 <script>
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
 export default {
@@ -42,5 +41,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

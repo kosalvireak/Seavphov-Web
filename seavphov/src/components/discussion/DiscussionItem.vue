@@ -8,7 +8,10 @@
       :href="`/profile/${discussion.user[0].uuid}`"
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
-      <img class="sp-logo-md rounded-full m-2" :src="discussion.user[0].picture" />
+      <img
+        class="sp-logo-md rounded-full m-2"
+        :src="discussion.user[0].picture"
+      />
 
       <div class="flex-col mt-3">
         <!-- User Name -->
@@ -23,7 +26,7 @@
 
     <!-- Discussion delete Button -->
     <DiscussionItemDropdown
-    v-if="discussion.delete_able"
+      v-if="discussion.delete_able"
       :id="discussion.id"
       class="absolute right-2 top-0"
     />
@@ -79,10 +82,10 @@
 </template>
 
 <script>
-import DiscussionItemDropdown from './DiscussionItemDropdown.vue';
+import DiscussionItemDropdown from "./DiscussionItemDropdown.vue";
 export default {
   name: "DiscussionItem",
-  components:{DiscussionItemDropdown},
+  components: { DiscussionItemDropdown },
   props: {
     discussion: Object,
   },
@@ -100,7 +103,7 @@ export default {
       this.isDeleting = true;
       const response = await this.$store.dispatch(
         "deleteDiscussion",
-        this.discussion.id
+        this.discussion.id,
       );
       this.toRouteName("discussions");
       this.isDeleting = false;

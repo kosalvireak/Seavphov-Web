@@ -49,7 +49,7 @@ export default {
         this.isLoading = true;
         this.reviews = await this.$store.dispatch(
           "fetchBookReviews",
-          this.book_id
+          this.book_id,
         );
         this.isLoading = false;
       },

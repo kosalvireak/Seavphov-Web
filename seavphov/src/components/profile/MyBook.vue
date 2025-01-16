@@ -30,11 +30,9 @@
               <li>
                 <span class="fw-bold">Category: </span>{{ book.categories }}
               </li>
-              <FwbButton
-                :color="buttonColor"
-                class="mt-2 px-2 text-xs w-fit"
-                >{{ buttonText }}</FwbButton
-              >
+              <FwbButton :color="buttonColor" class="mt-2 px-2 text-xs w-fit">{{
+                buttonText
+              }}</FwbButton>
             </ul>
           </div>
           <MyBookDropdown
