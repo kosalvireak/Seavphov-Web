@@ -41,7 +41,7 @@
         >...see more</span
       >
     </div>
-    <div class="w-100 max-h-72 border border-gray-100 rounded-lg flex-center">
+    <div class="w-100 max-h-72  flex-center">
       <img :src="discussion.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">
