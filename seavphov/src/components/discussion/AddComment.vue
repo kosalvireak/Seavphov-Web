@@ -4,7 +4,7 @@
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
     >
-      <p class="mb-0">Sign up to leave a comment!</p>
+      <p class="mb-0">Sign in to leave a comment!</p>
 
       <FwbButton
         @click="toRouteName('signup')"
@@ -18,15 +18,17 @@
       v-on:submit.prevent="addComment()"
       class="d-flex flex-column align-items-end"
     >
-      <div class="w-100 mb-2">
+      
+      <div class="position-relative w-100 mb-2">
         <MDBTextarea
           label="Add a comment"
           rows="3"
           v-model="comment.body"
           required
         />
+        <LoadingButton :isLoading="isLoading" class="w-20 position-absolute end-0 bottom-0 me-2 mb-2" text="Comment" type="submit" />
       </div>
-      <LoadingButton :isLoading="isLoading" text="Submit" type="submit" />
+      
     </form>
   </section>
 </template>
