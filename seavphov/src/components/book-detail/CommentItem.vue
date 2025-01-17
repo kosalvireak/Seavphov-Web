@@ -8,10 +8,18 @@
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
       <img
-        class="sp-logo-sm rounded-full mr-2"
+        class="sp-logo-md rounded-full m-2"
         :src="comment.user[0].picture"
       />
-      <p class="m-0 text-sp-dark">{{ comment.user[0].name }}</p>
+      <div class="flex-col mt-3">
+        <p class="m-0 text-sp-dark">{{ comment.user[0].name }}</p>
+
+         <!-- Comment Date -->
+        <p class="text-xs text-sp-gray">
+        posted on {{ formatDate(comment.created_at) }}
+    </p>
+      </div>
+      
     </a>
 
     <!-- Comment delete Button -->
@@ -24,36 +32,34 @@
       @click="deleteComment(comment.id)"
     />
 
-    <!-- Comment Date -->
-    <p class="text-xs text-sp-gray">
-      Commented on {{ formatDate(comment.created_at) }}
-    </p>
-    <div class="w-100 min-h-12 border border-gray-100 rounded-lg p-2">
+   
+    <div class="w-100 min-h-12 m-2">
       {{ comment.body }}
     </div>
 
-    <div class="d-flex justify-content-end space-x-2">
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
+    <div class="d-flex justify-content-start space-x-2">
+      <div class="flex-center w-fit min-w-16 mr-1">
         <Loader v-if="isLoadingDislike" />
         <span
           v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteNotHelpful(comment.id)"
         >
-          Not Helpful: {{ comment.not_helpful_vote }}
+          <i class="fa-regular fa-thumbs-up fa-xl"></i>
+          {{ comment.helpful_vote }}
         </span>
       </div>
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
+      <div class="flex-center w-fit min-w-16">
         <Loader v-if="isLoadingLike" />
         <span
           v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(comment.id)"
         >
-          Helpful:
-          {{ comment.helpful_vote }}
+          <i class="fa-regular fa-thumbs-down fa-xl"></i>
+          {{ comment.not_helpful_vote }}
         </span>
       </div>
     </div>
