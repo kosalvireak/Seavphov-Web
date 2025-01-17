@@ -11,6 +11,7 @@
     <div class="mt-3 w-100 space-y-8">
       <MostReviewed />
       <NewestAddition />
+      <DiscussionHomepage/>
       <PaginatedBook />
     </div>
   </div>
@@ -22,6 +23,7 @@ import NewestAddition from "../components/home/NewestAddition.vue";
 import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
 import Carousel from "../components/home/Carousel.vue";
+import DiscussionHomepage from "../components/discussion/DiscussionHomepage.vue";
 
 export default {
   name: "Home",
@@ -31,6 +33,7 @@ export default {
     Carousel,
     NewestAddition,
     MostReviewed,
+    DiscussionHomepage,
   },
   data() {
     return {
