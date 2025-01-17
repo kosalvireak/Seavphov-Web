@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     onAddComment(review) {
-      this.comments.push(review);
+      this.comments.unshift(review);
     },
     onRemoveComment(id) {
       this.comments = this.comments.filter((comment) => comment.id !== id);

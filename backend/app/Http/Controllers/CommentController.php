@@ -53,19 +53,19 @@ class CommentController extends Controller
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
 
-            NotificationService::storeCommentNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your comment as helpful!');
+            NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'like your comment!');
 
             $comment->helpful_vote = $comment->helpful_vote + 1;
             $comment->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully vote comment as helpful',
+                'message' => 'Successfully like comment',
                 'data' => $comment->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot vote comment!',
+                'message' => 'Cannot like comment!',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -79,19 +79,19 @@ class CommentController extends Controller
             // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
-            NotificationService::storeCommentNotification($user->id, $comment->user_id, $comment->discussion_id, 'mark your comment as not helpful!');
+            NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'dislike your comment!');
 
             $comment->not_helpful_vote = $comment->not_helpful_vote + 1;
             $comment->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully vote comment as not helpful',
+                'message' => 'Successfully unlike',
                 'data' => $comment->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot vote comment!',
+                'message' => 'Cannot unlike comment!',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -155,7 +155,7 @@ class CommentController extends Controller
             $discussion->save();
 
             // receiver_id is book owner_id
-            NotificationService::storeCommentNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
+            NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully added a comment',

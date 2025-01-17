@@ -7,19 +7,15 @@
       :href="`/profile/${comment.user[0].uuid}`"
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
-      <img
-        class="sp-logo-md rounded-full m-2"
-        :src="comment.user[0].picture"
-      />
+      <img class="sp-logo-md rounded-full m-2" :src="comment.user[0].picture" />
       <div class="flex-col mt-3">
         <p class="m-0 text-sp-dark">{{ comment.user[0].name }}</p>
 
-         <!-- Comment Date -->
+        <!-- Comment Date -->
         <p class="text-xs text-sp-gray">
-        posted on {{ formatDate(comment.created_at) }}
-    </p>
+          posted on {{ formatDate(comment.created_at) }}
+        </p>
       </div>
-      
     </a>
 
     <!-- Comment delete Button -->
@@ -32,31 +28,30 @@
       @click="deleteComment(comment.id)"
     />
 
-   
     <div class="w-100 min-h-12 m-2">
       {{ comment.body }}
     </div>
 
     <div class="d-flex justify-content-start space-x-2">
       <div class="flex-center w-fit min-w-16 mr-1">
-        <Loader v-if="isLoadingDislike" />
+        <Loader v-if="isLoadingLike" />
         <span
           v-else
           class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteNotHelpful(comment.id)"
+          @click="voteCommentHelpful(comment.id)"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ comment.helpful_vote }}
         </span>
       </div>
       <div class="flex-center w-fit min-w-16">
-        <Loader v-if="isLoadingLike" />
+        <Loader v-if="isLoadingDislike" />
         <span
           v-else
           class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteHelpful(comment.id)"
+          @click="voteCommentNotHelpful(comment.id)"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
           {{ comment.not_helpful_vote }}
@@ -82,17 +77,17 @@ export default {
     };
   },
   methods: {
-    async voteHelpful(id) {
+    async voteCommentHelpful(id) {
       this.isLoadingLike = true;
-      const data = await this.$store.dispatch("voteHelpful", id);
+      const data = await this.$store.dispatch("voteCommentHelpful", id);
       if (data) {
         this.comment.helpful_vote = data.helpful_vote;
       }
       this.isLoadingLike = false;
     },
-    async voteNotHelpful(id) {
+    async voteCommentNotHelpful(id) {
       this.isLoadingDislike = true;
-      const data = await this.$store.dispatch("voteNotHelpful", id);
+      const data = await this.$store.dispatch("voteCommentNotHelpful", id);
       if (data) {
         this.comment.not_helpful_vote = data.not_helpful_vote;
       }

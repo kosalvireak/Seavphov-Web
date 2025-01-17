@@ -4,11 +4,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discussion;
+use App\Service\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
 
 class DiscussionController extends Controller
 {
+    
+    public function likeDiscussion(Request $request, $discussionId)
+    {
+        try {
+            $user = $request->attributes->get('user');
+            $discussion = Discussion::find($discussionId);
+
+            NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'like your discussion!');
+
+            $discussion->helpful_vote = $discussion->helpful_vote + 1;
+            $discussion->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully like discussion',
+                'data' => $discussion->getData(),
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot like discussion!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function dislikeDiscussion(Request $request, $discussionId)
+    {
+        try {
+             $user = $request->attributes->get('user');
+            $discussion = Discussion::find($discussionId);
+
+            NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'dislike your discussion!');
+
+            $discussion->not_helpful_vote = $discussion->not_helpful_vote + 1;
+            $discussion->save();
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot unlike discussion!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
 
     public function fetchDiscussionById(Request $request,$id) {
         try{

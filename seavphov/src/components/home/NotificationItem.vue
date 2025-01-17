@@ -1,5 +1,7 @@
 <template>
-  <div class="NotificationItem w-100 my-2">
+  <div
+    class="NotificationItem w-100 py-2 hover:bg-gray-200 transition duration-300 ease-in-out"
+  >
     <router-link
       class="notification-list text-black"
       :to="`/${item.type}/${item.object_id}`"

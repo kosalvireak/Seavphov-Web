@@ -41,7 +41,7 @@
         >...see more</span
       >
     </div>
-    <div class="w-100 max-h-72  flex-center">
+    <div class="w-100 max-h-72 flex-center">
       <img :src="discussion.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">
@@ -51,7 +51,7 @@
           v-else
           class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteHelpful(review.id)"
+          @click="likeDiscussion()"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ discussion.helpful_vote }}
@@ -63,7 +63,7 @@
           v-else
           class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteNotHelpful(review.id)"
+          @click="dislikeDiscussion()"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
           {{ discussion.not_helpful_vote }}
@@ -89,9 +89,11 @@ export default {
   props: {
     discussion: Object,
   },
-  discussion() {
+  data() {
     return {
       isDeleting: false,
+      isLoadingLike: false,
+      isLoadingDislike: false,
     };
   },
   methods: {
@@ -99,11 +101,34 @@ export default {
       this.toRouteName("discussion-detail", this.discussion.id);
     },
 
+    async likeDiscussion() {
+      this.isLoadingLike = true;
+      const data = await this.$store.dispatch(
+        "likeDiscussion",
+        this.discussion.id
+      );
+      if (data) {
+        this.discussion.helpful_vote = data.helpful_vote;
+      }
+      this.isLoadingLike = false;
+    },
+    async dislikeDiscussion(id) {
+      this.isLoadingDislike = true;
+      const data = await this.$store.dispatch(
+        "dislikeDiscussion",
+        this.discussion.id
+      );
+      if (data) {
+        this.discussion.not_helpful_vote = data.not_helpful_vote;
+      }
+      this.isLoadingDislike = false;
+    },
+
     async deleteDiscussion() {
       this.isDeleting = true;
       const response = await this.$store.dispatch(
         "deleteDiscussion",
-        this.discussion.id,
+        this.discussion.id
       );
       this.toRouteName("discussions");
       this.isDeleting = false;

@@ -524,9 +524,31 @@ const store = createStore({
       }
     },
 
+
+    async likeDiscussion({ }, discussionId) {
+      try {
+        const response = await getData(`/api/discussions/like/${discussionId}`, true);
+        if (response.data.success) {
+          toast.success(response.data.message);
+          return response.data.data;
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    },
+    async dislikeDiscussion({ }, discussionId) {
+      try {
+        const response = await getData(`/api/discussions/dislike/${discussionId}`, true);
+        if (response.data.success) {
+          toast.success(response.data.message);
+          return response.data.data;
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    },
+
     // Comment
-
-
     async fetchDiscussionComments({ }, discussionId) {
       try {
         const response = await getData(`/api/comment/discussion/${discussionId}`, true);

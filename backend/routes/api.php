@@ -63,6 +63,8 @@ Route::prefix('comment')->group(function () {
 Route::prefix('discussions')->group(function () {
     Route::get('', [DiscussionController::class, 'fetchDiscussions'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('{id}', [DiscussionController::class, 'fetchDiscussionById'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/like/{id}', [DiscussionController::class, 'likeDiscussion'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/dislike/{id}', [DiscussionController::class, 'dislikeDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::post('', [DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 
