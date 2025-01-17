@@ -37,7 +37,7 @@ export default {
     async deleteDiscussion() {
       this.isDeleting = true;
       const response = await this.$store.dispatch("deleteDiscussion", this.id);
-      this.toRouteName("discussions");
+      this.$router.go(0);
       this.isDeleting = false;
     },
   },

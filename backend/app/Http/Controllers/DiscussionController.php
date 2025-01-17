@@ -10,6 +10,35 @@ use Illuminate\Http\Request;
 
 class DiscussionController extends Controller
 {
+
+    
+    public function deleteDiscussion(Request $request, $id)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $comment = Discussion::findOrFail($id);
+
+            if ($comment->owner_id != $user->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No permission',
+                ], 403);
+            }
+
+            $comment->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Delete discussion Success',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot delete discussion!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
     
     public function likeDiscussion(Request $request, $discussionId)
     {
