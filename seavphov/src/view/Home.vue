@@ -11,7 +11,7 @@
     <div class="mt-3 w-100 space-y-8">
       <MostReviewed />
       <NewestAddition />
-      <DiscussionHomepage/>
+      <DiscussionHomepage />
       <PaginatedBook />
     </div>
   </div>

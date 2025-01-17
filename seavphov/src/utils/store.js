@@ -621,7 +621,6 @@ const store = createStore({
       }
     },
 
-
     async resetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/", formData, true);

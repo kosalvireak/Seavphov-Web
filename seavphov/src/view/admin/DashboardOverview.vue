@@ -1,7 +1,14 @@
 <template>
-  <section class="DashboardOverview flex-center justify-content-start">
+  <section
+    class="DashboardOverview flex-center justify-content-start space-x-4"
+  >
     <div v-for="item in items" :key="item">
-      <InfoCard :title="item.title" :number="item.number" :icon="item.icon" />
+      <InfoCard
+        :title="item.title"
+        :number="item.number"
+        :icon="item.icon"
+        :routeName="item.routeName"
+      />
     </div>
   </section>
 </template>
@@ -17,21 +24,37 @@ export default {
         {
           title: "Total Users",
           number: null,
-          icon: "fa fa-2xl fa-users",
+          icon: "fa fa-xl fa-users",
+          routeName: "admin.users",
         },
         {
           title: "Total Books",
           number: null,
-          icon: " fa fa-2xl fa-book",
+          icon: " fa fa-xl fa-book",
+          routeName: "admin.books",
+        },
+        {
+          title: "Total Banners",
+          number: null,
+          icon: " fa fa-xl fa-window-maximize",
+          routeName: "admin.banners",
+        },
+        {
+          title: "Total Discussions",
+          number: null,
+          icon: " fa fa-xl fa-comments",
+          routeName: "admin.discussions",
         },
       ],
     };
   },
   methods: {
     async adminGetOverviewData() {
-      [this.items[0].number, this.items[1].number] = await this.$store.dispatch(
-        "adminGetOverviewData",
-      );
+      const response = await this.$store.dispatch("adminGetOverviewData");
+      this.items[0].number = response.totalUsers;
+      this.items[1].number = response.totalBooks;
+      this.items[2].number = response.totalBanners;
+      this.items[3].number = response.totalDiscussions;
     },
   },
   mounted() {

@@ -47,13 +47,13 @@ class BookReviewController extends Controller
             $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
 
-            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'mark your review as helpful!');
+            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'like your review!');
 
             $review->helpful_vote = $review->helpful_vote + 1;
             $review->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully vote review as helpful',
+                'message' => 'Successfully dislike a review',
                 'data' => $review->getData(),
             ], 200);
         } catch (Exception  $exception) {
@@ -71,13 +71,13 @@ class BookReviewController extends Controller
             // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
-            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'mark your review as not helpful!');
+            NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'dislike your review');
 
             $review->not_helpful_vote = $review->not_helpful_vote + 1;
             $review->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully vote review as not helpful',
+                'message' => 'Successfully like a review',
                 'data' => $review->getData(),
             ], 200);
         } catch (Exception  $exception) {

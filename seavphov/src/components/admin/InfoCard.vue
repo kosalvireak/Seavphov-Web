@@ -1,12 +1,13 @@
 <template>
-  <fwb-card href="#">
-    <div class="p-5">
+  <fwb-card @click="toRouteName(routeName)" class="clickable">
+    <div class="p-4">
       <h5
         class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
       >
         {{ title }}
       </h5>
-      <p class="font-normal text-gray-700 dark:text-gray-400">
+      <p class="text-2xl text-gray-700 dark:text-gray-400 mb-0">
+        <i :class="icon" class="mr-2" aria-hidden="true"></i>
         {{ number }}
       </p>
     </div>
@@ -22,6 +23,7 @@ export default {
     title: String,
     number: Number,
     icon: String,
+    routeName: String,
   },
 };
 </script>

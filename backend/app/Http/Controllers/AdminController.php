@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Book;
+use App\Models\Discussion;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -91,10 +93,18 @@ class AdminController extends Controller
         try {
              $totalUsers = User::count() -1 ;
              $totalBooks = Book::count();
+             $totalDiscussions = Discussion::count();
+             $totalBanners = Banner::count();
+
 
             return response()->json([
                 'success' => true,
-                'data' => [$totalUsers,$totalBooks],
+                'data' => [
+                    'totalUsers' => $totalUsers,
+                    'totalBooks' => $totalBooks,
+                    'totalDiscussions' => $totalDiscussions,
+                    'totalBanners' => $totalBanners
+                ],
             ], 200);
         } catch (QueryException  $exception) {
             return response()->json([

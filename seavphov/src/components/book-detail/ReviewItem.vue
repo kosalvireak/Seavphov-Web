@@ -30,7 +30,7 @@
     </div>
 
     <div class="d-flex justify-content-end space-x-2">
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
+      <div class="flex-center w-fit min-w-16 rounded-lg">
         <Loader v-if="isLoadingDislike" />
         <span
           v-else
@@ -38,10 +38,11 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteNotHelpful(review.id)"
         >
-          Not Helpful: {{ review.not_helpful_vote }}
+          <i class="fa-regular fa-thumbs-down fa-xl"></i>
+          {{ review.not_helpful_vote }}
         </span>
       </div>
-      <div class="flex-center w-fit min-w-16 ring-1 ring-gray-300 rounded-lg">
+      <div class="flex-center w-fit min-w-16 rounded-lg">
         <Loader v-if="isLoadingLike" />
         <span
           v-else
@@ -49,7 +50,7 @@
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(review.id)"
         >
-          Helpful:
+          <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ review.helpful_vote }}
         </span>
       </div>

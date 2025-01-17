@@ -47,7 +47,7 @@ export default {
         { text: "CONDITION", value: "condition", sortable: true },
         { text: "CATEGORIES", value: "categories", sortable: true },
         { text: "AVAILABILITY", value: "availability", sortable: true },
-        { text: "DESCRIPTIONS", value: "descriptions", width: 200 },
+        { text: "DESCRIPTIONS", value: "descriptions", width: 500 },
         { text: "CREATED_AT", value: "created_at", sortable: true },
         { text: "ACTION", value: "" },
       ],

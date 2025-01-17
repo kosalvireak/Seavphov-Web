@@ -13,7 +13,7 @@
 
         <!-- Comment Date -->
         <p class="text-xs text-sp-gray">
-          posted on {{ formatDate(comment.created_at) }}
+          commented on {{ formatDate(comment.created_at) }}
         </p>
       </div>
     </a>
