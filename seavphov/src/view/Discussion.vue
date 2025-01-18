@@ -1,6 +1,8 @@
 <template>
   <section class="Discussion grid grid-cols-12 gap-4 w-100">
-    <AdsContainer class="bg-gray-400" />
+    <div class="col-span-3 ml-5 mt-4 justify-center align-item-center">
+      <img src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-1.jpg" class="w-full h-25">
+      </div>
     <div class="col-span-12 lg:col-span-6 mt-4 space-y-6">
       <AddDiscussionContainer @on-add-discussion="onAddDiscussion" />
       <div class="flex-center w-100 h-44" v-if="isLoading">
@@ -12,7 +14,9 @@
         :discussion="discussion"
       />
     </div>
-    <AdsContainer class="bg-green-400" />
+    <div class="col-span-3 mr-5 mt-4">
+      <img src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-2.jpg" class="w-full h-25">
+      </div>
   </section>
 </template>
 
