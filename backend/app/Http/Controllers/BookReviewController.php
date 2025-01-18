@@ -53,13 +53,13 @@ class BookReviewController extends Controller
             $review->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully dislike a review',
+                'message' => 'Successfully like a review',
                 'data' => $review->getData(),
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot vote review!',
+                'message' => 'Cannot like review!',
                 'error' => $exception->getMessage()
             ], 500);
         }

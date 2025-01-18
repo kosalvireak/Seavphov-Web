@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class DiscussionController extends Controller
 {
 
-    
+
     public function deleteDiscussion(Request $request, $id)
     {
         try {
@@ -39,7 +39,7 @@ class DiscussionController extends Controller
             ], 500);
         }
     }
-    
+
     public function likeDiscussion(Request $request, $discussionId)
     {
         try {
@@ -67,25 +67,35 @@ class DiscussionController extends Controller
     public function dislikeDiscussion(Request $request, $discussionId)
     {
         try {
-             $user = $request->attributes->get('user');
+            $user = $request->attributes->get('user');
+
             $discussion = Discussion::find($discussionId);
 
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'dislike your discussion!');
 
             $discussion->not_helpful_vote = $discussion->not_helpful_vote + 1;
             $discussion->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully dislike discussion',
+                'data' => $discussion->getData(),
+            ], 200);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot unlike discussion!',
+                'message' => 'Cannot dislike discussion!',
                 'error' => $exception->getMessage()
             ], 500);
         }
     }
 
 
-    public function fetchDiscussionById(Request $request,$id) {
-        try{
+    public function fetchDiscussionById(Request $request, $id)
+    {
+        try {
+
+
 
             $userId = null;
 
@@ -94,25 +104,27 @@ class DiscussionController extends Controller
                 $userId = $request->attributes->get('user')->id;
             }
             $discussion = Discussion::findOrFail($id);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully get discussion',
                 'data' => $discussion->getData($userId)
             ], 200);
-        }catch(Exception $exception) {
+        } catch (Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot get discussion!',
                 'error' => $exception->getMessage()
             ], 500);
         }
-        
     }
 
     public function fetchDiscussions(Request $request)
     {
         try {
+
+
+            $title = $request->get('title');
 
             $userId = null;
 
@@ -120,7 +132,14 @@ class DiscussionController extends Controller
             if ($request->attributes->has('user')) {
                 $userId = $request->attributes->get('user')->id;
             }
-            $discussions = Discussion::orderBy('created_at', 'desc')
+
+            $query = Discussion::query();
+
+            if (!empty($title)) {
+                $query->where('body', 'like', '%' . $title . '%');
+            }
+            $discussions = $query
+                ->orderBy('created_at', 'desc')
                 ->orderBy('helpful_vote', 'desc')
                 ->get();
 
