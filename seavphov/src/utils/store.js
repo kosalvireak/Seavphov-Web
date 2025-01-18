@@ -500,9 +500,12 @@ const store = createStore({
       }
     },
 
-    async fetchDiscussions({ }) {
+    async fetchDiscussions({ }, title) {
+
+      const params = new URLSearchParams();
+      params.append("title", title);
       try {
-        const response = await getData("/api/discussions", true);
+        const response = await getData(`/api/discussions?${params.toString()}`, true);
         if (response.data.success) {
           return response.data.data;
         }

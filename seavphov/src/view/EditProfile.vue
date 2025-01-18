@@ -159,6 +159,7 @@ export default {
   },
   methods: {
     async Save() {
+      this.isLoading = true;
       this.formData.append("_method", "put");
       this.formData.append("name", this.user.name);
       this.formData.append("email", this.user.email);
@@ -185,7 +186,7 @@ export default {
               this.formData.append("picture", url);
               this.uploadingBook = false;
               console.log("EditProfile this.user.picture", this.user.picture);
-            },
+            }
           );
         }
       } catch (error) {

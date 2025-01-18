@@ -6,7 +6,7 @@
       class="d-flex justify-content-start align-items-center text-decoration-none w-100"
     >
       <img
-        class="sp-logo-sm rounded-full mr-2"
+        class="sp-logo-sm rounded-full mr-2 flex-shrink-0"
         :src="$store.state.user.picture"
       />
       <div
@@ -104,7 +104,7 @@ export default {
       this.formData.append("body", this.discussion.body);
       const response = await this.$store.dispatch(
         "createDiscussion",
-        this.formData,
+        this.formData
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
@@ -122,7 +122,7 @@ export default {
               this.discussion.image = url;
               this.formData.append("image", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {

@@ -4,7 +4,7 @@
       class="hidden md:flex backgroundImg img-fluid w-100 align-items-center justify-content-center"
       :style="getBackground"
     >
-      <Carousel v-if="TopBooks.length" :books="TopBooks" />
+      <Carousel v-if="TopBooks.length" :books="TopBooks.reverse()" />
       <Loader v-if="isLoading" :size="40" />
     </div>
 

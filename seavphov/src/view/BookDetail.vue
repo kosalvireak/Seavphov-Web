@@ -24,7 +24,6 @@
               {{ book.condition }}
             </p>
             <FwbButton
-              v-if="book.availability"
               :color="buttonColor"
               class="mt-3 mb-1 px-2 text-xs w-fit"
               >{{ buttonText }}</FwbButton
@@ -68,7 +67,7 @@
     <div class="RelatedBooks mt-5">
       <hr />
       <RenderBook
-        header="Related books"
+        header="Readers also enjoyed"
         :books="relatedBooks"
         :loading="isLoadingRelatedBooks"
       />

@@ -1,15 +1,15 @@
 <template>
   <section
-    class="DashboardOverview flex-center justify-content-start space-x-4"
+    class="DashboardOverview d-flex flex-wrap justify-content-start gap-4"
   >
-    <div v-for="item in items" :key="item">
-      <InfoCard
-        :title="item.title"
-        :number="item.number"
-        :icon="item.icon"
-        :routeName="item.routeName"
-      />
-    </div>
+    <InfoCard
+      v-for="item in items"
+      :key="item"
+      :title="item.title"
+      :number="item.number"
+      :icon="item.icon"
+      :routeName="item.routeName"
+    />
   </section>
 </template>
 
@@ -43,7 +43,7 @@ export default {
           title: "Total Discussions",
           number: null,
           icon: " fa fa-xl fa-comments",
-          routeName: "admin.discussions",
+          routeName: "discussion",
         },
       ],
     };

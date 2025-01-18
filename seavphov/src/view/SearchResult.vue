@@ -60,7 +60,7 @@ export default {
       this.filters[type] = keyword;
       this.Books = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters,
+        this.filters
       );
       this.filters = {};
       this.isLoading = false;
