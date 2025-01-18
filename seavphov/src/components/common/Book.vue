@@ -1,17 +1,16 @@
 <template>
-  <div
-    class="BookItem clickable relative"
-    @click="toRouteName('book-detail', book.id)"
-  >
+  <div class="BookItem clickable relative">
     <div
       class="w-48 h-full bg-white rounded-lg border border-gray-200 shadow-md"
     >
       <div class="overflow-hidden">
-        <img
-          :alt="book.title"
-          class="sp-img-xs mx-auto hover:scale-110 transition-transform duration-300 ease-in-out"
-          :src="book.images"
-        />
+        <router-link :to="`/book/${book.id}`">
+          <img
+            :alt="book.title"
+            class="sp-img-xs mx-auto hover:scale-110 transition-transform duration-300 ease-in-out"
+            :src="book.images"
+          />
+        </router-link>
       </div>
       <div class="flex flex-col p-2 min-h-24 !space-y-2">
         <h6 class="text-sm mb-0 font-semibold ellipsis-2">

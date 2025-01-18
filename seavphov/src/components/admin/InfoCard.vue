@@ -1,5 +1,5 @@
 <template>
-  <fwb-card @click="toRouteName(routeName)" class="clickable">
+  <fwb-card @click="toRouteName(routeName)" class="clickable w-44 h-40">
     <div class="p-4">
       <h5
         class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"

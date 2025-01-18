@@ -21,12 +21,12 @@
         {{ books.descriptions }}
       </template>
       <template #item-="books">
-        <button
-          class="ellipsis text-center btn btn-danger h-auto"
+        <LoadingButton
+          :isLoading="isDeleting"
+          color="danger"
+          text="Delete"
           @click="adminDeleteBook(books.id)"
-        >
-          <i class="fa fa-trash fa-xl clickable" aria-hidden="true"></i>
-        </button>
+        />
       </template>
     </EasyDataTable>
   </div>
@@ -37,6 +37,7 @@ export default {
   name: "Books",
   data() {
     return {
+      isDeleting: false,
       isLoading: false,
       serverItemsLength: 0,
       headers: [
@@ -61,8 +62,11 @@ export default {
       this.serverItemsLength = this.books.length;
       this.isLoading = false;
     },
+
     async adminDeleteBook(id) {
+      this.isDeleting = true;
       await this.$store.dispatch("adminDeleteBook", id);
+      this.isDeleting = false;
       this.adminGetBooks();
     },
   },

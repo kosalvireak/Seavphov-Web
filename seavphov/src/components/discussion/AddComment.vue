@@ -18,17 +18,21 @@
       v-on:submit.prevent="addComment()"
       class="d-flex flex-column align-items-end"
     >
-      
       <div class="position-relative w-100 mb-2">
         <MDBTextarea
           label="Add a comment"
+          class="py-3"
           rows="3"
           v-model="comment.body"
           required
         />
-        <LoadingButton :isLoading="isLoading" class="w-20 position-absolute end-0 bottom-0 me-2 mb-2" text="Comment" type="submit" />
+        <LoadingButton
+          :isLoading="isLoading"
+          class="w-20 position-absolute end-0 bottom-0 me-2 mb-2"
+          text="Comment"
+          type="submit"
+        />
       </div>
-      
     </form>
   </section>
 </template>
