@@ -1,6 +1,6 @@
 <template>
   <section class="DiscussionDetail min-h-screen grid grid-cols-12 gap-4 w-100">
-    <div class="col-span-3 bg-gray-400">Left</div>
+    <AdsContainer class="bg-gray-400" />
     <div class="col-span-12 lg:col-span-6 mt-4 space-y-6 container">
       <BackRoute />
       <div class="flex-center w-100 h-44" v-if="isLoading">
@@ -9,16 +9,17 @@
       <DiscussionItem :discussion="discussion" />
       <CommentSection :discussion_id="paramsId" />
     </div>
-    <div class="col-span-3 bg-green-400">Right</div>
+    <AdsContainer class="bg-green-400" />
   </section>
 </template>
 
 <script>
+import AdsContainer from "../components/discussion/AdsContainer.vue";
 import CommentSection from "../components/discussion/CommentSection.vue";
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
 export default {
   name: "DiscussionDetail",
-  components: { DiscussionItem, CommentSection },
+  components: { DiscussionItem, CommentSection, AdsContainer },
   data() {
     return {
       discussion: {},

@@ -100,7 +100,7 @@ class BookReviewController extends Controller
         }
 
         $items = [];
-        $reviews = BookReview::where('book_id', $bookId)->get();
+        $reviews = BookReview::where('book_id', $bookId)->orderBy('created_at', 'desc')->get();
 
         foreach ($reviews as $review) {
             $items[] = $review->getData($userId);

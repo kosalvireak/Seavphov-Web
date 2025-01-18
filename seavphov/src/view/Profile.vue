@@ -27,6 +27,7 @@
       <div>
         <RenderBook
           v-if="!isMyBooksPage"
+          :hideHeader="true"
           :books="savedBooks"
           :loading="isLoading"
         />

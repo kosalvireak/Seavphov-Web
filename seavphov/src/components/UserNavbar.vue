@@ -5,7 +5,6 @@
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </a>
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
-        <NavDropdown class="position-absolute right-2" />
         <template v-if="isLogin">
           <div
             class="d-flex align-items-sm-center clickable text-white"
