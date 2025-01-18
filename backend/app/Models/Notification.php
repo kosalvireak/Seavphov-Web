@@ -17,11 +17,18 @@ class Notification extends Model
         'body',
     ];
 
-    public function getObjectImage(){
+    public function getObjectImage(): string{
         if($this->type == 'book'){
-            return Book::Find($this->object_id)->images;
+            $book = Book::Find($this->object_id);
+            return $book != null? $book->images : $this->getImageNotFound();
         }else if($this->type == 'discussion'){
-            return Discussion::Find($this->object_id)->image;
+             $discussion = Discussion::Find($this->object_id);
+             return $discussion != null? $discussion->image : $this->getImageNotFound();
         }
+    }
+
+
+    private function getImageNotFound(): string{
+        return 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
     }
 }
