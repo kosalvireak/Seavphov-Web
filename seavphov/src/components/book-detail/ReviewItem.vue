@@ -46,7 +46,7 @@
         <Loader v-if="isLoadingLike" />
         <span
           v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100 bg-yellow"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
           @click="voteHelpful(review.id)"
         >

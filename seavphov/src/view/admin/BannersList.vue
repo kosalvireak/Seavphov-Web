@@ -1,9 +1,7 @@
 <template>
-  <section
-    class="BannersList shadow-5 rounded-7 flex-center p-2 flex-column w-100"
-  >
+  <section class="BannersList shadow-5 rounded-7 flex-center flex-column w-100">
     <div v-if="page == 1" class="Banners_table">
-      <div class="flex-center m-3">
+      <div class="flex-center mb-3">
         <button
           type="submit"
           class="btn btn-primary btn_submit"
@@ -187,7 +185,7 @@ export default {
       this.formData.append("link_url", this.newBanner.link_url);
       const response = await this.$store.dispatch(
         "adminAddBanner",
-        this.formData,
+        this.formData
       );
       if (response) {
         this.page = 1;
@@ -206,7 +204,7 @@ export default {
               this.newBanner.image_url = url;
               this.formData.append("image_url", url);
               this.uploadingBanner = false;
-            },
+            }
           );
         }
       } catch (error) {

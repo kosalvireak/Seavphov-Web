@@ -1,7 +1,7 @@
 <template>
   <section class="Discussion grid grid-cols-12 w-100 mb-6">
     <div
-      class="col-span-12 lg:col-span-3 h-64 lg:h-50 sm:p-0 lg:p-6 justify-center align-item-center"
+      class="col-span-12 lg:col-span-3 h-64 lg:h-96 sm:p-0 lg:p-6 justify-center align-item-center"
     >
       <img
         src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-1.jpg"
@@ -39,7 +39,7 @@
       />
     </div>
     <div
-      class="col-span-12 lg:col-span-3 hidden lg:flex lg:d-flex h-64 lg:h-50 sm:p-0 lg:p-6"
+      class="col-span-12 lg:col-span-3 hidden lg:flex lg:d-flex h-64 lg:h-96 sm:p-0 lg:p-6"
     >
       <img
         src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-2.jpg"

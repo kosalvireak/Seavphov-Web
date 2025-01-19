@@ -22,25 +22,25 @@ export default {
     return {
       items: [
         {
-          title: "Total Users",
+          title: "Users",
           number: null,
           icon: "fa fa-xl fa-users",
           routeName: "admin.users",
         },
         {
-          title: "Total Books",
+          title: "Books",
           number: null,
           icon: " fa fa-xl fa-book",
           routeName: "admin.books",
         },
         {
-          title: "Total Banners",
+          title: "Banners",
           number: null,
           icon: " fa fa-xl fa-window-maximize",
           routeName: "admin.banners",
         },
         {
-          title: "Total Discussions",
+          title: "Discussions",
           number: null,
           icon: " fa fa-xl fa-comments",
           routeName: "discussion",

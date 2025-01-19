@@ -12,7 +12,7 @@
       <template #item-images="books">
         <img
           :src="books.images"
-          class="img-fluid admin_book m-3 ms-1"
+          class="img-fluid admin_book"
           alt="admin_book"
           loading="lazy"
         />
@@ -78,7 +78,6 @@ export default {
 
 <style scoped>
 .admin_book {
-  height: 100px;
   width: 62px;
   object-fit: cover;
 }

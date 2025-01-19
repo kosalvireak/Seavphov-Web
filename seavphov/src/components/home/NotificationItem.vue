@@ -49,6 +49,8 @@ export default {
 
       if (Math.floor(daysDiff) == 0) {
         return "Today";
+      } else if (Math.floor(daysDiff) == 1) {
+        return "Yesterday";
       } else {
         return Math.floor(daysDiff) + " days ago";
       }

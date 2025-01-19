@@ -1,7 +1,7 @@
 <template>
   <section class="DiscussionHomepage w-100 flex-center">
     <div
-      class="sp-bg-secondary w-50 d-flex flex-column justify-content-center align-items-center rounded-xl"
+      class="sp-bg-secondary container d-flex flex-column justify-content-center align-items-center rounded-xl"
     >
       <span class="text-xl font-bold">Enjoying what you see?</span>
       <span class="text-black-400 mb-3"
