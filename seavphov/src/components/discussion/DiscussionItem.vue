@@ -54,7 +54,7 @@
           @click="likeDiscussion()"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
-          {{ discussion.helpful_vote }}
+          {{ discussion.like }}
         </span>
       </div>
       <div class="flex-center w-fit min-w-16">
@@ -66,7 +66,7 @@
           @click="dislikeDiscussion()"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
-          {{ discussion.not_helpful_vote }}
+          {{ discussion.dislike }}
         </span>
       </div>
       <div class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200">
@@ -108,7 +108,7 @@ export default {
         this.discussion.id
       );
       if (data) {
-        this.discussion.helpful_vote = data.helpful_vote;
+        this.discussion.like = data.like;
       }
       this.isLoadingLike = false;
     },
@@ -119,7 +119,7 @@ export default {
         this.discussion.id
       );
       if (data) {
-        this.discussion.not_helpful_vote = data.not_helpful_vote;
+        this.discussion.dislike = data.dislike;
       }
       this.isLoadingDislike = false;
     },
@@ -145,8 +145,8 @@ export default {
   //   ],
   //   "body": "Good Logo yet?",
   //   "number_of_comments": 0,
-  //   "helpful_vote": 0,
-  //   "not_helpful_vote": 0,
+  //   "like": 0,
+  //   "dislike": 0,
   //   "delete_able": false,
   //   "created_at": "2025-01-15T16:25:20.000000Z"
   // }

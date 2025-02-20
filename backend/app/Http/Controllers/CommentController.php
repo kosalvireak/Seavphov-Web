@@ -19,7 +19,7 @@ class CommentController extends Controller
 
             $comment = Comment::findOrFail($id);
 
-            
+
             $discussion = Discussion::findOrFail($comment->discussion_id);
 
             $discussion->comments = $discussion->comments - 1;
@@ -55,7 +55,7 @@ class CommentController extends Controller
 
             NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'like your comment!');
 
-            $comment->helpful_vote = $comment->helpful_vote + 1;
+            $comment->like = $comment->like + 1;
             $comment->save();
             return response()->json([
                 'success' => true,
@@ -81,7 +81,7 @@ class CommentController extends Controller
             $comment = Comment::find($commentId);
             NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'dislike your comment!');
 
-            $comment->not_helpful_vote = $comment->not_helpful_vote + 1;
+            $comment->dislike = $comment->dislike + 1;
             $comment->save();
             return response()->json([
                 'success' => true,
@@ -145,8 +145,8 @@ class CommentController extends Controller
                 'body' => $validatedData['body'],
                 'discussion_id' => $discussion_id,
                 'owner_id' => $user->id,
-                'helpful_vote' => 0,
-                'not_helpful_vote' => 0,
+                'like' => 0,
+                'dislike' => 0,
             ]);
 
             $discussion = Discussion::findOrFail($discussion_id);

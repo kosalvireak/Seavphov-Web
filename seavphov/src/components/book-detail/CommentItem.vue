@@ -39,7 +39,7 @@
           @click="voteCommentHelpful(comment.id)"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
-          {{ comment.helpful_vote }}
+          {{ comment.like }}
         </span>
       </div>
       <div class="flex-center w-fit min-w-16">
@@ -51,7 +51,7 @@
           @click="voteCommentNotHelpful(comment.id)"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
-          {{ comment.not_helpful_vote }}
+          {{ comment.dislike }}
         </span>
       </div>
     </div>
@@ -78,7 +78,7 @@ export default {
       this.isLoadingLike = true;
       const data = await this.$store.dispatch("voteCommentHelpful", id);
       if (data) {
-        this.comment.helpful_vote = data.helpful_vote;
+        this.comment.like = data.like;
       }
       this.isLoadingLike = false;
     },
@@ -86,7 +86,7 @@ export default {
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch("voteCommentNotHelpful", id);
       if (data) {
-        this.comment.not_helpful_vote = data.not_helpful_vote;
+        this.comment.dislike = data.dislike;
       }
       this.isLoadingDislike = false;
     },

@@ -15,8 +15,8 @@ class Discussion extends Model
         'body',
         'image',
         'comments',
-        'helpful_vote',
-        'not_helpful_vote',
+        'like',
+        'dislike',
     ];
 
     public function owner()
@@ -36,8 +36,8 @@ class Discussion extends Model
             'has_more_text' => $this->body != $body,
             'image' => $this->image,
             'number_of_comments' => $this->comments,
-            'helpful_vote' => $this->helpful_vote,
-            'not_helpful_vote' => $this->not_helpful_vote,
+            'like' => $this->like,
+            'dislike' => $this->dislike,
             'delete_able' => $deleteAble,
             'created_at' => $this->created_at
         ];

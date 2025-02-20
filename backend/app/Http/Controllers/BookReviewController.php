@@ -57,23 +57,23 @@ class BookReviewController extends Controller
             if ($existingReaction) {
                 // If the user liked then like -> reduce helpful vote
                 if ($existingReaction->reaction == true) {
-                    $review->helpful_vote = $review->helpful_vote - 1;
+                    $review->like = $review->like - 1;
                     $existingReaction->delete();
                 } else {
                     // If the user disliked then like -> add helpful vote,  reduce not helpful vote
                     $existingReaction->reaction = true;
                     $existingReaction->save();
 
-                    $review->helpful_vote = $review->helpful_vote + 1;
-                    $review->not_helpful_vote = $review->not_helpful_vote - 1;
+                    $review->like = $review->like + 1;
+                    $review->dislike = $review->dislike - 1;
                 }
                 $review->save();
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully like a review',
                     'reaction' => $existingReaction->reaction || null,
-                    'like' => $review->helpful_vote,
-                    'dislike' => $review->not_helpful_vote
+                    'like' => $review->like,
+                    'dislike' => $review->dislike
                 ], 200);
             } else {
                 // If no reaction exists, create a new one
@@ -83,14 +83,14 @@ class BookReviewController extends Controller
                     'reaction' => true,
                 ]);
 
-                $review->helpful_vote = $review->helpful_vote + 1;
+                $review->like = $review->like + 1;
                 $review->save();
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully like a review',
                     'reaction' => $reviewReaction->reaction,
-                    'like' => $review->helpful_vote,
-                    'dislike' => $review->not_helpful_vote
+                    'like' => $review->like,
+                    'dislike' => $review->dislike
                 ], 200);
             }
         } catch (Exception  $exception) {
@@ -117,24 +117,24 @@ class BookReviewController extends Controller
             if ($existingReaction) {
                 // If the user dislike then dislike -> reduce not helpful vote
                 if ($existingReaction->reaction == false) {
-                    $review->helpful_vote = $review->helpful_vote - 1;
-                    $review->not_helpful_vote = $review->not_helpful_vote + 1;
+                    $review->like = $review->like - 1;
+                    $review->dislike = $review->dislike + 1;
                     $existingReaction->delete();
                 } else {
                     // If the user liked then dislike -> reduce helpful vote,  add not helpful vote
                     $existingReaction->reaction = false;
                     $existingReaction->save();
 
-                    $review->helpful_vote = $review->helpful_vote - 1;
-                    $review->not_helpful_vote = $review->not_helpful_vote - +1;
+                    $review->like = $review->like - 1;
+                    $review->dislike = $review->dislike - +1;
                 }
                 $review->save();
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully dislike a review',
                     'reaction' => $existingReaction->reaction || null,
-                    'like' => $review->helpful_vote,
-                    'dislike' => $review->not_helpful_vote
+                    'like' => $review->like,
+                    'dislike' => $review->dislike
                 ], 200);
             } else {
                 // If no reaction exists, create a new one
@@ -144,15 +144,15 @@ class BookReviewController extends Controller
                     'reaction' => true,
                 ]);
 
-                $review->not_helpful_vote = $review->not_helpful_vote + 1;
+                $review->dislike = $review->dislike + 1;
                 $review->save();
 
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully dislike a review',
                     'reaction' => $reviewReaction->reaction,
-                    'like' => $review->helpful_vote,
-                    'dislike' => $review->not_helpful_vote
+                    'like' => $review->like,
+                    'dislike' => $review->dislike
                 ], 200);
             }
         } catch (Exception  $exception) {
@@ -212,8 +212,8 @@ class BookReviewController extends Controller
                 'body' => $validatedData['body'],
                 'book_id' => $book_id,
                 'user_id' => $user->id,
-                'helpful_vote' => 0,
-                'not_helpful_vote' => 0,
+                'like' => 0,
+                'dislike' => 0,
             ]);
 
             $book = Book::findOrFail($book_id);

@@ -36,7 +36,7 @@
           @click="dislikeReview(review.id)"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
-          {{ review.not_helpful_vote }}
+          {{ review.dislike }}
         </span>
       </div>
       <div class="flex-center w-fit min-w-16 rounded-lg">
@@ -48,7 +48,7 @@
           @click="likeReview(review.id)"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
-          {{ review.helpful_vote }}
+          {{ review.like }}
         </span>
       </div>
     </div>
@@ -76,7 +76,7 @@ export default {
       this.isLoadingLike = true;
       const data = await this.$store.dispatch("likeReview", id);
       if (data) {
-        // this.review.helpful_vote = data.helpful_vote;
+        // this.review.like = data.like;
         console.table(data);
       }
       this.isLoadingLike = false;
@@ -85,7 +85,7 @@ export default {
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch("dislikeReview", id);
       if (data) {
-        // this.review.not_helpful_vote = data.not_helpful_vote;
+        // this.review.dislike = data.dislike;
         console.table(data);
       }
       this.isLoadingDislike = false;

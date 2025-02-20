@@ -14,8 +14,8 @@ class BookReview extends Model
         'book_id',
         'user_id',
         'body',
-        'helpful_vote',
-        'not_helpful_vote',
+        'like',
+        'dislike',
     ];
 
     public function owner()
@@ -35,8 +35,8 @@ class BookReview extends Model
             'id' => $this->id,
             'user' => $this->owner(),
             'body' => $this->body,
-            'helpful_vote' => $this->helpful_vote,
-            'not_helpful_vote' => $this->not_helpful_vote,
+            'like' => $this->like,
+            'dislike' => $this->dislike,
             'delete_able' => $deleteAble,
             'created_at' => $this->created_at
         ];

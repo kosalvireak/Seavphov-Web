@@ -48,7 +48,7 @@ class DiscussionController extends Controller
 
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'like your discussion!');
 
-            $discussion->helpful_vote = $discussion->helpful_vote + 1;
+            $discussion->like = $discussion->like + 1;
             $discussion->save();
             return response()->json([
                 'success' => true,
@@ -73,7 +73,7 @@ class DiscussionController extends Controller
 
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'dislike your discussion!');
 
-            $discussion->not_helpful_vote = $discussion->not_helpful_vote + 1;
+            $discussion->dislike = $discussion->dislike + 1;
             $discussion->save();
 
             return response()->json([
@@ -140,7 +140,7 @@ class DiscussionController extends Controller
             }
             $discussions = $query
                 ->orderBy('created_at', 'desc')
-                ->orderBy('helpful_vote', 'desc')
+                ->orderBy('like', 'desc')
                 ->get();
 
             $items = [];
@@ -179,8 +179,8 @@ class DiscussionController extends Controller
                 'body' => $validatedData['body'],
                 'image' => $validatedData['image'],
                 'comments' => 0,
-                'helpful_vote' => 0,
-                'not_helpful_vote' => 0,
+                'like' => 0,
+                'dislike' => 0,
             ]);
 
             return response()->json([
