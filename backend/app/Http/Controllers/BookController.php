@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    public function getNewest(){
+    public function getNewest()
+    {
         try {
             $books = Book::orderBy('created_at', 'desc')->take(5)->get();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => $books,
             ], 200);
-
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
@@ -30,22 +30,22 @@ class BookController extends Controller
         }
     }
 
-        public function getMostReviewed(){
+    public function getMostReviewed()
+    {
         try {
             $books = Book::withCount('reviews') // Count the number of reviews
                 ->orderBy('reviews_count', 'desc') // Order by the review count
                 ->take(5) // Limit the result to the top 5 books
                 ->get();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => $books,
             ], 200);
-
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching newest books.',
+                'message' => 'An error occurred while fetching most review books.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -59,44 +59,56 @@ class BookController extends Controller
         $categories = $request->get('categories');
         $condition = $request->get('condition');
         $uuid = $request->get('uuid');
-        
+        $max = $request->get('max');
+        $excludeId = $request->get('excludeId');
+
         if ($all) {
             $books = Book::all();
             return response()->json([
                 'success' => true,
                 'message' => $books,
             ], 200);
-        } 
+        }
 
         $query = Book::query(); // Start with a base query
-        
-        
+
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId); // remove current view book
+        }
+
         if ($title) {
             $query->where('title', 'like', '%' . $title . '%'); // Filter by title
         }
+
         if ($categories) {
             $query->where('categories', $categories); // Filter by categories
         }
         if ($condition) {
             $query->where('condition', $condition); // Filter by categories
         }
+
         if ($author) {
             $query->where('author', $author); // Filter by author
         }
+
         if ($uuid) {
-            $user = User::where('uuid',$uuid)->first();
+            $user = User::where('uuid', $uuid)->first();
             $query->where('owner_id', $user->id); // Filter by uuid
         }
 
-        
-        $books = $query->paginate(12); // Apply pagination 
-        
+
+        if ($max > 0) {
+            $books = $query->paginate($max); // Apply max for related book
+        } else {
+            $books = $query->paginate(12); // Apply pagination 
+        }
+
         try {
             return response()->json([
                 'success' => true,
                 'message' => $books,
             ], 200);
-        } catch (Exception $exception) {
+        } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while fetching books.',
@@ -104,12 +116,12 @@ class BookController extends Controller
             ], 500);
         }
     }
-    
+
     public function getMyBooks(Request $request)
     {
         $user = $request->attributes->get('user');
         $books = $user->books()->get();
-        
+
         try {
             return response()->json([
                 'success' => true,
@@ -126,20 +138,19 @@ class BookController extends Controller
     public function getMyBook(Request $request, $id)
     {
         try {
-        $user = $request->attributes->get('user');
-        $book = $user->book($id);
-        
-        if(!$book){
+            $user = $request->attributes->get('user');
+            $book = $user->book($id);
+
+            if (!$book) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No permission',
+                ], 200);
+            }
             return response()->json([
-                'success' => false,
-                'message' => 'No permission' ,
+                'success' => true,
+                'message' => $book,
             ], 200);
-        }
-        return response()->json([
-            'success' => true,
-            'message' => $book,
-        ], 200);
-        
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
@@ -152,24 +163,24 @@ class BookController extends Controller
     public function fetchBookById(Request $request, $bookId)
     {
         try {
-            
+
             $book = Book::findOrFail($bookId);
 
-            $book->makeHidden(['owner_id','updated_at','created_at']);
+            $book->makeHidden(['owner_id', 'updated_at', 'created_at']);
 
             $uuid = $request->get('uuid');
-            
+
             $issaved = false;
-            
-            if($uuid!=null){
-                $user = User::where('uuid',$uuid)->first();
+
+            if ($uuid != null) {
+                $user = User::where('uuid', $uuid)->first();
                 $savedBooks = $user->savedBooks;
-                if($savedBooks){
-                    $issaved = $savedBooks->contains('id',$bookId);
+                if ($savedBooks) {
+                    $issaved = $savedBooks->contains('id', $bookId);
                 }
             }
             $book->issaved = $issaved;
-            
+
             return response()->json([
                 'success' => true,
                 'book' => $book,
@@ -203,7 +214,7 @@ class BookController extends Controller
                 'availability' => 'required|int',
                 'images' => 'required|string',
             ]);
-            
+
             $validatedData['owner_id'] = $user->id;
 
             $book = Book::create($validatedData);
@@ -229,18 +240,18 @@ class BookController extends Controller
 
     public function modifyBook(Request $request, $id)
     {
-        try{
+        try {
             $user = $request->attributes->get('user');
 
             $book = Book::findOrFail($id);
 
-            if($book->owner_id != $user->id){
+            if ($book->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'You do not have permission' ,
+                    'message' => 'You do not have permission',
                 ], 403);
             }
-            
+
             $validatedData = $request->validate([
                 'title' => 'required|string',
                 'author' => 'required|string',
@@ -250,11 +261,11 @@ class BookController extends Controller
                 'availability' => 'required|int',
                 'images' => 'required|string',
             ]);
-            
+
             $book->update($validatedData);
             return response()->json([
                 'success' => true,
-                'message' => 'Updated '.$book->title,
+                'message' => 'Updated ' . $book->title,
             ], 200);
         } catch (QueryException  $exception) {
             return response()->json([
@@ -265,26 +276,26 @@ class BookController extends Controller
         }
     }
 
-    public function changeAvailability(Request $request, $id){
-        try{
+    public function changeAvailability(Request $request, $id)
+    {
+        try {
             $user = $request->attributes->get('user');
             $book = Book::findOrFail($id);
 
-            if($book->owner_id != $user->id){
+            if ($book->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'You do not have permission' ,
+                    'message' => 'You do not have permission',
                 ], 403);
             }
             $book->availability = !$book->availability;
             $book->save();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully changed availability',
             ], 200);
-        }
-        catch (Exception  $exception) {
+        } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot change Book!',
@@ -292,25 +303,25 @@ class BookController extends Controller
             ], 500);
         }
     }
-   public function deleteBook(Request $request, $id)
+    public function deleteBook(Request $request, $id)
     {
-        try{
+        try {
             $user = $request->attributes->get('user');
 
             $book = Book::findOrFail($id);
 
-            
-            if($book->owner_id != $user->id){
+
+            if ($book->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'No permission' ,
+                    'message' => 'No permission',
                 ], 403);
             }
-        
+
             $book->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Deleted "'.$book->title.'"',
+                'message' => 'Deleted "' . $book->title . '"',
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
@@ -319,6 +330,5 @@ class BookController extends Controller
                 'error' => $exception->getMessage()
             ], 500);
         }
-        
     }
 }

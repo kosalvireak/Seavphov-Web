@@ -5,20 +5,17 @@
     <!-- Review header -->
     <a
       :href="`/profile/${review.user[0].uuid}`"
-      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
+      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-fit"
     >
       <img class="sp-logo-sm rounded-full mr-2" :src="review.user[0].picture" />
       <p class="m-0 text-sp-dark">{{ review.user[0].name }}</p>
     </a>
 
     <!-- Review delete Button -->
-    <LoadingButton
+    <ReviewItemDropdown
       v-if="review.delete_able"
-      :isLoading="isDeleting"
-      class="absolute right-2 top-0"
-      color="danger"
-      text="Delete"
-      @click="deleteReview(review.id)"
+      :id="review.id"
+      @on-remove="$emit('onRemove', $event)"
     />
 
     <!-- Review Date -->
@@ -59,10 +56,11 @@
 </template>
 
 <script>
+import ReviewItemDropdown from "./ReviewItemDropdown.vue";
 import { MDBTextarea } from "mdb-vue-ui-kit";
 export default {
   name: "ReviewItem",
-  components: { MDBTextarea },
+  components: { MDBTextarea, ReviewItemDropdown },
   props: {
     review: Object,
   },
@@ -89,14 +87,6 @@ export default {
         this.review.not_helpful_vote = data.not_helpful_vote;
       }
       this.isLoadingDislike = false;
-    },
-    async deleteReview(id) {
-      this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteReview", id);
-      if (response) {
-        this.$emit("onRemove", id);
-      }
-      this.isDeleting = false;
     },
   },
 };

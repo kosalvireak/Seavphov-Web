@@ -44,7 +44,8 @@
               />
               <div v-else>
                 <Loader v-if="uploadingBook" />
-                <p class="text-center" v-else>
+                <div class="text-center" v-else>
+                  <p>Drop a file here to upload, click here to browse</p>
                   <input
                     type="file"
                     class="ring-1 ring-gray-300 rounded-lg"
@@ -53,7 +54,7 @@
                     required
                     @change="handleImageChange"
                   />
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -138,3 +139,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+input[type="file"] {
+  font-size: 0;
+  margin: 0px;
+  padding: 0px;
+}
+::file-selector-button {
+  font-size: initial;
+}
+</style>

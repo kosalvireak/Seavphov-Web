@@ -36,7 +36,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $user->generateToken();
+
+            if ($user->api_token_expires_at < now()) {
+                $user->generateToken();
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Authentication succeeded',
@@ -47,7 +51,7 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         $user = Auth::guard('api')->user();
 

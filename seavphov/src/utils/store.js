@@ -192,6 +192,12 @@ const store = createStore({
       if (filters.all) {
         params.append("all", true);
       }
+      if (filters.max > 0) {
+        params.append("max", filters.max);
+      }
+      if (filters.excludeId) {
+        params.append("excludeId", filters.excludeId);
+      }
       try {
         const response = await getData(`/api/books?${params.toString()}`);
         if (response.data.success) {

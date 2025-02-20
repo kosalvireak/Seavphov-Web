@@ -1,8 +1,6 @@
 <template>
   <div class="BookItem clickable relative">
-    <div
-      class="w-48 h-full bg-white rounded-lg border border-gray-200 shadow-md"
-    >
+    <div class="w-48 h-full bg-white border border-gray-200 shadow-md">
       <div class="overflow-hidden">
         <router-link :to="`/book/${book.id}`">
           <img

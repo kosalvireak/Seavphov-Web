@@ -5,27 +5,24 @@
     <!-- Comment header -->
     <a
       :href="`/profile/${comment.user[0].uuid}`"
-      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
+      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100 space-x-2"
     >
-      <img class="sp-logo-md rounded-full m-2" :src="comment.user[0].picture" />
-      <div class="flex-col mt-3">
+      <img class="sp-logo-md rounded-full" :src="comment.user[0].picture" />
+      <div class="flex-col">
         <p class="m-0 text-sp-dark">{{ comment.user[0].name }}</p>
 
         <!-- Comment Date -->
-        <p class="text-xs text-sp-gray">
+        <p class="text-xs text-sp-gray m-0">
           commented on {{ formatDate(comment.created_at) }}
         </p>
       </div>
     </a>
 
     <!-- Comment delete Button -->
-    <LoadingButton
+    <CommentItemDropdown
       v-if="comment.delete_able"
-      :isLoading="isDeleting"
-      class="absolute right-2 top-0"
-      color="danger"
-      text="Delete"
-      @click="deleteComment(comment.id)"
+      :id="comment.id"
+      @on-remove="$emit('onRemove', $event)"
     />
 
     <div class="w-100 min-h-12 m-2">
@@ -63,9 +60,10 @@
 
 <script>
 import { MDBTextarea } from "mdb-vue-ui-kit";
+import CommentItemDropdown from "./CommentItemDropdown.vue";
 export default {
   name: "CommentItem",
-  components: { MDBTextarea },
+  components: { MDBTextarea, CommentItemDropdown },
   props: {
     comment: Object,
   },

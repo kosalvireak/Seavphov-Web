@@ -101,6 +101,8 @@ export default {
     async getRelatedBooks() {
       this.isLoadingRelatedBooks = true;
       this.filters.categories = this.book.categories;
+      this.filters.max = this.maxRelatedBook;
+      this.filters.excludeId = this.paramsId;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters

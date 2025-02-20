@@ -38,6 +38,7 @@ const app = createApp(App);
 app.config.globalProperties.isMobile = mobileUtils.isMobile();
 app.config.globalProperties.logoUrl =
   "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
+app.config.globalProperties.maxRelatedBook = 5
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);

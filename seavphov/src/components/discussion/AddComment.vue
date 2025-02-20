@@ -2,7 +2,7 @@
   <section class="AddComment container p-0">
     <div
       v-if="!isLogin"
-      class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
+      class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly my-4"
     >
       <p class="mb-0">Sign in to leave a comment!</p>
 
