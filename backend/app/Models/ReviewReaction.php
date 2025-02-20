@@ -31,4 +31,14 @@ class ReviewReaction extends Model
         // 	else
         // 		create new -> dislike
     ];
+
+    public function getReaction()
+    {
+        if ($this->reaction == null) {
+            return null;
+        } else if ($this->reaction == 1) {
+            return true;
+        }
+        return false;
+    }
 }

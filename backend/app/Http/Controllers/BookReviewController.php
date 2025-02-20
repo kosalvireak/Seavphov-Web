@@ -71,13 +71,13 @@ class BookReviewController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully like a review',
-                    'reaction' => $existingReaction->reaction || null,
+                    'reaction' => $existingReaction->getReaction(),
                     'like' => $review->like,
                     'dislike' => $review->dislike
                 ], 200);
             } else {
                 // If no reaction exists, create a new one
-                $reviewReaction = ReviewReaction::create([
+                ReviewReaction::create([
                     'user_id' => $user->id,
                     'review_id' => $review->id,
                     'reaction' => true,
@@ -88,7 +88,7 @@ class BookReviewController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully like a review',
-                    'reaction' => $reviewReaction->reaction,
+                    'reaction' => true,
                     'like' => $review->like,
                     'dislike' => $review->dislike
                 ], 200);
@@ -132,16 +132,16 @@ class BookReviewController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully dislike a review',
-                    'reaction' => $existingReaction->reaction || null,
+                    'reaction' => $existingReaction->getReaction(),
                     'like' => $review->like,
                     'dislike' => $review->dislike
                 ], 200);
             } else {
                 // If no reaction exists, create a new one
-                $reviewReaction = ReviewReaction::create([
+                ReviewReaction::create([
                     'user_id' => $user->id,
                     'review_id' => $review->id,
-                    'reaction' => true,
+                    'reaction' => false,
                 ]);
 
                 $review->dislike = $review->dislike + 1;
@@ -150,7 +150,7 @@ class BookReviewController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully dislike a review',
-                    'reaction' => $reviewReaction->reaction,
+                    'reaction' => false,
                     'like' => $review->like,
                     'dislike' => $review->dislike
                 ], 200);
