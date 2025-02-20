@@ -470,23 +470,23 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async voteHelpful({ }, reviewId) {
+    async likeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/like/${reviewId}`, true);
         if (response.data.success) {
           toast.success(response.data.message);
-          return response.data.data;
+          return response.data;
         }
       } catch (error) {
         toast.error(error.response.data.message);
       }
     },
-    async voteNotHelpful({ }, reviewId) {
+    async dislikeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/dislike/${reviewId}`, true);
         if (response.data.success) {
           toast.success(response.data.message);
-          return response.data.data;
+          return response.data;
         }
       } catch (error) {
         toast.error(error.response.data.message);

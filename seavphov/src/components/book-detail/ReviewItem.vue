@@ -33,7 +33,7 @@
           v-else
           class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteNotHelpful(review.id)"
+          @click="dislikeReview(review.id)"
         >
           <i class="fa-regular fa-thumbs-down fa-xl"></i>
           {{ review.not_helpful_vote }}
@@ -45,7 +45,7 @@
           v-else
           class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100 bg-yellow"
           :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="voteHelpful(review.id)"
+          @click="likeReview(review.id)"
         >
           <i class="fa-regular fa-thumbs-up fa-xl"></i>
           {{ review.helpful_vote }}
@@ -72,19 +72,21 @@ export default {
     };
   },
   methods: {
-    async voteHelpful(id) {
+    async likeReview(id) {
       this.isLoadingLike = true;
-      const data = await this.$store.dispatch("voteHelpful", id);
+      const data = await this.$store.dispatch("likeReview", id);
       if (data) {
-        this.review.helpful_vote = data.helpful_vote;
+        // this.review.helpful_vote = data.helpful_vote;
+        console.table(data);
       }
       this.isLoadingLike = false;
     },
-    async voteNotHelpful(id) {
+    async dislikeReview(id) {
       this.isLoadingDislike = true;
-      const data = await this.$store.dispatch("voteNotHelpful", id);
+      const data = await this.$store.dispatch("dislikeReview", id);
       if (data) {
-        this.review.not_helpful_vote = data.not_helpful_vote;
+        // this.review.not_helpful_vote = data.not_helpful_vote;
+        console.table(data);
       }
       this.isLoadingDislike = false;
     },

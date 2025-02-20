@@ -46,8 +46,8 @@ Route::prefix('books')->group(function () {
 
 Route::prefix('review')->group(function () {
     Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews'])->middleware([OptionalApiTokenAuthentication::class]);
-    Route::get('/like/{id}', [BookReviewController::class, 'voteHelpful'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('/dislike/{id}', [BookReviewController::class, 'voteNotHelpful'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/like/{id}', [BookReviewController::class, 'likeReview'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/dislike/{id}', [BookReviewController::class, 'dislikeReview'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [BookReviewController::class, 'deleteReview'])->middleware([ApiTokenAuthentication::class]);
 });

@@ -71,7 +71,6 @@ export default {
     return {
       isLoadingLike: false,
       isLoadingDislike: false,
-      isDeleting: false,
     };
   },
   methods: {
@@ -90,14 +89,6 @@ export default {
         this.comment.not_helpful_vote = data.not_helpful_vote;
       }
       this.isLoadingDislike = false;
-    },
-    async deleteComment(id) {
-      this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteComment", id);
-      if (response) {
-        this.$emit("onRemove", id);
-      }
-      this.isDeleting = false;
     },
   },
 };

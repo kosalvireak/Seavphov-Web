@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookReview;
+use App\Models\ReviewReaction;
 use App\Service\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class BookReviewController extends Controller
             ], 500);
         }
     }
-    public function voteHelpful(Request $request, $reviewId)
+    public function likeReview(Request $request, $reviewId)
     {
         try {
             // review owner ( receiver_id )
@@ -49,13 +50,49 @@ class BookReviewController extends Controller
 
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'like your review!');
 
-            $review->helpful_vote = $review->helpful_vote + 1;
-            $review->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully like a review',
-                'data' => $review->getData(),
-            ], 200);
+            $existingReaction = ReviewReaction::where('review_id', $review->id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($existingReaction) {
+                // If the user liked then like -> reduce helpful vote
+                if ($existingReaction->reaction == true) {
+                    $review->helpful_vote = $review->helpful_vote - 1;
+                    $existingReaction->delete();
+                } else {
+                    // If the user disliked then like -> add helpful vote,  reduce not helpful vote
+                    $existingReaction->reaction = true;
+                    $existingReaction->save();
+
+                    $review->helpful_vote = $review->helpful_vote + 1;
+                    $review->not_helpful_vote = $review->not_helpful_vote - 1;
+                }
+                $review->save();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully like a review',
+                    'reaction' => $existingReaction->reaction || null,
+                    'like' => $review->helpful_vote,
+                    'dislike' => $review->not_helpful_vote
+                ], 200);
+            } else {
+                // If no reaction exists, create a new one
+                $reviewReaction = ReviewReaction::create([
+                    'user_id' => $user->id,
+                    'review_id' => $review->id,
+                    'reaction' => true,
+                ]);
+
+                $review->helpful_vote = $review->helpful_vote + 1;
+                $review->save();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully like a review',
+                    'reaction' => $reviewReaction->reaction,
+                    'like' => $review->helpful_vote,
+                    'dislike' => $review->not_helpful_vote
+                ], 200);
+            }
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
@@ -64,7 +101,7 @@ class BookReviewController extends Controller
             ], 500);
         }
     }
-    public function voteNotHelpful(Request $request, $reviewId)
+    public function dislikeReview(Request $request, $reviewId)
     {
         try {
             // review owner ( receiver_id )
@@ -73,17 +110,55 @@ class BookReviewController extends Controller
             $review = BookReview::find($reviewId);
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'dislike your review');
 
-            $review->not_helpful_vote = $review->not_helpful_vote + 1;
-            $review->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully like a review',
-                'data' => $review->getData(),
-            ], 200);
+            $existingReaction = ReviewReaction::where('review_id', $review->id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($existingReaction) {
+                // If the user dislike then dislike -> reduce not helpful vote
+                if ($existingReaction->reaction == false) {
+                    $review->helpful_vote = $review->helpful_vote - 1;
+                    $review->not_helpful_vote = $review->not_helpful_vote + 1;
+                    $existingReaction->delete();
+                } else {
+                    // If the user liked then dislike -> reduce helpful vote,  add not helpful vote
+                    $existingReaction->reaction = false;
+                    $existingReaction->save();
+
+                    $review->helpful_vote = $review->helpful_vote - 1;
+                    $review->not_helpful_vote = $review->not_helpful_vote - +1;
+                }
+                $review->save();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully dislike a review',
+                    'reaction' => $existingReaction->reaction || null,
+                    'like' => $review->helpful_vote,
+                    'dislike' => $review->not_helpful_vote
+                ], 200);
+            } else {
+                // If no reaction exists, create a new one
+                $reviewReaction = ReviewReaction::create([
+                    'user_id' => $user->id,
+                    'review_id' => $review->id,
+                    'reaction' => true,
+                ]);
+
+                $review->not_helpful_vote = $review->not_helpful_vote + 1;
+                $review->save();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully dislike a review',
+                    'reaction' => $reviewReaction->reaction,
+                    'like' => $review->helpful_vote,
+                    'dislike' => $review->not_helpful_vote
+                ], 200);
+            }
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot vote review!',
+                'message' => 'Cannot dislike review!',
                 'error' => $exception->getMessage()
             ], 500);
         }
