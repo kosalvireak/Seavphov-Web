@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('review_reactions', function (Blueprint $table) {
+        Schema::create('reactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('review_id');
+            $table->unsignedBigInteger('entity_id'); // Can be a review, comment, or discussion
+            $table->string('entity_type'); // 'review', 'comment', 'discussion'
             $table->boolean('reaction')->nullable();
-            $table->unique(['user_id', 'review_id']); // Prevents duplicate ratings by the same user
+            $table->unique(['user_id', 'entity_id', 'entity_type']); // Prevents duplicate reactions by the same user on the same entity
 
             // Define foreign key constraints
-            $table->foreign('review_id')->references('id')->on('book_reviews')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('review_reactions');
+        Schema::dropIfExists('reactions');
     }
 };

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookReview;
-use App\Models\ReviewReaction;
+use App\Models\Reaction;
 use App\Service\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
@@ -50,9 +50,7 @@ class BookReviewController extends Controller
 
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'like your review!');
 
-            $existingReaction = ReviewReaction::where('review_id', $review->id)
-                ->where('user_id', $user->id)
-                ->first();
+            $existingReaction = Reaction::getFirstReview($review->id, $user->id);
 
             if ($existingReaction != null) {
                 // If the user liked then like -> reduce helpful vote
@@ -83,10 +81,11 @@ class BookReviewController extends Controller
                 }
             } else {
                 // If no reaction exists, create a new one
-                ReviewReaction::create([
+                Reaction::create([
                     'user_id' => $user->id,
-                    'review_id' => $review->id,
+                    'entity_id' => $review->id,
                     'reaction' => true,
+                    'entity_type' => 'review',
                 ]);
 
                 $review->increaseLike();
@@ -115,9 +114,7 @@ class BookReviewController extends Controller
             $review = BookReview::find($reviewId);
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'dislike your review');
 
-            $existingReaction = ReviewReaction::where('review_id', $review->id)
-                ->where('user_id', $user->id)
-                ->first();
+            $existingReaction = Reaction::getFirstReview($review->id, $user->id);
 
             if ($existingReaction) {
                 // If the user dislike then dislike -> reduce not helpful vote
@@ -149,10 +146,11 @@ class BookReviewController extends Controller
                 }
             } else {
                 // If no reaction exists, create a new one
-                ReviewReaction::create([
+                Reaction::create([
                     'user_id' => $user->id,
-                    'review_id' => $review->id,
+                    'entity_id' => $review->id,
                     'reaction' => false,
+                    'entity_type' => 'review',
                 ]);
 
                 $review->increaseDislike();

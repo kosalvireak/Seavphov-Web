@@ -59,8 +59,9 @@ class BookReview extends Model
     private function getUserReaction($userId = null)
     {
         if ($userId == null) return null;
-        $reviewReaction = ReviewReaction::where('review_id', $this->id)
+        $reviewReaction = Reaction::where('entity_id', $this->id)
             ->where('user_id', $userId)
+            ->where('entity_type', 'review')
             ->first();
         return $reviewReaction != null ? $reviewReaction->getReaction() : null;
     }
