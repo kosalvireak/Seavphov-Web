@@ -54,27 +54,33 @@ class BookReviewController extends Controller
                 ->where('user_id', $user->id)
                 ->first();
 
-            if ($existingReaction) {
+            if ($existingReaction != null) {
                 // If the user liked then like -> reduce helpful vote
                 if ($existingReaction->reaction == true) {
-                    $review->like = $review->like - 1;
+                    $review->decreaseLike();
                     $existingReaction->delete();
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'No reaction',
+                        'reaction' => null,
+                        'like' => $review->like,
+                        'dislike' => $review->dislike
+                    ], 200);
                 } else {
                     // If the user disliked then like -> add helpful vote,  reduce not helpful vote
                     $existingReaction->reaction = true;
                     $existingReaction->save();
-
-                    $review->like = $review->like + 1;
-                    $review->dislike = $review->dislike - 1;
+                    $review->decreaseDislike();
+                    $review->increaseLike();
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Change to like',
+                        'reaction' => true,
+                        'like' => $review->like,
+                        'dislike' => $review->dislike
+                    ], 200);
                 }
-                $review->save();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully like a review',
-                    'reaction' => $existingReaction->getReaction(),
-                    'like' => $review->like,
-                    'dislike' => $review->dislike
-                ], 200);
             } else {
                 // If no reaction exists, create a new one
                 ReviewReaction::create([
@@ -83,8 +89,7 @@ class BookReviewController extends Controller
                     'reaction' => true,
                 ]);
 
-                $review->like = $review->like + 1;
-                $review->save();
+                $review->increaseLike();
                 return response()->json([
                     'success' => true,
                     'message' => 'Successfully like a review',
@@ -117,25 +122,31 @@ class BookReviewController extends Controller
             if ($existingReaction) {
                 // If the user dislike then dislike -> reduce not helpful vote
                 if ($existingReaction->reaction == false) {
-                    $review->like = $review->like - 1;
-                    $review->dislike = $review->dislike + 1;
+
+                    $review->decreaseDislike();
                     $existingReaction->delete();
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'No reaction',
+                        'reaction' => null,
+                        'like' => $review->like,
+                        'dislike' => $review->dislike
+                    ], 200);
                 } else {
                     // If the user liked then dislike -> reduce helpful vote,  add not helpful vote
                     $existingReaction->reaction = false;
                     $existingReaction->save();
-
-                    $review->like = $review->like - 1;
-                    $review->dislike = $review->dislike - +1;
+                    $review->increaseDislike();
+                    $review->decreaseLike();
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Change to dislike',
+                        'reaction' => false,
+                        'like' => $review->like,
+                        'dislike' => $review->dislike
+                    ], 200);
                 }
-                $review->save();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully dislike a review',
-                    'reaction' => $existingReaction->getReaction(),
-                    'like' => $review->like,
-                    'dislike' => $review->dislike
-                ], 200);
             } else {
                 // If no reaction exists, create a new one
                 ReviewReaction::create([
@@ -144,8 +155,7 @@ class BookReviewController extends Controller
                     'reaction' => false,
                 ]);
 
-                $review->dislike = $review->dislike + 1;
-                $review->save();
+                $review->increaseDislike();
 
                 return response()->json([
                     'success' => true,

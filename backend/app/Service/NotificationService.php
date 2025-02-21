@@ -8,7 +8,7 @@ class NotificationService
 {
     public static function storeNotification($user_id, $receiver_id, $book_id,  $body)
     {
-        if($user_id == $receiver_id){
+        if ($user_id == $receiver_id) {
             return;
         }
         Notification::create([
@@ -22,7 +22,7 @@ class NotificationService
 
     public static function storeDiscussionNotification($user_id, $receiver_id, $discussion_id,  $body)
     {
-        if($user_id == $receiver_id){
+        if ($user_id == $receiver_id) {
             return;
         }
         Notification::create([
