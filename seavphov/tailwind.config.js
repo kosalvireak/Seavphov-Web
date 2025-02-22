@@ -12,6 +12,7 @@ export default {
         'sp-primary': '#5c836e', // please refer to style.css
         'sp-secondary': '#467e60',
         'sp-tertiary': '#edf8f5',
+        'sp-danger': '#c81e1e', // 'sp-danger'
         'sp-gray': '#6b7280',
         'sp-dark': '#000000'
       },

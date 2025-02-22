@@ -28,81 +28,24 @@
     <div class="w-100 min-h-12 m-2">
       {{ comment.body }}
     </div>
-    <div class="Reaction d-flex space-x-2 w-fit ml-auto">
-      <div class="flex-center w-fit min-w-16 rounded-lg">
-        <Loader v-if="isLoadingDislike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="dislike(comment.id)"
-        >
-          <i
-            class="fa-regular fa-thumbs-down fa-xl"
-            :class="{
-              'fa-solid': comment.reaction != null && !comment.reaction,
-            }"
-          ></i>
-          {{ comment.dislike }}
-        </span>
-      </div>
-      <div class="flex-center w-fit min-w-16 rounded-lg">
-        <Loader v-if="isLoadingLike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100 bg-yellow"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="like(comment.id)"
-        >
-          <i
-            class="fa-regular fa-thumbs-up fa-xl"
-            :class="{
-              'fa-solid': comment.reaction != null && comment.reaction,
-            }"
-          ></i>
-          {{ comment.like }}
-        </span>
-      </div>
-    </div>
+
+    <Reaction
+      :entity="comment"
+      likeMethodName="likeComment"
+      dislikeMethodName="dislikeComment"
+    />
   </section>
 </template>
 
 <script>
 import { MDBTextarea } from "mdb-vue-ui-kit";
+import Reaction from "../common/Reaction.vue";
 import CommentItemDropdown from "./CommentItemDropdown.vue";
 export default {
   name: "CommentItem",
-  components: { MDBTextarea, CommentItemDropdown },
+  components: { MDBTextarea, CommentItemDropdown, Reaction },
   props: {
     comment: Object,
-  },
-  data() {
-    return {
-      isLoadingLike: false,
-      isLoadingDislike: false,
-    };
-  },
-  methods: {
-    async like(id) {
-      this.isLoadingLike = true;
-      const data = await this.$store.dispatch("likeComment", id);
-      if (data) {
-        this.comment.like = data.like;
-        this.comment.dislike = data.dislike;
-        this.comment.reaction = data.reaction;
-      }
-      this.isLoadingLike = false;
-    },
-    async dislike(id) {
-      this.isLoadingDislike = true;
-      const data = await this.$store.dispatch("dislikeComment", id);
-      if (data) {
-        this.comment.like = data.like;
-        this.comment.dislike = data.dislike;
-        this.comment.reaction = data.reaction;
-      }
-      this.isLoadingDislike = false;
-    },
   },
 };
 </script>

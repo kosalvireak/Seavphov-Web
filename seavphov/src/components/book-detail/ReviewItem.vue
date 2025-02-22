@@ -26,7 +26,11 @@
       {{ review.body }}
     </div>
 
-    <Reaction :entity="review" />
+    <Reaction
+      :entity="review"
+      likeMethodName="likeReview"
+      dislikeMethodName="dislikeReview"
+    />
   </section>
 </template>
 
