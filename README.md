@@ -1,3 +1,31 @@
+# Feature
+Authentication system
+
+Book CRUD
+
+Save book as favorite
+
+Book's review CRUD
+
+Book's review like and dislike
+
+Discussion CRUD
+
+Discussion like and dislike
+
+Discussion's comment CRUD
+
+Discussion's comment like and dislike
+
+Book, Book's review, Discussion, Comment Notification 
+
+Search By title, categories, availability
+
+Dynamic Banner
+
+Admin manage all books, users and banner
+
+
 ## Image
 
 ![Login](./assets/Screenshot_1.png)

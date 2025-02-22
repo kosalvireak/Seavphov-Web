@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookReview;
-use App\Models\Reaction;
 use App\Service\NotificationService;
 use App\Service\ReactionService;
 use Exception;
