@@ -607,23 +607,23 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async voteCommentHelpful({ }, commentId) {
+    async likeComment({ }, commentId) {
       try {
         const response = await getData(`/api/comment/like/${commentId}`, true);
         if (response.data.success) {
           toast.success(response.data.message);
-          return response.data.data;
+          return response.data;
         }
       } catch (error) {
         toast.error(error.response.data.message);
       }
     },
-    async voteCommentNotHelpful({ }, commentId) {
+    async dislikeComment({ }, commentId) {
       try {
         const response = await getData(`/api/comment/dislike/${commentId}`, true);
         if (response.data.success) {
           toast.success(response.data.message);
-          return response.data.data;
+          return response.data;
         }
       } catch (error) {
         toast.error(error.response.data.message);

@@ -54,8 +54,8 @@ Route::prefix('review')->group(function () {
 
 Route::prefix('comment')->group(function () {
     Route::get('/discussion/{id}', [CommentController::class, 'fetchDiscussionComments'])->middleware([OptionalApiTokenAuthentication::class]);
-    Route::get('/like/{id}', [CommentController::class, 'voteCommentHelpful'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('/dislike/{id}', [CommentController::class, 'voteCommentNotHelpful'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/like/{id}', [CommentController::class, 'likeComment'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/dislike/{id}', [CommentController::class, 'dislikeComment'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [CommentController::class, 'createComment'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [CommentController::class, 'deleteComment'])->middleware([ApiTokenAuthentication::class]);
 });

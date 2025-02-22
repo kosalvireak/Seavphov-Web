@@ -63,7 +63,7 @@ class BookReview extends Model
             ->where('user_id', $userId)
             ->where('entity_type', 'review')
             ->first();
-        return $reviewReaction != null ? $reviewReaction->getReaction() : null;
+        return $reviewReaction != null ? $reviewReaction->getReactionAsBoolean() : null;
     }
 
     public function getData($userId = null)

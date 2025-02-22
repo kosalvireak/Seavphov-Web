@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Discussion;
+use App\Models\Reaction;
 use App\Service\NotificationService;
+use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -16,9 +18,7 @@ class CommentController extends Controller
     {
         try {
             $user = $request->attributes->get('user');
-
             $comment = Comment::findOrFail($id);
-
 
             $discussion = Discussion::findOrFail($comment->discussion_id);
 
@@ -45,23 +45,17 @@ class CommentController extends Controller
             ], 500);
         }
     }
-    public function voteCommentHelpful(Request $request, $commentId)
+    public function likeComment(Request $request, $commentId)
     {
         try {
-            // comment owner ( receiver_id )
-            // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
 
+            // comment owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'like your comment!');
 
-            $comment->like = $comment->like + 1;
-            $comment->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully like comment',
-                'data' => $comment->getData(),
-            ], 200);
+            return ReactionService::likeEntity($comment, $comment->id, $user->id, 'comment');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
@@ -72,26 +66,22 @@ class CommentController extends Controller
     }
 
 
-    public function voteCommentNotHelpful(Request $request, $commentId)
+    public function dislikeComment(Request $request, $commentId)
     {
         try {
-            // comment owner ( receiver_id )
-            // book owner ( sender_id )
+
             $user = $request->attributes->get('user');
             $comment = Comment::find($commentId);
+
+            // comment owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeDiscussionNotification($user->id, $comment->owner_id, $comment->discussion_id, 'dislike your comment!');
 
-            $comment->dislike = $comment->dislike + 1;
-            $comment->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully unlike',
-                'data' => $comment->getData(),
-            ], 200);
+            return ReactionService::dislikeEntity($comment, $comment->id, $user->id, 'comment');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Cannot unlike comment!',
+                'message' => 'Cannot dislike comment!',
                 'error' => $exception->getMessage()
             ], 500);
         }

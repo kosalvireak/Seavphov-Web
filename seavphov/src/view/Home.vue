@@ -4,7 +4,7 @@
       class="hidden md:flex backgroundImg img-fluid w-100 align-items-center justify-content-center"
       :style="getBackground"
     >
-      <Carousel v-if="TopBooks.length" :books="TopBooks.reverse()" />
+      <Carousel v-if="carouselData.length" :books="reversedCarouselData" />
       <Loader v-if="isLoading" :size="40" />
     </div>
 
@@ -41,7 +41,7 @@ export default {
       filters: {
         categories: "Text-Book",
       },
-      TopBooks: [],
+      carouselData: [],
       isLoading: false,
       banner: {},
       defaultBanner:
@@ -49,9 +49,10 @@ export default {
     };
   },
   methods: {
-    async getBook() {
+    async getCarousel() {
+      console.log("getCarousel");
       this.isLoading = true;
-      this.TopBooks = await this.$store.dispatch(
+      this.carouselData = await this.$store.dispatch(
         "fetchBooksWithFilter",
         this.filters
       );
@@ -63,17 +64,19 @@ export default {
   },
   computed: {
     getBackground() {
-      if (this.banner != {}) {
+      if (this.banner && this.banner.image_url) {
         return `background-image: url("${this.banner.image_url}")`;
       } else {
-        console.log("else");
         return `background-image: url("${this.defaultBanner}")`;
       }
+    },
+    reversedCarouselData() {
+      return [...this.carouselData].reverse(); // Create a new array and reverse it
     },
   },
   async mounted() {
     await this.getBanner();
-    await this.getBook(this.paramsId);
+    await this.getCarousel();
   },
 };
 </script>

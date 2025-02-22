@@ -33,21 +33,19 @@ class Reaction extends Model
         // 		create new -> dislike
     ];
 
-    public static function getFirstReview($reviewId, $userId)
+    public static function  getFirstReactionByEntity($entityId,  $userId, $entityType)
     {
-        return self::where('entity_id', $reviewId)
+        $validType = ['review', 'comment', 'discussion'];
+        if ($entityType != null && !in_array($entityType, $validType)) return null;
+
+        return self::where('entity_id', $entityId)
             ->where('user_id', $userId)
-            ->where('entity_type', 'review')
+            ->where('entity_type', $entityType)
             ->first();
     }
 
-    public function getReaction()
+    public function getReactionAsBoolean()
     {
-        if ($this->reaction == null) {
-            return null;
-        } else if ($this->reaction == 1) {
-            return true;
-        }
-        return false;
+        return $this->reaction == 1 ? true : false;
     }
 }

@@ -26,80 +26,24 @@
       {{ review.body }}
     </div>
 
-    <div class="d-flex space-x-2 w-fit ml-auto">
-      <div class="flex-center w-fit min-w-16 rounded-lg">
-        <Loader v-if="isLoadingDislike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="dislikeReview(review.id)"
-        >
-          <i
-            class="fa-regular fa-thumbs-down fa-xl"
-            :class="{ 'fa-solid': review.reaction != null && !review.reaction }"
-          ></i>
-          {{ review.dislike }}
-        </span>
-      </div>
-      <div class="flex-center w-fit min-w-16 rounded-lg">
-        <Loader v-if="isLoadingLike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100 bg-yellow"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="likeReview(review.id)"
-        >
-          <i
-            class="fa-regular fa-thumbs-up fa-xl"
-            :class="{ 'fa-solid': review.reaction != null && review.reaction }"
-          ></i>
-          {{ review.like }}
-        </span>
-      </div>
-    </div>
+    <Reaction :entity="review" />
   </section>
 </template>
 
 <script>
 import ReviewItemDropdown from "./ReviewItemDropdown.vue";
 import { MDBTextarea } from "mdb-vue-ui-kit";
+import Reaction from "../common/Reaction.vue";
 export default {
   name: "ReviewItem",
-  components: { MDBTextarea, ReviewItemDropdown },
+  components: { MDBTextarea, ReviewItemDropdown, Reaction },
   props: {
     review: Object,
   },
   data() {
     return {
-      isLoadingLike: false,
-      isLoadingDislike: false,
       isDeleting: false,
     };
-  },
-  methods: {
-    async likeReview(id) {
-      this.isLoadingLike = true;
-      const data = await this.$store.dispatch("likeReview", id);
-      if (data) {
-        this.review.like = data.like;
-        this.review.dislike = data.dislike;
-        this.review.reaction = data.reaction;
-        console.table(data);
-      }
-      this.isLoadingLike = false;
-    },
-    async dislikeReview(id) {
-      this.isLoadingDislike = true;
-      const data = await this.$store.dispatch("dislikeReview", id);
-      if (data) {
-        this.review.like = data.like;
-        this.review.dislike = data.dislike;
-        this.review.reaction = data.reaction;
-        console.table(data);
-      }
-      this.isLoadingDislike = false;
-    },
   },
 };
 </script>

@@ -1,17 +1,17 @@
 <template>
   <nav class="bg-seavphov w-full">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
-      <a @click="toRouteName('home')" class="flex items-center clickable">
+      <router-link :to="{ name: 'home' }" class="flex items-center clickable">
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
-      </a>
+      </router-link>
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
         <template v-if="isLogin">
-          <div
+          <router-link
+            :to="{ name: 'add-book' }"
             class="d-flex align-items-sm-center clickable text-white"
-            @click="toRouteName('add-book')"
           >
             <i class="fas fa-plus-circle fa-xl"></i>
-          </div>
+          </router-link>
           <Dropdown
             id="notification-dropdown"
             id_content="notification-dropdown_content"

@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BookReview;
 use App\Models\Reaction;
 use App\Service\NotificationService;
+use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -43,60 +44,14 @@ class BookReviewController extends Controller
     public function likeReview(Request $request, $reviewId)
     {
         try {
-            // review owner ( receiver_id )
-            // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
 
+            // review owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'like your review!');
 
-            $existingReaction = Reaction::getFirstReview($review->id, $user->id);
-
-            if ($existingReaction != null) {
-                // If the user liked then like -> reduce helpful vote
-                if ($existingReaction->reaction == true) {
-                    $review->decreaseLike();
-                    $existingReaction->delete();
-
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'No reaction',
-                        'reaction' => null,
-                        'like' => $review->like,
-                        'dislike' => $review->dislike
-                    ], 200);
-                } else {
-                    // If the user disliked then like -> add helpful vote,  reduce not helpful vote
-                    $existingReaction->reaction = true;
-                    $existingReaction->save();
-                    $review->decreaseDislike();
-                    $review->increaseLike();
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Change to like',
-                        'reaction' => true,
-                        'like' => $review->like,
-                        'dislike' => $review->dislike
-                    ], 200);
-                }
-            } else {
-                // If no reaction exists, create a new one
-                Reaction::create([
-                    'user_id' => $user->id,
-                    'entity_id' => $review->id,
-                    'reaction' => true,
-                    'entity_type' => 'review',
-                ]);
-
-                $review->increaseLike();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully like a review',
-                    'reaction' => true,
-                    'like' => $review->like,
-                    'dislike' => $review->dislike
-                ], 200);
-            }
+            return ReactionService::likeEntity($review, $review->id, $user->id, 'review');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
@@ -108,61 +63,14 @@ class BookReviewController extends Controller
     public function dislikeReview(Request $request, $reviewId)
     {
         try {
-            // review owner ( receiver_id )
-            // book owner ( sender_id )
             $user = $request->attributes->get('user');
             $review = BookReview::find($reviewId);
+
+            // review owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeNotification($user->id, $review->user_id, $review->book_id, 'dislike your review');
 
-            $existingReaction = Reaction::getFirstReview($review->id, $user->id);
-
-            if ($existingReaction) {
-                // If the user dislike then dislike -> reduce not helpful vote
-                if ($existingReaction->reaction == false) {
-
-                    $review->decreaseDislike();
-                    $existingReaction->delete();
-
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'No reaction',
-                        'reaction' => null,
-                        'like' => $review->like,
-                        'dislike' => $review->dislike
-                    ], 200);
-                } else {
-                    // If the user liked then dislike -> reduce helpful vote,  add not helpful vote
-                    $existingReaction->reaction = false;
-                    $existingReaction->save();
-                    $review->increaseDislike();
-                    $review->decreaseLike();
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Change to dislike',
-                        'reaction' => false,
-                        'like' => $review->like,
-                        'dislike' => $review->dislike
-                    ], 200);
-                }
-            } else {
-                // If no reaction exists, create a new one
-                Reaction::create([
-                    'user_id' => $user->id,
-                    'entity_id' => $review->id,
-                    'reaction' => false,
-                    'entity_type' => 'review',
-                ]);
-
-                $review->increaseDislike();
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully dislike a review',
-                    'reaction' => false,
-                    'like' => $review->like,
-                    'dislike' => $review->dislike
-                ], 200);
-            }
+            return ReactionService::dislikeEntity($review, $review->id, $user->id, 'review');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
