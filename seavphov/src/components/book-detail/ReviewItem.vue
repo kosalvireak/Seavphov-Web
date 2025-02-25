@@ -31,7 +31,7 @@
     />
 
     <section v-else>
-      <div class="w-100 min-h-12 border border-gray-100 rounded-lg p-2">
+      <div class="w-100 min-h-12 border border-gray-100 rounded-lg p-2 my-2">
         {{ review.body }}
       </div>
 

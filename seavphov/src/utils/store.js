@@ -449,62 +449,6 @@ const store = createStore({
       }
     },
 
-    // Discussion
-
-    async fetchDiscussionById({ }, id) {
-      try {
-        const response = await getData(`/api/discussions/${id}`, true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-
-    async fetchDiscussions({ }, title) {
-      const params = new URLSearchParams();
-      params.append("title", title);
-      try {
-        const response = await getData(
-          `/api/discussions?${params.toString()}`,
-          true,
-        );
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-
-    async createDiscussion({ }, formData) {
-      try {
-        const response = await postForm("/api/discussions", formData, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data.data;
-        }
-      } catch (error) {
-        console.error("Error adding book:", error);
-        toast.error(error.response.data.message);
-      }
-    },
-
-    async deleteDiscussion({ }, id) {
-      try {
-        const response = await deleteData(`/api/discussions/delete/${id}`);
-        if (response.data.success) {
-          toast.success(response.data.message);
-
-          return response.data.message;
-        }
-      } catch (error) {
-        console.error("Error deleting discussion:", error);
-        toast.error(error.response.data.message);
-      }
-    },
-
     async likeDiscussion({ }, discussionId) {
       try {
         const response = await getData(

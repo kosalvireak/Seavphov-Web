@@ -30,7 +30,7 @@
       <LoadingButton
         :isLoading="isLoading"
         class="w-20 position-absolute end-0 bottom-0"
-        text="Comment"
+        text="Submit"
         type="submit"
       />
     </form>

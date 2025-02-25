@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import DiscussionController from "../../controllers/DiscussionController";
 export default {
   name: "DiscussionItemDropdown",
   data() {
@@ -36,7 +37,7 @@ export default {
   methods: {
     async deleteDiscussion() {
       this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteDiscussion", this.id);
+      await DiscussionController.deleteDiscussion(this.id);
       this.$router.go(0);
       this.isDeleting = false;
     },

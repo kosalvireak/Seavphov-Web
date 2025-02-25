@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="discussion.user"
-    class="DiscussionItem container rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
+    class="DiscussionItem container rounded-lg p-3 space-y-3 ring-1 ring-gray-300 relative"
   >
     <!-- Discussion header -->
     <a
@@ -9,17 +9,17 @@
       class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
     >
       <img
-        class="sp-logo-md rounded-full m-2"
+        class="sp-logo-md rounded-full mr-2"
         :src="discussion.user[0].picture"
       />
 
-      <div class="flex-col mt-3">
+      <div class="flex-col">
         <!-- User Name -->
         <p class="m-0 text-sp-dark">{{ discussion.user[0].name }}</p>
 
         <!-- Discussion Date -->
-        <p class="text-xs text-sp-gray">
-          posted on {{ formatDate(discussion.created_at) }}
+        <p class="text-xs text-sp-gray m-0">
+          Posted on {{ formatDate(discussion.created_at) }}
         </p>
       </div>
     </a>
@@ -28,11 +28,11 @@
     <DiscussionItemDropdown
       v-if="discussion.delete_able"
       :id="discussion.id"
-      class="absolute right-2 top-0"
+      class="absolute right-3 top-0"
     />
 
     <!-- Discussion Body -->
-    <div class="w-100 ml-2">
+    <div class="DiscussionBody w-100">
       {{ discussion.body }}
       <span
         v-if="discussion.has_more_text"
@@ -105,7 +105,7 @@ export default {
       this.isLoadingLike = true;
       const data = await this.$store.dispatch(
         "likeDiscussion",
-        this.discussion.id,
+        this.discussion.id
       );
       if (data) {
         this.discussion.like = data.like;
@@ -116,7 +116,7 @@ export default {
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch(
         "dislikeDiscussion",
-        this.discussion.id,
+        this.discussion.id
       );
       if (data) {
         this.discussion.dislike = data.dislike;
@@ -128,7 +128,7 @@ export default {
       this.isDeleting = true;
       const response = await this.$store.dispatch(
         "deleteDiscussion",
-        this.discussion.id,
+        this.discussion.id
       );
       this.toRouteName("discussions");
       this.isDeleting = false;

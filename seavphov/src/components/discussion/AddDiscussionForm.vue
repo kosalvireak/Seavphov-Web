@@ -79,6 +79,7 @@
 import { MDBTextarea } from "mdb-vue-ui-kit";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import DiscussionController from "../../controllers/DiscussionController";
 export default {
   name: "AddDiscussionForm",
   components: { MDBTextarea },
@@ -103,9 +104,8 @@ export default {
     async createDiscussion() {
       this.isLoading = true;
       this.formData.append("body", this.discussion.body);
-      const response = await this.$store.dispatch(
-        "createDiscussion",
-        this.formData,
+      const response = await DiscussionController.createDiscussion(
+        this.formData
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
@@ -123,7 +123,7 @@ export default {
               this.discussion.image = url;
               this.formData.append("image", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {
@@ -141,11 +141,6 @@ export default {
 </script>
 
 <style scoped>
-input[type="file"] {
-  font-size: 0;
-  margin: 0px;
-  padding: 0px;
-}
 ::file-selector-button {
   font-size: initial;
 }

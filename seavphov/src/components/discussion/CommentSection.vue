@@ -1,5 +1,5 @@
 <template>
-  <section class="CommentSection space-y-2">
+  <section class="CommentSection space-y-4">
     <AddComment
       :discussion_id="discussion_id"
       @on-add-comment="onAddComment($event)"

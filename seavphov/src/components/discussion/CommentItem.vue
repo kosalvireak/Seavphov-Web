@@ -1,11 +1,11 @@
 <template>
   <section
-    class="CommentItem container w-100 mb-4 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
+    class="CommentItem container w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
     <!-- Comment header -->
     <a
       :href="`/profile/${comment.user[0].uuid}`"
-      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100 space-x-2"
+      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100 space-x-2 mt-2"
     >
       <img
         class="sp-logo-sm rounded-full ms-2"
@@ -16,7 +16,7 @@
 
         <!-- Comment Date -->
         <p class="text-xs text-sp-gray m-0">
-          commented on {{ formatDate(comment.created_at) }}
+          Commented on {{ formatDate(comment.created_at) }}
         </p>
       </div>
     </a>

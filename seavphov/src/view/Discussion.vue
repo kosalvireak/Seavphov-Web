@@ -54,6 +54,7 @@ import { MDBInput } from "mdb-vue-ui-kit";
 import AdsContainer from "../components/discussion/AdsContainer.vue";
 import AddDiscussionContainer from "../components/discussion/AddDiscussionContainer.vue";
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
+import DiscussionController from "../controllers/DiscussionController";
 export default {
   name: "Discussion",
   components: {
@@ -76,9 +77,8 @@ export default {
     async fetchDiscussions() {
       this.discussions = [];
       this.isLoading = true;
-      const response = await this.$store.dispatch(
-        "fetchDiscussions",
-        this.keyword,
+      const response = await DiscussionController.fetchDiscussions(
+        this.keyword
       );
       this.isLoading = false;
       this.discussions = response;
