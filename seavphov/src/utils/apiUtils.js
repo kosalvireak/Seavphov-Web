@@ -1,5 +1,5 @@
-import axiosInstance from "../../axiosInstance.js";
-import { getCookie } from "./cookieUtils.js";
+import axiosInstance from "../services/axiosInstance.js";
+import { getCookie } from "../services/cookie.js";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const api_token = getCookie()?.api_token || null; // if user just login and access profile, the api_token won't invoke to get cookie again it will be null and get unauthorize

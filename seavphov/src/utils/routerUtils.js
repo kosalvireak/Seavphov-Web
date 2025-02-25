@@ -1,4 +1,4 @@
-import { getCookie } from "./cookieUtils";
+import { getCookie } from "../services/cookie.js";
 
 export const RouterMixin = {
   methods: {
