@@ -29,35 +29,11 @@
       @on-edit="isEditing = true"
     />
 
-    <form
+    <EditComment
       v-if="isEditing"
-      v-on:submit.prevent="editComment()"
-      class="d-flex flex-column align-items-end position-relative mt-4 min-h-40"
-    >
-      <div class="w-100">
-        <MDBTextarea
-          label="Edit comment"
-          class="py-3"
-          rows="3"
-          v-model="comment.body"
-          required
-        />
-      </div>
-
-      <LoadingButton
-        @click="isEditing = false"
-        class="w-20 position-absolute end-24 bottom-2"
-        color="gray"
-        text="Cancel"
-        type="button"
-      />
-      <LoadingButton
-        :isLoading="isLoading"
-        class="w-20 position-absolute end-0 bottom-2"
-        text="Done"
-        type="submit"
-      />
-    </form>
+      :comment="comment"
+      @finish-editing="isEditing = false"
+    />
 
     <section v-else>
       <div class="w-100 min-h-12 m-2">
@@ -74,33 +50,20 @@
 </template>
 
 <script>
+import EditComment from "./EditComment.vue";
 import { MDBTextarea } from "mdb-vue-ui-kit";
 import Reaction from "../common/Reaction.vue";
 import CommentItemDropdown from "./CommentItemDropdown.vue";
-import CommentController from "../../controllers/CommentController";
 export default {
   name: "CommentItem",
-  components: { MDBTextarea, CommentItemDropdown, Reaction },
+  components: { MDBTextarea, CommentItemDropdown, Reaction, EditComment },
   props: {
     comment: Object,
   },
   data() {
     return {
       isEditing: false,
-      isLoading: false,
-      formData: new FormData(),
     };
-  },
-  methods: {
-    async editComment() {
-      this.isLoading = true;
-      this.formData.append("_method", "put");
-      this.formData.append("id", this.comment.id);
-      this.formData.append("body", this.comment.body);
-      this.comment.body = await CommentController.editComment(this.formData);
-      this.isLoading = false;
-      this.isEditing = false;
-    },
   },
 };
 </script>

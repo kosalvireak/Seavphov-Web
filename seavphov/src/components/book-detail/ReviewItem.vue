@@ -11,42 +11,53 @@
       <p class="m-0 text-sp-dark">{{ review.user[0].name }}</p>
     </a>
 
+    <!-- Review Date -->
+    <p class="text-xs text-sp-gray">
+      Reviewed on {{ formatDate(review.created_at) }}
+    </p>
+
     <!-- Review delete Button -->
     <ReviewItemDropdown
       v-if="review.delete_able"
       :id="review.id"
       @on-remove="$emit('onRemove', $event)"
+      @on-edit="isEditing = true"
     />
 
-    <!-- Review Date -->
-    <p class="text-xs text-sp-gray">
-      Reviewed on {{ formatDate(review.created_at) }}
-    </p>
-    <div class="w-100 min-h-12 border border-gray-100 rounded-lg p-2">
-      {{ review.body }}
-    </div>
-
-    <Reaction
-      :entity="review"
-      likeMethodName="likeReview"
-      dislikeMethodName="dislikeReview"
+    <EditReview
+      v-if="isEditing"
+      :review="review"
+      @finish-editing="isEditing = false"
     />
+
+    <section v-else>
+      <div class="w-100 min-h-12 border border-gray-100 rounded-lg p-2">
+        {{ review.body }}
+      </div>
+
+      <Reaction
+        :entity="review"
+        likeMethodName="likeReview"
+        dislikeMethodName="dislikeReview"
+      />
+    </section>
   </section>
 </template>
 
 <script>
+import EditReview from "./EditReview.vue";
 import ReviewItemDropdown from "./ReviewItemDropdown.vue";
 import { MDBTextarea } from "mdb-vue-ui-kit";
 import Reaction from "../common/Reaction.vue";
 export default {
   name: "ReviewItem",
-  components: { MDBTextarea, ReviewItemDropdown, Reaction },
+  components: { MDBTextarea, ReviewItemDropdown, Reaction, EditReview },
   props: {
     review: Object,
   },
   data() {
     return {
-      isDeleting: false,
+      isEditing: false,
     };
   },
 };

@@ -111,6 +111,35 @@ class BookReviewController extends Controller
         ], 200);
     }
 
+
+    public function editReview(Request $request, $id)
+    {
+        $user = $request->attributes->get('user');
+        $review = BookReview::findOrFail($id);
+
+        if ($review->user_id != $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No permission',
+            ], 403);
+        }
+
+        $validatedData = $request->validate([
+            'body' => 'required|string',
+        ]);
+        $body = $validatedData['body'];
+
+        $review->body = $body;
+        $review->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Edited review',
+            'data' => $body,
+        ], 200);
+    }
+
+
     public function createReview(Request $request)
     {
         try {

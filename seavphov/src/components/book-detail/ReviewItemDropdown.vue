@@ -13,7 +13,7 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
+            <p :class="dropdownItemCss" @click="onEdit()">Edit</p>
           </li>
           <li>
             <p :class="dropdownItemCss" @click="deleteReview(id)">Delete</p>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import ReviewController from "../../controllers/ReviewController";
 export default {
   name: "ReviewItemDropdown",
   data() {
@@ -38,12 +39,12 @@ export default {
     id: Number,
   },
   methods: {
-    editBook(id) {
-      alert("EditComment");
+    onEdit() {
+      this.$emit("onEdit");
     },
     async deleteReview(id) {
       this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteReview", id);
+      const response = await ReviewController.deleteReview(id);
       if (response) {
         this.$emit("onRemove", id);
       }

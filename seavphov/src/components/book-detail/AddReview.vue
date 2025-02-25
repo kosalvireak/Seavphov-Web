@@ -33,6 +33,7 @@
 
 <script>
 import { MDBTextarea } from "mdb-vue-ui-kit";
+import ReviewController from "../../controllers/ReviewController";
 export default {
   name: "AddReview",
   components: { MDBTextarea },
@@ -58,7 +59,7 @@ export default {
       let formData = new FormData();
       formData.append("body", this.review.body);
       formData.append("book_id", this.book_id);
-      const data = await this.$store.dispatch("createReview", formData);
+      const data = await ReviewController.createReview(formData);
       this.resetForm();
       this.isLoading = false;
       data.delete_able = true;

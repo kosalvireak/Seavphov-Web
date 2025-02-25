@@ -18,7 +18,7 @@
 
 <script>
 import AddComment from "./AddComment.vue";
-import CommentItem from "../book-detail/CommentItem.vue";
+import CommentItem from "./CommentItem.vue";
 import CommentController from "../../controllers/CommentController";
 export default {
   name: "CommentSection",
@@ -49,7 +49,7 @@ export default {
         if (this.discussion_id === undefined) return;
         this.isLoading = true;
         this.comments = await CommentController.fetchDiscussionComments(
-          this.discussion_id,
+          this.discussion_id
         );
         this.isLoading = false;
       },

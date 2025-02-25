@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import ReviewController from "../../controllers/ReviewController";
 import Loader from "../common/Loader.vue";
 import AddReview from "./AddReview.vue";
 import ReviewItem from "./ReviewItem.vue";
@@ -47,10 +48,7 @@ export default {
       async handler() {
         if (this.book_id === undefined) return;
         this.isLoading = true;
-        this.reviews = await this.$store.dispatch(
-          "fetchBookReviews",
-          this.book_id,
-        );
+        this.reviews = await ReviewController.fetchBookReviews(this.book_id);
         this.isLoading = false;
       },
     },
