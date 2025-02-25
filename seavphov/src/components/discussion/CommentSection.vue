@@ -19,6 +19,7 @@
 <script>
 import AddComment from "./AddComment.vue";
 import CommentItem from "../book-detail/CommentItem.vue";
+import CommentController from "../../controllers/CommentController";
 export default {
   name: "CommentSection",
   components: { AddComment, CommentItem },
@@ -47,8 +48,7 @@ export default {
       async handler() {
         if (this.discussion_id === undefined) return;
         this.isLoading = true;
-        this.comments = await this.$store.dispatch(
-          "fetchDiscussionComments",
+        this.comments = await CommentController.fetchDiscussionComments(
           this.discussion_id
         );
         this.isLoading = false;

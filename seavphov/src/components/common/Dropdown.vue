@@ -76,7 +76,8 @@ export default {
       this.hiddenContent = !this.$refs.content.classList.contains("hidden");
     },
     closeDropdown(event) {
-      if (!this.$refs.content || !this.$el.contains(event.target)) {
+      if (!this.$refs.content) return;
+      if (!this.$el.contains(event.target)) {
         this.$refs.content.classList.add("hidden");
         this.hiddenContent = false;
       }

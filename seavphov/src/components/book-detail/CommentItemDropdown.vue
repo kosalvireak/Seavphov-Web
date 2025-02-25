@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import CommentController from "../../controllers/CommentController";
 export default {
   name: "CommentItemDropdown",
   data() {
@@ -43,7 +44,7 @@ export default {
     },
     async deleteComment(id) {
       this.isDeleting = true;
-      const response = await this.$store.dispatch("deleteComment", id);
+      const response = await CommentController.deleteComment(id);
       if (response) {
         this.$emit("onRemove", id);
       }

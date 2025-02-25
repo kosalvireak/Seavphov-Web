@@ -32,9 +32,9 @@
     <form
       v-if="isEditing"
       v-on:submit.prevent="editComment()"
-      class="d-flex flex-column align-items-end mt-4"
+      class="d-flex flex-column align-items-end position-relative mt-4 min-h-40"
     >
-      <div class="position-relative w-100 mb-2">
+      <div class="w-100">
         <MDBTextarea
           label="Edit comment"
           class="py-3"
@@ -42,20 +42,21 @@
           v-model="comment.body"
           required
         />
-        <LoadingButton
-          @click="isEditing = false"
-          class="w-20 position-absolute end-24 bottom-0 mb-2"
-          color="gray"
-          text="Cancel"
-          type="button"
-        />
-        <LoadingButton
-          :isLoading="isLoading"
-          class="w-20 position-absolute end-0 bottom-0 me-2 mb-2"
-          text="Done"
-          type="submit"
-        />
       </div>
+
+      <LoadingButton
+        @click="isEditing = false"
+        class="w-20 position-absolute end-24 bottom-2"
+        color="gray"
+        text="Cancel"
+        type="button"
+      />
+      <LoadingButton
+        :isLoading="isLoading"
+        class="w-20 position-absolute end-0 bottom-2"
+        text="Done"
+        type="submit"
+      />
     </form>
 
     <section v-else>
@@ -76,6 +77,7 @@
 import { MDBTextarea } from "mdb-vue-ui-kit";
 import Reaction from "../common/Reaction.vue";
 import CommentItemDropdown from "./CommentItemDropdown.vue";
+import CommentController from "../../controllers/CommentController";
 export default {
   name: "CommentItem",
   components: { MDBTextarea, CommentItemDropdown, Reaction },
@@ -95,10 +97,7 @@ export default {
       this.formData.append("_method", "put");
       this.formData.append("id", this.comment.id);
       this.formData.append("body", this.comment.body);
-      this.comment.body = await this.$store.dispatch(
-        "editComment",
-        this.formData
-      );
+      this.comment.body = await CommentController.editComment(this.formData);
       this.isLoading = false;
       this.isEditing = false;
     },
