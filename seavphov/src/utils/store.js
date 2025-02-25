@@ -563,57 +563,6 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-
-    // Comment
-    async fetchDiscussionComments({ }, discussionId) {
-      try {
-        const response = await getData(`/api/comment/discussion/${discussionId}`, true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-
-    async deleteComment({ }, id) {
-      try {
-        const response = await deleteData(`/api/comment/delete/${id}`);
-        if (response.data.success) {
-          toast.success(response.data.message);
-
-          return response.data.message;
-        }
-      } catch (error) {
-        console.error("Error deleting comment:", error);
-        toast.error(error.response.data.message);
-      }
-    },
-    async createComment({ }, formData) {
-      try {
-        const response = await postForm("/api/comment/add", formData, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data.data;
-        }
-      } catch (error) {
-        console.error("Error adding comment:", error);
-        toast.error(error.response.data.message);
-      }
-    },
-    async editComment({ }, formData) {
-      try {
-        let id = formData.get("id");
-        const response = await postForm(`/api/comment/edit/${id}`, formData, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data.data;
-        }
-      } catch (error) {
-        console.error("Error editing comment:", error);
-        toast.error(error.response.data.message);
-      }
-    },
     async likeComment({ }, commentId) {
       try {
         const response = await getData(`/api/comment/like/${commentId}`, true);

@@ -16,9 +16,9 @@
     <form
       v-else
       v-on:submit.prevent="addComment()"
-      class="d-flex flex-column align-items-end"
+      class="d-flex flex-column align-items-end position-relative min-h-40"
     >
-      <div class="position-relative w-100 mb-2">
+      <div class="w-100 mb-2">
         <MDBTextarea
           label="Add a comment"
           class="py-3"
@@ -26,19 +26,20 @@
           v-model="comment.body"
           required
         />
-        <LoadingButton
-          :isLoading="isLoading"
-          class="w-20 position-absolute end-0 bottom-0 me-2 mb-2"
-          text="Comment"
-          type="submit"
-        />
       </div>
+      <LoadingButton
+        :isLoading="isLoading"
+        class="w-20 position-absolute end-0 bottom-0"
+        text="Comment"
+        type="submit"
+      />
     </form>
   </section>
 </template>
 
 <script>
 import { MDBTextarea } from "mdb-vue-ui-kit";
+import CommentController from "../../controllers/CommentController";
 export default {
   name: "addComment",
   components: { MDBTextarea },
@@ -64,7 +65,7 @@ export default {
       let formData = new FormData();
       formData.append("body", this.comment.body);
       formData.append("discussion_id", this.discussion_id);
-      const data = await this.$store.dispatch("createComment", formData);
+      const data = await CommentController.createComment(formData);
       this.resetForm();
       this.isLoading = false;
       data.delete_able = true;

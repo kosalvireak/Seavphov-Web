@@ -28,7 +28,7 @@ export default {
   <button
     :type="type"
     :disabled="shouldDisabled"
-    class="btn btn-primary flex-center sp-btn-loading"
+    class="min-h-9 btn btn-primary flex-center sp-btn-loading"
     :style="{ 'background-color': 'var(' + backgroundColor + ')' }"
   >
     <span v-if="!isLoading">{{ text }}</span>
