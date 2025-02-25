@@ -105,7 +105,7 @@ export default {
       this.formData.append("body", this.discussion.body);
       const response = await this.$store.dispatch(
         "createDiscussion",
-        this.formData
+        this.formData,
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
@@ -123,7 +123,7 @@ export default {
               this.discussion.image = url;
               this.formData.append("image", url);
               this.uploadingBook = false;
-            }
+            },
           );
         }
       } catch (error) {

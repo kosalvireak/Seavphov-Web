@@ -186,7 +186,7 @@ export default {
               this.formData.append("picture", url);
               this.uploadingBook = false;
               console.log("EditProfile this.user.picture", this.user.picture);
-            }
+            },
           );
         }
       } catch (error) {

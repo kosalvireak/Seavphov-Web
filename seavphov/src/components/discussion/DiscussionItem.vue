@@ -105,7 +105,7 @@ export default {
       this.isLoadingLike = true;
       const data = await this.$store.dispatch(
         "likeDiscussion",
-        this.discussion.id
+        this.discussion.id,
       );
       if (data) {
         this.discussion.like = data.like;
@@ -116,7 +116,7 @@ export default {
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch(
         "dislikeDiscussion",
-        this.discussion.id
+        this.discussion.id,
       );
       if (data) {
         this.discussion.dislike = data.dislike;
@@ -128,7 +128,7 @@ export default {
       this.isDeleting = true;
       const response = await this.$store.dispatch(
         "deleteDiscussion",
-        this.discussion.id
+        this.discussion.id,
       );
       this.toRouteName("discussions");
       this.isDeleting = false;

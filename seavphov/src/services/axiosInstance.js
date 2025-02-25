@@ -1,18 +1,21 @@
-import { useToast } from "vue-toastification"
-import axios from 'axios';
+import { useToast } from "vue-toastification";
+import axios from "axios";
 
 const toast = useToast();
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
-axiosInstance.interceptors.response.use(response => {
+axiosInstance.interceptors.response.use(
+  (response) => {
     return response;
-}, error => {
+  },
+  (error) => {
     if (!error.response) {
-        toast.error('Network Error:', error.message);
+      toast.error("Network Error:", error.message);
     }
     return Promise.reject(error);
-});
+  },
+);
 
 export default axiosInstance;

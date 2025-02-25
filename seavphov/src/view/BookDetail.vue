@@ -105,7 +105,7 @@ export default {
       this.filters.excludeId = this.paramsId;
       this.relatedBooks = await this.$store.dispatch(
         "fetchBooksWithFilter",
-        this.filters
+        this.filters,
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -116,14 +116,14 @@ export default {
       }
       [this.book, this.bookOwner] = await this.$store.dispatch(
         "fetchBookById",
-        this.formData
+        this.formData,
       );
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId
+        this.paramsId,
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

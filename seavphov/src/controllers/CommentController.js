@@ -2,13 +2,15 @@ import { deleteData, getData, postForm } from "../utils/apiUtils.js";
 import { useToast } from "vue-toastification";
 const toast = useToast();
 
-const CommentRoute = '/api/comment'
+const CommentRoute = "/api/comment";
 
 export default class CommentController {
-
   static async fetchDiscussionComments(discussionId) {
     try {
-      const response = await getData(`${CommentRoute}/discussion/${discussionId}`, true);
+      const response = await getData(
+        `${CommentRoute}/discussion/${discussionId}`,
+        true,
+      );
       if (response.data.success) {
         return response.data.data;
       }
@@ -33,7 +35,11 @@ export default class CommentController {
   static async editComment(formData) {
     try {
       let id = formData.get("id");
-      const response = await postForm(`/api/comment/edit/${id}`, formData, true);
+      const response = await postForm(
+        `/api/comment/edit/${id}`,
+        formData,
+        true,
+      );
       if (response.data.success) {
         toast.success(response.data.message);
         return response.data.data;
@@ -43,7 +49,6 @@ export default class CommentController {
       toast.error(error.response.data.message);
     }
   }
-
 
   static async createComment(formData) {
     try {

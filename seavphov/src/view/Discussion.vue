@@ -78,7 +78,7 @@ export default {
       this.isLoading = true;
       const response = await this.$store.dispatch(
         "fetchDiscussions",
-        this.keyword
+        this.keyword,
       );
       this.isLoading = false;
       this.discussions = response;

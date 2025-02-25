@@ -7,8 +7,8 @@ const api_token = getCookie()?.api_token || null; // if user just login and acce
 export async function getData(route, auth = false) {
   const headers = auth
     ? {
-      Authorization: `Bearer ${api_token}`,
-    }
+        Authorization: `Bearer ${api_token}`,
+      }
     : {};
   return await axiosInstance.get(backend_url + route, { headers });
 }
