@@ -13,7 +13,7 @@ import UsersList from "../view/admin/UsersList.vue";
 import BannersList from "../view/admin/BannersList.vue";
 import BooksList from "../view/admin/BooksList.vue";
 import ForgotPassword from "../view/ForgotPassword.vue";
-import { getCookie } from "../utils/cookieUtils.js";
+import { getCookie } from "../services/cookie.js";
 import store from "../utils/store.js";
 import UserLayout from "../layout/UserLayout.vue";
 import AuthLayout from "../layout/AuthLayout.vue";

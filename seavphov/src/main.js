@@ -22,7 +22,7 @@ import router from "./router/index";
 import store from "./utils/store";
 import { RouterMixin } from "./utils/routerUtils";
 import { DateMixin } from "./utils/dateMixin";
-import toastPlugin from "./utils/toastPlugin";
+import toastPlugin from "./services/toastPlugin";
 import mobileUtils from "./utils/mobileUtils";
 
 // component

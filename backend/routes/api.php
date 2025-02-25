@@ -49,7 +49,6 @@ Route::prefix('review')->group(function () {
     Route::get('/like/{id}', [BookReviewController::class, 'likeReview'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [BookReviewController::class, 'dislikeReview'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
-
     Route::delete('/delete/{id}', [BookReviewController::class, 'deleteReview'])->middleware([ApiTokenAuthentication::class]);
 });
 
@@ -58,7 +57,7 @@ Route::prefix('comment')->group(function () {
     Route::get('/like/{id}', [CommentController::class, 'likeComment'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [CommentController::class, 'dislikeComment'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [CommentController::class, 'createComment'])->middleware([ApiTokenAuthentication::class]);
-    Route::put('{id}', [CommentController::class, 'editComment'])->middleware([ApiTokenAuthentication::class]);
+    Route::put('/edit/{id}', [CommentController::class, 'editComment'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [CommentController::class, 'deleteComment'])->middleware([ApiTokenAuthentication::class]);
 });
 
