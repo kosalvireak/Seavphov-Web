@@ -15,8 +15,7 @@ export function getCookie() {
   const user = VueCookies.get("seavphov");
   if (user) {
     const bytes = CryptoJS.AES.decrypt(user, secretKey);
-    const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return data;
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   } else {
     return null;
   }
