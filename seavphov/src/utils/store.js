@@ -607,6 +607,19 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
+    async editComment({ }, formData) {
+      try {
+        let id = formData.get("id");
+        const response = await postForm(`/api/comment/${id}`, formData, true);
+        if (response.data.success) {
+          toast.success(response.data.message);
+          return response.data.data;
+        }
+      } catch (error) {
+        console.error("Error editing comment:", error);
+        toast.error(error.response.data.message);
+      }
+    },
     async likeComment({ }, commentId) {
       try {
         const response = await getData(`/api/comment/like/${commentId}`, true);

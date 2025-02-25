@@ -15,6 +15,7 @@ export default {
     backgroundColor() {
       if (this.color == "primary") return "--sp-primary";
       if (this.color == "danger") return "--sp-danger";
+      if (this.color == "gray") return "--sp-gray";
     },
     shouldDisabled() {
       return this.isLoading || this.disabled;

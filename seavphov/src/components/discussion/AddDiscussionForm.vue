@@ -16,7 +16,7 @@
         What's on your mind?
       </div>
     </div>
-    <FwbModal v-if="isShowModal" @close="closeModal">
+    <FwbModal v-if="isShowModal" @close="closeModal" class="AddDiscussionPopup">
       <template #header>
         <div class="flex items-center text-lg">
           <img

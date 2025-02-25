@@ -119,6 +119,33 @@ class CommentController extends Controller
         ], 200);
     }
 
+    public function editComment(Request $request, $id)
+    {
+        $user = $request->attributes->get('user');
+        $comment = Comment::findOrFail($id);
+
+        if ($comment->owner_id != $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No permission',
+            ], 403);
+        }
+
+        $validatedData = $request->validate([
+            'body' => 'required|string',
+        ]);
+        $body = $validatedData['body'];
+
+        $comment->body = $body;
+        $comment->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Edited comment',
+            'data' => $body,
+        ], 200);
+    }
+
     public function createComment(Request $request)
     {
         try {

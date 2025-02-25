@@ -8,8 +8,10 @@
         >Join the discussion and share your thoughts with our vibrant
         community!</span
       >
-      <FwbButton @click="toRouteName('discussion')" color="green"
-        >Go to Discussion</FwbButton
+      <FwbButton color="green"
+        ><router-link :to="{ name: 'discussion' }" class="text-white">
+          Go to Discussion
+        </router-link></FwbButton
       >
     </div>
   </section>

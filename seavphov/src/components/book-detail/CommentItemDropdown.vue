@@ -13,7 +13,7 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
+            <p :class="dropdownItemCss" @click="editBook()">Edit</p>
           </li>
           <li>
             <p :class="dropdownItemCss" @click="deleteComment(id)">Delete</p>
@@ -38,8 +38,8 @@ export default {
     id: Number,
   },
   methods: {
-    editBook(id) {
-      alert("EditComment");
+    editBook() {
+      this.$emit("onEdit");
     },
     async deleteComment(id) {
       this.isDeleting = true;

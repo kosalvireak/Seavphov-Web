@@ -25,7 +25,6 @@ Dynamic Banner
 
 Admin manage all books, users and banner
 
-
 ## Image
 
 ![Login](./assets/Screenshot_1.png)
