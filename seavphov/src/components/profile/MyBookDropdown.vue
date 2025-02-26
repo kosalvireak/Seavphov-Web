@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import BookController from "../../controllers/BookController";
 export default {
   name: "MyBookDropdown",
   data() {
@@ -47,7 +48,7 @@ export default {
       this.$router.push(`/book/edit/${id}`);
     },
     async changeAvailability(id) {
-      const response = await this.$store.dispatch("changeAvailability", id);
+      const response = await BookController.changeBookAvailability(id);
       if (response) {
         this.$emit("change");
       }

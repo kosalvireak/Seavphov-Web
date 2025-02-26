@@ -45,111 +45,45 @@
       <img :src="discussion.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">
-      <div class="flex-center w-fit min-w-16">
-        <Loader v-if="isLoadingLike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="likeDiscussion()"
+      <Reaction
+        :entity="discussion"
+        likeMethodName="likeDiscussion"
+        dislikeMethodName="dislikeDiscussion"
+      >
+        <div
+          class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200 mr-auto"
         >
-          <i class="fa-regular fa-thumbs-up fa-xl"></i>
-          {{ discussion.like }}
-        </span>
-      </div>
-      <div class="flex-center w-fit min-w-16">
-        <Loader v-if="isLoadingDislike" />
-        <span
-          v-else
-          class="clickable hover:bg-gray-200 px-1 py-1 rounded-lg text-md h-100"
-          :class="{ '!cursor-not-allowed hover:bg-white': !isLogin }"
-          @click="dislikeDiscussion()"
-        >
-          <i class="fa-regular fa-thumbs-down fa-xl"></i>
-          {{ discussion.dislike }}
-        </span>
-      </div>
-      <div class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200">
-        <span
-          class="clickable px-2 py-1 rounded-lg text-md h-100"
-          @click="toDiscussionDetail()"
-          ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
-          {{ discussion.number_of_comments }}
-        </span>
-      </div>
+          <span
+            class="clickable px-2 py-1 rounded-lg text-md h-100"
+            @click="toDiscussionDetail()"
+            ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
+            {{ discussion.number_of_comments }}
+          </span>
+        </div>
+      </Reaction>
     </div>
   </section>
 </template>
 
 <script>
 import DiscussionItemDropdown from "./DiscussionItemDropdown.vue";
+import Reaction from "../common/Reaction.vue";
 export default {
   name: "DiscussionItem",
-  components: { DiscussionItemDropdown },
+  components: { DiscussionItemDropdown, Reaction },
   props: {
     discussion: Object,
   },
   data() {
     return {
       isDeleting: false,
-      isLoadingLike: false,
-      isLoadingDislike: false,
     };
   },
   methods: {
     toDiscussionDetail() {
       this.toRouteName("discussion-detail", this.discussion.id);
     },
-
-    async likeDiscussion() {
-      this.isLoadingLike = true;
-      const data = await this.$store.dispatch(
-        "likeDiscussion",
-        this.discussion.id
-      );
-      if (data) {
-        this.discussion.like = data.like;
-      }
-      this.isLoadingLike = false;
-    },
-    async dislikeDiscussion(id) {
-      this.isLoadingDislike = true;
-      const data = await this.$store.dispatch(
-        "dislikeDiscussion",
-        this.discussion.id
-      );
-      if (data) {
-        this.discussion.dislike = data.dislike;
-      }
-      this.isLoadingDislike = false;
-    },
-
-    async deleteDiscussion() {
-      this.isDeleting = true;
-      const response = await this.$store.dispatch(
-        "deleteDiscussion",
-        this.discussion.id
-      );
-      this.toRouteName("discussions");
-      this.isDeleting = false;
-    },
   },
-  // {
-  //   "id": 1,
-  //   "user": [
-  //     {
-  //       "name": "Kosal Vireak1",
-  //       "picture": "https:\/\/firebasestorage.googleapis.com\/v0\/b\/seavphov-919d7.appspot.com\/o\/folder%2F1268992.jpg?alt=media&token=c863c8cd-f68c-4a87-b345-0e0014e29240",
-  //       "uuid": "lSZWwmr5L9OvD8v3Xh95YMPRfAPjzo"
-  //     }
-  //   ],
-  //   "body": "Good Logo yet?",
-  //   "number_of_comments": 0,
-  //   "like": 0,
-  //   "dislike": 0,
-  //   "delete_able": false,
-  //   "created_at": "2025-01-15T16:25:20.000000Z"
-  // }
 };
 </script>
 

@@ -38,8 +38,49 @@ class Discussion extends Model
             'number_of_comments' => $this->comments,
             'like' => $this->like,
             'dislike' => $this->dislike,
+            'reaction' => $this->getUserReaction($userId),
             'delete_able' => $deleteAble,
             'created_at' => $this->created_at
         ];
+    }
+
+
+    public function increaseLike()
+    {
+        $this->like += 1;
+        $this->save();
+    }
+    public function decreaseLike()
+    {
+        if ($this->like == 0) {
+            $this->like = 0;
+        } else {
+            $this->like -= 1;
+        }
+        $this->save();
+    }
+    public function increaseDislike()
+    {
+        $this->dislike += 1;
+        $this->save();
+    }
+    public function decreaseDislike()
+    {
+        if ($this->dislike == 0) {
+            $this->dislike = 0;
+        } else {
+            $this->dislike -= 1;
+        }
+        $this->save();
+    }
+
+    private function getUserReaction($userId = null)
+    {
+        if ($userId == null) return null;
+        $discussionReaction = Reaction::where('entity_id', $this->id)
+            ->where('user_id', $userId)
+            ->where('entity_type', 'discussion')
+            ->first();
+        return $discussionReaction != null ? $discussionReaction->getReactionAsBoolean() : null;
     }
 }

@@ -9,7 +9,7 @@ export default class CommentController {
   static async fetchDiscussionComments(discussionId) {
     try {
       const response = await getData(
-        `${CommentRoute}/discussion/${discussionId}`,
+        CommentRoute + `/discussion/${discussionId}`,
         true,
       );
       if (response.data.success) {
@@ -22,7 +22,7 @@ export default class CommentController {
 
   static async deleteComment(id) {
     try {
-      const response = await deleteData(`${CommentRoute}/delete/${id}`);
+      const response = await deleteData(CommentRoute + `/delete/${id}`);
       if (response.data.success) {
         toast.success(response.data.message);
         return response.data.message;
@@ -37,7 +37,7 @@ export default class CommentController {
     try {
       let id = formData.get("id");
       const response = await postForm(
-        `/api/comment/edit/${id}`,
+        CommentRoute + `/edit/${id}`,
         formData,
         true,
       );
@@ -53,7 +53,7 @@ export default class CommentController {
 
   static async createComment(formData) {
     try {
-      const response = await postForm("/api/comment/add", formData, true);
+      const response = await postForm(CommentRoute + `/add`, formData, true);
       if (response.data.success) {
         toast.success(response.data.message);
         return response.data.data;

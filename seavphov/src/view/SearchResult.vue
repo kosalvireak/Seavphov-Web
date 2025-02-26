@@ -35,6 +35,7 @@
 <script>
 import RenderBook from "../components/RenderBook.vue";
 import Filter from "../components/Filter.vue";
+import BookController from "../controllers/BookController";
 export default {
   name: "SearchResult",
   components: { RenderBook, Filter },
@@ -58,10 +59,7 @@ export default {
     async getSearchBooks(keyword, type) {
       this.isLoading = true;
       this.filters[type] = keyword;
-      this.Books = await this.$store.dispatch(
-        "fetchBooksWithFilter",
-        this.filters,
-      );
+      this.Books = await BookController.fetchBooksWithFilter(this.filters);
       this.filters = {};
       this.isLoading = false;
     },

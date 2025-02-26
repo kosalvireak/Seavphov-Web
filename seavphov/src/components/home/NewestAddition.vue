@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import BookController from "../../controllers/BookController";
 import Book from "../common/Book.vue";
 export default {
   name: "NewestAddition",
@@ -26,12 +27,10 @@ export default {
     };
   },
   methods: {},
-  mounted() {
+  async mounted() {
     this.isLoading = true;
-    this.$store.dispatch("fetchNewestAddition").then((response) => {
-      this.books = response;
-      this.isLoading = false;
-    });
+    this.books = await BookController.fetchNewestAddition();
+    this.isLoading = false;
   },
 };
 </script>

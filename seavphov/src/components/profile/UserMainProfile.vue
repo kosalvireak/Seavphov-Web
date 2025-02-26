@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import BookController from "../../controllers/BookController";
 import SocialMediaList from "../SocialMediaList.vue";
 
 export default {
@@ -66,7 +67,7 @@ export default {
   },
   methods: {
     async getBanner() {
-      this.banner = await this.$store.dispatch("getBanner");
+      this.banner = await BookController.getBanner();
     },
     handleClick() {
       window.open(this.banner.link_url);

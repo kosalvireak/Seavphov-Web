@@ -79,6 +79,7 @@
 import RenderBook from "../components/RenderBook.vue";
 import BookAuthorProfile from "../components/book-detail/BookAuthorProfile.vue";
 import BookReview from "../components/book-detail/BookReview.vue";
+import BookController from "../controllers/BookController";
 export default {
   name: "BookDetail",
   components: { RenderBook, BookAuthorProfile, BookReview },
@@ -103,9 +104,8 @@ export default {
       this.filters.categories = this.book.categories;
       this.filters.max = this.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
-      this.relatedBooks = await this.$store.dispatch(
-        "fetchBooksWithFilter",
-        this.filters,
+      this.relatedBooks = await BookController.fetchBooksWithFilter(
+        this.filters
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -114,16 +114,15 @@ export default {
       if (this.isLogin) {
         this.formData.append("uuid", this.$store.state.user.uuid);
       }
-      [this.book, this.bookOwner] = await this.$store.dispatch(
-        "fetchBookById",
-        this.formData,
+      [this.book, this.bookOwner] = await BookController.fetchBookDetail(
+        this.formData
       );
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId,
+        this.paramsId
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

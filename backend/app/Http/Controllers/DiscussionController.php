@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Discussion;
 use App\Service\NotificationService;
+use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -46,15 +47,11 @@ class DiscussionController extends Controller
             $user = $request->attributes->get('user');
             $discussion = Discussion::find($discussionId);
 
+            // comment owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'like your discussion!');
 
-            $discussion->like = $discussion->like + 1;
-            $discussion->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully like discussion',
-                'data' => $discussion->getData(),
-            ], 200);
+            return ReactionService::likeEntity($discussion, $discussion->id, $user->id, 'discussion');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
@@ -71,16 +68,11 @@ class DiscussionController extends Controller
 
             $discussion = Discussion::find($discussionId);
 
+            // comment owner ( receiver_id )
+            // book owner ( sender_id )
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussionId, 'dislike your discussion!');
 
-            $discussion->dislike = $discussion->dislike + 1;
-            $discussion->save();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully dislike discussion',
-                'data' => $discussion->getData(),
-            ], 200);
+            return ReactionService::dislikeEntity($discussion, $discussion->id, $user->id, 'discussion');
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,

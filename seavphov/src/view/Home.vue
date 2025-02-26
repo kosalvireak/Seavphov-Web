@@ -24,7 +24,7 @@ import RenderBook from "../components/RenderBook.vue";
 import PaginatedBook from "../components/PaginatedBook.vue";
 import Carousel from "../components/home/Carousel.vue";
 import DiscussionHomepage from "../components/discussion/DiscussionHomepage.vue";
-
+import BookController from "../controllers/BookController";
 export default {
   name: "Home",
   components: {
@@ -52,14 +52,13 @@ export default {
     async getCarousel() {
       console.log("getCarousel");
       this.isLoading = true;
-      this.carouselData = await this.$store.dispatch(
-        "fetchBooksWithFilter",
-        this.filters,
+      this.carouselData = await BookController.fetchBooksWithFilter(
+        this.filters
       );
       this.isLoading = false;
     },
     async getBanner() {
-      this.banner = await this.$store.dispatch("getBanner");
+      this.banner = await BookController.getBanner();
     },
   },
   computed: {

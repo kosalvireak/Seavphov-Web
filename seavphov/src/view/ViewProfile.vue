@@ -23,6 +23,7 @@
 import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
+import BookController from "../controllers/BookController";
 export default {
   name: "ViewProfile",
   components: { UserMainProfile, RenderBook, NoLoggin },
@@ -57,10 +58,7 @@ export default {
   },
   methods: {
     async getBooks() {
-      this.Books = await this.$store.dispatch(
-        "fetchBooksWithFilter",
-        this.filters,
-      );
+      this.Books = await BookController.fetchBooksWithFilter(this.filters);
       this.isLoading = false;
     },
   },
