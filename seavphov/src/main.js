@@ -31,6 +31,7 @@ import Loader from "./components/common/Loader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
 import LoadingButton from "./components/common/LoadingButton.vue";
+import ImageUpload from "./components/common/ImageUpload.vue";
 
 const app = createApp(App);
 
@@ -48,6 +49,7 @@ app.component("FwbModal", FwbModal);
 app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);
+app.component("ImageUpload", ImageUpload);
 
 // global mixin
 app.mixin(RouterMixin);

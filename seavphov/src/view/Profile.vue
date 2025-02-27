@@ -76,6 +76,8 @@ export default {
     this.User.name = response.name;
     this.User.email = response.email;
     this.User.picture = response.picture;
+    this.User.cover = response.cover;
+    this.User.bio = response.bio;
     this.User.phone = response.phone;
     this.User.facebook = response.facebook;
     this.User.instagram = response.instagram;

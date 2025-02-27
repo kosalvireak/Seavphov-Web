@@ -10,13 +10,12 @@
     <template v-else>
       <div
         class="hidden md:flex container-sm cover_container w-1800 h-full b-1 p-0"
-        @click="handleClick"
       >
         <img
-          :src="banner.image_url"
+          :src="getUserCoverImage()"
           class="w-100 h-100 b-1 rounded-7 img-fluid cover_img"
           style="object-fit: cover; max-height: 250px"
-          :alt="banner.title"
+          alt="user's cover"
         />
       </div>
       <div class="container-sm flex user_info b-1">
@@ -31,6 +30,7 @@
             <h3 class="font-100">{{ user.name }}</h3>
             <p v-if="fromProfile" class="font-75">{{ user.email }}</p>
             <p class="font-75">{{ user.phone }}</p>
+            <p class="font-75">{{ user.bio }}</p>
           </div>
         </div>
         <div class="flex user_info_right">
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import BookController from "../../controllers/BookController";
 import SocialMediaList from "../SocialMediaList.vue";
 
 export default {
@@ -60,21 +59,13 @@ export default {
     fromProfile: { type: Boolean, required: true },
     loading: { type: Boolean, required: false },
   },
-  data() {
-    return {
-      banner: {},
-    };
-  },
   methods: {
-    async getBanner() {
-      this.banner = await BookController.getBanner();
+    getUserCoverImage() {
+      if (this.user.cover == "null") {
+        return "https://flowbite.com/docs/images/examples/image-3@2x.jpg";
+      }
+      return this.user.cover;
     },
-    handleClick() {
-      window.open(this.banner.link_url);
-    },
-  },
-  mounted() {
-    this.getBanner();
   },
 };
 </script>

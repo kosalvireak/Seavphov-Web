@@ -21,13 +21,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cover',
+        'bio',
         'picture',
         'phone',
         'instagram',
-        'facebook' ,
+        'facebook',
         'twitter',
-        'telegram', 
-        'location' ,
+        'telegram',
+        'location',
         'uuid'
     ];
 
@@ -70,7 +72,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class, 'owner_id');
     }
-    
+
     public function book($id)
     {
         return $this->books()->where('id', $id)->first();

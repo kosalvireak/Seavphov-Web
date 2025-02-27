@@ -34,29 +34,7 @@
               v-model="discussion.body"
               required
             />
-            <div class="flex-center h-64 ring-1 ring-gray-300 rounded-lg">
-              <img
-                v-if="discussion.image"
-                :src="discussion.image"
-                alt="preview_image"
-                class="img-fluid h-100"
-                style="object-fit: cover"
-              />
-              <div v-else>
-                <Loader v-if="uploadingBook" />
-                <div class="text-center" v-else>
-                  <p>Drop a file here to upload, click here to browse</p>
-                  <input
-                    type="file"
-                    class="ring-1 ring-gray-300 rounded-lg"
-                    id="images"
-                    name="images"
-                    required
-                    @change="handleImageChange"
-                  />
-                </div>
-              </div>
-            </div>
+            <ImageUpload @image-uploaded="handleImageChange" />
           </div>
         </form>
       </template>
@@ -77,8 +55,6 @@
 
 <script>
 import { MDBTextarea } from "mdb-vue-ui-kit";
-import { storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import DiscussionController from "../../controllers/DiscussionController";
 export default {
   name: "AddDiscussionForm",
@@ -111,24 +87,9 @@ export default {
       this.closeModal();
       this.isLoading = false;
     },
-    async handleImageChange(event) {
-      try {
-        this.uploadingBook = true;
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-          const storageRef = ref(storage, `folder/${selectedFile.name}`);
-          const imageUpload = await uploadBytes(storageRef, selectedFile);
-          getDownloadURL(ref(storage, imageUpload.metadata.fullPath)).then(
-            (url) => {
-              this.discussion.image = url;
-              this.formData.append("image", url);
-              this.uploadingBook = false;
-            }
-          );
-        }
-      } catch (error) {
-        this.$toast.error(error);
-      }
+    handleImageChange(url) {
+      this.discussion.image = url;
+      this.formData.append("image", url);
     },
     showModal() {
       this.isShowModal = true;

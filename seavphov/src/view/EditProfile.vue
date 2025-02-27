@@ -10,34 +10,14 @@
         <Loader :size="40" />
       </div>
       <form v-else style="width: 100%" v-on:submit.prevent="Save()" class="row">
+        <div class="mb-4">
+          <p>Cover image</p>
+          <ImageUpload @image-uploaded="onUploadCover" />
+        </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <input
-              type="file"
-              class="form-control h-3rem"
-              id="picture"
-              ref="fileInput"
-              name="picture"
-              @change="handleImageChange"
-            />
-          </div>
-          <div class="mb-4 d-flex justify-content-center">
-            <div
-              class="d-flex align-items-center justify-content-center border rounded-circle"
-              style="width: 192px; height: 192px"
-            >
-              <img
-                v-if="user.picture"
-                :src="user.picture"
-                alt="preview_image"
-                class="img-fluid h-100 w-100 cover_image b-1 rounded-circle"
-                style="object-fit: cover"
-              />
-              <div v-else>
-                <Loader v-if="uploadingBook" />
-                <p class="text-center" v-else>Your image will preview here</p>
-              </div>
-            </div>
+            <p>Profile image</p>
+            <ImageUpload @image-uploaded="onUploadPicture" />
           </div>
           <div class="mb-4">
             <MDBInput
@@ -58,6 +38,10 @@
               wrapperClass="bg-white h-3rem"
               required
             />
+            <p class="text-gray-400 text-sm mt-1 mb-0">
+              <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>Your
+              email will not visible to any user in platform.
+            </p>
           </div>
         </div>
         <div class="col-12 col-md-6">
@@ -68,7 +52,15 @@
               id="phone"
               v-model="user.phone"
               wrapperClass="bg-white h-3rem"
-              required
+            />
+          </div>
+          <div class="mb-4">
+            <MDBInput
+              type="text"
+              label="Bio"
+              id="bio"
+              v-model="user.bio"
+              wrapperClass="bg-white h-3rem"
             />
           </div>
           <div class="mb-4">
@@ -115,6 +107,10 @@
               v-model="user.location"
               wrapperClass="bg-white h-3rem"
             />
+            <p class="text-gray-400 text-sm mt-1 mb-0">
+              <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>Empty
+              field will not visible to any user in platform.
+            </p>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
@@ -132,8 +128,6 @@
 </template>
 
 <script>
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
@@ -146,6 +140,8 @@ export default {
         name: "",
         email: "",
         picture: "",
+        cover: "",
+        bio: "",
         phone: "",
         instagram: "",
         facebook: "",
@@ -164,6 +160,8 @@ export default {
       this.formData.append("name", this.user.name);
       this.formData.append("email", this.user.email);
       this.formData.append("picture", this.user.picture);
+      this.formData.append("cover", this.user.cover);
+      this.formData.append("bio", this.user.bio);
       this.formData.append("phone", this.user.phone);
       this.formData.append("instagram", this.user.instagram);
       this.formData.append("facebook", this.user.facebook);
@@ -173,25 +171,13 @@ export default {
       await this.$store.dispatch("modifyUserProfile", this.formData);
       this.toRouteName("profile");
     },
-    async handleImageChange(event) {
-      this.uploadingBook = true;
-      try {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-          const storageRef = ref(storage, `folder/${selectedFile.name}`);
-          const imageUpload = await uploadBytes(storageRef, selectedFile);
-          getDownloadURL(ref(storage, imageUpload.metadata.fullPath)).then(
-            (url) => {
-              this.user.picture = url;
-              this.formData.append("picture", url);
-              this.uploadingBook = false;
-              console.log("EditProfile this.user.picture", this.user.picture);
-            },
-          );
-        }
-      } catch (error) {
-        this.$toast.error(error);
-      }
+    async onUploadPicture(url) {
+      this.user.picture = url;
+      this.formData.append("picture", url);
+    },
+    async onUploadCover(url) {
+      this.user.cover = url;
+      this.formData.append("cover", url);
     },
   },
   async mounted() {
@@ -200,6 +186,8 @@ export default {
     this.user.name = response.name;
     this.user.email = response.email;
     this.user.picture = response.picture;
+    this.user.cover = response.cover;
+    this.user.bio = response.bio;
     this.user.phone = response.phone;
     this.user.facebook = response.facebook;
     this.user.instagram = response.instagram;

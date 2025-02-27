@@ -23,6 +23,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->dropColumn(['api_token_expires_at']);
         });
     }
 };

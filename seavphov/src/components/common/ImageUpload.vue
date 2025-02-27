@@ -5,7 +5,7 @@
     <input
       id="dropzone-file"
       type="file"
-      class="absolute top-0 left-0 right-0 bottom-0 w-full h-full block opacity-0"
+      class="clickable absolute top-0 left-0 right-0 bottom-0 w-full h-full block opacity-0"
       @change="handleImageChange"
     />
     <div

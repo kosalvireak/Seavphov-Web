@@ -1,20 +1,35 @@
 <template>
   <div class="d-flex justify-content-center">
-    <a v-if="facebook" :href="facebook" target="_blank" class="ms-2 text-black">
+    <a
+      v-if="facebook != 'null'"
+      :href="facebook"
+      target="_blank"
+      class="ms-2 text-black"
+    >
       <img src="/img/facebook.webp" class="icon rounded-5" />
     </a>
     <a
-      v-if="instagram"
+      v-if="instagram != 'null'"
       :href="instagram"
       target="_blank"
       class="ms-2 text-black"
     >
       <img src="/img/instagram.webp" class="icon rounded-5" />
     </a>
-    <a v-if="telegram" :href="telegram" target="_blank" class="ms-2 text-black">
+    <a
+      v-if="telegram != 'null'"
+      :href="telegram"
+      target="_blank"
+      class="ms-2 text-black"
+    >
       <img src="/img/telegram.webp" class="icon rounded-5" />
     </a>
-    <a v-if="twitter" :href="twitter" target="_blank" class="ms-2 text-black">
+    <a
+      v-if="twitter != 'null'"
+      :href="twitter"
+      target="_blank"
+      class="ms-2 text-black"
+    >
       <img src="/img/twitter.webp" class="icon rounded-5" />
     </a>
   </div>

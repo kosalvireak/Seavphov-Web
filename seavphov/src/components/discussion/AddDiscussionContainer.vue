@@ -24,7 +24,6 @@ export default {
   name: "AddDiscussionContainer",
   methods: {
     onAddDiscussion(response) {
-      console.log("AddDiscussionContainer", response);
       this.$emit("onAddDiscussion", response);
     },
   },

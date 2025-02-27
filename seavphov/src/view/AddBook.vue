@@ -97,13 +97,10 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
-import ImageUpload from "../components/common/ImageUpload.vue";
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
 export default {
   name: "AddBook",
-  components: { NoLoggin, MDBInput, ImageUpload },
+  components: { NoLoggin, MDBInput },
   data() {
     return {
       book: {
