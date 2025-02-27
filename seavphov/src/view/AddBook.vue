@@ -79,31 +79,7 @@
           </div>
         </div>
         <div class="col-12 col-md-6">
-          <div class="mb-4">
-            <input
-              type="file"
-              class="form-control h-3rem"
-              id="images"
-              name="images"
-              @change="handleImageChange"
-            />
-          </div>
-          <div
-            class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
-            style="width: 100%; height: 264px"
-          >
-            <img
-              v-if="book.images"
-              :src="book.images"
-              alt="preview_image"
-              class="img-fluid h-100"
-              style="object-fit: cover"
-            />
-            <div v-else>
-              <Loader v-if="uploadingBook" />
-              <p class="text-center" v-else>Your image will preview here</p>
-            </div>
-          </div>
+          <ImageUpload @image-uploaded="handleImageChange" />
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <LoadingButton :isLoading="isLoading" text="Add Book" type="submit" />
@@ -121,12 +97,13 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import ImageUpload from "../components/common/ImageUpload.vue";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
 export default {
   name: "AddBook",
-  components: { NoLoggin, MDBInput },
+  components: { NoLoggin, MDBInput, ImageUpload },
   data() {
     return {
       book: {
@@ -155,24 +132,9 @@ export default {
       this.$router.push({ path: `/home/${response}` });
       this.isLoading = false;
     },
-    async handleImageChange(event) {
-      this.uploadingBook = true;
-      try {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-          const storageRef = ref(storage, `folder/${selectedFile.name}`);
-          const imageUpload = await uploadBytes(storageRef, selectedFile);
-          getDownloadURL(ref(storage, imageUpload.metadata.fullPath)).then(
-            (url) => {
-              this.book.images = url;
-              this.formData.append("images", url);
-              this.uploadingBook = false;
-            },
-          );
-        }
-      } catch (error) {
-        this.$toast.error(error);
-      }
+    handleImageChange(url) {
+      this.book.images = url;
+      this.formData.append("images", url);
     },
   },
 };

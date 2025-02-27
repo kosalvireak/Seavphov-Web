@@ -5,7 +5,11 @@
         <div
           class="col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300 rounded-2"
         >
-          <img :src="book.images" class="sp-img-lg" alt="book cover" />
+          <img
+            :src="book.images"
+            class="sp-img-lg object-contain"
+            alt="book cover"
+          />
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
           <div class="flex">

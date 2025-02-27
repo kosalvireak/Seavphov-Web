@@ -287,7 +287,7 @@ const store = createStore({
     },
     async createBook({ }, formData) {
       try {
-        const response = await postForm("/api/books/", formData, true);
+        const response = await postForm("/api/books", formData, true);
         toast.success(response.data.message);
         return response.data.bookId;
       } catch (error) {

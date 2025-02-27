@@ -105,7 +105,7 @@ export default {
       this.isLoading = true;
       this.formData.append("body", this.discussion.body);
       const response = await DiscussionController.createDiscussion(
-        this.formData,
+        this.formData
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
@@ -123,7 +123,7 @@ export default {
               this.discussion.image = url;
               this.formData.append("image", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {
@@ -141,7 +141,4 @@ export default {
 </script>
 
 <style scoped>
-::file-selector-button {
-  font-size: initial;
-}
 </style>
