@@ -1,5 +1,5 @@
 <template>
-  <div class="Profile container box h-100 w-100 mt-8">
+  <div class="Profile container box h-100 w-100 mt-8 p-0">
     <div v-if="isLogin" class="container-sm box b-1 p-0">
       <UserMainProfile
         :fromProfile="true"
@@ -54,6 +54,7 @@ import RenderMyBook from "../components/RenderMyBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import MyBook from "../components/profile/MyBook.vue";
+import ProfileController from "../controllers/ProfileController";
 export default {
   name: "Profile",
   components: { UserMainProfile, RenderBook, NoLoggin, MyBook, RenderMyBook },
@@ -71,21 +72,7 @@ export default {
     this.getBooks();
     this.isLoadingProfile = true;
     this.isLoading = true;
-    const response = await this.$store.dispatch("fetchUserProfile");
-    this.User.uuid = response.uuid;
-    this.User.name = response.name;
-    this.User.email = response.email;
-    this.User.picture = response.picture;
-    this.User.cover = response.cover;
-    this.User.bio = response.bio;
-    this.User.phone = response.phone;
-    this.User.facebook = response.facebook;
-    this.User.instagram = response.instagram;
-    this.User.location = response.location;
-    this.User.twitter = response.twitter;
-    this.User.telegram = response.telegram;
-    this.User.location = response.location;
-
+    this.User = await ProfileController.fetchUserProfile();
     this.isLoadingProfile = false;
   },
   methods: {

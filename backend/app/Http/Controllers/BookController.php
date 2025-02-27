@@ -160,7 +160,7 @@ class BookController extends Controller
         }
     }
 
-    public function fetchBookById(Request $request, $bookId)
+    public function fetchBookDetail(Request $request, $bookId)
     {
         try {
 
@@ -168,12 +168,17 @@ class BookController extends Controller
 
             $book->makeHidden(['owner_id', 'updated_at', 'created_at']);
 
-            $uuid = $request->get('uuid');
+            $userId = null;
+
+            // Check if the user attribute exists and get the user ID
+            if ($request->attributes->has('user')) {
+                $userId = $request->attributes->get('user')->id;
+            }
 
             $issaved = false;
 
-            if ($uuid != null) {
-                $user = User::where('uuid', $uuid)->first();
+            if ($userId != null) {
+                $user = User::where('id', $userId)->first();
                 $savedBooks = $user->savedBooks;
                 if ($savedBooks) {
                     $issaved = $savedBooks->contains('id', $bookId);

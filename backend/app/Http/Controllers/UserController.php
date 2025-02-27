@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $user = collect($request->attributes->get('user'));
 
-        $filteredUser = $user->except(['api_token']);
+        $filteredUser = $user->except(['api_token', 'uuid', 'remember_token', 'created_at']);
 
         try {
             return response()->json([
@@ -78,13 +78,25 @@ class UserController extends Controller
     public function fetchOtherUserProfile(Request $request, $uuid)
     {
         try {
-            $user = collect(User::where('uuid', $uuid)->first());
-            $filteredData = $user->except(['email', 'api_token', 'remember_token']);
+            $user = collect(User::where('uuid', $uuid)
+                ->select([
+                    'name',
+                    'phone',
+                    'picture',
+                    'cover',
+                    'bio',
+                    'instagram',
+                    'facebook',
+                    'twitter',
+                    'telegram',
+                    'location'
+                ])
+                ->first());
 
             return response()->json([
                 'success' => true,
                 'message' => 'Done',
-                'data' => $filteredData,
+                'data' => $user,
             ], 201);
         } catch (Exception $exception) {
             return response()->json([

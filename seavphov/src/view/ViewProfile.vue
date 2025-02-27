@@ -24,6 +24,7 @@ import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import BookController from "../controllers/BookController";
+import ProfileController from "../controllers/ProfileController";
 export default {
   name: "ViewProfile",
   components: { UserMainProfile, RenderBook, NoLoggin },
@@ -34,34 +35,26 @@ export default {
       isLoading: false,
       isLoadingProfile: false,
       User: {},
-      filters: { uuid: null },
     };
   },
   async mounted() {
-    this.isLoadingProfile = true;
-    this.isLoading = true;
     const uuid = this.$route.params.uuid;
-    const response = await this.$store.dispatch("fetchOtherUserProfile", uuid);
-    this.User.uuid = response.uuid;
-    this.filters.uuid = response.uuid;
-    this.getBooks();
-    this.User.name = response.name;
-    this.User.picture = response.picture;
-    this.User.cover = response.cover;
-    this.User.bio = response.bio;
-    this.User.phone = response.phone;
-    this.User.facebook = response.facebook;
-    this.User.instagram = response.instagram;
-    this.User.location = response.location;
-    this.User.twitter = response.twitter;
-    this.User.telegram = response.telegram;
-    this.User.location = response.location;
-    this.isLoadingProfile = false;
+    this.fetchOtherUserProfile(uuid);
+    this.getBooks(uuid);
   },
   methods: {
-    async getBooks() {
-      this.Books = await BookController.fetchBooksWithFilter(this.filters);
+    async getBooks(uuid) {
+      let filters = { uuid: null };
+      filters.uuid = uuid;
+      this.isLoading = true;
+      this.Books = await BookController.fetchBooksWithFilter(filters);
       this.isLoading = false;
+    },
+
+    async fetchOtherUserProfile(uuid) {
+      this.isLoadingProfile = true;
+      this.User = await ProfileController.fetchOtherUserProfile(uuid);
+      this.isLoadingProfile = false;
     },
   },
 };

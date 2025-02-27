@@ -12,12 +12,19 @@
       <form v-else style="width: 100%" v-on:submit.prevent="Save()" class="row">
         <div class="mb-4">
           <p>Cover image</p>
-          <ImageUpload @image-uploaded="onUploadCover" />
+          <ImageUpload
+            @image-uploaded="onUploadCover"
+            :initialImage="user.cover"
+            :filled="true"
+          />
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
             <p>Profile image</p>
-            <ImageUpload @image-uploaded="onUploadPicture" />
+            <ImageUpload
+              @image-uploaded="onUploadPicture"
+              :initialImage="user.picture"
+            />
           </div>
           <div class="mb-4">
             <MDBInput
@@ -109,7 +116,7 @@
             />
             <p class="text-gray-400 text-sm mt-1 mb-0">
               <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>Empty
-              field will not visible to any user in platform.
+              field or null will not visible to any user in platform.
             </p>
           </div>
         </div>
@@ -128,6 +135,7 @@
 </template>
 
 <script>
+import ProfileController from "../controllers/ProfileController";
 import NoLoggin from "../components/NoLoggin.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
@@ -182,19 +190,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    const response = await this.$store.dispatch("fetchUserProfile");
-    this.user.name = response.name;
-    this.user.email = response.email;
-    this.user.picture = response.picture;
-    this.user.cover = response.cover;
-    this.user.bio = response.bio;
-    this.user.phone = response.phone;
-    this.user.facebook = response.facebook;
-    this.user.instagram = response.instagram;
-    this.user.location = response.location;
-    this.user.twitter = response.twitter;
-    this.user.telegram = response.telegram;
-    this.user.location = response.location;
+    this.user = await ProfileController.fetchUserProfile();
     this.isLoading = false;
   },
 };

@@ -21,6 +21,11 @@ export function getCookie() {
   }
 }
 
+
+export function getApiToken() {
+  return getCookie()?.api_token || null  // return null if user not login
+}
+
 export function removeCookie() {
   VueCookies.remove("seavphov");
 }

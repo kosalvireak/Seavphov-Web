@@ -41,7 +41,7 @@
       </label>
     </div>
     <div v-else-if="uploadingImage" class="flex-center">
-      <div class="flex-center text-center">
+      <div class="flex-center flex-col text-center">
         <svg
           class="animate-spin h-10 w-10 text-blue-500"
           xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +70,7 @@
         :src="imageUrl"
         alt="Uploaded Image"
         class="w-full h-full object-contain rounded-lg cursor-pointer"
+        :class="{ 'object-cover': filled }"
         @click="triggerFileInput"
       />
       <input
@@ -88,10 +89,17 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default {
   name: "ImageUpload",
+  props: {
+    initialImage: String,
+    filled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       uploadingImage: false,
-      imageUrl: "",
+      imageUrl: this.initialImage,
     };
   },
   methods: {

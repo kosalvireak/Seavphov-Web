@@ -28,12 +28,11 @@ export default class BookController {
         }
     }
 
-    static async fetchBookDetail(formData) {
+    static async fetchBookDetail(id) {
         try {
-            let id = formData.get("id");
-            const response = await postForm(BookRoute + `/${id}`, formData);
+            const response = await getData(BookRoute + `/${id}`, true);
             if (response.data.success) {
-                return [response.data.book, response.data.owner];
+                return response.data;
             }
         } catch (error) {
             toast.error(error.response.data.message);

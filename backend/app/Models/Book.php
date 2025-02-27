@@ -23,16 +23,24 @@ class Book extends Model
 
     public function owner()
     {
-        $user = $this->belongsTo(User::class, 'owner_id')->first();
-        $user->makeHidden([ 'email','api_token','remember_token']);
-        return $user;
+        return $this->belongsTo(User::class, 'owner_id')
+            ->select([
+                'id',
+                'name',
+                'picture',
+                'uuid',
+                'created_at',
+                'phone',
+                'location'
+            ])
+            ->first();
     }
 
     public function savedByUsers()
     {
         return DB::table('book_user')
             ->where('book_id', $this->id)
-            ->get(['user_id', 'book_id','created_at']);
+            ->get(['user_id', 'book_id', 'created_at']);
     }
 
     public function getReviewCountAttribute()
@@ -40,7 +48,8 @@ class Book extends Model
         return $this->reviews()->count();
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(BookReview::class, 'book_id');
     }
 }

@@ -12,7 +12,7 @@
         class="hidden md:flex container-sm cover_container w-1800 h-full b-1 p-0"
       >
         <img
-          :src="getUserCoverImage()"
+          :src="getUserCoverImage"
           class="w-100 h-100 b-1 rounded-7 img-fluid cover_img"
           style="object-fit: cover; max-height: 250px"
           alt="user's cover"
@@ -59,12 +59,13 @@ export default {
     fromProfile: { type: Boolean, required: true },
     loading: { type: Boolean, required: false },
   },
-  methods: {
+  computed: {
     getUserCoverImage() {
-      if (this.user.cover == "null") {
+      if (this.user?.cover && this.user.cover !== "null") {
+        return this.user.cover;
+      } else {
         return "https://flowbite.com/docs/images/examples/image-3@2x.jpg";
       }
-      return this.user.cover;
     },
   },
 };
@@ -96,7 +97,7 @@ export default {
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border: 9px solid white;
+  border: 4px solid white;
 }
 
 .profile_name {

@@ -113,27 +113,6 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async fetchUserProfile() {
-      try {
-        const response = await getData("/api/profile", true);
-        if (response.data.success) {
-          return response.data.message;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async fetchOtherUserProfile({ }, uuid) {
-      try {
-        const response = await getData(`/api/user/${uuid}`, true);
-
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
     async modifyUserProfile({ dispatch }, formData) {
       try {
         const response = await postForm("/api/profile", formData, true);

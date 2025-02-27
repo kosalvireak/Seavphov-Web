@@ -38,7 +38,7 @@ Route::prefix('books')->group(function () {
     Route::get('/newest',  [BookController::class, 'getNewest']);
     Route::get('/mostReviewed',  [BookController::class, 'getMostReviewed']);
     Route::get('/availability/{id}',  [BookController::class, 'changeAvailability'])->middleware([ApiTokenAuthentication::class]);
-    Route::post('{bookId}',  [BookController::class, 'fetchBookById']);
+    Route::get('/{bookId}',  [BookController::class, 'fetchBookDetail'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::post('', [BookController::class, 'createBook'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('{id}', [BookController::class, 'deleteBook'])->middleware([ApiTokenAuthentication::class]);
@@ -74,10 +74,10 @@ Route::prefix('discussions')->group(function () {
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [UserController::class, 'fetchUserProfile']);
     Route::put('', [UserController::class, 'modifyUserProfile']);
+    Route::get('{uuid}', [UserController::class, 'fetchOtherUserProfile']);
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('{uuid}', [UserController::class, 'fetchOtherUserProfile']);
     Route::post('login', [LoginController::class, 'loginUser']);
     Route::post('register', [RegisterController::class, 'registerUser']);
 });

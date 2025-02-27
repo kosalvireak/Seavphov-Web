@@ -114,13 +114,9 @@ export default {
       this.isLoadingRelatedBooks = false;
     },
     async getBook(id) {
-      this.formData.append("id", id);
-      if (this.isLogin) {
-        this.formData.append("uuid", this.$store.state.user.uuid);
-      }
-      [this.book, this.bookOwner] = await BookController.fetchBookDetail(
-        this.formData
-      );
+      const response = await BookController.fetchBookDetail(id);
+      this.book = response.book;
+      this.bookOwner = response.owner;
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
