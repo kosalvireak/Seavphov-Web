@@ -35,7 +35,10 @@
                   <h5 class="card-title fw-bold truncate-2-lines">
                     {{ review.bookTitle }}
                   </h5>
-                  <ReviewItem :review="review" />
+                  <ReviewItem
+                    :review="review"
+                    @on-remove="onRemoveReview($event)"
+                  />
                 </div>
               </div>
             </div>
@@ -73,6 +76,11 @@ export default {
   computed: {
     isEmpty() {
       return this.reviews.length == 0;
+    },
+  },
+  methods: {
+    onRemoveReview(id) {
+      this.reviews = this.reviews.filter((review) => review.id !== id);
     },
   },
   async mounted() {
