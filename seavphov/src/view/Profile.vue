@@ -1,12 +1,13 @@
 <template>
   <div class="Profile container box h-100 w-100 mt-8 p-0">
-    <div v-if="isLogin" class="container-sm box b-1 p-0">
+    <div v-if="isLogin" class="container-sm box b-1 p-0 space-y-4">
       <UserMainProfile
         :fromProfile="true"
         :user="User"
         :loading="isLoadingProfile"
       />
-      <div v-if="!isLoading" class="flex book_options p-2">
+      <ProfileNavigation />
+      <!-- <div v-if="!isLoading" class="flex book_options p-2">
         <div
           class="flex book_option_child rounded-7 clickable"
           :class="{ 'book_option_child_selected fw-bold': isMyBooksPage }"
@@ -23,7 +24,7 @@
             >Saved Books</a
           >
         </div>
-      </div>
+      </div> -->
       <div>
         <RenderBook
           v-if="!isMyBooksPage"
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+import ProfileNavigation from "../components/profile/ProfileNavigation.vue";
 import RenderBook from "../components/RenderBook.vue";
 import RenderMyBook from "../components/RenderMyBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
@@ -57,7 +59,14 @@ import MyBook from "../components/profile/MyBook.vue";
 import ProfileController from "../controllers/ProfileController";
 export default {
   name: "Profile",
-  components: { UserMainProfile, RenderBook, NoLoggin, MyBook, RenderMyBook },
+  components: {
+    UserMainProfile,
+    RenderBook,
+    NoLoggin,
+    MyBook,
+    RenderMyBook,
+    ProfileNavigation,
+  },
   data() {
     return {
       isMyBooksPage: true,
@@ -100,12 +109,6 @@ export default {
 </script>
 
 <style scoped>
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .book_options {
   justify-content: space-between !important;
   flex-direction: row;

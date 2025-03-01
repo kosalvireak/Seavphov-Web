@@ -6,7 +6,7 @@
         :user="User"
         :loading="isLoadingProfile"
       />
-      <div
+      <!-- <div
         v-if="!isLoading"
         class="flex book_options p-2 rounded-7 clickable book_option_child_selected fw-bold"
       >
@@ -14,7 +14,7 @@
       </div>
       <div>
         <RenderBook :books="Books" :loading="isLoading" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

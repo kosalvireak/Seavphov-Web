@@ -1,12 +1,12 @@
 import { createApp } from "vue";
 
 // css
-import "./style.css";
-import "./assets/reset.css";
 import "vue-toastification/dist/index.css";
 import "../node_modules/flowbite-vue/dist/index.css";
 import "vue3-easy-data-table/dist/style.css";
+import "./style.css";
 import "mdb-vue-ui-kit/css/mdb.min.css";
+import "./assets/reset.css";
 
 // js
 import "mdb-vue-ui-kit/js/mdb.es.min.js";

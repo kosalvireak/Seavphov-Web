@@ -14,7 +14,7 @@
       </router-link>
       <div class="col-md-9">
         <div class="d-flex justify-content-between p-2">
-          <div>
+          <div class="space-y-4">
             <h5 class="card-title fw-bold truncate-2-lines">
               {{ book.title }}
             </h5>
@@ -22,7 +22,7 @@
               {{ book.descriptions }}
             </p>
             <p class="card-text"></p>
-            <ul>
+            <ul class="space-y-2">
               <li><span class="fw-bold">Author:</span>{{ book.author }}</li>
               <li>
                 <span class="fw-bold">Condition: </span>{{ book.condition }}
