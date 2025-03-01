@@ -41,26 +41,30 @@
     </div>
 
     <!-- View Profile As Other Button -->
-    <button class="p-3 hover:bg-gray-300 rounded-lg clickable">
-      View Profile As Other
-    </button>
+    <a
+      class="p-3 hover:bg-gray-300 rounded-lg clickable decoration-none"
+      :href="`/profile/${uuid}`"
+    >
+      View Profile As Others
+    </a>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProfileNavigation",
+  props: ["uuid"],
   data() {
     return {
       profileNavigation: [
-        { key: "mybooks", value: "My Books" },
+        { key: "my-books", value: "My Books" },
         { key: "savedbooks", value: "Saved Books" },
-        { key: "my-discussions", value: "My Discussions" },
         { key: "my-reviews", value: "My Reviews" },
+        { key: "my-discussions", value: "My Discussions" },
         { key: "my-comments", value: "My Comments" },
       ],
       isDropdownOpen: false,
-      selectedNavigation: { key: "mybooks", value: "My Books" },
+      selectedNavigation: { key: "my-books", value: "My Books" },
     };
   },
   methods: {
@@ -68,6 +72,7 @@ export default {
       this.isDropdownOpen = !this.isDropdownOpen;
     },
     onSelectNavigation(navigation) {
+      this.$emit("onSelectNavigation", navigation.key);
       this.selectedNavigation = navigation;
     },
   },

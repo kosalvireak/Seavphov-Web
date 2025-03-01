@@ -17,6 +17,17 @@ export default class ReviewController {
     }
   }
 
+  static async fetchMyReviews() {
+    try {
+      const response = await getData(ReviewRoute + '/my-reviews', true);
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
   static async deleteReview(id) {
     try {
       const response = await deleteData(ReviewRoute + `/delete/${id}`);

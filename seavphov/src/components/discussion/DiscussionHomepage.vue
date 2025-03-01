@@ -1,10 +1,10 @@
 <template>
   <section class="DiscussionHomepage w-100 flex-center">
     <div
-      class="sp-bg-secondary container d-flex flex-column justify-content-center align-items-center rounded-xl"
+      class="sp-bg-secondary container d-flex flex-column justify-content-center align-items-center rounded-xl space-y-4"
     >
       <span class="text-xl font-bold">Enjoying what you see?</span>
-      <span class="text-black-400 mb-3"
+      <span class="text-black-400 mb-2"
         >Join the discussion and share your thoughts with our vibrant
         community!</span
       >

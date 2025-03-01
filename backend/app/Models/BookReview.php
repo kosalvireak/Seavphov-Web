@@ -25,7 +25,7 @@ class BookReview extends Model
 
     public function book()
     {
-        return $this->belongsTo(Book::class, 'user_id');
+        return $this->belongsTo(Book::class, 'book_id');
     }
 
     public function increaseLike()
@@ -78,6 +78,25 @@ class BookReview extends Model
             'dislike' => $this->dislike,
             'delete_able' => $deleteAble,
             'created_at' => $this->created_at
+        ];
+    }
+
+    public function getMyReview($userId)
+    {
+        $book = Book::where('id', $this->book_id)->first();
+
+        return [
+            'id' => $this->id,
+            'user' => $this->owner(),
+            'body' => $this->body,
+            'reaction' => $this->getUserReaction($userId),
+            'like' => $this->like,
+            'dislike' => $this->dislike,
+            'delete_able' => true,
+            'created_at' => $this->created_at,
+            'bookId' => $book->id,
+            'bookTitle' => $book->title,
+            'bookImages' => $book->images
         ];
     }
 }

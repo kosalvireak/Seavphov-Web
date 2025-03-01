@@ -21,6 +21,20 @@ export default class DiscussionController {
       toast.error(error.response.data.message);
     }
   }
+
+  static async fetchMyDiscussions() {
+    try {
+      const response = await getData(
+        DiscussionRoute + '/my-discussions',
+        true,
+      );
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
   static async fetchDiscussionById(id) {
     try {
       const response = await getData(DiscussionRoute + `/${id}`, true);

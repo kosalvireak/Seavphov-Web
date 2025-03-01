@@ -111,11 +111,10 @@ class DiscussionController extends Controller
         }
     }
 
+
     public function fetchDiscussions(Request $request)
     {
         try {
-
-
             $title = $request->get('title');
 
             $userId = null;
@@ -150,6 +149,35 @@ class DiscussionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot get discussion!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function fetchMyDiscussions(Request $request)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $discussions = Discussion::where('owner_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $items = [];
+            foreach ($discussions as $discussion) {
+                $items[] = $discussion->getData($user->id, true);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully get your discussions',
+                'data' => $items
+            ], 200);
+        } catch (Exception $exception) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get your discussions!',
                 'error' => $exception->getMessage()
             ], 500);
         }

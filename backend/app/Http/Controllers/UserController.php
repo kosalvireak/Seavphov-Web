@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $user = collect($request->attributes->get('user'));
 
-        $filteredUser = $user->except(['api_token', 'uuid', 'remember_token', 'created_at']);
+        $filteredUser = $user->except(['api_token', 'remember_token', 'created_at']);
 
         try {
             return response()->json([

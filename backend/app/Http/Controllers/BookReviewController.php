@@ -79,6 +79,34 @@ class BookReviewController extends Controller
         }
     }
 
+
+    public function fetchMyReviews(Request $request)
+    {
+        $user = $request->attributes->get('user');
+
+        $items = [];
+        $reviews = BookReview::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        foreach ($reviews as $review) {
+            $items[] = $review->getMyReview($user->id);
+        }
+
+        if (empty($items)) {
+            return response()->json([
+                'success' => true,
+                'data' => [],
+                'message' => 'No reviews found',
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully fetched your reviews',
+            'data' => $items,
+        ], 200);
+    }
+
+
     public function fetchBookReviews(Request $request, $bookId)
     {
 
