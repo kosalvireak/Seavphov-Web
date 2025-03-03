@@ -1,20 +1,13 @@
 <template>
   <div class="Profile box h-100 w-100 mt-8">
-    <div class="container-sm box b-1 p-0">
+    <div class="container-sm box b-1 p-0 space-y-4">
       <UserMainProfile
         :fromProfile="false"
         :user="User"
         :loading="isLoadingProfile"
       />
-      <!-- <div
-        v-if="!isLoading"
-        class="flex book_options p-2 rounded-7 clickable book_option_child_selected fw-bold"
-      >
-        <a class="text-black">Books</a>
-      </div>
-      <div>
-        <RenderBook :books="Books" :loading="isLoading" />
-      </div> -->
+      <ViewProfileNavigation @onSelectNavigation="onSelectNavigation" />
+      <ProfileDetail :page="currentPage" />
     </div>
   </div>
 </template>
@@ -24,15 +17,14 @@ import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import BookController from "../controllers/BookController";
+import ViewProfileNavigation from "../components/profile/ViewProfileNavigation.vue";
 import ProfileController from "../controllers/ProfileController";
 export default {
   name: "ViewProfile",
-  components: { UserMainProfile, RenderBook, NoLoggin },
+  components: { UserMainProfile, RenderBook, NoLoggin, ViewProfileNavigation },
   data() {
     return {
-      isBooksPage: true,
-      Books: [],
-      isLoading: false,
+      currentPage: "books",
       isLoadingProfile: false,
       User: {},
     };
@@ -56,52 +48,12 @@ export default {
       this.User = await ProfileController.fetchOtherUserProfile(uuid);
       this.isLoadingProfile = false;
     },
+    onSelectNavigation(navigation) {
+      this.currentPage = navigation;
+    },
   },
 };
 </script>
 
 <style scoped>
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.book_options {
-  justify-content: center;
-  flex-direction: row;
-  height: 50px;
-  padding: 0px;
-  margin-top: -54px;
-}
-
-.book_option_child {
-  width: 50%;
-  height: 50px;
-  text-align: center;
-}
-
-.book_option_child:hover {
-  background-color: #467e60 !important;
-  transition: 0.3s;
-  opacity: 70%;
-}
-
-.book_option_child_selected {
-  background-color: #467e60 !important;
-}
-
-a:link {
-  text-decoration: none;
-}
-
-a:hover {
-  color: darkgray;
-}
-
-@media only screen and (max-width: 991.98px) {
-  .book_options {
-    margin-top: 0px;
-  }
-}
 </style>

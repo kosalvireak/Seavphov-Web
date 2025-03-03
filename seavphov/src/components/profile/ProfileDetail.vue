@@ -47,6 +47,14 @@ export default {
           case "my-comments":
             this.selectedComponent = "MySavedBooks";
             break;
+
+          // view user profile
+          case "books":
+            this.selectedComponent = "RenderUserBook";
+            break;
+          case "discussions":
+            this.selectedComponent = "RenderUserDiscussion";
+            break;
         }
       },
     },

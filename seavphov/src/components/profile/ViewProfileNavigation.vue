@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-row items-center justify-between">
+  <div class="container flex flex-row items-start justify-between">
     <!-- Navigation Buttons for Larger Screens -->
     <div class="hidden lg:flex flex-row space-x-2">
       <div
@@ -39,32 +39,20 @@
         </div>
       </div>
     </div>
-
-    <!-- View Profile As Other Button -->
-    <a
-      class="p-3 hover:bg-gray-300 rounded-lg clickable decoration-none"
-      :href="`/profile/${uuid}`"
-    >
-      View Profile As Others
-    </a>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ProfileNavigation",
-  props: ["uuid"],
+  name: "ViewProfileNavigation",
   data() {
     return {
       profileNavigation: [
-        { key: "my-books", value: "My Books" },
-        { key: "savedbooks", value: "Saved Books" },
-        { key: "my-reviews", value: "My Reviews" },
-        { key: "my-discussions", value: "My Discussions" },
-        { key: "my-comments", value: "My Comments" },
+        { key: "books", value: "Books" },
+        { key: "discussions", value: "Discussions" },
       ],
       isDropdownOpen: false,
-      selectedNavigation: { key: "my-books", value: "My Books" },
+      selectedNavigation: { key: "books", value: "Books" },
     };
   },
   methods: {
