@@ -12,7 +12,7 @@ export default {
   <div class="UserLayout flex-center flex-column w-100">
     <UserNavbar />
     <RouterView />
-    <Footer />
+    <Footer class="mt-8" />
   </div>
 </template>
 

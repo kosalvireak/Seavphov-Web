@@ -1,5 +1,5 @@
 <template>
-  <component v-if="selectedComponent" :is="selectedComponent" />
+  <component v-if="selectedComponent" :is="selectedComponent" :uuid="uuid" />
 </template>
 
 <script>
@@ -7,6 +7,8 @@ import MySavedBooks from "./MySavedBooks.vue";
 import RenderMyBook from "./RenderMyBook.vue";
 import MyDiscussion from "./MyDiscussions.vue";
 import MyReviews from "./MyReviews.vue";
+import RenderUserBook from "./RenderUserBook.vue";
+import RenderUserDiscussion from "./RenderUserDiscussion.vue";
 export default {
   name: "ProfileDetail",
   components: {
@@ -14,6 +16,8 @@ export default {
     RenderMyBook,
     MyDiscussion,
     MyReviews,
+    RenderUserBook,
+    RenderUserDiscussion,
   },
   props: {
     page: {
@@ -25,6 +29,11 @@ export default {
     return {
       selectedComponent: null,
     };
+  },
+  computed: {
+    uuid() {
+      return this.$route.params.uuid;
+    },
   },
   watch: {
     page: {

@@ -6,9 +6,14 @@ const toast = useToast();
 const DiscussionRoute = "/api/discussions";
 
 export default class DiscussionController {
-  static async fetchDiscussions(title) {
+  static async fetchDiscussions(filters) {
     const params = new URLSearchParams();
-    params.append("title", title);
+    if (filters.title) {
+      params.append("title", filters.title);
+    }
+    if (filters.uuid) {
+      params.append("uuid", filters.uuid);
+    }
     try {
       const response = await getData(
         DiscussionRoute + `?${params.toString()}`,

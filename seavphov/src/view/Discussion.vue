@@ -65,6 +65,7 @@ export default {
   },
   data() {
     return {
+      filters: {},
       keyword: "",
       discussions: [],
       isLoading: false,
@@ -77,8 +78,9 @@ export default {
     async fetchDiscussions() {
       this.discussions = [];
       this.isLoading = true;
+      this.filters.title = this.keyword;
       const response = await DiscussionController.fetchDiscussions(
-        this.keyword
+        this.filters
       );
       this.isLoading = false;
       this.discussions = response;

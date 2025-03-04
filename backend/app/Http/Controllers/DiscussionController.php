@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discussion;
+use App\Models\User;
 use App\Service\NotificationService;
 use App\Service\ReactionService;
 use Exception;
@@ -116,6 +117,7 @@ class DiscussionController extends Controller
     {
         try {
             $title = $request->get('title');
+            $uuid = $request->get('uuid');
 
             $userId = null;
 
@@ -129,6 +131,12 @@ class DiscussionController extends Controller
             if (!empty($title)) {
                 $query->where('body', 'like', '%' . $title . '%');
             }
+
+            if ($uuid) {
+                $user = User::where('uuid', $uuid)->first();
+                $query->where('owner_id', $user->id); // Filter by uuid
+            }
+
             $discussions = $query
                 ->orderBy('created_at', 'desc')
                 ->orderBy('like', 'desc')
@@ -136,7 +144,7 @@ class DiscussionController extends Controller
 
             $items = [];
             foreach ($discussions as $discussion) {
-                $items[] = $discussion->getData($userId, true);
+                $items[] = $discussion->getData(null, true); // userId = null => delete_able = false
             }
 
             return response()->json([

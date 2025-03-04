@@ -1,5 +1,5 @@
 <template>
-  <div class="RenderBook container w-100 h-auto p-4">
+  <div class="RenderBook container w-100 h-auto">
     <div
       v-if="!hideHeader"
       class="h-10 d-flex align-items-center justify-content-start"
@@ -10,12 +10,12 @@
       <Loader :size="40" />
     </div>
     <template v-else-if="books.length">
-      <div class="h-10 d-flex align-items-center justify-content-end">
+      <div class="h-10 d-flex align-items-center justify-content-end p-4">
         <h6 class="p-0 m-0 fw-bold font-75">
           Result: {{ books.length }} {{ resultBook }}
         </h6>
       </div>
-      <div class="d-flex gap-4 flex-wrap justify-content-center">
+      <div class="d-flex gap-4 flex-wrap justify-content-center p-0 lg:p-4">
         <Book v-for="book in books" :book="book" :key="book.id" />
       </div>
     </template>

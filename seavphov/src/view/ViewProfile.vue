@@ -13,15 +13,21 @@
 </template>
 
 <script>
+import ProfileDetail from "../components/profile/ProfileDetail.vue";
 import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
-import BookController from "../controllers/BookController";
 import ViewProfileNavigation from "../components/profile/ViewProfileNavigation.vue";
 import ProfileController from "../controllers/ProfileController";
 export default {
   name: "ViewProfile",
-  components: { UserMainProfile, RenderBook, NoLoggin, ViewProfileNavigation },
+  components: {
+    UserMainProfile,
+    RenderBook,
+    NoLoggin,
+    ViewProfileNavigation,
+    ProfileDetail,
+  },
   data() {
     return {
       currentPage: "books",
@@ -32,17 +38,8 @@ export default {
   async mounted() {
     const uuid = this.$route.params.uuid;
     this.fetchOtherUserProfile(uuid);
-    this.getBooks(uuid);
   },
   methods: {
-    async getBooks(uuid) {
-      let filters = { uuid: null };
-      filters.uuid = uuid;
-      this.isLoading = true;
-      this.Books = await BookController.fetchBooksWithFilter(filters);
-      this.isLoading = false;
-    },
-
     async fetchOtherUserProfile(uuid) {
       this.isLoadingProfile = true;
       this.User = await ProfileController.fetchOtherUserProfile(uuid);

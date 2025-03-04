@@ -17,7 +17,6 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-
     this.savedBooks = await this.$store.dispatch("fetchSavedBook");
     this.isLoading = false;
   },
