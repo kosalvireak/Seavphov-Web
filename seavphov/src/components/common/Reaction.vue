@@ -4,7 +4,7 @@
       <Loader v-if="isLoadingLike" />
       <button
         v-else
-        class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+        class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"
         :class="{
           '!cursor-not-allowed hover:bg-white': !isLogin,
           'text-sp-secondary': entity.reaction != null && entity.reaction,
@@ -23,7 +23,7 @@
       <Loader v-if="isLoadingDislike" />
       <button
         v-else
-        class="clickable hover:bg-gray-200 px-2 py-1 rounded-lg text-md h-100"
+        class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"
         :class="{
           '!cursor-not-allowed hover:bg-white': !isLogin,
           'text-sp-danger': entity.reaction != null && !entity.reaction,

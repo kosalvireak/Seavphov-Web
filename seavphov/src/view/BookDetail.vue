@@ -11,13 +11,13 @@
             alt="book cover"
           />
         </div>
-        <div class="col-span-12 lg:col-span-8 relative">
+        <div class="col-span-12 lg:col-span-8 relative space-y-4">
           <div class="flex">
             <h3 class="text-black font-bold pr-10">
               {{ book.title }}
             </h3>
           </div>
-          <div class="text-black space-y-3">
+          <div class="text-black space-y-4">
             <p><span class="font-bold">by</span> {{ book.author }}</p>
             <p>
               <span class="font-bold">Category</span>:
@@ -27,13 +27,11 @@
               <span class="font-bold">Condition</span>:
               {{ book.condition }}
             </p>
-            <FwbButton
-              :color="buttonColor"
-              class="mt-3 mb-1 px-2 text-xs w-fit"
-              >{{ buttonText }}</FwbButton
-            >
+            <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
+              buttonText
+            }}</FwbButton>
             <h5 class="font-bold">Overview</h5>
-            <div class="max-h-44 lg:h-44 overflow-auto">
+            <div class="max-h-44 lg:h-44 overflow-auto text-base">
               <p>
                 {{ book.descriptions }}
               </p>

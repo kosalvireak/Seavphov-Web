@@ -1,5 +1,5 @@
 <template>
-  <section class="BookReview space-y-2">
+  <section class="BookReview space-y-4">
     <h5 class="font-bold text-black">Reviews</h5>
     <AddReview :book_id="book_id" @on-add-review="onAddReview($event)" />
     <ReviewItem

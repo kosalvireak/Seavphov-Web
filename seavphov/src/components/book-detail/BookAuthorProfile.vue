@@ -24,7 +24,7 @@
         {{ owner.phone }}
       </p>
     </div>
-    <div class="d-flex">
+    <div class="d-flex text-base">
       <span class="min-w-8"><i class="fas fa-map-pin fa-lg me-1"></i></span>
       <p>
         {{ owner.location }}

@@ -18,11 +18,11 @@
             <h5 class="card-title fw-bold truncate-2-lines">
               {{ book.title }}
             </h5>
-            <p class="card-text truncate-2-lines">
+            <p class="card-text truncate-2-lines text-base">
               {{ book.descriptions }}
             </p>
             <p class="card-text"></p>
-            <ul class="space-y-2">
+            <ul class="space-y-4">
               <li><span class="fw-bold">Author:</span>{{ book.author }}</li>
               <li>
                 <span class="fw-bold">Condition: </span>{{ book.condition }}
@@ -30,7 +30,7 @@
               <li>
                 <span class="fw-bold">Category: </span>{{ book.categories }}
               </li>
-              <FwbButton :color="buttonColor" class="mt-2 px-2 text-xs w-fit">{{
+              <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
                 buttonText
               }}</FwbButton>
             </ul>
