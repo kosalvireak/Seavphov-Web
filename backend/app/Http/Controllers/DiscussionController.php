@@ -88,8 +88,6 @@ class DiscussionController extends Controller
     {
         try {
 
-
-
             $userId = null;
 
             // Check if the user attribute exists and get the user ID
@@ -144,7 +142,7 @@ class DiscussionController extends Controller
 
             $items = [];
             foreach ($discussions as $discussion) {
-                $items[] = $discussion->getData(null, true); // userId = null => delete_able = false
+                $items[] = $discussion->getData($userId, true); // userId = null => delete_able = false
             }
 
             return response()->json([

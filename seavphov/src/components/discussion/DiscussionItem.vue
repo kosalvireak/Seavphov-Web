@@ -54,9 +54,9 @@
           class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200 mr-auto"
         >
           <span
-            class="clickable px-2 py-1 rounded-lg text-md h-100"
+            class="flex-center clickable px-2 py-1 rounded-lg text-md h-100"
             @click="toDiscussionDetail()"
-            ><i class="fa fa-commenting fa-xl" aria-hidden="true"> </i>
+            ><i class="fa fa-commenting fa-xl mr-1" aria-hidden="true"> </i>
             {{ discussion.number_of_comments }}
           </span>
         </div>

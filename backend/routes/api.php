@@ -11,6 +11,7 @@ use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
@@ -31,6 +32,13 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
     Route::get('', [BookController::class, 'getMyBooks']);
     Route::get('{id}', [BookController::class, 'getMyBook']);
 });
+
+Route::prefix('community')->group(
+    function () {
+        Route::post('/get', [CommunityController::class, 'fetchCommunityWithFilter']);
+        Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
+    }
+);
 
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'fetchBooksWithFilter']);
