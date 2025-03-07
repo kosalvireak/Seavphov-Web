@@ -12,6 +12,10 @@ class Community extends Model
 
     use HasFactory;
 
+    protected $casts = [
+        'private' => 'boolean', // Explicitly cast 'is_active' to boolean
+    ];
+
     protected $fillable = [
         'id',
         'name',
@@ -45,7 +49,7 @@ class Community extends Model
             'profile' => $this->profile,
             'banner' => $this->banner,
             'description' => $this->description,
-            'private' => $this->private == 0,
+            'private' => $this->private,
         ];
     }
 }

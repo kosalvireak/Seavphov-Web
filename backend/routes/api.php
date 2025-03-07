@@ -33,12 +33,10 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
     Route::get('{id}', [BookController::class, 'getMyBook']);
 });
 
-Route::prefix('community')->group(
-    function () {
-        Route::post('/get', [CommunityController::class, 'fetchCommunityWithFilter']);
-        Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
-    }
-);
+Route::prefix('community')->group(function () {
+    Route::post('/get', [CommunityController::class, 'fetchCommunityWithFilter']);
+    Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
+});
 
 Route::prefix('books')->group(function () {
     Route::get('',  [BookController::class, 'fetchBooksWithFilter']);

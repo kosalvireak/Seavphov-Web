@@ -21,6 +21,7 @@ import AdminLayout from "../layout/AdminLayout.vue";
 import DashboardOverview from "../view/admin/DashboardOverview.vue";
 import Discussion from "../view/Discussion.vue";
 import DiscussionDetail from "../view/DiscussionDetail.vue";
+import Community from "../view/Community.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -117,32 +118,44 @@ const router = createRouter({
           component: SearchResult,
         },
         {
-          path: "/book/new",
-          name: "add-book",
-          component: AddBook,
-          meta: { requiresCookie: true },
-        },
-        {
-          path: "/book/edit/:id",
-          name: "edit-book",
-          component: EditBook,
-          meta: { requiresCookie: true },
-        },
-        {
-          path: "/book/:id",
-          name: "book-detail",
-          component: BookDetail,
+          path: "/book",
+          name: "book",
+          children: [
+            {
+              path: "new",
+              name: "add-book",
+              component: AddBook,
+              meta: { requiresCookie: true },
+            },
+            {
+              path: "edit/:id",
+              name: "edit-book",
+              component: EditBook,
+              meta: { requiresCookie: true },
+            },
+            {
+              path: ":id",
+              name: "book-detail",
+              component: BookDetail,
+            }
+          ]
         },
         {
           path: "/discussion",
           name: "discussion",
           component: Discussion,
-        },
-        {
-          path: "/discussion/:id",
-          name: "discussion-detail",
-          component: DiscussionDetail,
-        },
+          children: [
+            {
+              path: "/:id",
+              name: "discussion-detail",
+              component: DiscussionDetail,
+            },
+          ]
+        }, {
+          path: "/community",
+          name: "community",
+          component: Community
+        }
       ],
     },
     {

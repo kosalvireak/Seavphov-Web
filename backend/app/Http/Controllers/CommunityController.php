@@ -46,14 +46,7 @@ class CommunityController extends Controller
             $query->where('private', 0);
         }
 
-        $cops = $query->paginate(3); // Apply pagination 
-        // Map each community to its getData method output
-        $copsData = [];
-        foreach ($cops as $community) {
-            $copsData[] = $community->getData();
-        }
-
-        $cops->data = $copsData;
+        $cops = $query->paginate(6); // Apply pagination 
 
         try {
             return response()->json([
