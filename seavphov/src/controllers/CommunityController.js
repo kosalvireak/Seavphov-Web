@@ -6,9 +6,9 @@ const toast = useToast();
 const CommunityRoute = "/api/community";
 
 export default class CommunityController {
-    static async fetchCommunityWithFilter(formData) {
+    static async fetchCommunityWithFilter(params) {
         try {
-            const response = await postForm(CommunityRoute + '/get', formData);
+            const response = await getData(CommunityRoute + `?${params}`);
             if (response.data.success) {
                 return response.data.data;
             }

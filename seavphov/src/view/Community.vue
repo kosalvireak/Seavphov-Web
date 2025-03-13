@@ -1,26 +1,54 @@
 <template>
   <section
-    class="Community container grid grid-cols-12 w-100 space-y-8 space-x-8 min-h-screen"
+    class="Community container grid grid-cols-12 w-100 space-y-8 space-x-0 lg:space-x-8 min-h-screen"
   >
-    <div class="Filter card col-span-12 lg:col-span-3 mt-8 space-y-4 p-2">
-      <p class="text-2xl font-bold">Search & Filter</p>
+    <div
+      class="Filter card col-span-12 lg:col-span-3 mt-8 space-y-4 p-2 !h-fit"
+    >
+      <h4 class="font-bold">Search & Filter</h4>
       <form
-        class="w-100 p-0 rounded-lg d-flex flex-row"
+        class="w-100 p-0 rounded-lg d-flex flex-col space-y-4"
         v-on:submit.prevent="fetchCommunity()"
       >
-        <MDBInput
-          type="text"
-          label="Search community"
-          id="name"
-          v-model="name"
-          wrapperClass="bg-white h-3rem w-100"
-        />
-        <button
-          type="submit"
-          class="w-20 p-2.5 text-sm font-medium h-full text-white bg-seavphov rounded border"
-        >
-          <i class="fa fa-magnifying-glass"></i>
-        </button>
+        <div class="d-flex flex-row">
+          <MDBInput
+            type="text"
+            label="Search community"
+            id="name"
+            v-model="name"
+            wrapperClass="bg-white h-3rem w-100"
+          />
+          <button
+            type="submit"
+            class="w-20 p-2.5 text-sm font-medium text-white bg-seavphov rounded border"
+          >
+            <i class="fa fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <div>
+          <h5 class="font-bold">Visibility</h5>
+          <FwbRadio
+            class="clickable"
+            label="All"
+            name="all"
+            v-model="visibility"
+            value="null"
+          />
+          <FwbRadio
+            class="clickable"
+            label="Private"
+            name="private"
+            v-model="visibility"
+            value="private"
+          />
+          <FwbRadio
+            class="clickable"
+            label="Public"
+            name="public"
+            v-model="visibility"
+            value="public"
+          />
+        </div>
       </form>
     </div>
     <div class="Content col-span-12 lg:col-span-9">
@@ -33,9 +61,9 @@
             class="d-flex align-items-center justify-content-end"
             style="height: 40px"
           >
-            <h6 class="p-0 m-0 fw-bold font-75">
+            <h5 class="p-0 m-0 fw-bold font-75">
               Result: {{ communities.length }} Community
-            </h6>
+            </h5>
           </div>
           <CommunityItem
             v-for="cop in communities"
@@ -61,16 +89,17 @@
 </template>
 
 <script>
+import { FwbRadio } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../components/community/CommunityItem.vue";
 import CommunityController from "../controllers/CommunityController";
 export default {
   name: "Community",
-  components: { CommunityItem, MDBInput },
+  components: { CommunityItem, MDBInput, FwbRadio },
   data() {
     return {
       name: "",
-      private: null,
+      visibility: null,
       communities: [],
       isLoading: false,
     };
@@ -78,12 +107,11 @@ export default {
   methods: {
     async fetchCommunity() {
       this.isLoading = true;
-      let formData = {
-        name: this.name,
-        private: this.private,
-      };
+      let params = new URLSearchParams();
+      params.append("name", this.name);
+      params.append("visibility", this.visibility);
       const response = await CommunityController.fetchCommunityWithFilter(
-        formData
+        params
       ); // response is the pagination object
       this.communities = response.data;
       this.isLoading = false;
@@ -93,6 +121,17 @@ export default {
     isEmpty() {
       return this.communities.length == 0;
     },
+  },
+  watch: {
+    visibility: {
+      immediate: true,
+      handler() {
+        this.fetchCommunity();
+      },
+    },
+  },
+  async mounted() {
+    this.fetchCommunity();
   },
 };
 </script>

@@ -9,7 +9,7 @@
     </div>
     <template v-else>
       <div class="container h-fit relative space-y-4">
-        <div class="CoverSection h-40 lg:h-72">
+        <div class="CoverSection h-40 lg:h-72 mb-[-76px] lg:mb-0">
           <img
             :src="getUserCoverImage"
             class="w-100 h-100 b-1 rounded-7 img-fluid object-cover"
@@ -17,9 +17,9 @@
           />
         </div>
         <div
-          class="ProfileSection top-1/2 lg:top-full h-fit flex items-center justify-between flex-col lg:flex-row space-y-4 space-x-0 lg:space-y-0 lg:space-x-4"
+          class="ProfileSection h-fit flex items-center justify-between flex-col lg:flex-row space-y-4 space-x-0 lg:space-y-0 lg:space-x-4"
         >
-          <div class="ProfileImage h-40 w-40 flex-shrink-0">
+          <div class="ProfileImage h-32 w-32 lg:h-40 lg:w-40 flex-shrink-0">
             <img
               v-if="user.picture"
               :src="user.picture"

@@ -22,27 +22,20 @@ class CommunityController extends Controller
     public function fetchCommunityWithFilter(Request $request)
     {
 
-        // $all = $request->get('all');
         $name = $request->get('name');
-        $private = $request->get('private');
-
-        // if ($all) {
-        //     $cops = Community::all();
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $private,
-        // ], 200);
-        // }
+        $visibility = $request->get('visibility');
 
         $query = Community::query(); // Start with a base query
 
+        // Filter by name if name = "", it will return all
         if ($name) {
-            $query->where('name', 'like', '%' . $name . '%'); // Filter by name
+            $query->where('name', 'like', '%' . $name . '%');
         }
 
-        if ($private == 'true') { // Filter by visibility
+        // if visibility == null it won't filter
+        if ($visibility == 'private') { // Filter by visibility
             $query->where('private', 1);
-        } else if ($private == 'false') {
+        } else if ($visibility == 'public') {
             $query->where('private', 0);
         }
 

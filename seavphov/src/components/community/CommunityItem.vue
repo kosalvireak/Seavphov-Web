@@ -47,24 +47,12 @@ export default {
   props: {
     community: Object,
   },
-  //   data() {
-  //     return {
-  //       community: {
-  //         name: "Community Name",
-  //         route: "community-name",
-  //         description: "Community Description",
-  //         private: true,
-  //         profile:
-  //           "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPuFUIZ_IOYN8XQzLL0XXcKT7j-JbnqFcOUCUw-h6EyIupeJeIqDCECItir7yldkLCHiBj1w",
-  //       },
-  //     };
-  //   },
   computed: {
     buttonColor() {
       return this.community.private ? "red" : "green";
     },
     buttonText() {
-      return this.community.private ? "Private Group" : "Public Group";
+      return this.community.private ? "Private" : "Public";
     },
     infoText() {
       return this.community.private
