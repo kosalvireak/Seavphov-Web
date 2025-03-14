@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-8">
+  <div class="container-xl mt-8">
     <div class="BookDetail">
       <div class="grid grid-cols-12 gap-4 h-100">
         <div
@@ -13,9 +13,9 @@
         </div>
         <div class="col-span-12 lg:col-span-8 relative space-y-4">
           <div class="flex">
-            <h3 class="text-black font-bold pr-10">
+            <p class="h3 pr-10">
               {{ book.title }}
-            </h3>
+            </p>
           </div>
           <div class="text-black space-y-4">
             <p><span class="font-bold">by</span> {{ book.author }}</p>
@@ -30,7 +30,7 @@
             <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
               buttonText
             }}</FwbButton>
-            <h5 class="font-bold">Overview</h5>
+            <p class="h6">Descriptions</p>
             <div class="max-h-44 lg:h-44 overflow-auto text-base">
               <p>
                 {{ book.descriptions }}

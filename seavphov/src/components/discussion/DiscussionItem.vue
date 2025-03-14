@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="discussion.user"
-    class="DiscussionItem container rounded-lg p-3 space-y-3 ring-1 ring-gray-300 relative"
+    class="DiscussionItem container-xl rounded-lg p-3 space-y-3 ring-1 ring-gray-300 relative"
   >
     <!-- Discussion header -->
     <a
@@ -51,14 +51,15 @@
         dislikeMethodName="dislikeDiscussion"
       >
         <div
-          class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200 mr-auto"
+          class="flex-center w-fit min-w-16 rounded-lg hover:bg-gray-200 mr-auto text-decoration-none"
         >
-          <span
-            class="flex-center clickable px-2 py-1 rounded-lg text-md h-100"
-            @click="toDiscussionDetail()"
-            ><i class="fa fa-commenting fa-xl mr-1" aria-hidden="true"> </i>
-            {{ discussion.number_of_comments }}
-          </span>
+          <a :href="`/discussion/${discussion.id}`">
+            <span
+              class="flex-center clickable px-2 py-1 rounded-lg text-md h-100"
+              ><i class="fa fa-commenting fa-xl mr-1" aria-hidden="true"> </i>
+              {{ discussion.number_of_comments }}
+            </span>
+          </a>
         </div>
       </Reaction>
     </div>
@@ -78,11 +79,6 @@ export default {
     return {
       isDeleting: false,
     };
-  },
-  methods: {
-    toDiscussionDetail() {
-      this.toRouteName("discussion-detail", this.discussion.id);
-    },
   },
 };
 </script>

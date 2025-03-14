@@ -1,6 +1,6 @@
 <template>
   <section
-    class="Community container grid grid-cols-12 w-100 space-y-8 space-x-0 lg:space-x-8 min-h-screen"
+    class="Community container-xl grid grid-cols-12 w-100 space-y-8 space-x-0 lg:space-x-8 min-h-screen"
   >
     <div
       class="Filter card col-span-12 lg:col-span-3 mt-8 space-y-4 p-2 !h-fit"
@@ -61,7 +61,7 @@
             class="d-flex align-items-center justify-content-end"
             style="height: 40px"
           >
-            <h6 class="p-0 m-0 fw-bold font-75">
+            <h6 class="p-0 m-0 font-bold font-75">
               Result: {{ communities.length }} Community
             </h6>
           </div>

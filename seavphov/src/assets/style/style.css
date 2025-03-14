@@ -1,7 +1,4 @@
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./apply_tailwind.css";
 
 :root {
   --sp-primary: #5c836e; /* please refer to tailwind.config.js */
@@ -21,6 +18,7 @@
 
 body {
   color: var(--sp-dark);
+  font-family: "Nunito", sans-serif;
 }
 
 .sp-logo-sm {
@@ -203,3 +201,4 @@ img {
 .border-b.border-gray-200.p-4.rounded-t.flex.justify-between.items-center {
   padding: 0.75rem !important; /* p-2.5 -> fwb-modal */
 }
+

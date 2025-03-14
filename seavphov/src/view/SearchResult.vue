@@ -1,22 +1,24 @@
 <template>
   <section
-    class="SearchResult container-sm d-flex flex-column w-100 h-100 align-items-start mb-auto"
+    class="SearchResult container-xl d-flex flex-column w-100 h-100 align-items-start mb-auto"
   >
     <div class="mt-4 w-100 flex-center row align-items-start">
       <div class="col-9">
         <BackRoute />
         <h4 v-if="searchTitle" class="mt-4">
-          Search result for Title"<span class="fw-bold">{{ searchTitle }}</span
+          Search result for Title"<span class="font-bold">{{
+            searchTitle
+          }}</span
           >"
         </h4>
         <h4 v-if="searchCategory" class="mt-4">
-          Search result for Category "<span class="fw-bold">{{
+          Search result for Category "<span class="font-bold">{{
             searchCategory
           }}</span
           >"
         </h4>
         <h4 v-if="searchCondition" class="mt-4">
-          Search result for Condition "<span class="fw-bold">{{
+          Search result for Condition "<span class="font-bold">{{
             searchCondition
           }}</span
           >"

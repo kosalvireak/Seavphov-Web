@@ -142,11 +142,15 @@ const router = createRouter({
         },
         {
           path: "/discussion",
-          name: "discussion",
-          component: Discussion,
+          name: "discussion-forum",
           children: [
             {
-              path: "/:id",
+              path: "",
+              name: "discussion",
+              component: Discussion,
+            },
+            {
+              path: ":id",
               name: "discussion-detail",
               component: DiscussionDetail,
             },

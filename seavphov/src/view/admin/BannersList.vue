@@ -57,7 +57,7 @@
           Back
         </a>
       </div>
-      <h4 class="mb-4 text-gray fw-bold">Add new Banner</h4>
+      <h4 class="mb-4 text-gray font-bold">Add new Banner</h4>
       <form
         style="width: 100%"
         v-on:submit.prevent="addBanner()"
@@ -185,7 +185,7 @@ export default {
       this.formData.append("link_url", this.newBanner.link_url);
       const response = await this.$store.dispatch(
         "adminAddBanner",
-        this.formData,
+        this.formData
       );
       if (response) {
         this.page = 1;
@@ -204,7 +204,7 @@ export default {
               this.newBanner.image_url = url;
               this.formData.append("image_url", url);
               this.uploadingBanner = false;
-            },
+            }
           );
         }
       } catch (error) {

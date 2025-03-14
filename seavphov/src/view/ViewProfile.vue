@@ -1,6 +1,6 @@
 <template>
   <div class="Profile box h-100 w-100 mt-8">
-    <div class="container-sm box b-1 p-0 space-y-4">
+    <div class="container-xl box b-1 p-0 space-y-4">
       <UserMainProfile
         :fromProfile="false"
         :user="User"

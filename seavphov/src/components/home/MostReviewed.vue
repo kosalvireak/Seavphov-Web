@@ -1,7 +1,7 @@
 <template>
-  <div class="MostReviewed container w-100 h-auto rounded-lg space-y-4">
+  <div class="MostReviewed container-xl w-100 h-auto rounded-lg space-y-4">
     <div class="h-10 d-flex align-items-center justify-content-start">
-      <h3 class="p-0 m-0 fw-bold font-50">Most Reviewed Book!</h3>
+      <p class="h3">Most Reviewed Book!</p>
     </div>
     <div v-if="isLoading" class="h-96 w-100 flex-center">
       <Loader :size="40" />

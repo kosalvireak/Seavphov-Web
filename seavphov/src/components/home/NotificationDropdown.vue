@@ -2,7 +2,7 @@
   <div>
     <div class="NotificationDropdown w-96">
       <h5
-        class="d-flex align-items-center justify-content-center fw-bold mb-0"
+        class="d-flex align-items-center justify-content-center font-bold mb-0"
         style="height: 50px; border-bottom: 1px solid gray"
       >
         Notification

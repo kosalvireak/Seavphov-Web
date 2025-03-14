@@ -13,14 +13,14 @@
           class="d-flex align-items-center justify-content-end m-1 mt-4"
           style="height: 40px"
         >
-          <h6 class="p-0 m-0 fw-bold font-75">
+          <h6 class="p-0 m-0 font-bold font-75">
             Result: {{ reviews.length }} Reviews
           </h6>
         </div>
         <div class="flex flex-col space-y-4">
           <div v-for="review in reviews" :key="review.id">
             <div class="MyReview card">
-              <div class="row container-sm m-0 p-2 relative">
+              <div class="row container-xl m-0 p-2 relative">
                 <router-link
                   :to="`/book/${review.bookId}`"
                   class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2"
@@ -32,7 +32,7 @@
                   />
                 </router-link>
                 <div class="col-md-9 space-y-4 flex flex-col justify-around">
-                  <h5 class="card-title fw-bold truncate-2-lines">
+                  <h5 class="card-title font-bold truncate-2-lines">
                     {{ review.bookTitle }}
                   </h5>
                   <ReviewItem

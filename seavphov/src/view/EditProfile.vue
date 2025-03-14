@@ -1,11 +1,11 @@
 <template>
-  <div class="EditProfile w-100 mb-4 mt-8 container-sm">
+  <div class="EditProfile w-100 mb-4 mt-8 container-xl">
     <BackRoute />
     <div
       v-if="isLogin"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="mb-4 text-gray fw-bold">Edit profile</h4>
+      <h4 class="mb-4 text-gray font-bold">Edit profile</h4>
       <div v-if="isLoading" class="flex-center h-96">
         <Loader :size="40" />
       </div>

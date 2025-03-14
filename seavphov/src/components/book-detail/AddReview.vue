@@ -4,12 +4,12 @@
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
     >
-      <p class="mb-0">Sign up to leave a review!</p>
+      <p>Sign up to leave a review!</p>
 
       <FwbButton
         @click="toRouteName('signup')"
         gradient="green"
-        class="m-0 px-2 text-xs w-fit"
+        class="px-2 text-xs w-fit"
         >Signup</FwbButton
       >
     </div>

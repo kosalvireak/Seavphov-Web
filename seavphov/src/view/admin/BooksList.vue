@@ -10,12 +10,7 @@
       buttons-pagination
     >
       <template #item-images="books">
-        <img
-          :src="books.images"
-          class="img-fluid admin_book"
-          alt="admin_book"
-          loading="lazy"
-        />
+        <img :src="books.images" alt="admin_book" loading="lazy" />
       </template>
       <template #item-descriptions="books">
         {{ books.descriptions }}

@@ -1,12 +1,12 @@
 <template>
-  <div class="AddBook w-100 mb-4 mt-8 container-sm">
+  <div class="AddBook w-100 mb-4 mt-8 container-xl">
     <BackRoute />
 
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="mb-4 text-gray fw-bold">Edit book</h4>
+      <p class="h4 mb-4">Edit book</p>
 
       <form style="width: 100%" v-on:submit.prevent="modifyBook()" class="row">
         <div class="col-12 col-md-6">
@@ -115,7 +115,7 @@
       <NoLoggin />
     </div>
   </div>
-</template>
+</template> 
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
@@ -171,7 +171,7 @@ export default {
               this.book.images = url;
               this.formData.append("images", url);
               this.uploadingBook = false;
-            },
+            }
           );
         }
       } catch (error) {

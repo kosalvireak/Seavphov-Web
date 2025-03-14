@@ -1,5 +1,5 @@
 <template>
-  <section class="AddComment container p-0">
+  <section class="AddComment container-xl p-0">
     <div
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly my-4"

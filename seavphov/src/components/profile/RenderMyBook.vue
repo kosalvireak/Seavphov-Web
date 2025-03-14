@@ -7,19 +7,12 @@
     >
       <Loader />
     </div>
-    <div v-else>
-      <div v-if="!isBooksEmpty">
-        <div
-          class="d-flex align-items-center justify-content-end m-1 mt-4"
-          style="height: 40px"
-        >
-          <h6 class="p-0 m-0 fw-bold font-75">
-            Result: {{ books.length }} Books
-          </h6>
+    <template v-else>
+      <div v-if="!isBooksEmpty" class="space-y-4">
+        <div class="h-12 d-flex align-items-center justify-content-end m-1">
+          <p class="h6">Result: {{ books.length }} Books</p>
         </div>
-        <div v-for="book in books" :key="book.id">
-          <MyBook :book="book" :key="book.id" class="m-0 p-0" />
-        </div>
+        <MyBook v-for="book in books" :book="book" :key="book.id" />
       </div>
       <div v-else class="h-100 w-100">
         <div
@@ -33,7 +26,7 @@
           <h3>No books found...!</h3>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
-  <div class="AddBook w-100 mb-4 container-sm mt-8">
+  <div class="AddBook w-100 mb-4 container-xl mt-8">
     <BackRoute />
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="mb-4 text-gray fw-bold">Create book</h4>
+      <h4 class="mb-4 text-gray font-bold">Create book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">

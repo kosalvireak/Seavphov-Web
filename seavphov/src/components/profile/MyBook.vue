@@ -1,50 +1,41 @@
 <template>
-  <div class="MyBook card my-4">
-    <div class="row container-sm m-0 p-2 relative">
+  <div class="MyBook relative">
+    <div class="card-item p-2">
       <router-link
         :to="`/book/${book.id}`"
-        class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-2"
+        class="col-md-3 flex-center hover-zoom rounded-7 p-2"
       >
         <img
           :src="book.images"
-          class="card-img img-fluid m-2 book_image p-1 rounded-7"
-          alt="book_image"
-          style="object-fit: contain"
+          class="book_image img-fluid object-contain"
+          alt="book image"
         />
       </router-link>
       <div class="col-md-9">
-        <div class="d-flex justify-content-between p-2">
-          <div class="space-y-4">
-            <h5 class="card-title fw-bold truncate-2-lines">
-              {{ book.title }}
-            </h5>
-            <p class="card-text truncate-2-lines text-base">
-              {{ book.descriptions }}
-            </p>
-            <p class="card-text"></p>
-            <ul class="space-y-4">
-              <li><span class="fw-bold">Author:</span>{{ book.author }}</li>
-              <li>
-                <span class="fw-bold">Condition: </span>{{ book.condition }}
-              </li>
-              <li>
-                <span class="fw-bold">Category: </span>{{ book.categories }}
-              </li>
-              <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
-                buttonText
-              }}</FwbButton>
-            </ul>
-          </div>
-          <MyBookDropdown
-            :id="book.id"
-            :key="book.id"
-            :book="book"
-            class="absolute right-4"
-            @change="ChangeAvailability()"
-          />
+        <div class="space-y-2">
+          <h5 class="font-bold truncate-2-lines"></h5>
+          <p class="h5 truncate-2-lines pr-10">
+            {{ book.title }}
+          </p>
+          <p class="truncate-2-lines text-base">
+            {{ book.descriptions }}
+          </p>
+          <p><span class="font-bold">Author:</span>{{ book.author }}</p>
+          <p><span class="font-bold">Condition: </span>{{ book.condition }}</p>
+          <p><span class="font-bold">Category: </span>{{ book.categories }}</p>
+          <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
+            buttonText
+          }}</FwbButton>
         </div>
       </div>
     </div>
+    <MyBookDropdown
+      :id="book.id"
+      :key="book.id"
+      :book="book"
+      class="absolute right-4 top-4"
+      @change="ChangeAvailability()"
+    />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <section class="CommunityItem card">
-    <div class="row container-sm m-0 p-2 relative">
+    <div class="row container-xl m-0 p-2 relative">
       <router-link
         :to="`/community/${community.route}`"
         class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-3"
@@ -14,7 +14,7 @@
       <div class="col-md-9">
         <div class="d-flex justify-content-between p-2">
           <div class="space-y-4">
-            <h5 class="card-title fw-bold truncate-2-lines">
+            <h5 class="card-title font-bold truncate-2-lines">
               {{ community.name }}
             </h5>
             <p class="card-text truncate-2-lines text-base">

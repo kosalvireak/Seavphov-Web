@@ -12,10 +12,10 @@
         alt="user profile"
       />
       <div class="d-flex flex-column justify-content-evenly">
-        <p class="m-0 text-lg font-bold">{{ owner.name }}</p>
-        <p class="m-0">
-          <span>Member since: </span>{{ formatDate(owner.created_at) }}
+        <p class="h5">
+          {{ owner.name }}
         </p>
+        <p><span>Member since: </span>{{ formatDate(owner.created_at) }}</p>
       </div>
     </a>
     <div class="d-flex">

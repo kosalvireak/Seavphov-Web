@@ -10,7 +10,7 @@
         class="logoimg img-fluid"
       />
     </div>
-    <div class="container col-md-6 col-sm-12">
+    <div class="container-xl col-md-6 col-sm-12">
       <h1>Log In</h1>
       <form v-on:submit.prevent="Login()">
         <div class="form-floating mb-3">

@@ -1,6 +1,6 @@
 <template>
   <section
-    class="ReviewItem container w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
+    class="ReviewItem container-xl w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
     <!-- Review header -->
     <a

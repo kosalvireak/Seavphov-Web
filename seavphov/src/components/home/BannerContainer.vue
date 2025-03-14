@@ -1,5 +1,5 @@
 <template>
-  <section class="AdsContainer container h-40 lg:h-72">
+  <section class="AdsContainer container-xl h-40 lg:h-72">
     <img
       :src="getBackground"
       alt=""

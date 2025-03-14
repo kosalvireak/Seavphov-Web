@@ -1,6 +1,6 @@
 <template>
   <section class="BookReview space-y-4">
-    <h5 class="font-bold text-black">Reviews</h5>
+    <p class="h5">Reviews</p>
     <AddReview :book_id="book_id" @on-add-review="onAddReview($event)" />
     <ReviewItem
       v-for="review in reviews"

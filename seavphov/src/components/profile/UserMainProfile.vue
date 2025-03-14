@@ -8,7 +8,7 @@
       <Loader />
     </div>
     <template v-else>
-      <div class="container h-fit relative space-y-4">
+      <div class="container-xl h-fit relative space-y-4">
         <div class="CoverSection h-40 lg:h-72 mb-[-76px] lg:mb-0">
           <img
             :src="getUserCoverImage"

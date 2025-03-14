@@ -1,6 +1,6 @@
 <template>
   <section class="Filter d-flex flex-column justify-content-start">
-    <h5 class="text-xl">Category</h5>
+    <p class="h4">Category</p>
     <ul>
       <li
         v-for="category in Category"
@@ -12,7 +12,7 @@
         {{ category }}
       </li>
     </ul>
-    <h5>Condition</h5>
+    <p class="h4">Condition</p>
     <ul>
       <li
         v-for="condition in Condition"
@@ -67,9 +67,6 @@ export default {
 <style scoped>
 .Filter {
   border-left: 0.5px solid lightgray;
-}
-h5 {
-  font-family: "Roboto Slab", serif;
 }
 li {
   color: gray;

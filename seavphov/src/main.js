@@ -1,12 +1,13 @@
 import { createApp } from "vue";
 
-// css
+// Third-party CSS imports
 import "vue-toastification/dist/index.css";
 import "../node_modules/flowbite-vue/dist/index.css";
 import "vue3-easy-data-table/dist/style.css";
-import "./style.css";
 import "mdb-vue-ui-kit/css/mdb.min.css";
-import "./assets/reset.css";
+
+// Custom CSS (including Tailwind CSS)
+import "./assets/style/style.css";
 
 // js
 import "mdb-vue-ui-kit/js/mdb.es.min.js";

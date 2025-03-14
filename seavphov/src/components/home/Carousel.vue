@@ -1,7 +1,7 @@
 <template>
   <div
     id="carouselInterval"
-    class="carousel container slide w-100 sp-height-450 rounded-7 justify-content-center align-content-center sp-absolute"
+    class="carousel container-xl slide w-100 sp-height-450 rounded-7 justify-content-center align-content-center sp-absolute"
     data-bs-ride="carousel"
     data-bs-interval="5000"
   >

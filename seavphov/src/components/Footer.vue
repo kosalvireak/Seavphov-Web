@@ -1,6 +1,6 @@
 <template>
   <footer v-if="hideFooter" class="footer-section w-100 bg-seavphov">
-    <div class="container footer-content pt-5">
+    <div class="container-xl footer-content pt-5">
       <div class="row">
         <div class="col-xl-4 col-lg-4 mb-50">
           <div class="footer-widget">
@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="copyright-area">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="col-xl-6 col-lg-6 text-center text-lg-left">
             <div class="copyright-text">

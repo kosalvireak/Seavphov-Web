@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-row items-start justify-between">
+  <div class="container-xl flex flex-row items-start justify-between">
     <!-- Navigation Buttons for Larger Screens -->
     <div class="hidden lg:flex flex-row space-x-2">
       <div

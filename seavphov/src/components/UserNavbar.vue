@@ -1,6 +1,8 @@
 <template>
   <nav class="bg-seavphov w-full">
-    <div class="container flex flex-wrap items-center justify-between mx-auto">
+    <div
+      class="container-xl flex flex-wrap items-center justify-between mx-auto"
+    >
       <router-link :to="{ name: 'home' }" class="flex items-center clickable">
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </router-link>

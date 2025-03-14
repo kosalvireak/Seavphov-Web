@@ -1,6 +1,6 @@
 <template>
   <section
-    class="AddDiscussionForm container rounded-lg p-2 ring-1 ring-gray-300"
+    class="AddDiscussionForm container-xl rounded-lg p-2 ring-1 ring-gray-300"
   >
     <div
       class="d-flex justify-content-start align-items-center text-decoration-none w-100"

@@ -10,7 +10,7 @@
     </div>
     <div class="col-span-12 lg:col-span-6 mt-4 space-y-6">
       <form
-        class="container p-0 rounded-lg d-flex flex-row relative"
+        class="container-xl p-0 rounded-lg d-flex flex-row relative"
         v-on:submit.prevent="fetchDiscussions()"
       >
         <MDBInput
