@@ -78,29 +78,11 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">
-            <input
-              type="file"
-              class="form-control"
-              id="images"
-              name="images"
-              @change="handleImageChange"
-            />
-          </div>
-          <div
-            class="my-3 mt-3 d-flex align-items-center justify-content-center border border-bdbdbd rounded-7"
-            style="width: 100%; height: 220px"
-          >
-            <img
+            <ImageUpload
               v-if="book.images"
-              :src="book.images"
-              alt="preview_image"
-              class="img-fluid h-100"
-              style="object-fit: cover"
+              @image-uploaded="onUploadBookImage"
+              :initialImage="book.images"
             />
-            <div v-else>
-              <Loader v-if="uploadingBook" />
-              <p class="text-center" v-else>Your image will preview here</p>
-            </div>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
@@ -119,8 +101,6 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NoLoggin from "../components/NoLoggin.vue";
 export default {
   name: "EditBook",
@@ -158,25 +138,9 @@ export default {
       this.$router.push({ path: `/book/${this.paramsId}` });
       this.isLoading = false;
     },
-    async handleImageChange(event) {
-      this.$toast.success("Uploading image.");
-      this.uploadingBook = true;
-      try {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-          const storageRef = ref(storage, `folder/${selectedFile.name}`);
-          const imageUpload = await uploadBytes(storageRef, selectedFile);
-          getDownloadURL(ref(storage, imageUpload.metadata.fullPath)).then(
-            (url) => {
-              this.book.images = url;
-              this.formData.append("images", url);
-              this.uploadingBook = false;
-            },
-          );
-        }
-      } catch (error) {
-        this.$toast.error(error);
-      }
+    async onUploadBookImage(url) {
+      this.book.images = url;
+      this.formData.append("images", url);
     },
     async getBook(id) {
       const response = await this.$store.dispatch("getMyBook", id);
@@ -184,14 +148,13 @@ export default {
       this.book.title = response.title;
       this.book.author = response.author;
       this.book.images = response.images;
-      this.formData.append("images", response.images);
       this.book.descriptions = response.descriptions;
       this.book.condition = response.condition;
       this.book.categories = response.categories;
+      console.log("this.book", this.book);
     },
   },
   async mounted() {
-    console.log(this.paramsId);
     this.getBook(this.paramsId);
   },
 };
