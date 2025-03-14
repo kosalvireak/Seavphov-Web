@@ -15,7 +15,6 @@
   --max-width: 1920px;
 }
 
-
 body {
   color: var(--sp-dark);
   font-family: "Nunito", sans-serif;
@@ -201,4 +200,3 @@ img {
 .border-b.border-gray-200.p-4.rounded-t.flex.justify-between.items-center {
   padding: 0.75rem !important; /* p-2.5 -> fwb-modal */
 }
-

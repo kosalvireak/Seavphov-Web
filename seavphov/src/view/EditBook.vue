@@ -115,7 +115,7 @@
       <NoLoggin />
     </div>
   </div>
-</template> 
+</template>
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
@@ -171,7 +171,7 @@ export default {
               this.book.images = url;
               this.formData.append("images", url);
               this.uploadingBook = false;
-            }
+            },
           );
         }
       } catch (error) {

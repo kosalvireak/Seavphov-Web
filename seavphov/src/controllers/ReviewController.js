@@ -19,7 +19,7 @@ export default class ReviewController {
 
   static async fetchMyReviews() {
     try {
-      const response = await getData(ReviewRoute + '/my-reviews', true);
+      const response = await getData(ReviewRoute + "/my-reviews", true);
       if (response.data.success) {
         return response.data.data;
       }

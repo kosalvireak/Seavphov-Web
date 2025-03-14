@@ -110,9 +110,8 @@ export default {
       let params = new URLSearchParams();
       params.append("name", this.name);
       params.append("visibility", this.visibility);
-      const response = await CommunityController.fetchCommunityWithFilter(
-        params
-      ); // response is the pagination object
+      const response =
+        await CommunityController.fetchCommunityWithFilter(params); // response is the pagination object
       this.communities = response.data;
       this.isLoading = false;
     },
@@ -136,5 +135,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

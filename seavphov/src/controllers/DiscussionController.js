@@ -29,10 +29,7 @@ export default class DiscussionController {
 
   static async fetchMyDiscussions() {
     try {
-      const response = await getData(
-        DiscussionRoute + '/my-discussions',
-        true,
-      );
+      const response = await getData(DiscussionRoute + "/my-discussions", true);
       if (response.data.success) {
         return response.data.data;
       }

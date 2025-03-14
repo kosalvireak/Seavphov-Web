@@ -81,7 +81,7 @@ export default {
       this.isLoading = true;
       this.formData.append("body", this.discussion.body);
       const response = await DiscussionController.createDiscussion(
-        this.formData
+        this.formData,
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
@@ -101,5 +101,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

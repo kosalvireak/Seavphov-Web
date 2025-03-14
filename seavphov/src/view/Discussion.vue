@@ -80,7 +80,7 @@ export default {
       this.isLoading = true;
       this.filters.title = this.keyword;
       const response = await DiscussionController.fetchDiscussions(
-        this.filters
+        this.filters,
       );
       this.isLoading = false;
       this.discussions = response;

@@ -137,8 +137,8 @@ const router = createRouter({
               path: ":id",
               name: "book-detail",
               component: BookDetail,
-            }
-          ]
+            },
+          ],
         },
         {
           path: "/discussion",
@@ -154,12 +154,13 @@ const router = createRouter({
               name: "discussion-detail",
               component: DiscussionDetail,
             },
-          ]
-        }, {
+          ],
+        },
+        {
           path: "/community",
           name: "community",
-          component: Community
-        }
+          component: Community,
+        },
       ],
     },
     {
