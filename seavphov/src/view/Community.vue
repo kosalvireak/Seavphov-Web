@@ -61,9 +61,9 @@
             class="d-flex align-items-center justify-content-end"
             style="height: 40px"
           >
-            <h5 class="p-0 m-0 fw-bold font-75">
+            <h6 class="p-0 m-0 fw-bold font-75">
               Result: {{ communities.length }} Community
-            </h5>
+            </h6>
           </div>
           <CommunityItem
             v-for="cop in communities"
