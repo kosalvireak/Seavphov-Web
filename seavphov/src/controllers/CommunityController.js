@@ -16,4 +16,14 @@ export default class CommunityController {
       toast.error(error.response.data.message);
     }
   }
+  static async getCommunityByRoute(route) {
+    try {
+      const response = await getData(CommunityRoute + `/route/${route}`);
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
 }

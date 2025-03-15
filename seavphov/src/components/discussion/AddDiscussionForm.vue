@@ -64,12 +64,15 @@ export default {
       isShowModal: false,
       discussion: {
         body: "",
-        image: "",
+        image: "null",
       },
       isLoading: false,
       formData: new FormData(),
       uploadingBook: false,
     };
+  },
+  mounted() {
+    this.formData.append("image", this.discussion.image);
   },
   computed: {
     emptyDiscussion() {
@@ -81,7 +84,7 @@ export default {
       this.isLoading = true;
       this.formData.append("body", this.discussion.body);
       const response = await DiscussionController.createDiscussion(
-        this.formData,
+        this.formData
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();

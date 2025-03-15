@@ -33,6 +33,7 @@ import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
 import LoadingButton from "./components/common/LoadingButton.vue";
 import ImageUpload from "./components/common/ImageUpload.vue";
+import HomeNavigation from "./components/home/HomeNavigation.vue";
 
 const app = createApp(App);
 
@@ -51,6 +52,7 @@ app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);
 app.component("ImageUpload", ImageUpload);
+app.component("HomeNavigation", HomeNavigation);
 
 // global mixin
 app.mixin(RouterMixin);

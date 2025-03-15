@@ -1,34 +1,47 @@
 <template>
-  <section class="HomeNavigation container-xl flex flex-row h-14 space-x-6">
+  <section class="HomeNavigation container-xl flex flex-row h-14">
     <router-link
-      :to="{ name: 'home' }"
-      class="flex items-center clickable text-sp-primary"
+      v-for="tab in tabs"
+      :key="tab.name"
+      :to="{ name: tab.routeName }"
+      :class="[
+        'flex items-center clickable text-sp-primary px-3',
+        { 'border-b-2 border-sp-primary': selectedTab === tab.routeName },
+      ]"
     >
-      <i class="fa-solid fa-house fa-md mr-2"></i>
-      Home
+      <i :class="tab.iconClass" class="fa-solid fa-md mr-2"></i>
+      {{ tab.name }}
     </router-link>
-    <router-link
-      :to="{ name: 'discussion' }"
-      class="flex items-center clickable text-sp-primary border-b-2 border-sp-primary"
-    >
-      <i class="fa-solid fa-message fa-md mr-2"></i>
-      Discussion
-    </router-link>
-    <router-link
-      :to="{ name: 'community' }"
-      class="flex items-center clickable text-sp-primary"
-    >
-      <i class="fa-solid fa-user-group fa-md mr-2"></i>
-      Community
-    </router-link>
-    <br />
-    <hr />
   </section>
 </template>
 
 <script>
 export default {
   name: "HomeNavigation",
+  props: {
+    selectedTab: String,
+  },
+  data() {
+    return {
+      tabs: [
+        {
+          name: "Home",
+          routeName: "home",
+          iconClass: " fa-house",
+        },
+        {
+          name: "Discussion",
+          routeName: "discussion",
+          iconClass: " fa-message",
+        },
+        {
+          name: "Community",
+          routeName: "community",
+          iconClass: " fa-user-group",
+        },
+      ],
+    };
+  },
 };
 </script>
 

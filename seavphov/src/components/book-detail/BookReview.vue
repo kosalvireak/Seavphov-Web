@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     onAddReview(review) {
-      this.reviews.push(review);
+      this.reviews.unshift(review);
     },
     onRemoveReview(id) {
       this.reviews = this.reviews.filter((review) => review.id !== id);

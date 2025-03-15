@@ -28,6 +28,7 @@
     <DiscussionItemDropdown
       v-if="discussion.delete_able"
       :id="discussion.id"
+      @onDelete="onDelete($event)"
       class="absolute right-3 top-0"
     />
 
@@ -41,7 +42,7 @@
         >...see more</span
       >
     </div>
-    <div class="w-100 max-h-72 flex-center">
+    <div v-if="discussion.image !== 'null'" class="w-100 max-h-72 flex-center">
       <img :src="discussion.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">
@@ -79,6 +80,11 @@ export default {
     return {
       isDeleting: false,
     };
+  },
+  methods: {
+    onDelete(id) {
+      this.$emit("onDelete", id);
+    },
   },
 };
 </script>

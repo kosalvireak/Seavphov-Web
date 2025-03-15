@@ -24,7 +24,6 @@ class CommunityController extends Controller
 
         $name = $request->get('name');
         $visibility = $request->get('visibility');
-
         $query = Community::query(); // Start with a base query
 
         // Filter by name if name = "", it will return all
@@ -45,6 +44,33 @@ class CommunityController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $cops,
+                'message' => 'Fetch community success',
+            ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching community.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getCommunityByRoute($route)
+    {
+        try {
+
+            $cop = Community::where('route', $route)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 404);
+            };
+
+            return response()->json([
+                'success' => true,
+                'data' => $cop,
                 'message' => 'Fetch community success',
             ], 200);
         } catch (QueryException  $exception) {

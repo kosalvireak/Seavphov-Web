@@ -22,6 +22,7 @@ import DashboardOverview from "../view/admin/DashboardOverview.vue";
 import Discussion from "../view/Discussion.vue";
 import DiscussionDetail from "../view/DiscussionDetail.vue";
 import Community from "../view/Community.vue";
+import CommunityHome from "../view/CommunityHome.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -158,8 +159,19 @@ const router = createRouter({
         },
         {
           path: "/community",
-          name: "community",
-          component: Community,
+          name: "community-route",
+          children: [
+            {
+              path: "",
+              name: "community",
+              component: Community,
+            },
+            {
+              path: ":route",
+              name: "community-home",
+              component: CommunityHome,
+            },
+          ],
         },
       ],
     },

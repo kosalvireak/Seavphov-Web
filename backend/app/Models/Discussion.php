@@ -13,7 +13,7 @@ class Discussion extends Model
         'id',
         'owner_id',
         'body',
-        'image',
+        'image', // Not Optional field, but i intentionally set to null if user does not upload an image
         'comments',
         'like',
         'dislike',

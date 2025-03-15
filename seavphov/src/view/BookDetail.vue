@@ -3,7 +3,7 @@
     <div class="BookDetail">
       <div class="grid grid-cols-12 gap-4 h-100">
         <div
-          class="col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300 rounded-2"
+          class="hover-zoom col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300 rounded-2"
         >
           <img
             :src="book.images"
@@ -16,6 +16,23 @@
             <p class="h3 pr-10">
               {{ book.title }}
             </p>
+
+            <!-- Bookmark -->
+            <button
+              class="absolute top-1 end-0 w-10 h-10 justify-items-center"
+              v-if="isLogin"
+            >
+              <Loader v-if="loadingSaveBook" :size="10" />
+              <template v-else>
+                <i
+                  class="fa-bookmark fa-2xl w-10 h-10"
+                  :class="
+                    book.issaved ? 'fa-solid text-yellow-300' : 'fa-regular'
+                  "
+                  @click="toggleSaveBook()"
+                ></i>
+              </template>
+            </button>
           </div>
           <div class="text-black space-y-4">
             <p><span class="font-bold">by</span> {{ book.author }}</p>
@@ -37,24 +54,6 @@
               </p>
             </div>
           </div>
-          <!-- Bookmark -->
-          <button
-            class="absolute top-1 end-0 w-10 h-10 justify-items-center"
-            v-if="isLogin"
-          >
-            <Loader v-if="loadingSaveBook" :size="10" />
-            <template v-else>
-              <i
-                class="fa-bookmark fa-2xl w-10 h-10"
-                :class="
-                  book.issaved
-                    ? 'fa-solid text-yellow-300 border-2 border-black rounded-md'
-                    : 'fa-regular'
-                "
-                @click="toggleSaveBook()"
-              ></i>
-            </template>
-          </button>
         </div>
       </div>
       <div class="grid grid-cols-12 gap-4 mt-4">
@@ -107,7 +106,7 @@ export default {
       this.filters.max = this.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
       this.relatedBooks = await BookController.fetchBooksWithFilter(
-        this.filters,
+        this.filters
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -120,7 +119,7 @@ export default {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId,
+        this.paramsId
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

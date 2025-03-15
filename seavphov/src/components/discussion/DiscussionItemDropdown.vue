@@ -38,7 +38,7 @@ export default {
     async deleteDiscussion() {
       this.isDeleting = true;
       await DiscussionController.deleteDiscussion(this.id);
-      this.$router.go(0);
+      this.$emit("onDelete", this.id);
       this.isDeleting = false;
     },
   },
