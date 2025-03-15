@@ -34,6 +34,7 @@ import Dropdown from "./components/common/Dropdown.vue";
 import LoadingButton from "./components/common/LoadingButton.vue";
 import ImageUpload from "./components/common/ImageUpload.vue";
 import HomeNavigation from "./components/home/HomeNavigation.vue";
+import Info from "./components/common/Info.vue";
 
 const app = createApp(App);
 
@@ -53,6 +54,7 @@ app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);
 app.component("ImageUpload", ImageUpload);
 app.component("HomeNavigation", HomeNavigation);
+app.component("Info", Info);
 
 // global mixin
 app.mixin(RouterMixin);

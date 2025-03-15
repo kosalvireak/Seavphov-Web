@@ -30,7 +30,7 @@
               label="All"
               name="all"
               v-model="visibility"
-              value="null"
+              value="all"
             />
             <FwbRadio
               class="clickable"
@@ -50,9 +50,16 @@
         </form>
         <div class="d-flex align-items-center justify-content-end">
           <p v-if="isLoading" class="h6">Fetching...</p>
-          <p v-else class="h6">Result: {{ communities.length }} Community</p>
+          <p v-else class="h6">Result: {{ communities?.length }} Community</p>
         </div>
+        <button
+          @click="toRouteName('create-community')"
+          class="bg-sp-primary text-white p-2 rounded-lg"
+        >
+          Create Community
+        </button>
       </div>
+
       <div class="Content col-span-12 lg:col-span-9">
         <div v-if="isLoading" class="w-100 h-100 flex-center flex-row">
           <Loader :size="40" />
@@ -94,7 +101,7 @@ export default {
   data() {
     return {
       name: "",
-      visibility: null,
+      visibility: "all",
       communities: [],
       isLoading: false,
     };
@@ -108,7 +115,7 @@ export default {
       const response = await CommunityController.fetchCommunityWithFilter(
         params
       ); // response is the pagination object
-      this.communities = response.data;
+      this.communities = response;
       this.isLoading = false;
     },
   },
@@ -118,11 +125,9 @@ export default {
     },
   },
   watch: {
-    visibility: {
-      immediate: true,
-      handler() {
-        this.fetchCommunity();
-      },
+    visibility(newVal, oldVal) {
+      console.log("watch");
+      this.fetchCommunity();
     },
   },
   async mounted() {

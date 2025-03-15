@@ -1,15 +1,12 @@
 <template>
   <div class="EditProfile w-100 mb-4 mt-8 container-xl">
     <BackRoute />
-    <div
-      v-if="isLogin"
-      class="d-flex align-items-center justify-content-center flex-column"
-    >
-      <h4 class="mb-4 text-gray font-bold">Edit profile</h4>
+    <div v-if="isLogin" class="flex-center flex-column">
+      <p class="h3">Edit profile</p>
       <div v-if="isLoading" class="flex-center h-96">
         <Loader :size="40" />
       </div>
-      <form v-else style="width: 100%" v-on:submit.prevent="Save()" class="row">
+      <form v-else v-on:submit.prevent="Save()" class="row w-100">
         <div class="mb-4">
           <p>Cover image</p>
           <ImageUpload
@@ -45,10 +42,10 @@
               wrapperClass="bg-white h-3rem"
               required
             />
-            <p class="text-gray-400 text-sm mt-1 mb-0">
-              <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>Your
-              email will not visible to any user in platform.
-            </p>
+            <Info
+              text="Your
+              email will not visible to any user in platform."
+            />
           </div>
         </div>
         <div class="col-12 col-md-6">
@@ -114,10 +111,10 @@
               v-model="user.location"
               wrapperClass="bg-white h-3rem"
             />
-            <p class="text-gray-400 text-sm mt-1 mb-0">
-              <i class="fa fa-info-circle mr-1" aria-hidden="true"></i>Empty
-              field or null will not visible to any user in platform.
-            </p>
+            <Info
+              text="Empty
+              field or null will not visible to any user in platform."
+            />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">

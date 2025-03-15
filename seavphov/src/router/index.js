@@ -23,6 +23,7 @@ import Discussion from "../view/Discussion.vue";
 import DiscussionDetail from "../view/DiscussionDetail.vue";
 import Community from "../view/Community.vue";
 import CommunityHome from "../view/CommunityHome.vue";
+import CreateCommunity from "../view/CreateCommunity.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -172,6 +173,12 @@ const router = createRouter({
               component: CommunityHome,
             },
           ],
+        },
+        {
+          path: "/create-community",
+          name: "create-community",
+          component: CreateCommunity,
+          meta: { requiresCookie: true },
         },
       ],
     },

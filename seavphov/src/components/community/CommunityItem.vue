@@ -23,10 +23,7 @@
             <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
               buttonText
             }}</FwbButton>
-            <p class="text-gray-400 text-sm">
-              <i class="fa fa-info-circle mr-1" aria-hidden="true"></i
-              >{{ infoText }}
-            </p>
+            <Info :text="infoText" />
           </div>
           <!-- <MyBookDropdown
             :id="book.id"

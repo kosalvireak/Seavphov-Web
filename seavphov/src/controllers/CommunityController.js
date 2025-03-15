@@ -26,4 +26,17 @@ export default class CommunityController {
       toast.error(error.response.data.message);
     }
   }
+  static async createCommunity(formData) {
+    try {
+      const response = await postForm(CommunityRoute + `/new`, formData, true);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        return response.data.data;
+      }
+    } catch (error) {
+      console.error("Error create community:", error);
+      toast.error(error.response.data.error);
+      return false
+    }
+  }
 }
