@@ -10,7 +10,6 @@
           <div class="mb-4">
             <p>Community Profile</p>
             <ImageUpload
-              id="profile"
               @image-uploaded="onUploadProfile"
               :initialImage="community.profile"
             />

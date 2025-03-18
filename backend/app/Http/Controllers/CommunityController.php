@@ -88,6 +88,7 @@ class CommunityController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|unique:communities,name|regex:/^[a-zA-Z0-9\s]+$/',
                 'private' => 'required|in:true,false',
+                'profile' => 'nullable|url', // Optional profile URL
             ]);
 
             $description = $request->get('description') ?? '';
@@ -97,6 +98,7 @@ class CommunityController extends Controller
 
             $cop = Community::create([
                 'name' => $validatedData['name'],
+                'profile' => $validatedData['profile'],
                 'private' => $private,
                 'route' => Community::generateSlug($validatedData['name']),
                 'description' => $description,

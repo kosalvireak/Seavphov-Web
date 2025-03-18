@@ -37,22 +37,12 @@ class Community extends Model
             if (empty($community->banner)) {
                 $community->banner = self::DEFAULT_BANNER;
             }
-
-            // Set default profile if not provided
-            if (empty($community->profile)) {
-                $community->profile = self::DEFAULT_PROFILE;
-            }
         });
     }
 
     public static function defaultBanner()
     {
-        return 'https://charitysmith.org/wp-content/uploads/2023/09/community.webp';
-    }
-
-    public static function defaultProfile()
-    {
-        return 'https://static.vecteezy.com/system/resources/previews/054/453/530/non_2x/proactive-community-engagement-icon-vector.jpg';
+        return self::DEFAULT_BANNER;
     }
 
     public static function generateSlug($copName)
