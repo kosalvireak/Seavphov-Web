@@ -13,7 +13,11 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="deleteDiscussion()">Delete</p>
+            <p :class="dropdownItemCss" @click="deleteDiscussion()">
+              <span v-if="isDeleting">Deleting...</span>
+
+              <span v-else>Delete</span>
+            </p>
           </li>
         </ul>
       </template>
@@ -27,6 +31,7 @@ export default {
   name: "DiscussionItemDropdown",
   data() {
     return {
+      isDeleting: false,
       dropdownItemCss:
         "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable",
     };

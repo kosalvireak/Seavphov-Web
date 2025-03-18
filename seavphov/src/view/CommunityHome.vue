@@ -10,14 +10,19 @@
           alt="profile"
         />
       </div>
-      <p class="h4">{{ community.name }}</p>
-      <p class="text-center">
+
+      <p class="h4 font-bold truncate-2-lines">
+        {{ community.name }}
+      </p>
+
+      <p v-if="community.description" class="truncate-2-lines">
         {{ community.description }}
       </p>
 
-      <FwbButton :color="visibilityColor" class="px-2 text-xs w-fit">{{
+      <FwbButton :color="visibilityColor" class="px-2 text-xs">{{
         visibilityText
       }}</FwbButton>
+
       <p>Created on: {{ formatDate(community.created_at) }}</p>
     </div>
     <div class="Content col-span-12 lg:col-span-9">
@@ -39,20 +44,7 @@ export default {
   data() {
     return {
       route: this.$route.params.route,
-      community: {
-        // id: 1,
-        // name: "Love me",
-        // route: "love-me",
-        // profile:
-        //   "https://static.vecteezy.com/system/resources/previews/054/453/530/non_2x/proactive-community-engagement-icon-vector.jpg",
-        // banner:
-        //   "https://charitysmith.org/wp-content/uploads/2023/09/community.webp",
-        // description:
-        //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet volutpat dolor. Sed suscipit lobortis efficitur. Morbi ultricies eleifend mi. Vivamus nunc libero, tristique at malesuada vel, luctus vitae dolor. Nam pharetra scelerisque enim, feugiat rhoncus lacus semper eget. Vestibulum ipsum ipsum, ornare nec maximus quis, scelerisque in turpis. Maecenas dictum, ipsum in facilisis ultrices, augue mi pharetra sapien, quis rutrum ligula urna non magna. Phasellus blandit, augue in venenatis laoreet, libero lacus lobortis augue, sit amet fringilla sapien nunc eu dui. Curabitur pellentesque massa a erat pellentesque laoreet. Phasellus finibus urna sed ante sodales, ac condimentum lacus pellentesque.",
-        // private: false,
-        // created_at: "2025-03-05T13:52:20.000000Z",
-        // updated_at: "2025-03-05T13:52:20.000000Z",
-      },
+      community: {},
     };
   },
   async mounted() {

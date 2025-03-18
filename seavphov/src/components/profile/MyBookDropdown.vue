@@ -21,7 +21,11 @@
             <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
           </li>
           <li>
-            <p :class="dropdownItemCss" @click="deleteBook(id)">Delete</p>
+            <p :class="dropdownItemCss" @click="deleteBook(id)">
+              <span v-if="isDeleting">Deleting...</span>
+
+              <span v-else>Delete</span>
+            </p>
           </li>
         </ul>
       </template>

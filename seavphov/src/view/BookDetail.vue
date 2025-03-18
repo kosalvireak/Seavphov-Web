@@ -67,11 +67,11 @@
     </div>
     <div class="RelatedBooks mt-5">
       <hr />
-      <RenderBook
+      <!-- <RenderBook
         header="Readers also enjoyed"
         :books="relatedBooks"
         :loading="isLoadingRelatedBooks"
-      />
+      /> -->
     </div>
   </div>
 </template>

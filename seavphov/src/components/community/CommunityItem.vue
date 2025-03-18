@@ -13,16 +13,19 @@
       </router-link>
       <div class="col-md-9">
         <div class="d-flex justify-content-between p-2">
-          <div class="space-y-4">
-            <h5 class="card-title font-bold truncate-2-lines">
+          <div class="space-y-2">
+            <p class="h4 font-bold truncate-2-lines">
               {{ community.name }}
-            </h5>
-            <p class="card-text truncate-2-lines text-base">
+            </p>
+
+            <p v-if="community.description" class="truncate-2-lines">
               {{ community.description }}
             </p>
-            <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
+
+            <FwbButton :color="buttonColor" class="px-2 text-xs">{{
               buttonText
             }}</FwbButton>
+
             <Info :text="infoText" />
           </div>
           <!-- <MyBookDropdown

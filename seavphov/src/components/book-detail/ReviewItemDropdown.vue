@@ -16,7 +16,11 @@
             <p :class="dropdownItemCss" @click="onEdit()">Edit</p>
           </li>
           <li class="flex-center">
-            <p :class="dropdownItemCss" @click="deleteReview(id)">Delete</p>
+            <p :class="dropdownItemCss" @click="deleteReview(id)">
+              <span v-if="isDeleting">Deleting...</span>
+
+              <span v-else>Delete</span>
+            </p>
           </li>
         </ul>
       </template>
