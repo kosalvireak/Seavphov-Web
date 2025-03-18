@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="NotificationDropdown w-96">
-      <h5
-        class="d-flex align-items-center justify-content-center font-bold mb-0"
+      <p
+        class="h4 flex-center mb-0"
         style="height: 50px; border-bottom: 1px solid gray"
       >
         Notification
-      </h5>
+      </p>
     </div>
     <div
       class="NotificationContent min-h-60 max-h-96 w-96 mb-2 flex-center flex-column justify-content-start overflow-x-hidden overflow-y-auto"

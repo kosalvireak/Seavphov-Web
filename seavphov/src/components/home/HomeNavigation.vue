@@ -36,7 +36,7 @@ export default {
         },
         {
           name: "Community",
-          routeName: "community",
+          routeName: "search-community",
           iconClass: " fa-user-group",
         },
       ],

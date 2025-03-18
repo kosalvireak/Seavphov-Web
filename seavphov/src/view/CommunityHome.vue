@@ -1,14 +1,14 @@
 <template>
-  <section class="CommunityHome mt-8 container-xl grid grid-cols-12 gap-8">
+  <section class="CommunityHome container-xl grid grid-cols-12 gap-8">
     <div
       class="ProfileInfo card col-span-12 lg:col-span-3 flex flex-center py-6 space-y-2"
     >
       <div
-        class="Profile w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
+        class="Profile hover-zoom w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
       >
         <img
           :src="community.profile"
-          class="w-full h-full object-contain"
+          class="w-full h-full object-cover"
           alt="profile"
         />
       </div>

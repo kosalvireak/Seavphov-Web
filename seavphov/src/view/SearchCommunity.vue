@@ -1,6 +1,6 @@
 <template>
   <section class="Community">
-    <HomeNavigation selectedTab="community" />
+    <HomeNavigation selectedTab="search-community" />
     <div class="mt-8 container-xl grid grid-cols-12 w-100 min-h-screen gap-8">
       <div class="Filter card col-span-12 lg:col-span-3 space-y-4 p-2 !h-fit">
         <p class="h4">Search & Filter</p>
@@ -96,7 +96,7 @@ import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../components/community/CommunityItem.vue";
 import CommunityController from "../controllers/CommunityController";
 export default {
-  name: "Community",
+  name: "SearchCommunity",
   components: { CommunityItem, MDBInput, FwbRadio },
   data() {
     return {

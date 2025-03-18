@@ -21,10 +21,12 @@ import AdminLayout from "../layout/AdminLayout.vue";
 import DashboardOverview from "../view/admin/DashboardOverview.vue";
 import Discussion from "../view/Discussion.vue";
 import DiscussionDetail from "../view/DiscussionDetail.vue";
-import Community from "../view/Community.vue";
+import SearchCommunity from "../view/SearchCommunity.vue";
 import CommunityHome from "../view/CommunityHome.vue";
 import CreateCommunity from "../view/CreateCommunity.vue";
 import SendEmail from "../view/auth/SendEmail.vue";
+import CommunityLayout from "../layout/CommunityLayout.vue";
+import CommunityMembers from "../components/community/CommunityMembers.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -165,20 +167,26 @@ const router = createRouter({
           ],
         },
         {
-          path: "/community",
-          name: "community-route",
+          path: "/community/:route",
+          name: "community",
+          component: CommunityLayout,
           children: [
             {
               path: "",
-              name: "community",
-              component: Community,
-            },
-            {
-              path: ":route",
               name: "community-home",
               component: CommunityHome,
             },
+            {
+              path: "members",
+              name: "community-members",
+              component: CommunityMembers,
+            },
           ],
+        },
+        {
+          path: "/search-community",
+          name: "search-community",
+          component: SearchCommunity,
         },
         {
           path: "/create-community",

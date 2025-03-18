@@ -3,11 +3,11 @@
     <div class="row container-xl m-0 p-2 relative">
       <router-link
         :to="`/community/${community.route}`"
-        class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-7 p-3"
+        class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-full p-3 w-24 h-24 lg:w-40 lg:h-40 overflow-hidden"
       >
         <img
           :src="community.profile"
-          class="w-24 lg:w-40 rounded-full object-contain"
+          class="w-full h-full object-cover"
           alt="book_image"
         />
       </router-link>
