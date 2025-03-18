@@ -20,14 +20,14 @@
     <ReviewItemDropdown
       v-if="review.delete_able"
       :id="review.id"
-      @on-remove="$emit('onRemove', $event)"
+      @on-remove-review="$emit('onRemoveReview', $event)"
       @on-edit="isEditing = true"
     />
 
     <EditReview
       v-if="isEditing"
       :review="review"
-      @finish-editing="isEditing = false"
+      @on-finish-editing="isEditing = false"
     />
 
     <section v-else>

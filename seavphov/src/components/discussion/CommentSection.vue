@@ -2,7 +2,7 @@
   <section class="CommentSection space-y-4">
     <AddComment
       :discussion_id="discussion_id"
-      @on-add-comment="onAddComment($event)"
+      @on-add-comment="comment.unshift($event)"
     />
     <CommentItem
       v-for="comment in comments"
@@ -35,9 +35,6 @@ export default {
     };
   },
   methods: {
-    onAddComment(review) {
-      this.comments.unshift(review);
-    },
     onRemoveComment(id) {
       this.comments = this.comments.filter((comment) => comment.id !== id);
     },
@@ -49,7 +46,7 @@ export default {
         if (this.discussion_id === undefined) return;
         this.isLoading = true;
         this.comments = await CommentController.fetchDiscussionComments(
-          this.discussion_id,
+          this.discussion_id
         );
         this.isLoading = false;
       },

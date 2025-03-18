@@ -3,8 +3,8 @@
     <BackRoute />
     <div class="flex-center flex-col">
       <p class="h3">Create Community</p>
-      <form v-on:submit.prevent="Save()" class="row w-100">
-        <div class="col-12 col-md-6">
+      <form v-on:submit.prevent="Save()" class="row w-100 flex-center">
+        <div class="col-12 col-md-6 space-y-6">
           <!-- Profile -->
 
           <div class="mb-4">
@@ -14,11 +14,10 @@
               @image-uploaded="onUploadProfile"
               :initialImage="community.profile"
             />
+            <Info
+              text="You can leave Profile as default and Description empty!"
+            />
           </div>
-        </div>
-        <div class="col-12 col-md-6 space-y-6">
-          <Info text="You can leave Profile and Description empty!" />
-
           <!-- Name -->
           <MDBInput
             type="text"
@@ -66,8 +65,7 @@ export default {
         name: "",
         description: "",
         private: true,
-        profile: "null",
-        banner: "null",
+        profile: this.defaultCopProfile,
       },
       formData: new FormData(),
       isLoading: false,
@@ -75,7 +73,6 @@ export default {
   },
   mounted() {
     this.formData.append("profile", this.community.profile);
-    this.formData.append("banner", this.community.banner);
   },
   methods: {
     async Save() {
@@ -83,9 +80,9 @@ export default {
       this.formData.append("name", this.community.name);
       this.formData.append("description", this.community.description);
       this.formData.append("private", this.community.private);
-      await CommunityController.createCommunity(this.formData);
-      console.log(this.formData);
+      const cop = await CommunityController.createCommunity(this.formData);
       this.isLoading = false;
+      this.toCopHome("community-home", cop.route);
     },
     async onUploadBanner(url) {
       this.community.banner = url;

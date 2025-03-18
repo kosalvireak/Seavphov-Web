@@ -8,9 +8,11 @@ use Illuminate\Support\Str;
 
 class Community extends Model
 {
-
-
     use HasFactory;
+
+    // Define default banner and profile image URLs
+    const DEFAULT_BANNER = 'https://charitysmith.org/wp-content/uploads/2023/09/community.webp';
+    const DEFAULT_PROFILE = 'https://static.vecteezy.com/system/resources/previews/054/453/530/non_2x/proactive-community-engagement-icon-vector.jpg';
 
     protected $casts = [
         'private' => 'boolean', // Explicitly cast 'is_active' to boolean
@@ -25,6 +27,23 @@ class Community extends Model
         'description',
         'private',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($community) {
+            // Set default banner if not provided
+            if (empty($community->banner)) {
+                $community->banner = self::DEFAULT_BANNER;
+            }
+
+            // Set default profile if not provided
+            if (empty($community->profile)) {
+                $community->profile = self::DEFAULT_PROFILE;
+            }
+        });
+    }
 
     public static function defaultBanner()
     {

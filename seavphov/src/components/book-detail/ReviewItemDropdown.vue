@@ -3,7 +3,7 @@
     <Dropdown
       id="comment-item-dropdown"
       id_content="comment-item-dropdown_content"
-      placement="bottom-start"
+      placement="bottom-end"
     >
       <template #button>
         <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
@@ -15,7 +15,7 @@
           <li>
             <p :class="dropdownItemCss" @click="onEdit()">Edit</p>
           </li>
-          <li>
+          <li class="flex-center">
             <p :class="dropdownItemCss" @click="deleteReview(id)">Delete</p>
           </li>
         </ul>
@@ -46,7 +46,7 @@ export default {
       this.isDeleting = true;
       const response = await ReviewController.deleteReview(id);
       if (response) {
-        this.$emit("onRemove", id);
+        this.$emit("onRemoveReview", id);
       }
       this.isDeleting = false;
     },

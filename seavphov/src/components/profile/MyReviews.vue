@@ -37,7 +37,7 @@
                   </h5>
                   <ReviewItem
                     :review="review"
-                    @on-remove="onRemoveReview($event)"
+                    @on-remove-review="onRemoveReview($event)"
                   />
                 </div>
               </div>

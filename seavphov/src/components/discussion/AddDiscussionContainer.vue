@@ -13,7 +13,10 @@
         >Signup</FwbButton
       >
     </div>
-    <AddDiscussionForm v-else @on-add-discussion="onAddDiscussion" />
+    <AddDiscussionForm
+      v-else
+      @on-add-discussion="$emit('onAddDiscussion', $event)"
+    />
   </section>
 </template>
 
@@ -22,11 +25,6 @@ import AddDiscussionForm from "./AddDiscussionForm.vue";
 export default {
   components: { AddDiscussionForm },
   name: "AddDiscussionContainer",
-  methods: {
-    onAddDiscussion(response) {
-      this.$emit("onAddDiscussion", response);
-    },
-  },
 };
 </script>
 

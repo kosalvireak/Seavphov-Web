@@ -55,6 +55,7 @@ export default {
       if (!this.review.body.trim()) {
         this.$toast.warning("Review can't be empty");
       }
+
       this.isLoading = true;
       let formData = new FormData();
       formData.append("body", this.review.body);

@@ -1,12 +1,12 @@
 <template>
   <section class="BookReview space-y-4">
     <p class="h5">Reviews</p>
-    <AddReview :book_id="book_id" @on-add-review="onAddReview($event)" />
+    <AddReview :book_id="book_id" @on-add-review="reviews.unshift($event)" />
     <ReviewItem
       v-for="review in reviews"
       :key="review.id"
       :review="review"
-      @on-remove="onRemoveReview($event)"
+      @on-remove-review="onRemoveReview($event)"
     />
     <div v-if="isLoading" class="w-100 h-24 flex-center">
       <Loader :size="30" />
@@ -35,9 +35,6 @@ export default {
     };
   },
   methods: {
-    onAddReview(review) {
-      this.reviews.unshift(review);
-    },
     onRemoveReview(id) {
       this.reviews = this.reviews.filter((review) => review.id !== id);
     },

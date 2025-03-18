@@ -88,6 +88,7 @@ export default {
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
+      this.discussion.body = "";
       this.isLoading = false;
     },
     handleImageChange(url) {

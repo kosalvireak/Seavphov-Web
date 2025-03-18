@@ -44,6 +44,9 @@ app.config.globalProperties.logoUrl =
   "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
 app.config.globalProperties.maxRelatedBook = 5;
 
+app.config.globalProperties.defaultCopProfile = "https://static.vecteezy.com/system/resources/previews/054/453/530/non_2x/proactive-community-engagement-icon-vector.jpg";
+app.config.globalProperties.defaultCopBanner = "https://charitysmith.org/wp-content/uploads/2023/09/community.webp";
+
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
 app.component("Loader", Loader);

@@ -1,21 +1,23 @@
 <template>
   <section class="CommunityHome mt-8 container-xl grid grid-cols-12 gap-8">
     <div
-      class="ProfileInfo card col-span-12 lg:col-span-3 flex flex-center py-6"
+      class="ProfileInfo card col-span-12 lg:col-span-3 flex flex-center py-6 space-y-2"
     >
-      <div
-        class="Profile w-24 h-24 lg:w-40 lg:h-40 rounded-full border-2 border-gray-300 flex-center"
-      >
+      <div class="Profile w-24 h-24 lg:w-40 lg:h-40 flex-center">
         <img
           :src="community.profile"
-          class="object-contain border-2 border-gray-300"
+          class="object-contain rounded-full border-2 border-gray-300"
           alt="profile"
         />
       </div>
       <p class="h4">{{ community.name }}</p>
-      <p class="text-sm p-2 text-center">
+      <p class="text-center">
         {{ community.description }}
       </p>
+
+      <FwbButton :color="visibilityColor" class="px-2 text-xs w-fit">{{
+        visibilityText
+      }}</FwbButton>
       <p>Created on: {{ formatDate(community.created_at) }}</p>
     </div>
     <div class="Content col-span-12 lg:col-span-9">
@@ -55,6 +57,14 @@ export default {
   },
   async mounted() {
     await this.fetchCommunity();
+  },
+  computed: {
+    visibilityColor() {
+      return this.community.private ? "red" : "green";
+    },
+    visibilityText() {
+      return this.community.private ? "Private" : "Public";
+    },
   },
   methods: {
     async fetchCommunity() {

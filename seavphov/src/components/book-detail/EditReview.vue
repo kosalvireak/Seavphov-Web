@@ -58,7 +58,7 @@ export default {
     },
 
     finishEditing() {
-      this.$emit("finishEditing");
+      this.$emit("onFinishEditing");
     },
   },
 };

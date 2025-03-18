@@ -35,6 +35,7 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
 
 Route::prefix('community')->group(function () {
     Route::get('', [CommunityController::class, 'fetchCommunityWithFilter']);
+    Route::get('/members', [CommunityController::class, 'getCommunityMembers']);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
 });

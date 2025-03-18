@@ -30,7 +30,11 @@
           </button>
         </form>
 
-        <AddDiscussionContainer @on-add-discussion="onAddDiscussion" />
+        <!-- Create new discussion -->
+        <AddDiscussionContainer
+          @on-add-discussion="discussions.unshift($event)"
+        />
+
         <div class="flex-center w-100 h-44" v-if="isLoading">
           <Loader :size="40" />
         </div>
@@ -38,7 +42,7 @@
           v-for="discussion in discussions"
           :key="discussion"
           :discussion="discussion"
-          @onDelete="onDelete($event)"
+          @on-delete-discussion="onDeleteDiscussion($event)"
         />
       </div>
       <div
@@ -76,9 +80,6 @@ export default {
     };
   },
   methods: {
-    onAddDiscussion(response) {
-      this.discussions.unshift(response);
-    },
     async fetchDiscussions() {
       this.discussions = [];
       this.isLoading = true;
@@ -89,7 +90,7 @@ export default {
       this.isLoading = false;
       this.discussions = response;
     },
-    onDelete(id) {
+    onDeleteDiscussion(id) {
       this.discussions = this.discussions.filter(
         (discussion) => discussion.id !== id
       );

@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Models\User;
-use Carbon\Carbon;
 use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
 use App\Models\Community;
 use App\Models\CopMember;
+use App\Service\CopMemberService;
 use Illuminate\Database\QueryException;
 
 class CommunityController extends Controller
@@ -95,8 +90,6 @@ class CommunityController extends Controller
                 'private' => 'required|in:true,false',
             ]);
 
-            $profile = $request->get('profile') ?? Community::defaultProfile();
-            $banner = $request->get('banner') ?? Community::defaultBanner();
             $description = $request->get('description') ?? '';
 
             // Convert the string value to a boolean
@@ -106,17 +99,11 @@ class CommunityController extends Controller
                 'name' => $validatedData['name'],
                 'private' => $private,
                 'route' => Community::generateSlug($validatedData['name']),
-                'profile' => $profile,
-                'banner' => $banner,
                 'description' => $description,
             ]);
 
             // add user as cop admin
-            $copMember = CopMember::create([
-                'cop_id' => $cop->id,
-                'user_id' => $user->id,
-                'role' => 1
-            ]);
+            CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
 
             return response()->json([
                 'success' => true,
@@ -127,6 +114,26 @@ class CommunityController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot Create Community!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getCommunityMembers()
+    {
+        try {
+
+            $copMember = CopMemberService::getCopMembers(9);
+
+            return response()->json([
+                'success' => true,
+                'data' => $copMember,
+                'message' => 'Get Community members successfully',
+            ]);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get Community members!',
                 'error' => $exception->getMessage()
             ], 500);
         }

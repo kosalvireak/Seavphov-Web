@@ -28,7 +28,7 @@
     <DiscussionItemDropdown
       v-if="discussion.delete_able"
       :id="discussion.id"
-      @onDelete="onDelete($event)"
+      @on-delete-discussion="$emit('onDeleteDiscussion', $event)"
       class="absolute right-3 top-0"
     />
 
@@ -75,16 +75,6 @@ export default {
   components: { DiscussionItemDropdown, Reaction },
   props: {
     discussion: Object,
-  },
-  data() {
-    return {
-      isDeleting: false,
-    };
-  },
-  methods: {
-    onDelete(id) {
-      this.$emit("onDelete", id);
-    },
   },
 };
 </script>
