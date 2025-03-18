@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../view/Home.vue";
 import BookDetail from "../view/BookDetail.vue";
-import Login from "../view/Login.vue";
-import Signup from "../view/Signup.vue";
+import Login from "../view/auth/Login.vue";
+import Signup from "../view/auth/Signup.vue";
 import Profile from "../view/Profile.vue";
 import SearchResult from "../view/SearchResult.vue";
 import AddBook from "../view/AddBook.vue";
@@ -12,7 +12,7 @@ import ViewProfile from "../view/ViewProfile.vue";
 import UsersList from "../view/admin/UsersList.vue";
 import BannersList from "../view/admin/BannersList.vue";
 import BooksList from "../view/admin/BooksList.vue";
-import ForgotPassword from "../view/ForgotPassword.vue";
+import ForgotPassword from "../view/auth/ForgotPassword.vue";
 import { getCookie } from "../services/cookie.js";
 import store from "../utils/store.js";
 import UserLayout from "../layout/UserLayout.vue";
@@ -24,6 +24,7 @@ import DiscussionDetail from "../view/DiscussionDetail.vue";
 import Community from "../view/Community.vue";
 import CommunityHome from "../view/CommunityHome.vue";
 import CreateCommunity from "../view/CreateCommunity.vue";
+import SendEmail from "../view/auth/SendEmail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -47,6 +48,11 @@ const router = createRouter({
           path: "/signup",
           name: "signup",
           component: Signup,
+        },
+        {
+          path: "/send-mail",
+          name: "send-mail",
+          component: SendEmail,
         },
         {
           path: "/forgot-password",
