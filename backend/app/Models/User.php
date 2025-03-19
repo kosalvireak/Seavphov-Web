@@ -42,7 +42,6 @@ class User extends Authenticatable
         'password',
         'api_token_expires_at',
         'updated_at',
-        'id',
     ];
 
     /**

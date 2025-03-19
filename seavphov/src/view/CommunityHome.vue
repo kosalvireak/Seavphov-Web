@@ -13,9 +13,7 @@
         />
       </div>
 
-      <p class="h4 font-bold truncate-2-lines">
-        {{ community.name }}
-      </p>
+      <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>
 
       <p v-if="community.description" class="truncate-2-lines">
         {{ community.description }}
@@ -50,7 +48,7 @@ export default {
     };
   },
   async mounted() {
-    await this.fetchCommunity();
+    await this.getCommunityByRoute();
   },
   computed: {
     visibilityColor() {
@@ -61,7 +59,7 @@ export default {
     },
   },
   methods: {
-    async fetchCommunity() {
+    async getCommunityByRoute() {
       let params = new URLSearchParams();
       params.append("route", this.route);
       this.community = await CommunityController.getCommunityByRoute(

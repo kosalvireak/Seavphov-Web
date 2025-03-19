@@ -121,11 +121,29 @@ class CommunityController extends Controller
         }
     }
 
-    public function getCommunityMembers()
+    public function getCommunityMembers(Request $request, $route)
     {
         try {
 
-            $copMember = CopMemberService::getCopMembers(9);
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 404);
+            };
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not admin of this community',
+                ], 404);
+            }
+
+            $copMember = CopMemberService::getCopMembers($cop->id);
 
             return response()->json([
                 'success' => true,

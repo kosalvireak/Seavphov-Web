@@ -1,21 +1,78 @@
 <template>
-  <section class="CommunityMembers w-100 container-xl">
-    <div class="grid grid-cols-12">
+  <section class="CommunityMembers w-100 h-100 container-xl">
+    <div class="grid grid-cols-12 gap-8">
       <div class="col-span-12 lg:col-span-3">
-        <ul>
-          <li>Admin</li>
-          <li>Members</li>
-          <li>Members Request</li>
+        <ul class="space-y-2">
+          <li
+            v-for="tab in tabs"
+            @click="setTab(tab.tabRoute)"
+            :key="tab.name"
+            :class="[
+              'flex items-center clickable text-sp-primary px-3 py-2 rounded-lg hover:bg-gray-300',
+              { 'bg-gray-300': currentTab === tab.tabRoute },
+            ]"
+          >
+            <i :class="tab.iconClass" class="fa-solid fa-md mr-2"></i>
+            {{ tab.name }}
+          </li>
         </ul>
       </div>
-      <div class="col-span-12 lg:col-span-9"></div>
+      <div class="col-span-12 lg:col-span-9">
+        <CopMemberList v-if="currentTab == 'members'" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import CopMemberList from "./CopMemberList.vue";
 export default {
   name: "CommunityMembers",
+  components: { CopMemberList },
+  data() {
+    return {
+      tabs: [
+        {
+          name: "Members",
+          tabRoute: "members",
+          iconClass: " fa-user-group",
+        },
+        {
+          name: "Member Requests",
+          tabRoute: "members-request",
+          iconClass: " fa-user-group",
+        },
+      ],
+      currentTab: "members",
+    };
+  },
+  watch: {
+    "$route.fullPath": function () {
+      this.updateTabFromHash();
+    },
+  },
+  mounted() {
+    this.updateTabFromHash();
+    window.addEventListener("hashchange", this.updateTabFromHash);
+  },
+  beforeUnmount() {
+    window.removeEventListener("hashchange", this.updateTabFromHash);
+  },
+  methods: {
+    setTab(tabName) {
+      window.location.hash = `tabs=${tabName}`;
+      this.currentTab = tabName;
+    },
+    updateTabFromHash() {
+      const hash = window.location.hash;
+      const match = hash.match(/tabs=([^&]+)/);
+      if (match) {
+        this.currentTab = match[1];
+      } else {
+        this.currentTab = "members";
+      }
+    },
+  },
 };
 </script>
 

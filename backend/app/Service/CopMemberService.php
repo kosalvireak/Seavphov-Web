@@ -40,29 +40,25 @@ class CopMemberService
         ]);
     }
 
-    // public static function getCopAdmins($copId)
-    // {
-    //     // Fetch the cop members with role 1 (admins)
-    //     $copMembers = CopMember::where('cop_id', $copId)
-    //         ->where('role', 1)
-    //         ->orderBy('created_at', 'desc')
-    //         ->pluck('user_id'); // Get only the user_ids as a collection
+    public static function isCopAdmin($userId, $copId)
+    {
+        $query = CopMember::query();
+        $query->where('cop_id', $copId);
+        $query->where('user_id', $userId);
+        $query->where('role', 1);
 
-    //     // Fetch all user details in a single query
-    //     $adminDetails = User::whereIn('id', $copMembers)
-    //         ->select('name', 'uuid', 'picture',) // Specify the fields you want to retrieve
-    //         ->get();
+        $copMember = $query->first();
 
-    //     // Return the response with admin details
-    //     return  $adminDetails;
-    // }
+        return $copMember ? true : false;
+    }
+
 
     public static function getCopMembers($copId)
     {
         // Fetch the cop members with role 1 (admins)
         $copMembers = CopMember::where('cop_id', $copId)
             ->orderBy('created_at', 'desc')
-            ->get(['user_id', 'role']); // Get user_id and role fields
+            ->get(['user_id', 'role', 'created_at']); // Get user_id and role fields
 
         // Extract user_ids from the cop members
         $userIds = $copMembers->pluck('user_id');
@@ -76,10 +72,9 @@ class CopMemberService
         $memberDetails = [];
         foreach ($copMembers as $member) {
             $user = $users->firstWhere('id', $member->user_id);
-            $user->role =  $member->role == 1 ? 'admin' : 'member';  // Attach role label
-            $memberDetails[] = [
-                'user' => $user, // User details
-            ];
+            $user->role =  $member->role == 1 ? 'Admin' : 'Members';  // Attach role label
+            $user->join_date = $member->created_at;
+            $memberDetails[] = $user->makeHidden('id'); // User details
         }
         // Return the response with admin details
         return $memberDetails;

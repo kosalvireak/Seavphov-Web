@@ -185,7 +185,7 @@ export default {
       this.formData.append("link_url", this.newBanner.link_url);
       const response = await this.$store.dispatch(
         "adminAddBanner",
-        this.formData,
+        this.formData
       );
       if (response) {
         this.page = 1;
@@ -204,7 +204,7 @@ export default {
               this.newBanner.image_url = url;
               this.formData.append("image_url", url);
               this.uploadingBanner = false;
-            },
+            }
           );
         }
       } catch (error) {

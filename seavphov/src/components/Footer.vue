@@ -98,7 +98,8 @@ export default {
           this.$route.name == "login" ||
           this.$route.name == "signup" ||
           this.$route.name == "forgot-password" ||
-          this.$route.name.startsWith("admin")
+          this.$route.name.startsWith("admin") ||
+          this.$route.name.startsWith("community")
         ) {
           return false;
         } else {

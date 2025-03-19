@@ -12,9 +12,11 @@
       <template #item-images="books">
         <img :src="books.images" alt="admin_book" loading="lazy" />
       </template>
+
       <template #item-descriptions="books">
         {{ books.descriptions }}
       </template>
+
       <template #item-="books">
         <LoadingButton
           :isLoading="isDeleting"
