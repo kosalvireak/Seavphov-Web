@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     cssClass() {
-      return this.noSpace ? "my-1" : "my-1";
+      return this.noSpace ? "my-1" : "";
     },
   },
 };

@@ -17,19 +17,19 @@
       <div
         class="flex-grow-1 flex-center lg:items-start flex-col p-2 space-y-2"
       >
-        <p class="h4 font-bold truncate-2-lines">
+        <p class="h4 font-bold truncate-2-lines mb-0">
           {{ community.name }}
         </p>
 
         <p v-if="community.description" class="truncate-2-lines">
-          {{ community.description }}
+          Description: {{ community.description }}
         </p>
 
-        <FwbButton :color="buttonColor" class="px-2 text-xs">{{
-          buttonText
+        <FwbButton :color="visibilityColor" class="px-2 text-xs">{{
+          visibilityText
         }}</FwbButton>
 
-        <Info :text="infoText" />
+        <Info :text="infoText" :noSpace="false" />
       </div>
     </div>
   </section>
@@ -42,10 +42,10 @@ export default {
     community: Object,
   },
   computed: {
-    buttonColor() {
+    visibilityColor() {
       return this.community.private ? "red" : "green";
     },
-    buttonText() {
+    visibilityText() {
       return this.community.private ? "Private" : "Public";
     },
     infoText() {

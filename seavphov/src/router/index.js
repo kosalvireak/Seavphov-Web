@@ -27,6 +27,8 @@ import CreateCommunity from "../view/CreateCommunity.vue";
 import SendEmail from "../view/auth/SendEmail.vue";
 import CommunityLayout from "../layout/CommunityLayout.vue";
 import CommunityMembers from "../components/community/CommunityMembers.vue";
+import NotFound from "../view/auth/NotFound.vue";
+import CommunitySettings from "../components/community/CommunitySettings.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -100,6 +102,11 @@ const router = createRouter({
       name: "user",
       component: UserLayout,
       children: [
+        {
+          path: "/not-found",
+          name: "not-found",
+          component: NotFound,
+        },
         {
           path: "/profile",
           name: "profile",
@@ -180,6 +187,12 @@ const router = createRouter({
               path: "members",
               name: "community-members",
               component: CommunityMembers,
+            },
+
+            {
+              path: "settings",
+              name: "community-settings",
+              component: CommunitySettings,
             },
           ],
         },

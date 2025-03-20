@@ -19,4 +19,16 @@ export default class CopMemberController {
             toast.error(error.response.data.message);
         }
     }
+
+
+    static async checkViewCopHomePermission(route) {
+        try {
+            const response = await getData(CommunityRoute + `/${route}/permission/home`, true);
+            if (response.data.success) {
+                return response.data;
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
 }
