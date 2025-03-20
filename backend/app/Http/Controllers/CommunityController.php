@@ -158,4 +158,60 @@ class CommunityController extends Controller
             ], 500);
         }
     }
+
+    public function checkViewCopHomePermission(Request $request, $route)
+    {
+        try {
+
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 404);
+            };
+
+            $isCopMember = CopMemberService::isCopMember($user->id, $cop->id);
+
+            $isCopAdmin = CopMemberService::isCopAdmin($user->id, $cop->id);
+
+            // Check if the community is private and not a member or admin of cop
+
+            if ($cop->isPrivate()) {
+                if (!$isCopMember && !$isCopAdmin) {
+                    return response()->json([
+                        'success' => true,
+                        'data' => [
+                            'isCopMember' => $isCopMember,
+                            'isCopAdmin' => $isCopAdmin,
+                            'isPrivate' => $cop->isPrivate(),
+                            'ableToViewHome' => false
+                        ],
+                        'message' => 'No permission to view this community',
+                    ], 200);
+                }
+            }
+
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'isCopMember' => $isCopMember,
+                    'isCopAdmin' => $isCopAdmin,
+                    'isPrivate' => $cop->isPrivate(),
+                    'ableToViewHome' => true
+                ],
+                'message' => 'Get Community permission successfully',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get community permission!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
 }

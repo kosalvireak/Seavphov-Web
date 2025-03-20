@@ -61,4 +61,9 @@ class Community extends Model
             'private' => $this->private,
         ];
     }
+
+    public function isPrivate()
+    {
+        return $this->private == 1;
+    }
 }

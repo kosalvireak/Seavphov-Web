@@ -47,9 +47,21 @@ class CopMemberService
         $query->where('user_id', $userId);
         $query->where('role', 1);
 
+        $copAdmin = $query->first();
+
+        return $copAdmin != null ? true : false;
+    }
+
+    public static function isCopMember($userId, $copId)
+    {
+        $query = CopMember::query();
+        $query->where('cop_id', $copId);
+        $query->where('user_id', $userId);
+        $query->where('role', 2);
+
         $copMember = $query->first();
 
-        return $copMember ? true : false;
+        return $copMember != null ? true : false;
     }
 
 
