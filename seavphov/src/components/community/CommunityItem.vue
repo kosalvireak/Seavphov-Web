@@ -1,41 +1,35 @@
 <template>
-  <section class="CommunityItem card">
-    <div class="row container-xl m-0 p-2 relative">
-      <router-link
-        :to="`/community/${community.route}`"
-        class="col-md-3 flex-center bg-success-subtle hover-zoom rounded-full p-3 w-24 h-24 lg:w-40 lg:h-40 overflow-hidden"
+  <section class="CommunityItem container-xl card w-fit">
+    <div class="m-0 p-2 relative flex flex-col lg:flex-row">
+      <div class="flex-shrink-0 flex-center">
+        <router-link
+          :to="`/community/${community.route}`"
+          class="flex-center bg-success-subtle hover-zoom rounded-full p-3 w-24 h-24 lg:w-40 lg:h-40 overflow-hidden"
+        >
+          <img
+            :src="community.profile"
+            class="w-full h-full object-cover"
+            alt="book_image"
+          />
+        </router-link>
+      </div>
+
+      <div
+        class="flex-grow-1 flex-center lg:items-start flex-col p-2 space-y-2"
       >
-        <img
-          :src="community.profile"
-          class="w-full h-full object-cover"
-          alt="book_image"
-        />
-      </router-link>
-      <div class="col-md-9">
-        <div class="d-flex justify-content-between p-2">
-          <div class="space-y-2">
-            <p class="h4 font-bold truncate-2-lines">
-              {{ community.name }}
-            </p>
+        <p class="h4 font-bold truncate-2-lines">
+          {{ community.name }}
+        </p>
 
-            <p v-if="community.description" class="truncate-2-lines">
-              {{ community.description }}
-            </p>
+        <p v-if="community.description" class="truncate-2-lines">
+          {{ community.description }}
+        </p>
 
-            <FwbButton :color="buttonColor" class="px-2 text-xs">{{
-              buttonText
-            }}</FwbButton>
+        <FwbButton :color="buttonColor" class="px-2 text-xs">{{
+          buttonText
+        }}</FwbButton>
 
-            <Info :text="infoText" />
-          </div>
-          <!-- <MyBookDropdown
-            :id="book.id"
-            :key="book.id"
-            :book="book"
-            class="absolute right-4"
-            @change="ChangeAvailability()"
-          /> -->
-        </div>
+        <Info :text="infoText" />
       </div>
     </div>
   </section>

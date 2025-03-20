@@ -10,7 +10,7 @@
           class="w-full h-full object-cover"
         />
       </div>
-      <div class="col-span-12 lg:col-span-6 mt-4 space-y-6">
+      <div class="col-span-12 lg:col-span-6 mt-4 space-y-6 w-100">
         <form
           class="container-xl p-0 rounded-lg d-flex flex-row relative"
           v-on:submit.prevent="fetchDiscussions()"

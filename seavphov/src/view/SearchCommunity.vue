@@ -1,8 +1,12 @@
 <template>
   <section class="Community">
     <HomeNavigation selectedTab="search-community" />
-    <div class="mt-8 container-xl grid grid-cols-12 w-100 min-h-screen gap-8">
-      <div class="Filter card col-span-12 lg:col-span-3 space-y-4 p-2 !h-fit">
+    <div
+      class="mt-8 container-xl grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
+    >
+      <div
+        class="Filter w-100 card col-span-12 lg:col-span-3 space-y-4 p-2 !h-fit"
+      >
         <p class="h4">Search & Filter</p>
         <form
           class="w-100 p-0 rounded-lg d-flex flex-col space-y-4"
@@ -71,19 +75,38 @@
               :key="cop.id"
               :community="cop"
             />
-          </div>
-          <div v-else class="h-full w-100">
             <div
-              class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
+              v-if="total > maxPaginateCop"
+              class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
             >
-              <img
-                src="/img/notfound.png"
-                alt="not found"
-                class="w-25 img-fluid mb-3 rounded rounded-7"
-              />
-              <h3>No community found...!</h3>
+              <p
+                @click="previous()"
+                :disabled="isDisabledPrev"
+                :class="{ '!cursor-not-allowed': isDisabledPrev }"
+              >
+                &laquo;
+              </p>
+              <p
+                v-for="page in last_page"
+                :key="page"
+                :class="[
+                  page == current_page ? 'active' : '',
+                  { '!cursor-not-allowed': isLoading },
+                ]"
+                @click="changePage(page)"
+              >
+                {{ page }}
+              </p>
+              <p
+                @click="next()"
+                :disabled="isDisabledNext"
+                :class="{ '!cursor-not-allowed': isDisabledNext }"
+              >
+                &raquo;
+              </p>
             </div>
           </div>
+          <CommunityEmptyState v-else />
         </div>
       </div>
     </div>
@@ -91,43 +114,72 @@
 </template>
 
 <script>
+import CommunityEmptyState from "../components/community/CommunityEmptyState.vue";
 import { FwbRadio } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../components/community/CommunityItem.vue";
 import CommunityController from "../controllers/CommunityController";
 export default {
   name: "SearchCommunity",
-  components: { CommunityItem, MDBInput, FwbRadio },
+  components: { CommunityItem, MDBInput, FwbRadio, CommunityEmptyState },
   data() {
     return {
       name: "",
       visibility: "all",
       communities: [],
       isLoading: false,
+      response: null,
+      last_page: 5,
+      current_page: 1,
+      total: 6, // for hide if length less then paginate
     };
   },
   methods: {
-    async fetchCommunity() {
+    async fetchCommunity(page) {
       this.isLoading = true;
       let params = new URLSearchParams();
       params.append("name", this.name);
       params.append("visibility", this.visibility);
-      const response = await CommunityController.fetchCommunityWithFilter(
+      params.append("page", page);
+      this.response = await CommunityController.fetchCommunityWithFilter(
         params
       ); // response is the pagination object
-      this.communities = response;
+      this.communities = this.response.data;
+      this.current_page = this.response.current_page;
+      this.last_page = this.response.last_page;
+      this.total = this.response.total;
       this.isLoading = false;
+    },
+    previous() {
+      if (this.isDisabledPrev) return;
+      this.current_page--;
+    },
+    next() {
+      if (this.isDisabledNext) return;
+      this.current_page++;
+    },
+
+    changePage(page) {
+      this.current_page = page;
     },
   },
   computed: {
+    isDisabledNext() {
+      return this.current_page == this.last_page;
+    },
+    isDisabledPrev() {
+      return this.current_page == 1;
+    },
     isEmpty() {
       return this.communities.length == 0;
     },
   },
   watch: {
-    visibility(newVal, oldVal) {
-      console.log("watch");
+    visibility() {
       this.fetchCommunity();
+    },
+    current_page(newVal) {
+      this.fetchCommunity(newVal);
     },
   },
   async mounted() {
@@ -136,4 +188,27 @@ export default {
 };
 </script>
 
-<style></style>
+
+<style scoped>
+.pagination {
+  display: inline-block;
+}
+
+.pagination p {
+  color: black;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination p.active {
+  background-color: #5c836e;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination p:hover:not(.active) {
+  background-color: rgba(56, 151, 83, 0.388);
+  border-radius: 5px;
+}
+</style>

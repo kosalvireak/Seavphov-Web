@@ -33,10 +33,10 @@ class CommunityController extends Controller
             $query->where('private', 0);
         }
 
-        // $cops = $query->paginate(6); // Apply pagination 
-        $cops = $query
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $cops = $query->paginate(6); // Apply pagination 
+        // $cops = $query
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
 
         try {
             return response()->json([
