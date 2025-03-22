@@ -57,7 +57,7 @@ export default {
       ],
     };
   },
-  mounted() {
+  async mounted() {
     this.getCopMemberList();
   },
   methods: {

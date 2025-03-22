@@ -1,6 +1,9 @@
 <template>
   <section class="CommunityMembers w-100 h-100 container-xl">
-    <div class="grid grid-cols-12 gap-8">
+    <div v-if="isCheckingPermission" class="h-96 col-span-12 flex-center">
+      <Loader :size="30" />
+    </div>
+    <div v-else class="grid grid-cols-12 gap-8">
       <div class="col-span-12 lg:col-span-3">
         <ul class="space-y-2">
           <li
@@ -25,6 +28,7 @@
 </template>
 
 <script>
+import CopMemberController from "../../controllers/CopMemberController";
 import CopMemberList from "./CopMemberList.vue";
 export default {
   name: "CommunityMembers",
@@ -44,6 +48,7 @@ export default {
         },
       ],
       currentTab: "members",
+      isCheckingPermission: true,
     };
   },
   watch: {
@@ -51,7 +56,9 @@ export default {
       this.updateTabFromHash();
     },
   },
-  mounted() {
+  async mounted() {
+    await this.checkViewPermission();
+
     this.updateTabFromHash();
     window.addEventListener("hashchange", this.updateTabFromHash);
   },
@@ -59,6 +66,19 @@ export default {
     window.removeEventListener("hashchange", this.updateTabFromHash);
   },
   methods: {
+    async checkViewPermission() {
+      this.isCheckingPermission = true;
+      const response = await CopMemberController.checkViewCopHomePermission(
+        this.$route.params.route
+      );
+
+      if (!response.data.isCopAdmin) {
+        this.toRouteName("not-found");
+        return;
+      } else {
+        this.isCheckingPermission = false;
+      }
+    },
     setTab(tabName) {
       window.location.hash = `tabs=${tabName}`;
       this.currentTab = tabName;
