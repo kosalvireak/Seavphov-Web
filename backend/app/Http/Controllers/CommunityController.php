@@ -174,12 +174,27 @@ class CommunityController extends Controller
                 ], 404);
             };
 
+
+            // non login User View Cop
+            if (!$user) {
+                return response()->json([
+                    'success' => true,
+                    'data' => [
+                        'isCopMember' => false,
+                        'isCopAdmin' => false,
+                        'isPrivate' => $cop->isPrivate(),
+                        'ableToViewHome' => false
+                    ],
+                    'message' => 'Non login User View Cop',
+                ], 200);
+            }
+
+
             $isCopMember = CopMemberService::isCopMember($user->id, $cop->id);
 
             $isCopAdmin = CopMemberService::isCopAdmin($user->id, $cop->id);
 
             // Check if the community is private and not a member or admin of cop
-
             if ($cop->isPrivate()) {
                 if (!$isCopMember && !$isCopAdmin) {
                     return response()->json([

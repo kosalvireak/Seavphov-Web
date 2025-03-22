@@ -106,7 +106,7 @@
               </p>
             </div>
           </div>
-          <CommunityEmptyState v-else />
+          <CommunitySearchEmptyState v-else />
         </div>
       </div>
     </div>
@@ -114,14 +114,14 @@
 </template>
 
 <script>
-import CommunityEmptyState from "../components/community/CommunityEmptyState.vue";
+import CommunitySearchEmptyState from "../components/community/CommunitySearchEmptyState.vue";
 import { FwbRadio } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../components/community/CommunityItem.vue";
 import CommunityController from "../controllers/CommunityController";
 export default {
   name: "SearchCommunity",
-  components: { CommunityItem, MDBInput, FwbRadio, CommunityEmptyState },
+  components: { CommunityItem, MDBInput, FwbRadio, CommunitySearchEmptyState },
   data() {
     return {
       name: "",

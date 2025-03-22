@@ -182,11 +182,13 @@ const router = createRouter({
               path: "",
               name: "community-home",
               component: CommunityHome,
+              props: true
             },
             {
               path: "members",
               name: "community-members",
               component: CommunityMembers,
+              props: true
             },
 
             {

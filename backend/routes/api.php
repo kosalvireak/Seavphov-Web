@@ -39,7 +39,7 @@ Route::prefix('community')->group(function () {
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
 
     Route::get('{route}/members', [CommunityController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);
 });
 
 Route::prefix('books')->group(function () {

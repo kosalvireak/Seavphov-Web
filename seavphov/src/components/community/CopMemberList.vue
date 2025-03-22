@@ -17,20 +17,14 @@
         {{ formatDate(members.join_date) }}
       </template>
 
-      <template #item-action>
-        <button
-          class="ellipsis text-center btn btn-primary h-auto"
-          style="background-color: #5c836e"
-          @click="changeSelectedBanner()"
-        >
-          <i class="fa fa-pen fa-xl clickable" aria-hidden="true"></i>
-        </button>
-        <button
-          class="ellipsis text-center btn btn-danger h-auto"
-          @click="adminDeleteBanner()"
-        >
-          <i class="fa fa-trash fa-xl clickable" aria-hidden="true"></i>
-        </button>
+      <template #item-action="members">
+        <LoadingButton
+          @click="onClickEditMember(members)"
+          color="primary"
+          text="Edit"
+          type="button"
+          class="text-center"
+        />
       </template>
     </EasyDataTable>
   </section>
@@ -53,7 +47,7 @@ export default {
         { text: "NAME", value: "name", sortable: true, width: 300 },
         { text: "ROLE", value: "role", sortable: true },
         { text: "JOIN DATE", value: "join_date", sortable: true },
-        { text: "ACTION", value: "action" },
+        { text: "ACTION", value: "action", width: 50 },
       ],
     };
   },
@@ -61,6 +55,9 @@ export default {
     this.getCopMemberList();
   },
   methods: {
+    onClickEditMember(member) {
+      console.log(member);
+    },
     async getCopMemberList() {
       this.isLoading = true;
       this.members = await CopMemberController.getCommunityMembers(this.route);

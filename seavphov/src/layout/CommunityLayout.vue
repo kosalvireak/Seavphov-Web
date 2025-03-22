@@ -16,7 +16,10 @@
         {{ tab.name }}
       </router-link>
     </div>
-    <RouterView />
+
+    <RouterView v-slot="{ Component }">
+      <component :is="Component" :permissionObject="permissionObject" />
+    </RouterView>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ export default {
         },
       ],
       isLoading: false,
+      permissionObject: {},
     };
   },
   computed: {
@@ -46,6 +50,8 @@ export default {
     const response = await CopMemberController.checkViewCopHomePermission(
       this.$route.params.route
     );
+
+    this.permissionObject = response.data;
 
     if (response.data.isCopAdmin) {
       this.tabs.push(

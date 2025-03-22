@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "CommunityEmptyState",
+  name: "CommunitySearchEmptyState",
 };
 </script>
 
