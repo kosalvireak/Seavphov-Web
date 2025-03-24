@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\Community;
 use App\Models\CopMember;
+use App\Service\CopMemberRequestService;
 use App\Service\CopMemberService;
 use Illuminate\Database\QueryException;
 
@@ -159,6 +160,7 @@ class CommunityController extends Controller
         }
     }
 
+
     public function checkViewCopHomePermission(Request $request, $route)
     {
         try {
@@ -174,7 +176,6 @@ class CommunityController extends Controller
                 ], 404);
             };
 
-
             // non login User View Cop
             if (!$user) {
                 return response()->json([
@@ -183,16 +184,18 @@ class CommunityController extends Controller
                         'isCopMember' => false,
                         'isCopAdmin' => false,
                         'isPrivate' => $cop->isPrivate(),
+                        'isPendingRequest' => false,
                         'ableToViewHome' => false
                     ],
                     'message' => 'Non login User View Cop',
                 ], 200);
             }
 
-
             $isCopMember = CopMemberService::isCopMember($user->id, $cop->id);
 
             $isCopAdmin = CopMemberService::isCopAdmin($user->id, $cop->id);
+
+            $isPendingRequest = CopMemberRequestService::isPendingRequest($cop->id, $user->id);
 
             // Check if the community is private and not a member or admin of cop
             if ($cop->isPrivate()) {
@@ -203,6 +206,7 @@ class CommunityController extends Controller
                             'isCopMember' => $isCopMember,
                             'isCopAdmin' => $isCopAdmin,
                             'isPrivate' => $cop->isPrivate(),
+                            'isPendingRequest' => $isPendingRequest,
                             'ableToViewHome' => false
                         ],
                         'message' => 'No permission to view this community',
@@ -217,6 +221,7 @@ class CommunityController extends Controller
                     'isCopMember' => $isCopMember,
                     'isCopAdmin' => $isCopAdmin,
                     'isPrivate' => $cop->isPrivate(),
+                    'isPendingRequest' => $isPendingRequest,
                     'ableToViewHome' => true
                 ],
                 'message' => 'Get Community permission successfully',
@@ -225,6 +230,51 @@ class CommunityController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot get community permission!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function requestToJoinCop(Request $request, $route)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 200);
+            };
+
+            if (CopMemberService::isCopMember($user->id, $cop->id)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are already a member of this community',
+                ], 200);
+            }
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are already an admin of this community',
+                ], 200);
+            }
+
+            CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
+
+            return response()->json([
+                'success' => true,
+                'data' => 'Waiting admin approval',
+                'message' => 'Request to join community successfully',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot request to join community',
                 'error' => $exception->getMessage()
             ], 500);
         }
