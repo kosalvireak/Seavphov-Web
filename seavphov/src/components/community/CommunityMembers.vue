@@ -22,7 +22,7 @@
       </div>
       <div class="col-span-12 lg:col-span-9">
         <CopMemberList v-if="currentTab == 'members'" />
-        <CopMemberRequestList v-if="currentTab == 'member-requests'" />
+        <CopMemberRequestList v-else-if="currentTab == 'member-requests'" />
       </div>
     </div>
   </section>

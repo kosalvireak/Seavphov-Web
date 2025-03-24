@@ -8,8 +8,6 @@ const CommunityRoute = "/api/community";
 export default class CopMemberController {
     static async getCommunityMembers(route) {
         try {
-            console.log("getCommunityMembers", route);
-
             const response = await getData(CommunityRoute + `/${route}/members`, true);
             if (response.data.success) {
                 return response.data.data;
@@ -47,12 +45,10 @@ export default class CopMemberController {
     static async requestToJoinCop(route) {
         try {
             const response = await getData(CommunityRoute + `/${route}/join`, true);
-            if (response.data.success) {
-                toast.success(response.data.message);
-                return response.data
-            }
+            return response.data
         } catch (error) {
             toast.error(error.response.data.message);
+            return false;
         }
     }
 }

@@ -33,4 +33,18 @@ class NotificationService
             'body' => $body
         ]);
     }
+
+    public static function storeRequestToJoinCopNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'request-to-join-cop',
+            'body' => $body
+        ]);
+    }
 }

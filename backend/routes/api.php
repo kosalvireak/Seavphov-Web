@@ -37,6 +37,8 @@ Route::prefix('community')->group(function () {
     Route::get('', [CommunityController::class, 'fetchCommunityWithFilter']);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
+
+    // Members
     Route::get('{route}/members', [CommunityController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{route}/member-requests', [CommunityController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class]);
 

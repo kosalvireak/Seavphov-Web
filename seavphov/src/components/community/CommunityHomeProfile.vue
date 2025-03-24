@@ -115,7 +115,11 @@ export default {
       const data = await CopMemberController.requestToJoinCop(
         this.$route.params.route
       );
-      if (data.success) this.permissionObject.isPendingRequest = true;
+
+      if (data.success) {
+        this.$toast.success(data.message);
+        this.permissionObject.isPendingRequest = true;
+      }
 
       this.loadingRequestToJoin = false;
     },

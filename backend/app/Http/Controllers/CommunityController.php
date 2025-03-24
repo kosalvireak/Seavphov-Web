@@ -306,14 +306,15 @@ class CommunityController extends Controller
                 ], 200);
             }
 
-            CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
 
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
 
             foreach ($copAdminIds as $copAdminId) {
                 $copAdmin = User::find($copAdminId);
-                NotificationService::storeRequestToJoinCopNotification($user->id, $copAdmin->id, $cop->id, 'request to join your community ' + $cop->name);
+                NotificationService::storeRequestToJoinCopNotification($user->id, $copAdmin->id, $cop->id, 'request to join your community ' . $cop->name);
             }
+
+            CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
 
             return response()->json([
                 'success' => true,

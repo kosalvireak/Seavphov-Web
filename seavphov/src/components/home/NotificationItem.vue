@@ -2,10 +2,7 @@
   <div
     class="NotificationItem w-100 py-2 hover:bg-gray-200 transition duration-300 ease-in-out"
   >
-    <router-link
-      class="notification-list text-black"
-      :to="`/${item.type}/${item.object_id}`"
-    >
+    <a class="notification-list text-black" :href="routePath">
       <div class="grid grid-cols-12 items-center px-2">
         <img
           :src="item.user_picture"
@@ -19,7 +16,7 @@
             <b>{{ item.user_name }}</b> {{ item.body }}
           </p>
           <p class="text-gray text-sm">
-            {{ getDateDisplay(item.date) }}
+            {{ formatDifferentDate(item.date) }}
           </p>
         </div>
         <img
@@ -28,7 +25,7 @@
           class="col-span-2 h-16 w-10 justify-self-end"
         />
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -39,20 +36,14 @@ export default {
     item: Object,
   },
   methods: {
-    getDateDisplay(date) {
-      const created_at = new Date(date);
-      const today = new Date();
-
-      const timeDiff = today - created_at;
-
-      const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
-
-      if (Math.floor(daysDiff) == 0) {
-        return "Today";
-      } else if (Math.floor(daysDiff) == 1) {
-        return "Yesterday";
+    getDateDisplay(date) {},
+  },
+  computed: {
+    routePath() {
+      if (this.item.type == "request-to-join-cop") {
+        return `/community/${this.item.object_id}/members#tabs=member-requests`;
       } else {
-        return Math.floor(daysDiff) + " days ago";
+        return `/${this.item.type}/${this.item.object_id}`;
       }
     },
   },
