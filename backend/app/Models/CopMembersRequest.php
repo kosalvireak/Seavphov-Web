@@ -15,6 +15,6 @@ class CopMembersRequest extends Model
         'id',
         'user_id',
         'cop_id',
-        'status',
+        'status', // 1 for pending
     ];
 }
