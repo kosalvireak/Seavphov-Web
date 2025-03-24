@@ -18,20 +18,50 @@
       {{ community.description }}
     </p>
 
-    <div v-if="!permissionObject.isCopMember">
+    <!-- Not member or Admin
+      - Login 
+        - Public -> Join
+        - Private -> Request to join
+      - Not Login
+        - Public and Private -> Login to join
+    -->
+    <div v-if="isNotCopMember">
+      <!-- - Not Login - Public or Private -> Login to join -->
       <LoadingButton
-        v-if="isLogin"
-        @click="onClickRequestToJoin()"
+        v-if="!isLogin"
+        @click="loginToJoin()"
         color="primary"
-        text="Request to Join"
+        text="Login to Join"
         type="button"
         class="text-center"
       />
+
+      <!-- Login waiting for approval -->
+      <LoadingButton
+        v-else-if="permissionObject.isPendingRequest"
+        color="primary"
+        text="Waiting admin approval"
+        type="button"
+        class="text-center"
+      />
+
+      <!-- Login - Public -> Join -->
+      <LoadingButton
+        v-else-if="!community.private"
+        @click="join()"
+        color="primary"
+        text="Join"
+        type="button"
+        class="text-center"
+      />
+
+      <!-- Login - Private -> Request to join -->
       <LoadingButton
         v-else
-        @click="onClickLoginToJoin()"
+        @click="requestToJoinCop()"
+        :isLoading="loadingRequestToJoin"
         color="primary"
-        text="Login to Join"
+        :text="requestToJoinText"
         type="button"
         class="text-center"
       />
@@ -46,6 +76,7 @@
 </template>
 
 <script>
+import CopMemberController from "../../controllers/CopMemberController";
 export default {
   name: "CommunityHomeProfile",
   props: {
@@ -55,6 +86,12 @@ export default {
     },
     community: Object,
   },
+  data() {
+    return {
+      loadingRequestToJoin: false,
+      requestToJoinText: "Request to join",
+    };
+  },
   computed: {
     visibilityColor() {
       return this.community.private ? "red" : "green";
@@ -62,14 +99,28 @@ export default {
     visibilityText() {
       return this.community.private ? "Private" : "Public";
     },
+    isNotCopMember() {
+      return !(
+        this.permissionObject.isCopMember || this.permissionObject.isCopAdmin
+      );
+    },
   },
   methods: {
-    onClickLoginToJoin() {
-      console.log("onClickLoginToJoin");
+    loginToJoin() {
       this.toRouteName("login");
     },
-    onClickRequestToJoin() {
-      console.log("onClickRequestToJoin");
+    async requestToJoinCop() {
+      this.loadingRequestToJoin = true;
+
+      const data = await CopMemberController.requestToJoinCop(
+        this.$route.params.route
+      );
+      if (data.success) this.permissionObject.isPendingRequest = true;
+
+      this.loadingRequestToJoin = false;
+    },
+    join() {
+      console.log("join");
     },
   },
 };

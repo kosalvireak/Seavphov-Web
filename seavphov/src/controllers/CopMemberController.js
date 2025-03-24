@@ -31,4 +31,16 @@ export default class CopMemberController {
             toast.error(error.response.data.message);
         }
     }
+
+    static async requestToJoinCop(route) {
+        try {
+            const response = await getData(CommunityRoute + `/${route}/join`, true);
+            if (response.data.success) {
+                toast.success(response.data.message);
+                return response.data
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
 }

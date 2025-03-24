@@ -16,6 +16,7 @@ export default class CommunityController {
       toast.error(error.response.data.message);
     }
   }
+
   static async getCommunityByRoute(route) {
     try {
       const response = await getData(CommunityRoute + `/route/${route}`);
@@ -26,6 +27,7 @@ export default class CommunityController {
       toast.error(error.response.data.message);
     }
   }
+
   static async createCommunity(formData) {
     try {
       const response = await postForm(CommunityRoute + `/new`, formData, true);
