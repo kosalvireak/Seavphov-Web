@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\Community;
 use App\Models\CopMember;
+use App\Models\User;
 use App\Service\CopMemberRequestService;
 use App\Service\CopMemberService;
+use App\Service\NotificationService;
 use Illuminate\Database\QueryException;
 
 class CommunityController extends Controller
@@ -161,6 +163,46 @@ class CommunityController extends Controller
     }
 
 
+
+    public function getCommunityMemberRequest(Request $request, $route)
+    {
+        try {
+
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 404);
+            };
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not admin of this community',
+                ], 404);
+            }
+
+            $memberRequests = CopMemberRequestService::getCopMemberRequest($cop->id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $memberRequests,
+                'message' => 'Get Community member requests successfully',
+            ]);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot get Community member requests!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+
     public function checkViewCopHomePermission(Request $request, $route)
     {
         try {
@@ -265,6 +307,13 @@ class CommunityController extends Controller
             }
 
             CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
+
+            $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
+
+            foreach ($copAdminIds as $copAdminId) {
+                $copAdmin = User::find($copAdminId);
+                NotificationService::storeRequestToJoinCopNotification($user->id, $copAdmin->id, $cop->id, 'request to join your community ' + $cop->name);
+            }
 
             return response()->json([
                 'success' => true,
