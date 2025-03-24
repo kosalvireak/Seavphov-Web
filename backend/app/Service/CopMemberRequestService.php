@@ -19,6 +19,33 @@ class CopMemberRequestService
         ]);
     }
 
+    public static function getCopMemberRequest($copId)
+    {
+        $query = CopMembersRequest::query();
+        $query->where('cop_id', $copId);
+        $query->where('status', 1);
+        $query->orderBy('created_at', 'desc');
+        $members = $query->get();
+
+        // Extract user_ids from the cop members
+        $userIds = $members->pluck('user_id');
+
+        // Fetch user details for all user_ids in a single query
+        $users = User::whereIn('id', $userIds)
+            ->select('id', 'name', 'uuid', 'picture') // Specify the fields you want to retrieve
+            ->get();
+
+        // Map user details with their roles
+        $memberDetails = [];
+        foreach ($members as $member) {
+            $user = $users->firstWhere('id', $member->user_id);
+            $user->request_date = $member->created_at;
+            $memberDetails[] = $user->makeHidden('id'); // User details
+        }
+        // Return the response with user details
+        return $memberDetails;
+    }
+
     public static function isPendingRequest($copId, $userId)
     {
         $query = CopMembersRequest::query();

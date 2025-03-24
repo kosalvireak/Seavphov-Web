@@ -88,7 +88,13 @@ class CopMemberService
             $user->join_date = $member->created_at;
             $memberDetails[] = $user->makeHidden('id'); // User details
         }
-        // Return the response with admin details
+        // Return the response with user details
         return $memberDetails;
+    }
+
+    public static function getCopAdminIds($copId)
+    {
+        $copMembers = CopMember::where('cop_id', $copId)->where('role', 1)->get(['user_id']);
+        return $copMembers->pluck('user_id')->toArray();
     }
 }

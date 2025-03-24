@@ -38,11 +38,12 @@ Route::prefix('community')->group(function () {
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{route}/members', [CommunityController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/member-requests', [CommunityController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class]);
 
     // Permission
     Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);
 
-    // Request
+    // Request to join
     Route::get('{route}/join', [CommunityController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
 });
 
