@@ -22,6 +22,7 @@
       </div>
       <div class="col-span-12 lg:col-span-9">
         <CopMemberList v-if="currentTab == 'members'" />
+        <CopMemberRequestList v-if="currentTab == 'member-requests'" />
       </div>
     </div>
   </section>
@@ -29,10 +30,11 @@
 
 <script>
 import CopMemberController from "../../controllers/CopMemberController";
+import CopMemberRequestList from "./CopMemberRequestList.vue";
 import CopMemberList from "./CopMemberList.vue";
 export default {
   name: "CommunityMembers",
-  components: { CopMemberList },
+  components: { CopMemberList, CopMemberRequestList },
   data() {
     return {
       tabs: [
@@ -43,7 +45,7 @@ export default {
         },
         {
           name: "Member Requests",
-          tabRoute: "members-request",
+          tabRoute: "member-requests",
           iconClass: " fa-user-group",
         },
       ],

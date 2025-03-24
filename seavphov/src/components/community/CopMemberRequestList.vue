@@ -13,15 +13,15 @@
         <FwbAvatar :img="members.picture" rounded size="md" />
       </template>
 
-      <template #item-join_date="members">
-        {{ formatDate(members.join_date) }}
+      <template #item-request_date="members">
+        {{ formatDate(members.request_date) }}
       </template>
 
       <template #item-action="members">
         <LoadingButton
           @click="onClickEditMember(members)"
           color="primary"
-          text="Edit"
+          text="Action"
           type="button"
           class="text-center"
         />
@@ -34,7 +34,7 @@
 import { FwbAvatar } from "flowbite-vue";
 import CopMemberController from "../../controllers/CopMemberController";
 export default {
-  name: "CopMemberList",
+  name: "CopMemberRequestList",
   components: { FwbAvatar },
   data() {
     return {
@@ -45,8 +45,7 @@ export default {
       headers: [
         { text: "Profile", value: "picture", sortable: true, width: 50 },
         { text: "Name", value: "name", sortable: true, width: 300 },
-        { text: "Role", value: "role", sortable: true },
-        { text: "Join date", value: "join_date", sortable: true },
+        { text: "Request date", value: "request_date", sortable: true },
         { text: "", value: "action", width: 50 },
       ],
     };
@@ -60,7 +59,9 @@ export default {
     },
     async getCopMemberList() {
       this.isLoading = true;
-      this.members = await CopMemberController.getCommunityMembers(this.route);
+      this.members = await CopMemberController.getCommunityMemberRequest(
+        this.route
+      );
       this.serverItemsLength = this.members.length;
       this.isLoading = false;
     },

@@ -20,6 +20,18 @@ export default class CopMemberController {
         }
     }
 
+    static async getCommunityMemberRequest(route) {
+        try {
+            const response = await getData(CommunityRoute + `/${route}/member-requests`, true);
+            if (response.data.success) {
+                return response.data.data;
+            }
+        } catch (error) {
+            console.error("Error get cop members:", error);
+            toast.error(error.response.data.message);
+        }
+    }
+
 
     static async checkViewCopHomePermission(route) {
         try {
