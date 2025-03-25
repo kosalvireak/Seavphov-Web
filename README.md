@@ -1,29 +1,50 @@
 # Feature
-Authentication system
 
-Book CRUD
+## Authentication system
+
+Login, Register, Forgot password
+
+## Book
+
+Book's CRUD
+
+Search book by title, categories, availability
 
 Save book as favorite
 
-Book's review CRUD
+## Book's review
 
-Book's review like and dislike
+Review's CRUD, like, dislike, notification
 
-Discussion CRUD
+## Discussion
 
-Discussion like and dislike
+Discussion's CRUD, like and dislike, notification
 
-Discussion's comment CRUD
+Search discussion by title
 
-Discussion's comment like and dislike
+## Discussion's comment
 
-Book, Book's review, Discussion, Comment Notification 
+Comment's CRUD, like, dislike, notification
 
-Search By title, categories, availability
+## Community
+
+Search community by name and visibility
+
+Community's CRUD
+
+Community Join request, Notification Join request
+
+Community manage members
+
+Community's role
+
+## Bannner
 
 Dynamic Banner
 
-Admin manage all books, users and banner
+## Admin
+
+Admin manages Books, Users, Review, Banner
 
 ## Image
 
