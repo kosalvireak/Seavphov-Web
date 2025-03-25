@@ -1,10 +1,10 @@
 <template>
-  <section class="CommunityItem container-xl card w-fit">
+  <section class="CommunityItem container-xl card">
     <div class="m-0 p-2 relative flex flex-col lg:flex-row">
       <div class="flex-shrink-0 flex-center">
         <router-link
           :to="`/community/${community.route}`"
-          class="flex-center bg-success-subtle hover-zoom rounded-full p-3 w-24 h-24 lg:w-40 lg:h-40 overflow-hidden"
+          class="flex-center bg-success-subtle hover-zoom rounded-full p-3 w-32 h-32 lg:w-40 lg:h-40 overflow-hidden"
         >
           <img
             :src="community.profile"
@@ -29,7 +29,7 @@
           visibilityText
         }}</FwbButton>
 
-        <Info :text="infoText" :noSpace="false" />
+        <Info :text="infoText" :margin="false" :center="true" />
       </div>
     </div>
   </section>

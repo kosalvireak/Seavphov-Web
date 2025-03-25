@@ -15,7 +15,7 @@ class BookController extends Controller
     public function getNewest()
     {
         try {
-            $books = Book::orderBy('created_at', 'desc')->take(5)->get();
+            $books = Book::orderBy('created_at', 'desc')->take(6)->get();
 
             return response()->json([
                 'success' => true,
@@ -35,7 +35,7 @@ class BookController extends Controller
         try {
             $books = Book::withCount('reviews') // Count the number of reviews
                 ->orderBy('reviews_count', 'desc') // Order by the review count
-                ->take(5) // Limit the result to the top 5 books
+                ->take(6) // Limit the result to the top 6 books
                 ->get();
 
             return response()->json([

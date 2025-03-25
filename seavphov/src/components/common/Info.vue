@@ -9,14 +9,24 @@ export default {
   name: "Info",
   props: {
     text: String,
-    noSpace: {
+    margin: {
       type: Boolean,
       default: true,
+    },
+    center: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
     cssClass() {
-      return this.noSpace ? "my-1" : "";
+      return this.space + " " + this.position;
+    },
+    space() {
+      return this.margin ? "my-1" : "";
+    },
+    position() {
+      return this.center ? "text-center" : "";
     },
   },
 };

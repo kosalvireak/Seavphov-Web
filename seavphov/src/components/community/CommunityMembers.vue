@@ -59,19 +59,26 @@ export default {
     },
   },
   async mounted() {
-    await this.checkViewPermission();
-
+    // Check Hash to load first tab
     this.updateTabFromHash();
+
+    // Check Permission
+    await this.checkViewPermission();
     window.addEventListener("hashchange", this.updateTabFromHash);
   },
   beforeUnmount() {
     window.removeEventListener("hashchange", this.updateTabFromHash);
   },
+  computed: {
+    route() {
+      return this.$route.params.route;
+    },
+  },
   methods: {
     async checkViewPermission() {
       this.isCheckingPermission = true;
       const response = await CopMemberController.checkViewCopHomePermission(
-        this.$route.params.route
+        this.route
       );
 
       if (!response.data.isCopAdmin) {
@@ -88,11 +95,7 @@ export default {
     updateTabFromHash() {
       const hash = window.location.hash;
       const match = hash.match(/tabs=([^&]+)/);
-      if (match) {
-        this.currentTab = match[1];
-      } else {
-        this.currentTab = "members";
-      }
+      this.currentTab = match ? match[1] : this.currentTab;
     },
   },
 };
