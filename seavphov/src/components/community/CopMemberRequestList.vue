@@ -1,5 +1,10 @@
 <template>
   <section class="CopMemberList w-100">
+    <MemberRequestPopup
+      v-if="selectedMember"
+      :user="selectedMember"
+      @on-close="selectedMember = null"
+    />
     <EasyDataTable
       :server-items-length="serverItemsLength"
       :headers="headers"
@@ -10,7 +15,9 @@
       buttons-pagination
     >
       <template #item-picture="members">
-        <FwbAvatar :img="members.picture" rounded size="md" />
+        <a :href="`/profile/${members.uuid}`" target="_blank" class="clickable">
+          <FwbAvatar :img="members.picture" rounded size="md" />
+        </a>
       </template>
 
       <template #item-request_date="members">
@@ -19,7 +26,7 @@
 
       <template #item-action="members">
         <LoadingButton
-          @click="onClickEditMember(members)"
+          @click="onAction(members)"
           color="primary"
           text="Action"
           type="button"
@@ -31,11 +38,11 @@
 </template>
 
 <script>
-import { FwbAvatar } from "flowbite-vue";
+import MemberRequestPopup from "./MemberRequestPopup.vue";
 import CopMemberController from "../../controllers/CopMemberController";
 export default {
   name: "CopMemberRequestList",
-  components: { FwbAvatar },
+  components: { MemberRequestPopup },
   data() {
     return {
       isLoading: false,
@@ -48,14 +55,15 @@ export default {
         { text: "Request date", value: "request_date", sortable: true },
         { text: "", value: "action", width: 50 },
       ],
+      selectedMember: null,
     };
   },
   async mounted() {
     this.getCopMemberList();
   },
   methods: {
-    onClickEditMember(member) {
-      console.log(member);
+    onAction(member) {
+      this.selectedMember = member;
     },
     async getCopMemberList() {
       this.isLoading = true;

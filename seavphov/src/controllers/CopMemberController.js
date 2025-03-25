@@ -51,4 +51,35 @@ export default class CopMemberController {
             return false;
         }
     }
+
+    static async approveMemberRequest(route, uuid) {
+        try {
+            const formData = new FormData();
+            formData.append("uuid", uuid);
+
+            const response = await postForm(CommunityRoute + `/${route}/approved`, formData, true);
+            if (response.data.success) {
+                toast.success(response.data.message)
+                return true
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+            return false;
+        }
+    }
+
+    static async rejectMemberRequest(route, uuid) {
+        try {
+            const formData = new FormData();
+            formData.append("uuid", uuid);
+            const response = await postForm(CommunityRoute + `/${route}/reject`, formData, true);
+            if (response.data.success) {
+                toast.success(response.data.message)
+                return true
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+            return false;
+        }
+    }
 }

@@ -10,7 +10,9 @@
       buttons-pagination
     >
       <template #item-picture="members">
-        <FwbAvatar :img="members.picture" rounded size="md" />
+        <a :href="`/profile/${members.uuid}`" target="_blank" class="clickable">
+          <FwbAvatar :img="members.picture" rounded size="md" />
+        </a>
       </template>
 
       <template #item-join_date="members">
@@ -31,11 +33,9 @@
 </template>
 
 <script>
-import { FwbAvatar } from "flowbite-vue";
 import CopMemberController from "../../controllers/CopMemberController";
 export default {
   name: "CopMemberList",
-  components: { FwbAvatar },
   data() {
     return {
       isLoading: false,
