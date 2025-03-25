@@ -106,7 +106,7 @@ export default {
       this.filters.max = this.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
       this.relatedBooks = await BookController.fetchBooksWithFilter(
-        this.filters
+        this.filters,
       );
       this.isLoadingRelatedBooks = false;
     },
@@ -119,7 +119,7 @@ export default {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId
+        this.paramsId,
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

@@ -112,7 +112,7 @@ export default {
           const storageRef = ref(storage, `folder/${selectedFile.name}`);
           const imageUpload = await uploadBytes(storageRef, selectedFile);
           const url = await getDownloadURL(
-            ref(storage, imageUpload.metadata.fullPath)
+            ref(storage, imageUpload.metadata.fullPath),
           );
           this.imageUrl = url;
           this.$emit("imageUploaded", url);

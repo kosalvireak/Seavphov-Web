@@ -38,8 +38,7 @@ export default class CommunityController {
     } catch (error) {
       console.error("Error create community:", error);
       toast.error(error.response.data.error);
-      return false
+      return false;
     }
   }
-
 }

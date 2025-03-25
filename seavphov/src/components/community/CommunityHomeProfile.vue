@@ -109,7 +109,7 @@ export default {
       this.loadingRequestToJoin = true;
 
       const data = await CopMemberController.requestToJoinCop(
-        this.$route.params.route
+        this.$route.params.route,
       );
 
       if (data.success) {
@@ -126,5 +126,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

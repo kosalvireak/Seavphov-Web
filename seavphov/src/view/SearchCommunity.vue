@@ -141,9 +141,8 @@ export default {
       params.append("name", this.name);
       params.append("visibility", this.visibility);
       params.append("page", page);
-      this.response = await CommunityController.fetchCommunityWithFilter(
-        params
-      ); // response is the pagination object
+      this.response =
+        await CommunityController.fetchCommunityWithFilter(params); // response is the pagination object
       this.communities = this.response.data;
       this.current_page = this.response.current_page;
       this.last_page = this.response.last_page;
@@ -187,7 +186,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .pagination {
