@@ -5,11 +5,7 @@
     <div
       class="Profile hover-zoom w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
     >
-      <img
-        :src="community.profile"
-        class="w-full h-full object-cover"
-        alt="profile"
-      />
+      <FwbAvatar :img="community.profile" rounded size="md lg:xl" />
     </div>
 
     <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>

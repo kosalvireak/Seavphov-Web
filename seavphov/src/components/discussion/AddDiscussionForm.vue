@@ -3,12 +3,9 @@
     class="AddDiscussionForm container-xl rounded-lg p-2 ring-1 ring-gray-300"
   >
     <div
-      class="d-flex justify-content-start align-items-center text-decoration-none w-100"
+      class="d-flex justify-content-start align-items-center text-decoration-none w-100 space-x-2"
     >
-      <img
-        class="sp-logo-sm rounded-full mr-2 flex-shrink-0"
-        :src="$store.state.user.picture"
-      />
+      <FwbAvatar :img="$store.state.user.picture" rounded size="md" />
       <div
         @click="showModal"
         class="w-full rounded-lg p-2 hover:bg-gray-300 clickable"

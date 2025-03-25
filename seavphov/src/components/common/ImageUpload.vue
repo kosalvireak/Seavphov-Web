@@ -43,7 +43,7 @@
     <div v-else-if="uploadingImage" class="flex-center">
       <div class="flex-center flex-col text-center">
         <svg
-          class="animate-spin h-10 w-10 text-blue-500"
+          class="animate-spin h-10 w-10 text-sp-secondary"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

@@ -4,13 +4,9 @@
       <div class="flex-shrink-0 flex-center">
         <router-link
           :to="`/community/${community.route}`"
-          class="flex-center bg-success-subtle hover-zoom rounded-full p-3 w-32 h-32 lg:w-40 lg:h-40 overflow-hidden"
+          class="flex-center bg-success-subtle hover-zoom p-3"
         >
-          <img
-            :src="community.profile"
-            class="w-full h-full object-cover"
-            alt="book_image"
-          />
+          <FwbAvatar :img="community.profile" rounded size="xl" />
         </router-link>
       </div>
 

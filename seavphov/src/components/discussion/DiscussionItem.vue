@@ -1,17 +1,14 @@
 <template>
   <section
     v-if="discussion.user"
-    class="DiscussionItem container-xl rounded-lg p-3 space-y-3 ring-1 ring-gray-300 relative"
+    class="DiscussionItem container-xl rounded-lg p-2 space-y-3 ring-1 ring-gray-300 relative"
   >
     <!-- Discussion header -->
     <a
       :href="`/profile/${discussion.user[0].uuid}`"
-      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100"
+      class="d-flex justify-content-start align-items-center text-decoration-none clickable w-100 space-x-2"
     >
-      <img
-        class="sp-logo-md rounded-full mr-2"
-        :src="discussion.user[0].picture"
-      />
+      <FwbAvatar :img="discussion.user[0].picture" rounded size="md" />
 
       <div class="flex-col">
         <!-- User Name -->
