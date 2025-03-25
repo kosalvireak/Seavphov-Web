@@ -12,32 +12,45 @@ class CopMemberService
 {
     public static function addUserAsCopAdmin($copId, $userId)
     {
+
         if (empty($copId) || empty($userId)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Community or User not found!',
             ], 200);
         }
-        return CopMember::created([
-            'cop_id' => $copId,
-            'user_id' => $userId,
-            'role' => 1
-        ]);
+        try {
+            CopMember::create([
+                'cop_id' => $copId,
+                'user_id' => $userId,
+                'role' => 1
+            ]);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public static function addUserAsCopMember($copId, $userId)
     {
+
         if (empty($copId) || empty($userId)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Community or User not found!',
-            ], 200);
+            ], 400);
         }
-        return CopMember::created([
-            'cop_id' => $copId,
-            'user_id' => $userId,
-            'role' => 2
-        ]);
+
+        try {
+            CopMember::create([
+                'cop_id' => $copId,
+                'user_id' => $userId,
+                'role' => 2
+            ]);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public static function isCopAdmin($userId, $copId)

@@ -108,13 +108,14 @@ class CommunityController extends Controller
             ]);
 
             // add user as cop admin
-            CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
-
-            return response()->json([
-                'success' => true,
-                'data' => $cop,
-                'message' => 'Community created successfully',
-            ]);
+            $response = CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
+            if ($response) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $cop,
+                    'message' => 'Community created successfully',
+                ]);
+            }
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
@@ -285,13 +286,6 @@ class CommunityController extends Controller
 
             $cop = Community::where('route', $route)->first();
 
-            if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 200);
-            };
-
             if (CopMemberService::isCopMember($user->id, $cop->id)) {
                 return response()->json([
                     'success' => false,
@@ -325,6 +319,56 @@ class CommunityController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot request to join community',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function approveMemberRequest(Request $request, $route)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            $uuid = $request->get('uuid');
+            $request_user = User::where('uuid', $uuid)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 200);
+            };
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not an admin of this community',
+                ], 200);
+            }
+
+            if (CopMemberRequestService::isPendingRequest($cop->id, $request_user->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No pending request',
+                ], 200);
+            }
+
+            CopMemberRequestService::deleteCopMemberRequest($cop->id, $request_user->id);
+
+            $response = CopMemberService::addUserAsCopMember($cop->id, $request_user->id);
+
+            if ($response) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Approve member request successfully',
+                ], 200);
+            }
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot approve member request',
                 'error' => $exception->getMessage()
             ], 500);
         }

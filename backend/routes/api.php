@@ -47,6 +47,10 @@ Route::prefix('community')->group(function () {
 
     // Request to join
     Route::get('{route}/join', [CommunityController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
+
+    // Approve or Reject request
+    Route::post('{route}/approved', [CommunityController::class, 'approveMemberRequest'])->middleware([ApiTokenAuthentication::class]);
+    Route::post('{route}/reject', [CommunityController::class, 'rejectMemberRequest'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('books')->group(function () {

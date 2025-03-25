@@ -55,4 +55,11 @@ class CopMemberRequestService
         $request = $query->first();
         return $request != null ? true : false;
     }
+
+    public static function deleteCopMemberRequest($copId, $userId)
+    {
+        return CopMembersRequest::where('cop_id', $copId)
+            ->where('user_id', $userId)
+            ->delete();
+    }
 }
