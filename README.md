@@ -4,6 +4,12 @@
 
 Login, Register, Forgot password
 
+## Profile
+
+Profile's CRUD, View as others
+
+Profile's social media
+
 ## Book
 
 Book's CRUD
