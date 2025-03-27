@@ -5,7 +5,11 @@
     <div
       class="Profile hover-zoom w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
     >
-      <FwbAvatar :img="community.profile" rounded size="md lg:xl" />
+      <FwbAvatar
+        :img="community.profile"
+        rounded
+        size="md lg:xl object-contain"
+      />
     </div>
 
     <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>
@@ -67,6 +71,7 @@
       visibilityText
     }}</FwbButton>
 
+    <p>Role: {{ roleText }}</p>
     <p>Created on: {{ formatDate(community.created_at) }}</p>
   </section>
 </template>
@@ -95,6 +100,9 @@ export default {
     visibilityText() {
       return this.community.private ? "Private" : "Public";
     },
+    roleText() {
+      return this.permissionObject.isCopAdmin ? "Admin" : "Member";
+    },
     isNotCopMember() {
       return !(
         this.permissionObject.isCopMember || this.permissionObject.isCopAdmin
@@ -109,7 +117,7 @@ export default {
       this.loadingRequestToJoin = true;
 
       const data = await CopMemberController.requestToJoinCop(
-        this.$route.params.route,
+        this.$route.params.route
       );
 
       if (data.success) {
