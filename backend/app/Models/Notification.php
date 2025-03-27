@@ -25,7 +25,7 @@ class Notification extends Model
         } else if ($this->type == 'discussion') {
             $discussion = Discussion::Find($this->object_id);
             return $discussion != null ? $discussion->image : $this->getImageNotFound();
-        } else if ($this->type == 'request-to-join-cop') {
+        } else if ($this->isCopNotification()) {
             $cop = Community::Find($this->object_id);
             return $cop != null ? $cop->profile : $this->getImageNotFound();
         }
@@ -33,12 +33,21 @@ class Notification extends Model
 
     public function getNotificationObjectId()
     {
-        if ($this->type == 'request-to-join-cop') {
+        if ($this->isCopNotification()) {
             $cop = Community::Find($this->object_id);
             return $cop != null ? $cop->route : null;
         } else {
             return $this->object_id;
         }
+    }
+
+    private function isCopNotification(): bool
+    {
+        return in_array($this->type, [
+            'request-to-join-cop',
+            'approve-cop-join-request',
+            'reject-cop-join-request'
+        ]);
     }
 
 

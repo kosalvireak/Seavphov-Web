@@ -359,6 +359,8 @@ class CommunityController extends Controller
 
             $response = CopMemberService::addUserAsCopMember($cop->id, $request_user->id);
 
+            NotificationService::storeApproveRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'approve your request to join ' . $cop->name);
+
             if ($response) {
                 return response()->json([
                     'success' => true,
@@ -369,6 +371,55 @@ class CommunityController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot approve member request',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function rejectMemberRequest(Request $request, $route)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            $uuid = $request->get('uuid');
+            $request_user = User::where('uuid', $uuid)->first();
+
+            if (!$cop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Community not found',
+                ], 200);
+            };
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not an admin of this community',
+                ], 200);
+            }
+
+            if (CopMemberRequestService::isPendingRequest($cop->id, $request_user->id) == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No pending request',
+                ], 200);
+            }
+
+            CopMemberRequestService::deleteCopMemberRequest($cop->id, $request_user->id);
+
+            NotificationService::storeRejectRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'reject your request to join ' . $cop->name);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Reject member request successfully',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot reject member request',
                 'error' => $exception->getMessage()
             ], 500);
         }

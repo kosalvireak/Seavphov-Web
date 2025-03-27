@@ -28,6 +28,7 @@
             </button>
           </div>
           <div>
+            // TODO Add Role Filter
             <p class="h6">Visibility</p>
             <FwbRadio
               class="clickable"
@@ -141,8 +142,9 @@ export default {
       params.append("name", this.name);
       params.append("visibility", this.visibility);
       params.append("page", page);
-      this.response =
-        await CommunityController.fetchCommunityWithFilter(params); // response is the pagination object
+      this.response = await CommunityController.fetchCommunityWithFilter(
+        params
+      ); // response is the pagination object
       this.communities = this.response.data;
       this.current_page = this.response.current_page;
       this.last_page = this.response.last_page;

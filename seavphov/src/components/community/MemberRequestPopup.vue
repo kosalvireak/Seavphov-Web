@@ -67,7 +67,7 @@ export default {
       this.isApproving = true;
       const response = await CopMemberController.approveMemberRequest(
         this.route,
-        this.user.uuid,
+        this.user.uuid
       );
 
       if (response) this.closeModal();
@@ -79,7 +79,7 @@ export default {
 
       const response = await CopMemberController.rejectMemberRequest(
         this.route,
-        this.user.uuid,
+        this.user.uuid
       );
 
       if (response) this.closeModal();

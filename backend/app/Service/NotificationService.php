@@ -47,4 +47,34 @@ class NotificationService
             'body' => $body
         ]);
     }
+
+    public static function storeRejectRequestToJoinCopNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'reject-cop-join-request',
+            'body' => $body
+        ]);
+    }
+
+
+
+    public static function storeApproveRequestToJoinCopNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'approve-cop-join-request',
+            'body' => $body
+        ]);
+    }
 }

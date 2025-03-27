@@ -98,4 +98,5 @@ export default class CopMemberController {
       return false;
     }
   }
+
 }
