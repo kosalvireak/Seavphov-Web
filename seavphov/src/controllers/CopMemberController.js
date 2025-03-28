@@ -56,7 +56,7 @@ export default class CopMemberController {
       return response.data;
     } catch (error) {
       toast.error(error.response.data.message);
-      return false;
+      return null;
     }
   }
 
@@ -76,7 +76,7 @@ export default class CopMemberController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
-      return false;
+      return null;
     }
   }
 

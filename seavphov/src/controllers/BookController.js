@@ -14,6 +14,7 @@ export default class BookController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return null;
     }
   }
 
@@ -24,7 +25,8 @@ export default class BookController {
         return response.data.message;
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.message);
+      return null;
     }
   }
 
@@ -36,6 +38,7 @@ export default class BookController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return false;
     }
   }
 
@@ -89,6 +92,7 @@ export default class BookController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return null;
     }
   }
 
@@ -100,6 +104,7 @@ export default class BookController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return null;
     }
   }
 }

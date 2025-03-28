@@ -282,6 +282,7 @@ const store = createStore({
       } catch (error) {
         console.error("Error adding book:", error);
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async deleteBook({}, id) {
@@ -291,6 +292,7 @@ const store = createStore({
       } catch (error) {
         console.error("Error adding book:", error);
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async toggleSaveBook({}, bookId) {
@@ -302,6 +304,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.message);
+        return false;
       }
     },
     async getNotifications() {
@@ -312,6 +315,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async sendEmailResetPassword({}, formData) {
@@ -323,6 +327,7 @@ const store = createStore({
       } catch (error) {
         console.error("Error sending email", error);
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async likeReview({}, reviewId) {
@@ -334,6 +339,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async dislikeReview({}, reviewId) {
@@ -345,6 +351,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
 
@@ -360,6 +367,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async dislikeDiscussion({}, discussionId) {
@@ -374,6 +382,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async likeComment({}, commentId) {
@@ -385,6 +394,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
     async dislikeComment({}, commentId) {
@@ -399,6 +409,7 @@ const store = createStore({
         }
       } catch (error) {
         toast.error(error.response.data.message);
+        return false;
       }
     },
   },

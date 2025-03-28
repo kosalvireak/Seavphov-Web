@@ -26,11 +26,15 @@ export default {
       isLoading: false,
     };
   },
-  methods: {},
+  methods: {
+    async getMostReview(){
+      this.isLoading = true;
+      this.books = await BookController.getMostReviewed();
+      this.isLoading = false;
+    }
+  },
   async mounted() {
-    this.isLoading = true;
-    this.books = await BookController.getMostReviewed();
-    this.isLoading = false;
+    await this.getMostReview();
   },
 };
 </script>

@@ -1,7 +1,7 @@
 import axiosInstance from "../services/axiosInstance.js";
 import { getApiToken } from "../services/cookie.js";
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
+const backend_url = "http://localhost:8000";
 
 export async function getData(route, auth = false) {
   const headers = auth
