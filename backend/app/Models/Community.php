@@ -66,4 +66,9 @@ class Community extends Model
     {
         return $this->private == 1;
     }
+
+    public function members()
+    {
+        return $this->hasMany(CopMember::class, 'cop_id');
+    }
 }

@@ -22,6 +22,7 @@ class CommunityController extends Controller
 
         $name = $request->get('name');
         $visibility = $request->get('visibility');
+        $role = $request->get('role');
         $query = Community::query(); // Start with a base query
 
         // Filter by name if name = "", it will return all
@@ -34,6 +35,22 @@ class CommunityController extends Controller
             $query->where('private', 1);
         } else if ($visibility == 'public') {
             $query->where('private', 0);
+        }
+
+
+        $user = $request->attributes->get('user');
+
+        if($user){
+
+    // Filter by role using a join with cop_members table
+    if ($role == 'admin' || $role == 'member') {
+        $query->whereHas('members', function ($q) use ($role, $request) {
+            // Filter by role: admin (role = 1) or member (role = 2)
+            $q->where('user_id', $user->id)
+              ->where('role', $role == 'admin' ? 1 : 2);
+        });
+    }
+
         }
 
         $cops = $query->paginate(6); // Apply pagination 

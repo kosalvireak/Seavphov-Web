@@ -41,7 +41,9 @@
           <!-- Visibility -->
           <p>Visibility</p>
           <div class="mt-2">
-            <MDBCheckbox :label="visibilityText" v-model="community.private" />
+            <FwbButton @click="community.private = !community.private" :color="visibilityColor" class="px-2 text-xs">{{
+                visibilityText
+              }}</FwbButton>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
@@ -83,10 +85,6 @@ export default {
       this.isLoading = false;
       this.toCopHome("community-home", cop.route);
     },
-    async onUploadBanner(url) {
-      this.community.banner = url;
-      this.formData.append("banner", url);
-    },
     async onUploadProfile(url) {
       this.community.profile = url;
       this.formData.append("profile", url);
@@ -95,6 +93,9 @@ export default {
   computed: {
     visibilityText() {
       return this.community.private ? "Private" : "Public";
+    },
+    visibilityColor() {
+      return this.community.private ? "red" : "green";
     },
   },
 };

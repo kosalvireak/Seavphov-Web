@@ -19,4 +19,9 @@ class CopMember extends Model
         'cop_id',
         'role', // 1 for admin, 2 for member
     ];
+
+    public function community()
+    {
+        return $this->belongsTo(Community::class, 'cop_id');
+    }
 }

@@ -27,9 +27,8 @@
               <i class="fa fa-magnifying-glass"></i>
             </button>
           </div>
-          <div>
-            // TODO Add Role Filter
-            <p class="h6">Visibility</p>
+          <div class="visibility-filter">
+            <p class="h6 mb-0">Visibility</p>
             <FwbRadio
               class="clickable"
               label="All"
@@ -50,6 +49,30 @@
               name="public"
               v-model="visibility"
               value="public"
+            />
+          </div>
+          <div v-if="isLogin" class="role-filter">
+            <p class="h6 mb-0">Role</p>
+            <FwbRadio
+                class="clickable"
+                label="All"
+                name="all"
+                v-model="role"
+                value="all"
+            />
+            <FwbRadio
+                class="clickable"
+                label="Admin"
+                name="admin"
+                v-model="role"
+                value="admin"
+            />
+            <FwbRadio
+                class="clickable"
+                label="Member"
+                name="member"
+                v-model="role"
+                value="member"
             />
           </div>
         </form>
@@ -127,6 +150,7 @@ export default {
     return {
       name: "",
       visibility: "all",
+      role: "all",
       communities: [],
       isLoading: false,
       response: null,
@@ -141,6 +165,7 @@ export default {
       let params = new URLSearchParams();
       params.append("name", this.name);
       params.append("visibility", this.visibility);
+      params.append("role", this.role);
       params.append("page", page);
       this.response = await CommunityController.fetchCommunityWithFilter(
         params
@@ -184,7 +209,7 @@ export default {
     },
   },
   async mounted() {
-    this.fetchCommunity();
+    await this.fetchCommunity();
   },
 };
 </script>
