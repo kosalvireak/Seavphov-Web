@@ -14,13 +14,16 @@
         <h6 class="text-sm mb-0 font-semibold ellipsis-2">
           {{ book.title }}
         </h6>
+
         <p class="absolute right-2 bottom-2 text-xs" v-if="book.reviews_count">
           {{ book.reviews_count }} {{ reviewCountText }}
         </p>
-        <FwbButton
-          :color="buttonColor"
-          class="absolute left-2 bottom-2 px-2 text-xs w-fit"
-          >{{ buttonText }}</FwbButton
+
+        <Badge
+          :type="buttonColor"
+          size="sm"
+          class="absolute left-2 bottom-2 px-2 text-xs w-fit m-0 mt-1"
+          >{{ buttonText }}</Badge
         >
       </div>
     </div>

@@ -17,13 +17,13 @@
           {{ community.name }}
         </p>
 
+        <Badge :type="visibilityColor" size="sm" class="m-0 mt-1">{{
+          visibilityText
+        }}</Badge>
+
         <p v-if="community.description" class="truncate-2-lines">
           Description: {{ community.description }}
         </p>
-
-        <FwbButton :color="visibilityColor" class="px-2 text-xs">{{
-          visibilityText
-        }}</FwbButton>
 
         <Info :text="infoText" :margin="false" :center="true" />
       </div>

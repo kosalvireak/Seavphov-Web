@@ -31,7 +31,9 @@ export default {
     class="min-h-9 btn btn-primary flex-center sp-btn-loading"
     :style="{ 'background-color': 'var(' + backgroundColor + ')' }"
   >
-    <span v-if="!isLoading">{{ text }}</span>
+    <slot v-if="!isLoading">
+      <span>{{ text }}</span>
+    </slot>
     <Loader v-else :size="15" :Color="'#FFFFFF'" />
   </button>
 </template>

@@ -32,7 +32,7 @@
             <FwbRadio
               class="clickable"
               label="All"
-              name="all"
+              name="visibility-all"
               v-model="visibility"
               value="all"
             />
@@ -54,31 +54,31 @@
           <div v-if="isLogin" class="role-filter">
             <p class="h6 mb-0">Role</p>
             <FwbRadio
-                class="clickable"
-                label="All"
-                name="all"
-                v-model="role"
-                value="all"
+              class="clickable"
+              label="All"
+              name="all"
+              v-model="role"
+              value="all"
             />
             <FwbRadio
-                class="clickable"
-                label="Admin"
-                name="admin"
-                v-model="role"
-                value="admin"
+              class="clickable"
+              label="Admin"
+              name="admin"
+              v-model="role"
+              value="admin"
             />
             <FwbRadio
-                class="clickable"
-                label="Member"
-                name="member"
-                v-model="role"
-                value="member"
+              class="clickable"
+              label="Member"
+              name="member"
+              v-model="role"
+              value="member"
             />
           </div>
         </form>
         <div class="d-flex align-items-center justify-content-end">
-          <p v-if="isLoading" class="h6">Fetching...</p>
-          <p v-else class="h6">Result: {{ communities?.length }} Community</p>
+          <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
+          <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
         </div>
         <button
           @click="toRouteName('create-community')"
@@ -202,6 +202,9 @@ export default {
   },
   watch: {
     visibility() {
+      this.fetchCommunity();
+    },
+    role() {
       this.fetchCommunity();
     },
     current_page(newVal) {

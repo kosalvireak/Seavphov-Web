@@ -8,10 +8,10 @@
         >Join the discussion forum and share your thoughts with our vibrant
         community!</span
       >
-      <FwbButton color="green"
+      <LoadingButton color="green"
         ><router-link :to="{ name: 'discussion' }" class="text-white">
           Go to Discussion
-        </router-link></FwbButton
+        </router-link></LoadingButton
       >
     </div>
   </section>
