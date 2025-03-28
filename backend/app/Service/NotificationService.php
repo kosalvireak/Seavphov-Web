@@ -48,6 +48,21 @@ class NotificationService
         ]);
     }
 
+
+    public static function storeJoinCopNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'join-cop',
+            'body' => $body
+        ]);
+    }
+
     public static function storeRejectRequestToJoinCopNotification($userId, $receiverId, $copId, $body)
     {
         if ($userId == $receiverId) {

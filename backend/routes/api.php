@@ -45,8 +45,9 @@ Route::prefix('community')->group(function () {
     // Permission
     Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);
 
-    // Request to join
-    Route::get('{route}/join', [CommunityController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
+    // Join cop
+    Route::get('{route}/request-to-join-cop', [CommunityController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/join-cop', [CommunityController::class, 'joinCop'])->middleware([ApiTokenAuthentication::class]);
 
     // Approve or Reject request
     Route::post('{route}/approved', [CommunityController::class, 'approveMemberRequest'])->middleware([ApiTokenAuthentication::class]);

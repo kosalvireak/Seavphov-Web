@@ -42,6 +42,8 @@ export default {
     routePath() {
       if (this.item.type == "request-to-join-cop") {
         return `/community/${this.item.object_id}/members#tabs=member-requests`;
+      } else if (this.item.type == "join-cop") {
+        return `/community/${this.item.object_id}/members`;
       } else if (
         ["approve-cop-join-request", "reject-cop-join-request"].includes(
           this.item.type

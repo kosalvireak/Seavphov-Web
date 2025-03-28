@@ -8,7 +8,7 @@ const CommunityRoute = "/api/community";
 export default class CommunityController {
   static async fetchCommunityWithFilter(params) {
     try {
-      const response = await getData(CommunityRoute + `?${params}`);
+      const response = await getData(CommunityRoute + `?${params}`, true);
       if (response.data.success) {
         return response.data.data;
       }

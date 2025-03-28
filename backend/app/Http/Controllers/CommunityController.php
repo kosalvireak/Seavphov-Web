@@ -40,23 +40,18 @@ class CommunityController extends Controller
 
         $user = $request->attributes->get('user');
 
-        if($user){
-
-    // Filter by role using a join with cop_members table
-    if ($role == 'admin' || $role == 'member') {
-        $query->whereHas('members', function ($q) use ($role, $request) {
-            // Filter by role: admin (role = 1) or member (role = 2)
-            $q->where('user_id', $user->id)
-              ->where('role', $role == 'admin' ? 1 : 2);
-        });
-    }
-
+        if ($user) {
+            // Filter by role using a join with cop_members table
+            if ($role == 'admin' || $role == 'member') {
+                $query->whereHas('members', function ($query) use ($role, $user) {
+                    // Filter by role: admin (role = 1) or member (role = 2)
+                    $query->where('user_id', $user->id)
+                        ->where('role', $role == 'admin' ? 1 : 2);
+                });
+            }
         }
 
         $cops = $query->paginate(6); // Apply pagination 
-        // $cops = $query
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
 
         try {
             return response()->json([
@@ -317,7 +312,6 @@ class CommunityController extends Controller
                 ], 200);
             }
 
-
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
 
             foreach ($copAdminIds as $copAdminId) {
@@ -340,6 +334,53 @@ class CommunityController extends Controller
             ], 500);
         }
     }
+
+
+
+    public function joinCop(Request $request, $route)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $cop = Community::where('route', $route)->first();
+
+            if (CopMemberService::isCopMember($user->id, $cop->id)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are already a member of this community',
+                ], 200);
+            }
+
+            if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are already an admin of this community',
+                ], 200);
+            }
+
+            $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
+
+            foreach ($copAdminIds as $copAdminId) {
+                $copAdmin = User::find($copAdminId);
+                NotificationService::storeJoinCopNotification($user->id, $copAdmin->id, $cop->id, 'join your community ' . $cop->name);
+            }
+
+            CopMemberService::addUserAsCopMember($cop->id, $user->id);
+
+            return response()->json([
+                'success' => true,
+                'data' => null,
+                'message' => 'Join community successfully',
+            ], 200);
+        } catch (Exception  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot Join community',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
 
     public function approveMemberRequest(Request $request, $route)
     {

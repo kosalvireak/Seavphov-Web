@@ -52,7 +52,17 @@ export default class CopMemberController {
 
   static async requestToJoinCop(route) {
     try {
-      const response = await getData(CommunityRoute + `/${route}/join`, true);
+      const response = await getData(CommunityRoute + `/${route}/request-to-join-cop`, true);
+      return response.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return null;
+    }
+  }
+
+  static async joinCop(route) {
+    try {
+      const response = await getData(CommunityRoute + `/${route}/join-cop`, true);
       return response.data;
     } catch (error) {
       toast.error(error.response.data.message);

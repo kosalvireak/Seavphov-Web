@@ -14,6 +14,10 @@
 
     <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>
 
+    <Badge :type="visibilityColor" size="sm" class="m-0 mt-1">{{
+      visibilityText
+    }}</Badge>
+
     <p v-if="community.description" class="truncate-2-lines">
       {{ community.description }}
     </p>
@@ -48,7 +52,8 @@
       <!-- Login - Public -> Join -->
       <LoadingButton
         v-else-if="!community.private"
-        @click="join()"
+        @click="joinCop()"
+        :isLoading="loadingJoinCop"
         color="primary"
         text="Join"
         type="button"
@@ -67,11 +72,7 @@
       />
     </div>
 
-    <FwbButton :color="visibilityColor" class="px-2 text-xs">{{
-      visibilityText
-    }}</FwbButton>
-
-    <p>Role: {{ roleText }}</p>
+    <p v-if="!isNotCopMember">Your's role: {{ roleText }}</p>
     <p>Created on: {{ formatDate(community.created_at) }}</p>
   </section>
 </template>
@@ -90,6 +91,7 @@ export default {
   data() {
     return {
       loadingRequestToJoin: false,
+      loadingJoinCop: false,
       requestToJoinText: "Request to join",
     };
   },
@@ -127,8 +129,17 @@ export default {
 
       this.loadingRequestToJoin = false;
     },
-    join() {
-      console.log("join");
+    async joinCop() {
+      this.loadingJoinCop = true;
+
+      const data = await CopMemberController.joinCop(this.$route.params.route);
+
+      if (data.success) {
+        this.$toast.success(data.message);
+        this.permissionObject.isCopMember = true;
+      }
+
+      this.loadingJoinCop = false;
     },
   },
 };

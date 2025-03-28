@@ -97,7 +97,7 @@ class CopMemberService
         $memberDetails = [];
         foreach ($copMembers as $member) {
             $user = $users->firstWhere('id', $member->user_id);
-            $user->role =  $member->role == 1 ? 'Admin' : 'Members';  // Attach role label
+            $user->role =  $member->role == 1 ? 'Admin' : 'Member';  // Attach role label
             $user->join_date = $member->created_at;
             $memberDetails[] = $user->makeHidden('id'); // User details
         }

@@ -46,7 +46,8 @@ class Notification extends Model
         return in_array($this->type, [
             'request-to-join-cop',
             'approve-cop-join-request',
-            'reject-cop-join-request'
+            'reject-cop-join-request',
+            'join-cop'
         ]);
     }
 
