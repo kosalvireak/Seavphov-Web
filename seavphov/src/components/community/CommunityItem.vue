@@ -17,12 +17,12 @@
           {{ community.name }}
         </p>
 
-        <Badge :type="visibilityColor" size="sm" class="m-0 mt-1">{{
+        <Badge :type="visibilityColor" size="sm" class="mr-0">{{
           visibilityText
         }}</Badge>
 
         <p v-if="community.description" class="truncate-2-lines">
-          Description: {{ community.description }}
+          {{ community.description }}
         </p>
 
         <Info :text="infoText" :margin="false" :center="true" />

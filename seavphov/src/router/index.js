@@ -30,6 +30,8 @@ import CommunityMembers from "../components/community/CommunityMembers.vue";
 import NotFound from "../view/auth/NotFound.vue";
 import CommunitySettings from "../components/community/CommunitySettings.vue";
 
+const appName = import.meta.env.VITE_APP_NAME
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -111,7 +113,7 @@ const router = createRouter({
           path: "/profile",
           name: "profile",
           component: Profile,
-          meta: { requiresCookie: true },
+          meta: { requiresCookie: true, title: appName + " - Profile" },
         },
         {
           path: "/profile/:uuid",
@@ -122,7 +124,7 @@ const router = createRouter({
           path: "/edit-profile",
           name: "edit-profile",
           component: EditProfile,
-          meta: { requiresCookie: true },
+          meta: { requiresCookie: true, title: appName + " - Profile Setting" },
         },
         {
           path: "/home",
@@ -142,7 +144,7 @@ const router = createRouter({
               path: "new",
               name: "add-book",
               component: AddBook,
-              meta: { requiresCookie: true },
+              meta: { requiresCookie: true, title: appName + " - Create Book" },
             },
             {
               path: "edit/:id",
@@ -165,6 +167,7 @@ const router = createRouter({
               path: "",
               name: "discussion",
               component: Discussion,
+              meta: { title: appName + " - Discussion" },
             },
             {
               path: ":id",
@@ -202,12 +205,13 @@ const router = createRouter({
           path: "/search-community",
           name: "search-community",
           component: SearchCommunity,
+          meta: { title: appName + " - Search Community" },
         },
         {
           path: "/create-community",
           name: "create-community",
           component: CreateCommunity,
-          meta: { requiresCookie: true },
+          meta: { requiresCookie: true, title: "Create Community" },
         },
       ],
     },
@@ -219,6 +223,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  // Set document Title
+  document.title = to.meta.title ? to.meta.title : appName;
+
   if (to.meta.requiresCookie) {
     if (await getCookie()) {
       next();

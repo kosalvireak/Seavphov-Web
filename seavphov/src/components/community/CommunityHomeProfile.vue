@@ -14,7 +14,7 @@
 
     <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>
 
-    <Badge :type="visibilityColor" size="sm" class="m-0 mt-1">{{
+    <Badge :type="visibilityColor" size="sm" class="mr-0">{{
       visibilityText
     }}</Badge>
 
