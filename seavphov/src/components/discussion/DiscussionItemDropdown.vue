@@ -13,9 +13,13 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
+            <p :class="dropdownItemCss" @click="editDiscussion()">
+              <span>Edit</span>
+            </p>
+          </li>
+          <li>
             <p :class="dropdownItemCss" @click="deleteDiscussion()">
               <span v-if="isDeleting">Deleting...</span>
-
               <span v-else>Delete</span>
             </p>
           </li>
@@ -32,6 +36,7 @@ export default {
   data() {
     return {
       isDeleting: false,
+      isEditing: false,
       dropdownItemCss:
         "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable",
     };
@@ -45,6 +50,9 @@ export default {
       await DiscussionController.deleteDiscussion(this.id);
       this.$emit("onDeleteDiscussion", this.id);
       this.isDeleting = false;
+    },
+    async editDiscussion() {
+      this.$emit("onEditDiscussion");
     },
   },
 };

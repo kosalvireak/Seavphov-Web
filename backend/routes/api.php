@@ -92,6 +92,7 @@ Route::prefix('discussions')->group(function () {
     Route::get('/like/{id}', [DiscussionController::class, 'likeDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [DiscussionController::class, 'dislikeDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::post('', [DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
+    Route::put('/edit/{id}', [DiscussionController::class, 'editDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [DiscussionController::class, 'deleteDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 

@@ -19,16 +19,16 @@ class DiscussionController extends Controller
         try {
             $user = $request->attributes->get('user');
 
-            $comment = Discussion::findOrFail($id);
+            $discussion = Discussion::findOrFail($id);
 
-            if ($comment->owner_id != $user->id) {
+            if ($discussion->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'No permission',
                 ], 403);
             }
 
-            $comment->delete();
+            $discussion->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Delete discussion Success',
@@ -184,6 +184,43 @@ class DiscussionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Cannot get your discussions!',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function editDiscussion(Request $request, $id)
+    {
+        try {
+            $user = $request->attributes->get('user');
+
+            $discussion = Discussion::findOrFail($id);
+
+            if ($discussion->owner_id != $user->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No permission',
+                ], 403);
+            }
+
+            $validatedData = $request->validate([
+                'body' => 'required|string',
+                'image' => 'string',
+            ]);
+
+            $discussion->body = $validatedData['body'];
+            $discussion->image = $validatedData['image'];
+            $discussion->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully edited discussion',
+                'data' => $discussion->getData($user->id)
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Cannot edit discussion!',
                 'error' => $exception->getMessage()
             ], 500);
         }

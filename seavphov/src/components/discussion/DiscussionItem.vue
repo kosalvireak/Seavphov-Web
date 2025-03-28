@@ -21,11 +21,19 @@
       </div>
     </a>
 
+    <EditDiscussionPopup
+      v-if="isEditing"
+      :discussion="discussion"
+      @on-close="isEditing = false"
+      @on-done-edit="discussion = $event"
+    />
+
     <!-- Discussion delete Button -->
     <DiscussionItemDropdown
       v-if="discussion.delete_able"
       :id="discussion.id"
       @on-delete-discussion="$emit('onDeleteDiscussion', $event)"
+      @on-edit-discussion="editDiscussion()"
       class="absolute right-3 top-0"
     />
 
@@ -66,12 +74,23 @@
 
 <script>
 import DiscussionItemDropdown from "./DiscussionItemDropdown.vue";
+import EditDiscussionPopup from "./EditDiscussionPopup.vue";
 import Reaction from "../common/Reaction.vue";
 export default {
   name: "DiscussionItem",
-  components: { DiscussionItemDropdown, Reaction },
+  components: { DiscussionItemDropdown, Reaction, EditDiscussionPopup },
   props: {
     discussion: Object,
+  },
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
+  methods: {
+    editDiscussion() {
+      this.isEditing = true;
+    },
   },
 };
 </script>

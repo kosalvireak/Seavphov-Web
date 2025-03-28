@@ -73,4 +73,16 @@ export default class DiscussionController {
       return null;
     }
   }
+  static async editDiscussion(formData, id) {
+    try {
+      const response = await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        return response.data.data;
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      return null;
+    }
+  }
 }
