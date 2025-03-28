@@ -14,6 +14,7 @@ export default class CommunityController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return null
     }
   }
 
@@ -25,6 +26,7 @@ export default class CommunityController {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      return null
     }
   }
 
