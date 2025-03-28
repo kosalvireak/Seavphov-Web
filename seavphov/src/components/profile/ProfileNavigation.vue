@@ -6,11 +6,7 @@
         v-for="navigation in profileNavigation"
         :key="navigation.key"
         @click="onSelectNavigation(navigation)"
-        class="p-3 hover:bg-gray-300 clickable rounded-lg"
-        :class="{
-          'bg-sp-secondary hover:bg-sp-secondary text-white':
-            selectedNavigation.key === navigation.key,
-        }"
+        :class="selectedNavCss(navigation.key)"
       >
         <span>{{ navigation.value }}</span>
       </div>
@@ -20,7 +16,7 @@
     <div class="lg:hidden">
       <button
         @click="toggleDropdown"
-        class="p-3 hover:bg-gray-300 rounded-lg clickable"
+        :class="itemCss + ' ' + 'bg-sp-primary hover:bg-sp-primary text-white'"
       >
         {{ selectedNavigation.value }}
       </button>
@@ -33,7 +29,7 @@
           v-for="navigation in profileNavigation"
           :key="navigation.key"
           @click="onSelectNavigation(navigation)"
-          class="p-3 hover:bg-gray-300 clickable rounded-lg"
+          :class="itemCss"
         >
           <span>{{ navigation.value }}</span>
         </div>
@@ -42,7 +38,7 @@
 
     <!-- View Profile As Other Button -->
     <a
-      class="p-3 hover:bg-gray-300 rounded-lg clickable decoration-none"
+      class="px-3 py-2 hover:bg-gray-300 rounded-lg clickable decoration-none"
       :href="`/profile/${uuid}`"
     >
       View Profile As Others
@@ -65,9 +61,15 @@ export default {
       ],
       isDropdownOpen: false,
       selectedNavigation: { key: "my-books", value: "My Books" },
+      itemCss: "px-3 py-2 hover:bg-gray-300 clickable rounded-lg",
     };
   },
   methods: {
+    selectedNavCss(key) {
+      return this.selectedNavigation.key == key
+        ? "bg-sp-secondary hover:bg-sp-secondary text-white " + this.itemCss
+        : this.itemCss;
+    },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
     },

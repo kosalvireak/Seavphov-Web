@@ -23,9 +23,9 @@
           <p><span class="font-bold">Author:</span>{{ book.author }}</p>
           <p><span class="font-bold">Condition: </span>{{ book.condition }}</p>
           <p><span class="font-bold">Category: </span>{{ book.categories }}</p>
-          <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
+          <Badge :type="buttonColor" size="sm" class="w-fit">{{
             buttonText
-          }}</FwbButton>
+          }}</Badge>
         </div>
       </div>
     </div>
