@@ -45,7 +45,7 @@ export default {
       async handler() {
         if (this.book_id === undefined) return;
         this.isLoading = true;
-        this.reviews = await ReviewController.fetchBookReviews(this.book_id);
+        this.reviews = await ReviewController.getReviewsOfBook(this.book_id);
         this.isLoading = false;
       },
     },

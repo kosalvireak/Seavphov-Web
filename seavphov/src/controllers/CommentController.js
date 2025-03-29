@@ -6,7 +6,7 @@ const toast = useToast();
 const CommentRoute = "/api/comment";
 
 export default class CommentController {
-  static async fetchDiscussionComments(discussionId) {
+  static async getCommentsOfDiscussion(discussionId) {
     try {
       const response = await getData(
         CommentRoute + `/discussion/${discussionId}`,

@@ -39,7 +39,7 @@ class BookController extends Controller
             return ResponseUtil::ServerError('Cannot get most reviewed book!', $exception->getMessage());
         }
     }
-    public function fetchBooksWithFilter(Request $request)
+    public function getBooksWithFilter(Request $request)
     {
 
         $title = $request->get('title');
@@ -116,7 +116,7 @@ class BookController extends Controller
         }
     }
 
-    public function fetchBookDetail(Request $request, $bookId)
+    public function getBookDetailWithOwner(Request $request, $bookId)
     {
         try {
 

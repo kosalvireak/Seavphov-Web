@@ -23,7 +23,7 @@
 
     <EditDiscussionPopup
       v-if="isEditing"
-      :discussion="discussion"
+      :discussionProp="discussion"
       @on-close="isEditing = false"
       @on-done-edit="discussion = $event"
     />

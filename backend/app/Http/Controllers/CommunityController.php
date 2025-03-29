@@ -17,7 +17,7 @@ class CommunityController extends Controller
 {
 
 
-    public function fetchCommunityWithFilter(Request $request)
+    public function searchCommunity(Request $request)
     {
         try {
 

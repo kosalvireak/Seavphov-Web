@@ -71,7 +71,7 @@ class UserBookController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching books.',
+                'message' => 'An error occurred while get books.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -119,7 +119,7 @@ class UserBookController extends Controller
     //     } catch (QueryException  $exception) {
     //         return response()->json([
     //             'success' => false,
-    //             'message' => 'An error occurred while fetching books.',
+    //             'message' => 'An error occurred while get books.',
     //             'error' => $exception->getMessage()
     //         ], 500);
     //     }

@@ -105,13 +105,11 @@ export default {
       this.filters.categories = this.book.categories;
       this.filters.max = this.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
-      this.relatedBooks = await BookController.fetchBooksWithFilter(
-        this.filters
-      );
+      this.relatedBooks = await BookController.getBooksWithFilter(this.filters);
       this.isLoadingRelatedBooks = false;
     },
     async getBook(id) {
-      const response = await BookController.fetchBookDetail(id);
+      const response = await BookController.getBookDetailWithOwner(id);
       this.book = response.book;
       this.bookOwner = response.owner;
     },

@@ -61,7 +61,7 @@ export default {
     async getSearchBooks(keyword, type) {
       this.isLoading = true;
       this.filters[type] = keyword;
-      this.Books = await BookController.fetchBooksWithFilter(this.filters);
+      this.Books = await BookController.getBooksWithFilter(this.filters);
       this.filters = {};
       this.isLoading = false;
     },

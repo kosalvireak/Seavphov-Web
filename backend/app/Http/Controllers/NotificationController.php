@@ -37,7 +37,7 @@ class NotificationController extends Controller
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching notifications.',
+                'message' => 'An error occurred while get notifications.',
                 'error' => $exception->getMessage()
             ], 500);
         }

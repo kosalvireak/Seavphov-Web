@@ -13,7 +13,7 @@ use App\Mail\SendMail;
 
 class UserController extends Controller
 {
-    public function fetchUserProfile(Request $request)
+    public function getMyProfileInfo(Request $request)
     {
         $user = collect($request->attributes->get('user'));
 
@@ -27,7 +27,7 @@ class UserController extends Controller
         } catch (ModelNotFoundException $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching user profile.',
+                'message' => 'An error occurred while get user profile.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -75,7 +75,7 @@ class UserController extends Controller
         }
     }
 
-    public function fetchOtherUserProfile(Request $request, $uuid)
+    public function getOtherUserProfile(Request $request, $uuid)
     {
         try {
             $user = collect(User::where('uuid', $uuid)

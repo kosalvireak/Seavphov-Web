@@ -69,7 +69,7 @@ class CommentController extends Controller
         }
     }
 
-    public function fetchDiscussionComments(Request $request, $discussionId)
+    public function getCommentsOfDiscussion(Request $request, $discussionId)
     {
 
         try {

@@ -85,7 +85,7 @@ class DiscussionController extends Controller
 
 
 
-    public function fetchDiscussionById(Request $request, $id)
+    public function getDiscussionById(Request $request, $id)
     {
         try {
 
@@ -108,7 +108,7 @@ class DiscussionController extends Controller
     }
 
 
-    public function fetchDiscussions(Request $request)
+    public function getDiscussionsWithFilter(Request $request)
     {
         try {
             $title = $request->get('title');
@@ -148,7 +148,7 @@ class DiscussionController extends Controller
         }
     }
 
-    public function fetchMyDiscussions(Request $request)
+    public function getMyDiscussions(Request $request)
     {
         try {
             $user = $request->attributes->get('user');

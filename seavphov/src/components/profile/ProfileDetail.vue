@@ -45,7 +45,7 @@ export default {
             this.selectedComponent = "RenderMyBook";
             break;
           case "my-savedbooks":
-            this.selectedComponent = "RenderSavedBooks";
+            this.selectedComponent = "MySavedBooks";
             break;
           case "my-discussions":
             this.selectedComponent = "MyDiscussion";

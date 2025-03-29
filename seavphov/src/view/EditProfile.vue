@@ -187,7 +187,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.user = await ProfileController.fetchUserProfile();
+    this.user = await ProfileController.getMyProfileInfo();
     this.isLoading = false;
   },
 };

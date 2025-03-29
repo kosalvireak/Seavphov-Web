@@ -58,7 +58,7 @@ export default {
   methods: {
     async fetchBooks() {
       this.isLoading = true;
-      const response = await BookController.fetchBooksWithFilter(
+      const response = await BookController.getBooksWithFilter(
         {
           page: this.current_page,
         },

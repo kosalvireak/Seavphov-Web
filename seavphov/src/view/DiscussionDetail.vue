@@ -33,15 +33,15 @@ export default {
     },
   },
   methods: {
-    async getDiscussion(id) {
+    async getDiscussionById(id) {
       this.isLoading = true;
-      const response = await DiscussionController.fetchDiscussionById(id);
+      const response = await DiscussionController.getDiscussionById(id);
       this.discussion = response;
       this.isLoading = false;
     },
   },
   async created() {
-    await this.getDiscussion(this.paramsId);
+    await this.getDiscussionById(this.paramsId);
   },
 };
 </script>

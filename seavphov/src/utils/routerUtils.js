@@ -15,6 +15,9 @@ export const RouterMixin = {
       await this.$store.dispatch("logoutUser");
       this.toRouteName("login");
     },
+    isEqual(var1, var2) {
+      return JSON.stringify(var1) === JSON.stringify(var2);
+    }
   },
   computed: {
     isLogin() {

@@ -45,8 +45,8 @@ export default {
       async handler() {
         if (this.discussion_id === undefined) return;
         this.isLoading = true;
-        this.comments = await CommentController.fetchDiscussionComments(
-          this.discussion_id,
+        this.comments = await CommentController.getCommentsOfDiscussion(
+          this.discussion_id
         );
         this.isLoading = false;
       },

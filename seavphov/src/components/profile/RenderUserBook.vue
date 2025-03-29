@@ -26,7 +26,7 @@ export default {
     this.isLoading = true;
     let filters = { uuid: "12" };
     filters.uuid = this.uuid;
-    this.userBooks = await BookController.fetchBooksWithFilter(filters);
+    this.userBooks = await BookController.getBooksWithFilter(filters);
     this.isLoading = false;
   },
 };

@@ -30,7 +30,7 @@ class CopMemberRequestService
         // Extract user_ids from the cop members
         $userIds = $members->pluck('user_id');
 
-        // Fetch user details for all user_ids in a single query
+        // Get user details for all user_ids in a single query
         $users = User::whereIn('id', $userIds)
             ->select('id', 'name', 'uuid', 'picture') // Specify the fields you want to retrieve
             ->get();

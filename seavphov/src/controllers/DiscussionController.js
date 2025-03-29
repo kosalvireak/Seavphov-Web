@@ -6,7 +6,7 @@ const toast = useToast();
 const DiscussionRoute = "/api/discussions";
 
 export default class DiscussionController {
-  static async fetchDiscussions(filters) {
+  static async getDiscussionsWithFilter(filters) {
     const params = new URLSearchParams();
     if (filters.title) {
       params.append("title", filters.title);
@@ -27,7 +27,7 @@ export default class DiscussionController {
     }
   }
 
-  static async fetchMyDiscussions() {
+  static async getMyDiscussions() {
     try {
       const response = await getData(DiscussionRoute + "/my-discussions", true);
       if (response.data.success) {
@@ -37,7 +37,7 @@ export default class DiscussionController {
       toast.error(error.response.data.message);
     }
   }
-  static async fetchDiscussionById(id) {
+  static async getDiscussionById(id) {
     try {
       const response = await getData(DiscussionRoute + `/${id}`, true);
       if (response.data.success) {

@@ -65,7 +65,9 @@ export default {
     this.isLoading = true;
     let filters = { uuid: null };
     filters.uuid = this.uuid;
-    this.discussions = await DiscussionController.fetchDiscussions(filters);
+    this.discussions = await DiscussionController.getDiscussionsWithFilter(
+      filters
+    );
     this.isLoading = false;
   },
 };

@@ -6,7 +6,7 @@ const toast = useToast();
 const ProfileRoute = "/api/profile";
 
 export default class ProfileController {
-  static async fetchUserProfile() {
+  static async getMyProfileInfo() {
     try {
       const response = await getData(ProfileRoute, true);
       if (response.data.success) {
@@ -17,7 +17,7 @@ export default class ProfileController {
     }
   }
 
-  static async fetchOtherUserProfile(uuid) {
+  static async getOtherUserProfile(uuid) {
     try {
       const response = await getData(ProfileRoute + `/${uuid}`, true);
 

@@ -12,7 +12,7 @@
       </div>
       <div class="col-span-12 lg:col-span-6 mt-4 space-y-6 w-100">
         <form
-          class="container-xl p-0 rounded-lg d-flex flex-row relative"
+          class="p-0 rounded-lg d-flex flex-row relative"
           v-on:submit.prevent="fetchDiscussions()"
         >
           <MDBInput
@@ -84,15 +84,15 @@ export default {
       this.discussions = [];
       this.isLoading = true;
       this.filters.title = this.keyword;
-      const response = await DiscussionController.fetchDiscussions(
-        this.filters,
+      const response = await DiscussionController.getDiscussionsWithFilter(
+        this.filters
       );
       this.isLoading = false;
       this.discussions = response;
     },
     onDeleteDiscussion(id) {
       this.discussions = this.discussions.filter(
-        (discussion) => discussion.id !== id,
+        (discussion) => discussion.id !== id
       );
     },
   },

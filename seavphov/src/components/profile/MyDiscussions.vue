@@ -62,7 +62,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.discussions = await DiscussionController.fetchMyDiscussions();
+    this.discussions = await DiscussionController.getMyDiscussions();
     this.isLoading = false;
   },
 };

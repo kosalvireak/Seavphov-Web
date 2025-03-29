@@ -10,68 +10,72 @@ use Illuminate\Support\Facades\DB;
 
 class BannerController extends Controller
 {
-    public function adminGetBanners() {
+    public function adminGetBanners()
+    {
         try {
-        $banners = Banner::all();
-        
-           return response()->json([
-               'success' => true,
-               'data' => $banners,
-           ], 200);
-       } catch (QueryException  $exception) {
-           return response()->json([
-               'success' => false,
-               'message' => 'An error occurred while fetching banners.',
-               'error' => $exception->getMessage()
-           ], 500);
-       }
+            $banners = Banner::all();
+
+            return response()->json([
+                'success' => true,
+                'data' => $banners,
+            ], 200);
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while get banners.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
-    public function getBanner() {
+    public function getBanner()
+    {
         try {
 
-            $banner = collect(Banner::where('order_priority',1)->first());
-            $filteredData = $banner->except(['created_at','id','order_priority','updated_at']);
-            
+            $banner = collect(Banner::where('order_priority', 1)->first());
+            $filteredData = $banner->except(['created_at', 'id', 'order_priority', 'updated_at']);
+
             return response()->json([
                 'success' => true,
                 'data' => $filteredData,
             ], 200);
-       } catch (QueryException  $exception) {
-           return response()->json([
-               'success' => false,
-               'message' => 'An error occurred while fetching banner.',
-               'error' => $exception->getMessage()
-           ], 500);
-       }
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while get banner.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
-    public function changeSelectedBanner($id) {
+    public function changeSelectedBanner($id)
+    {
         try {
 
             DB::table('banners')->update([
                 'order_priority' => 0,
-                ]);
-            
-            $banner = Banner::where('id',$id)->first();
+            ]);
+
+            $banner = Banner::where('id', $id)->first();
             $banner->order_priority = 1;
             $banner->save();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Done',
             ], 200);
-       } catch (QueryException  $exception) {
-           return response()->json([
-               'success' => false,
-               'message' => 'An error occurred while fetching banner.',
-               'error' => $exception->getMessage()
-           ], 500);
-       }
+        } catch (QueryException  $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while get banner.',
+                'error' => $exception->getMessage()
+            ], 500);
+        }
     }
 
-    
-    public function adminAddBanner(Request $request) {
+
+    public function adminAddBanner(Request $request)
+    {
         try {
-            
+
             $validatedData = $request->validate([
                 'title' => 'required|string',
                 'order_priority' => 'required|int',
@@ -79,14 +83,14 @@ class BannerController extends Controller
                 'link_url' => 'nullable|string',
             ]);
 
-            if($validatedData['order_priority'] == 1){
+            if ($validatedData['order_priority'] == 1) {
                 DB::table('banners')->update([
                     'order_priority' => 0,
-                  ]);
+                ]);
             }
-            
+
             Banner::create($validatedData);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Done'
@@ -107,9 +111,9 @@ class BannerController extends Controller
     }
     public function adminDeleteBanner($id)
     {
-        try{
+        try {
             $banner = Banner::findOrFail($id);
-            if($banner->order_priority == 1){
+            if ($banner->order_priority == 1) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Cannot delete banner, it is selected as the main banner!',
@@ -118,7 +122,7 @@ class BannerController extends Controller
             $banner->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Deleted "'.$banner->title.'"',
+                'message' => 'Deleted "' . $banner->title . '"',
             ], 200);
         } catch (Exception  $exception) {
             return response()->json([
@@ -127,6 +131,5 @@ class BannerController extends Controller
                 'error' => $exception->getMessage()
             ], 500);
         }
-        
     }
 }

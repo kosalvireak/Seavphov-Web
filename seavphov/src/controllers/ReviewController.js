@@ -6,7 +6,7 @@ const toast = useToast();
 const ReviewRoute = "/api/review";
 
 export default class ReviewController {
-  static async fetchBookReviews(bookId) {
+  static async getReviewsOfBook(bookId) {
     try {
       const response = await getData(ReviewRoute + `/book/${bookId}`, true);
       if (response.data.success) {
@@ -17,7 +17,7 @@ export default class ReviewController {
     }
   }
 
-  static async fetchMyReviews() {
+  static async getMyReviews() {
     try {
       const response = await getData(ReviewRoute + "/my-reviews", true);
       if (response.data.success) {

@@ -80,7 +80,7 @@ class CopMemberService
 
     public static function getCopMembers($copId)
     {
-        // Fetch the cop members with role 1 (admins)
+        // Get the cop members with role 1 (admins)
         $copMembers = CopMember::where('cop_id', $copId)
             ->orderBy('created_at', 'desc')
             ->get(['user_id', 'role', 'created_at']); // Get user_id and role fields
@@ -88,7 +88,7 @@ class CopMemberService
         // Extract user_ids from the cop members
         $userIds = $copMembers->pluck('user_id');
 
-        // Fetch user details for all user_ids in a single query
+        // Get user details for all user_ids in a single query
         $users = User::whereIn('id', $userIds)
             ->select('id', 'name', 'uuid', 'picture') // Specify the fields you want to retrieve
             ->get();

@@ -10,7 +10,7 @@
         <p class="h4">Search & Filter</p>
         <form
           class="w-100 p-0 rounded-lg d-flex flex-col space-y-4"
-          v-on:submit.prevent="fetchCommunity()"
+          v-on:submit.prevent="searchCommunity()"
         >
           <div class="d-flex flex-row">
             <MDBInput
@@ -160,16 +160,14 @@ export default {
     };
   },
   methods: {
-    async fetchCommunity(page) {
+    async searchCommunity(page) {
       this.isLoading = true;
       let params = new URLSearchParams();
       params.append("name", this.name);
       params.append("visibility", this.visibility);
       params.append("role", this.role);
       params.append("page", page);
-      this.response = await CommunityController.fetchCommunityWithFilter(
-        params
-      ); // response is the pagination object
+      this.response = await CommunityController.searchCommunity(params); // response is the pagination object
       this.communities = this.response.data;
       this.current_page = this.response.current_page;
       this.last_page = this.response.last_page;
@@ -202,17 +200,17 @@ export default {
   },
   watch: {
     visibility() {
-      this.fetchCommunity();
+      this.searchCommunity();
     },
     role() {
-      this.fetchCommunity();
+      this.searchCommunity();
     },
     current_page(newVal) {
-      this.fetchCommunity(newVal);
+      this.searchCommunity(newVal);
     },
   },
   async mounted() {
-    await this.fetchCommunity();
+    await this.searchCommunity();
   },
 };
 </script>

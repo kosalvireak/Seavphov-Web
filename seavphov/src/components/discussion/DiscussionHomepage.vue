@@ -1,5 +1,5 @@
 <template>
-  <section class="DiscussionHomepage w-100 flex-center">
+  <section class="DiscussionHomepage container-xl flex-center">
     <div
       class="sp-bg-secondary container-xl d-flex flex-column justify-content-center align-items-center rounded-xl space-y-4"
     >

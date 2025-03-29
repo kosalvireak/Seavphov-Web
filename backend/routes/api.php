@@ -34,7 +34,7 @@ Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(f
 });
 
 Route::prefix('community')->group(function () {
-    Route::get('', [CommunityController::class, 'fetchCommunityWithFilter'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('', [CommunityController::class, 'searchCommunity'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
 
@@ -55,21 +55,21 @@ Route::prefix('community')->group(function () {
 });
 
 Route::prefix('books')->group(function () {
-    Route::get('',  [BookController::class, 'fetchBooksWithFilter']);
+    Route::get('',  [BookController::class, 'getBooksWithFilter']);
     Route::get('/banner',  [BannerController::class, 'getBanner']);
     Route::get('/newest',  [BookController::class, 'getNewest']);
     Route::get('/mostReviewed',  [BookController::class, 'getMostReviewed']);
     Route::get('/availability/{id}',  [BookController::class, 'changeAvailability'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('/{bookId}',  [BookController::class, 'fetchBookDetail'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/{bookId}',  [BookController::class, 'getBookDetailWithOwner'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::post('', [BookController::class, 'addBook'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('{id}', [BookController::class, 'deleteBook'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('review')->group(function () {
-    Route::get('/book/{id}', [BookReviewController::class, 'fetchBookReviews'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/book/{id}', [BookReviewController::class, 'getReviewsOfBook'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/like/{id}', [BookReviewController::class, 'likeReview'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('/my-reviews', [BookReviewController::class, 'fetchMyReviews'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/my-reviews', [BookReviewController::class, 'getMyReviews'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [BookReviewController::class, 'dislikeReview'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [BookReviewController::class, 'createReview'])->middleware([ApiTokenAuthentication::class]);
     Route::put('/edit/{id}', [BookReviewController::class, 'editReview'])->middleware([ApiTokenAuthentication::class]);
@@ -77,7 +77,7 @@ Route::prefix('review')->group(function () {
 });
 
 Route::prefix('comment')->group(function () {
-    Route::get('/discussion/{id}', [CommentController::class, 'fetchDiscussionComments'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/discussion/{id}', [CommentController::class, 'getCommentsOfDiscussion'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/like/{id}', [CommentController::class, 'likeComment'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [CommentController::class, 'dislikeComment'])->middleware([ApiTokenAuthentication::class]);
     Route::post('/add', [CommentController::class, 'createComment'])->middleware([ApiTokenAuthentication::class]);
@@ -86,9 +86,9 @@ Route::prefix('comment')->group(function () {
 });
 
 Route::prefix('discussions')->group(function () {
-    Route::get('', [DiscussionController::class, 'fetchDiscussions'])->middleware([OptionalApiTokenAuthentication::class]);
-    Route::get('/my-discussions', [DiscussionController::class, 'fetchMyDiscussions'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('{id}', [DiscussionController::class, 'fetchDiscussionById'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('', [DiscussionController::class, 'getDiscussionsWithFilter'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/my-discussions', [DiscussionController::class, 'getMyDiscussions'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{id}', [DiscussionController::class, 'getDiscussionById'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/like/{id}', [DiscussionController::class, 'likeDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/dislike/{id}', [DiscussionController::class, 'dislikeDiscussion'])->middleware([ApiTokenAuthentication::class]);
     Route::post('', [DiscussionController::class, 'createDiscussion'])->middleware([ApiTokenAuthentication::class]);
@@ -97,9 +97,9 @@ Route::prefix('discussions')->group(function () {
 });
 
 Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('', [UserController::class, 'fetchUserProfile']);
+    Route::get('', [UserController::class, 'getMyProfileInfo']);
     Route::put('', [UserController::class, 'modifyUserProfile']);
-    Route::get('{uuid}', [UserController::class, 'fetchOtherUserProfile']);
+    Route::get('{uuid}', [UserController::class, 'getOtherUserProfile']);
 });
 
 Route::prefix('user')->group(function () {

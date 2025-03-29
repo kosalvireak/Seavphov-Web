@@ -27,7 +27,7 @@ class AdminController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching books.',
+                'message' => 'An error occurred while get books.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -44,7 +44,7 @@ class AdminController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching books.',
+                'message' => 'An error occurred while get books.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -76,7 +76,7 @@ class AdminController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching users.',
+                'message' => 'An error occurred while get users.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -93,7 +93,7 @@ class AdminController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching books.',
+                'message' => 'An error occurred while get books.',
                 'error' => $exception->getMessage()
             ], 500);
         }
@@ -119,7 +119,7 @@ class AdminController extends Controller
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while fetching users.',
+                'message' => 'An error occurred while get users.',
                 'error' => $exception->getMessage()
             ], 500);
         }

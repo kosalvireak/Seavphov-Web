@@ -11,7 +11,7 @@ export default {
 <template>
   <div class="UserLayout flex-center flex-column w-100">
     <UserNavbar />
-    <RouterView />
+    <RouterView class="container-xl" />
     <Footer class="mt-8" />
   </div>
 </template>

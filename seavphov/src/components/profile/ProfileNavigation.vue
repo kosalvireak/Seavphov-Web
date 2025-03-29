@@ -54,7 +54,7 @@ export default {
     return {
       profileNavigation: [
         { key: "my-books", value: "My Books" },
-        { key: "my-savedbooks", value: "Saved Books" },
+        { key: "my-savedbooks", value: "My Saved Books" },
         { key: "my-reviews", value: "My Reviews" },
         { key: "my-discussions", value: "My Discussions" },
         { key: "my-comments", value: "My Comments" },

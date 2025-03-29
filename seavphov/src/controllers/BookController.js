@@ -41,7 +41,7 @@ export default class BookController {
     }
   }
 
-  static async fetchBookDetail(id) {
+  static async getBookDetailWithOwner(id) {
     try {
       const response = await getData(BookRoute + `/${id}`, true);
       if (response.data.success) {
@@ -99,7 +99,7 @@ export default class BookController {
   }
 
 
-  static async fetchBooksWithFilter(filters = {}, paginate = false) {
+  static async getBooksWithFilter(filters = {}, paginate = false) {
     const params = new URLSearchParams();
     if (filters.title) {
       params.append("title", filters.title);

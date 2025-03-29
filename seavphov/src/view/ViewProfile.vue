@@ -37,12 +37,12 @@ export default {
   },
   async mounted() {
     const uuid = this.$route.params.uuid;
-    this.fetchOtherUserProfile(uuid);
+    this.getOtherUserProfile(uuid);
   },
   methods: {
-    async fetchOtherUserProfile(uuid) {
+    async getOtherUserProfile(uuid) {
       this.isLoadingProfile = true;
-      this.User = await ProfileController.fetchOtherUserProfile(uuid);
+      this.User = await ProfileController.getOtherUserProfile(uuid);
       this.isLoadingProfile = false;
     },
     onSelectNavigation(navigation) {

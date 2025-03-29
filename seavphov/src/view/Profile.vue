@@ -48,7 +48,7 @@ export default {
   methods: {
     async getProfile() {
       this.isLoadingProfile = true;
-      this.User = await ProfileController.fetchUserProfile();
+      this.User = await ProfileController.getMyProfileInfo();
       this.isLoadingProfile = false;
     },
     onSelectNavigation(navigation) {

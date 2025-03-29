@@ -64,47 +64,56 @@ class BookReviewController extends Controller
     }
 
 
-    public function fetchMyReviews(Request $request)
+    public function getMyReviews(Request $request)
     {
-        $user = $request->attributes->get('user');
+        try {
 
-        $items = [];
-        $reviews = BookReview::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+            $user = $request->attributes->get('user');
 
-        foreach ($reviews as $review) {
-            $items[] = $review->getMyReview($user->id);
+            $items = [];
+            $reviews = BookReview::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+            foreach ($reviews as $review) {
+                $items[] = $review->getMyReview($user->id);
+            }
+
+            if (empty($items)) {
+                return ResponseUtil::Success('No reviews found',);
+            }
+
+            return ResponseUtil::Success('Successfully get your reviews', $items);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot get your review!', $exception->getMessage());
         }
-
-        if (empty($items)) {
-            return ResponseUtil::Success('No reviews found',);
-        }
-
-        return ResponseUtil::Success('Successfully get your reviews', $items);
     }
 
 
-    public function fetchBookReviews(Request $request, $bookId)
+    public function getReviewsOfBook(Request $request, $bookId)
     {
+        try {
 
-        $userId = null;
+            $userId = null;
 
-        // Check if the user attribute exists and get the user ID
-        if ($request->attributes->has('user')) {
-            $userId = $request->attributes->get('user')->id;
+            // Check if the user attribute exists and get the user ID
+            if ($request->attributes->has('user')) {
+                $userId = $request->attributes->get('user')->id;
+            }
+
+            $items = [];
+            $reviews = BookReview::where('book_id', $bookId)->orderBy('created_at', 'desc')->get();
+
+            foreach ($reviews as $review) {
+                $items[] = $review->getData($userId);
+            }
+
+            if (empty($items)) {
+                return ResponseUtil::Success('No reviews found',);
+            }
+
+            return ResponseUtil::Success('Successfully get book reviews', $items);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot get review of book!', $exception->getMessage());
         }
-
-        $items = [];
-        $reviews = BookReview::where('book_id', $bookId)->orderBy('created_at', 'desc')->get();
-
-        foreach ($reviews as $review) {
-            $items[] = $review->getData($userId);
-        }
-
-        if (empty($items)) {
-            return ResponseUtil::Success('No reviews found',);
-        }
-
-        return ResponseUtil::Success('Successfully get book reviews', $items);
     }
 
 

@@ -85,7 +85,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.reviews = await ReviewController.fetchMyReviews();
+    this.reviews = await ReviewController.getMyReviews();
     this.isLoading = false;
   },
 };

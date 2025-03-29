@@ -29,6 +29,7 @@
         <LoadingButton
           @click="editDiscussion()"
           :isLoading="isLoading"
+          :disabled="disableSave"
           text="Done"
           type="submit"
         />
@@ -48,13 +49,22 @@ export default {
       isLoading: false,
       isShowModal: true,
       formData: new FormData(),
+      discussion: {},
+      originalDiscussion: {},
     };
   },
   props: {
-    discussion: Object,
+    discussionProp: Object,
   },
-  mounted() {
+  created() {
+    this.discussion = JSON.parse(JSON.stringify(this.discussionProp)); // deep copy;
+    this.originalDiscussion = JSON.parse(JSON.stringify(this.discussionProp));
     this.formData.append("image", this.discussion.image);
+  },
+  computed: {
+    disableSave() {
+      return this.isEqual(this.discussion, this.originalDiscussion);
+    },
   },
   methods: {
     async editDiscussion() {
