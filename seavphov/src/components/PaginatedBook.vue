@@ -35,7 +35,7 @@
 
 <script>
 import RenderBook from "../components/RenderBook.vue";
-import axios from "axios";
+import BookController from "../controllers/BookController";
 export default {
   name: "PaginatedBook",
   components: { RenderBook },
@@ -44,7 +44,6 @@ export default {
       books: [],
       last_page: 5,
       current_page: 1,
-      path: import.meta.env.VITE_BACKEND_URL + "/api/books?page=",
       isLoading: false,
     };
   },
@@ -57,19 +56,18 @@ export default {
     },
   },
   methods: {
-    async fetchBooks(path) {
-      try {
-        this.isLoading = true;
-        const response = await axios.get(path);
-        if (response.data.success) {
-          this.books = response.data.message.data;
-          this.current_page = response.data.message.current_page;
-          this.last_page = response.data.message.last_page;
-        }
-        this.isLoading = false;
-      } catch (error) {
-        this.$toast.error(error.response.data.message);
-      }
+    async fetchBooks() {
+      this.isLoading = true;
+      const response = await BookController.fetchBooksWithFilter(
+        {
+          page: this.current_page,
+        },
+        true
+      );
+      this.books = response.data;
+      this.current_page = response.current_page;
+      this.last_page = response.last_page;
+      this.isLoading = false;
     },
     previous() {
       if (this.isDisabledPrev) return;
@@ -84,12 +82,12 @@ export default {
     },
   },
   watch: {
-    current_page(newVal, oldVal) {
-      this.fetchBooks(this.path + newVal);
+    current_page(newVal) {
+      this.fetchBooks();
     },
   },
   mounted() {
-    this.fetchBooks(this.path + this.current_page);
+    this.fetchBooks(this.current_page);
   },
 };
 </script>

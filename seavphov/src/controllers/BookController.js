@@ -98,7 +98,8 @@ export default class BookController {
     }
   }
 
-  static async fetchBooksWithFilter(filters) {
+
+  static async fetchBooksWithFilter(filters = {}, paginate = false) {
     const params = new URLSearchParams();
     if (filters.title) {
       params.append("title", filters.title);
@@ -118,22 +119,23 @@ export default class BookController {
     if (filters.uuid) {
       params.append("uuid", filters.uuid);
     }
-    if (filters.all) {
-      params.append("all", true);
-    }
     if (filters.max > 0) {
       params.append("max", filters.max);
     }
     if (filters.excludeId) {
       params.append("excludeId", filters.excludeId);
     }
+    if (filters.page) {
+      params.append("page", filters.page);
+    }
     try {
       const response = await getData(BookRoute + `?${params.toString()}`);
       if (response.data.success) {
-        if (filters.all) {
+        if (paginate) {
           return response.data.data;
         }
         return response.data.data.data;
+
       }
     } catch (error) {
       toast.error(error.response.data.message);

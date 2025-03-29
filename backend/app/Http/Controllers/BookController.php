@@ -42,7 +42,6 @@ class BookController extends Controller
     public function fetchBooksWithFilter(Request $request)
     {
 
-        $all = $request->get('all');
         $title = $request->get('title');
         $author = $request->get('author');
         $categories = $request->get('categories');
@@ -50,14 +49,6 @@ class BookController extends Controller
         $uuid = $request->get('uuid');
         $max = $request->get('max');
         $excludeId = $request->get('excludeId');
-
-        if ($all) {
-            $books = Book::all();
-            return response()->json([
-                'success' => true,
-                'message' => $books,
-            ], 200);
-        }
 
         $query = Book::query(); // Start with a base query
 
