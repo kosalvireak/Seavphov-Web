@@ -44,8 +44,8 @@ export default {
           case "my-books":
             this.selectedComponent = "RenderMyBook";
             break;
-          case "savedbooks":
-            this.selectedComponent = "MySavedBooks";
+          case "my-savedbooks":
+            this.selectedComponent = "RenderSavedBooks";
             break;
           case "my-discussions":
             this.selectedComponent = "MyDiscussion";
@@ -54,7 +54,7 @@ export default {
             this.selectedComponent = "MyReviews";
             break;
           case "my-comments":
-            this.selectedComponent = "MySavedBooks";
+            this.selectedComponent = "RenderSavedBooks";
             break;
 
           // view user profile

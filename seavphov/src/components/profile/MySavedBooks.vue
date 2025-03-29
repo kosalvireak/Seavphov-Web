@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import BookController from "../../controllers/BookController";
 import RenderBook from "../RenderBook.vue";
 export default {
   name: "MySavedBooks",
@@ -17,7 +18,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.savedBooks = await this.$store.dispatch("fetchSavedBook");
+    this.savedBooks = await BookController.getSavedBook();
     this.isLoading = false;
   },
 };

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\User;
 use App\Service\NotificationService;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -13,13 +15,14 @@ use Illuminate\Support\Facades\DB;
 
 class UserBookController extends Controller
 {
-    public function saveBook (Request $request, $bookId){
-        try{
+    public function saveBook(Request $request, $bookId)
+    {
+        try {
             $user = $request->attributes->get('user');
-            
+
             $book = Book::find($bookId);
 
-            if(!$book){
+            if (!$book) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Book not found!',
@@ -27,20 +30,20 @@ class UserBookController extends Controller
             }
 
             $isSaved = $user->savedBooks()->where('book_id', $bookId)->exists();
-            
+
             if ($isSaved) {
                 $user->savedBooks()->detach($bookId);
 
-                 // Unsave
+                // Unsave
                 return response()->json([
                     'success' => true,
                     'message' => 'Unsaved ' . $book->title,
-                ], 200); 
+                ], 200);
             } else {
                 $user->savedBooks()->attach($bookId, [
                     'created_at' => Carbon::now(),
                 ]);
-                
+
                 // Save
                 NotificationService::storeNotification($user->id, $book->owner_id, $book->id, 'saved your book!');
 
@@ -49,26 +52,22 @@ class UserBookController extends Controller
                     'message' => 'Saved ' . $book->title,
                 ], 201);
             }
-                    
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => 'Internal Server Error',
             ], 500);
         }
-      
     }
-    public function fetchSavedBook (Request $request){
+    public function getSavedBook(Request $request)
+    {
         try {
-            
+
             $user = $request->attributes->get('user');
-            
+
             $savedBooks = $user->savedBooks;
-        
-            return response()->json([
-                'success' => true,
-                'message' => $savedBooks,
-            ], 200);
+
+            return ResponseUtil::Success('Get saved book success', $savedBooks);
         } catch (QueryException  $exception) {
             return response()->json([
                 'success' => false,
@@ -78,10 +77,10 @@ class UserBookController extends Controller
         }
     }
     // public function getSavedBooksNotification (Request $request){
-       
+
     //     try {
-            
-            
+
+
     //         $owner = $request->attributes->get('user');
 
     //         $myBooks = $owner->books()->get();
@@ -111,8 +110,8 @@ class UserBookController extends Controller
     //             }
     //             }
     //         }
-            
-        
+
+
     //         return response()->json([
     //             'success' => true,
     //             'data' => $items,

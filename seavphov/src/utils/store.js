@@ -232,48 +232,8 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async getMyBooks() {
-      try {
-        const response = await getData("/api/auth/book", true);
-        if (response.data.success) {
-          return response.data.message;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async getMyBook({ }, id) {
-      try {
-        const response = await getData(`/api/auth/book/${id}`, true);
-        if (response.data.success) {
-          return response.data.message;
-        } else {
-          toast.error(response.data.message);
-        }
-      } catch (error) {
-        toast.error(error.response.message);
-      }
-    },
-    async fetchSavedBook() {
-      try {
-        const response = await getData("/api/saved", true);
-        if (response.data.success) {
-          return response.data.message;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async createBook({ }, formData) {
-      try {
-        const response = await postForm("/api/books", formData, true);
-        toast.success(response.data.message);
-        return response.data.bookId;
-      } catch (error) {
-        console.error("Error adding book:", error);
-        toast.error(error.response.data.message);
-      }
-    },
+
+
     async modifyBook({ }, formData) {
       try {
         let id = formData.get("id");

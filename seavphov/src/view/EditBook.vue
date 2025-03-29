@@ -102,6 +102,7 @@
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
 import NoLoggin from "../components/NoLoggin.vue";
+import BookController from "../controllers/BookController";
 export default {
   name: "EditBook",
   components: { NoLoggin, MDBInput },
@@ -143,7 +144,7 @@ export default {
       this.formData.append("images", url);
     },
     async getBook(id) {
-      const response = await this.$store.dispatch("getMyBook", id);
+      const response = await BookController.getMyBook(id);
       this.book.id = response.id;
       this.book.title = response.title;
       this.book.author = response.author;

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import BookController from "../../controllers/BookController";
 import MyBook from "./MyBook.vue";
 export default {
   name: "RenderMyBook",
@@ -52,7 +53,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.books = await this.$store.dispatch("getMyBooks");
+    this.books = await BookController.getMyBooks();
     this.isLoading = false;
   },
 };

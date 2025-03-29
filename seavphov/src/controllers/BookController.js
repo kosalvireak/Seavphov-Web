@@ -10,7 +10,7 @@ export default class BookController {
     try {
       const response = await getData(BookRoute + "/mostReviewed");
       if (response.data.success) {
-        return response.data.message;
+        return response.data.data;
       }
     } catch (error) {
       toast.error(error.message);
@@ -22,7 +22,7 @@ export default class BookController {
     try {
       const response = await getData(BookRoute + "/newest");
       if (response.data.success) {
-        return response.data.message;
+        return response.data.data;
       }
     } catch (error) {
       toast.error(error.message);
@@ -30,11 +30,22 @@ export default class BookController {
     }
   }
 
+  static async addBook(formData) {
+    try {
+      const response = await postForm(BookRoute, formData, true);
+      toast.success(response.data.message);
+      return response.data.data;
+    } catch (error) {
+      console.error("Error adding book:", error);
+      toast.error(error.response.data.message);
+    }
+  }
+
   static async fetchBookDetail(id) {
     try {
       const response = await getData(BookRoute + `/${id}`, true);
       if (response.data.success) {
-        return response.data;
+        return response.data.data;
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -49,6 +60,40 @@ export default class BookController {
       return response.data.success;
     } catch (error) {
       console.error("Error change book status:", error);
+      toast.error(error.response.data.message);
+    }
+  }
+
+  static async getMyBooks() {
+    try {
+      const response = await getData("/api/auth/book", true);
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  static async getMyBook(id) {
+    try {
+      const response = await getData(`/api/auth/book/${id}`, true);
+      if (response.data.success) {
+        return response.data.data;
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.message);
+    }
+  }
+  static async getSavedBook() {
+    try {
+      const response = await getData("/api/saved", true);
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
       toast.error(error.response.data.message);
     }
   }
@@ -86,9 +131,9 @@ export default class BookController {
       const response = await getData(BookRoute + `?${params.toString()}`);
       if (response.data.success) {
         if (filters.all) {
-          return response.data.message;
+          return response.data.data;
         }
-        return response.data.message.data;
+        return response.data.data.data;
       }
     } catch (error) {
       toast.error(error.response.data.message);

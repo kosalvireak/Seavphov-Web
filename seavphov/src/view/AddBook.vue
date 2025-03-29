@@ -5,7 +5,7 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="mb-4 text-gray font-bold">Create book</h4>
+      <h4 class="mb-4 text-gray font-bold">Add book</h4>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
@@ -98,6 +98,7 @@
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
 import NoLoggin from "../components/NoLoggin.vue";
+import BookController from "../controllers/BookController";
 export default {
   name: "AddBook",
   components: { NoLoggin, MDBInput },
@@ -125,7 +126,7 @@ export default {
       this.formData.append("condition", this.book.condition);
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
-      const response = await this.$store.dispatch("createBook", this.formData);
+      const response = await BookController.addBook(this.formData);
       this.$router.push({ path: `/home/${response}` });
       this.isLoading = false;
     },

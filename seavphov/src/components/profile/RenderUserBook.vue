@@ -6,7 +6,7 @@
 import RenderBook from "../RenderBook.vue";
 import BookController from "../../controllers/BookController";
 export default {
-  name: "MySavedBooks",
+  name: "RenderUserBook",
   components: {
     RenderBook,
   },
