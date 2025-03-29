@@ -1,6 +1,6 @@
 <template>
   <section
-    class="CommentItem container-xl w-100 rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
+    class="CommentItem rounded-lg p-2 space-y-2 ring-1 ring-gray-300 relative"
   >
     <!-- Comment header -->
     <a

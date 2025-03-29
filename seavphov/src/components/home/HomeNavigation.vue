@@ -1,5 +1,5 @@
 <template>
-  <section class="HomeNavigation container-xl flex flex-row h-14">
+  <section class="HomeNavigation flex flex-row h-14">
     <router-link
       v-for="tab in tabs"
       :key="tab.name"

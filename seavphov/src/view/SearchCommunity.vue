@@ -2,7 +2,7 @@
   <section class="Community">
     <HomeNavigation selectedTab="search-community" />
     <div
-      class="mt-8 container-xl grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
+      class="Search-Community-Container mt-8 grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
     >
       <div
         class="Filter w-100 card col-span-12 lg:col-span-3 space-y-4 p-2 !h-fit"
@@ -76,16 +76,19 @@
             />
           </div>
         </form>
-        <div class="d-flex align-items-center justify-content-end">
-          <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
-          <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
+        <div class="flex-center !justify-between">
+          <FwbButton @click="resetFilter()">Reset</FwbButton>
+          <div>
+            <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
+            <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
+          </div>
         </div>
-        <button
+        <LoadingButton
           @click="toRouteName('create-community')"
-          class="bg-sp-primary text-white p-2 rounded-lg"
+          class="rounded-lg"
         >
           Create Community
-        </button>
+        </LoadingButton>
       </div>
 
       <div class="Content col-span-12 lg:col-span-9">
@@ -173,6 +176,11 @@ export default {
       this.last_page = this.response.last_page;
       this.total = this.response.total;
       this.isLoading = false;
+    },
+    resetFilter() {
+      this.name = "";
+      this.visibility = "all";
+      this.role = "all";
     },
     previous() {
       if (this.isDisabledPrev) return;

@@ -1,5 +1,5 @@
 <template>
-  <section class="CreateCommunity container-xl w-100 mt-8">
+  <section class="CreateCommunity w-100 mt-8">
     <BackRoute />
     <div class="flex-center flex-col">
       <p class="h3">Create Community</p>
@@ -41,9 +41,13 @@
           <!-- Visibility -->
           <p>Visibility</p>
           <div class="mt-2">
-            <FwbButton @click="community.private = !community.private" :color="visibilityColor" class="px-2 text-xs">{{
-                visibilityText
-              }}</FwbButton>
+            <FwbButton
+              type="button"
+              @click="community.private = !community.private"
+              :color="visibilityColor"
+              class="px-2 text-xs"
+              >{{ visibilityText }}</FwbButton
+            >
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">

@@ -51,7 +51,7 @@ export default {
       let params = new URLSearchParams();
       params.append("route", this.route);
       this.community = await CommunityController.getCommunityByRoute(
-        this.route,
+        this.route
       );
 
       this.isLoading = false;
