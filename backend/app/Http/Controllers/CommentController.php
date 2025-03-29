@@ -3,9 +3,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Comment;
 use App\Models\Discussion;
-use App\Models\Reaction;
 use App\Service\NotificationService;
 use App\Service\ReactionService;
 use Exception;
@@ -26,23 +26,13 @@ class CommentController extends Controller
             $discussion->save();
 
             if ($comment->owner_id != $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No permission',
-                ], 403);
+                return ResponseUtil::NoPermission();
             }
 
             $comment->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Deleted comment Success',
-            ], 200);
+            return ResponseUtil::Success('Deleted comment Success');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot delete comment!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot delete comment!', $exception->getMessage());
         }
     }
     public function likeComment(Request $request, $commentId)
@@ -57,11 +47,7 @@ class CommentController extends Controller
 
             return ReactionService::likeEntity($comment, $comment->id, $user->id, 'comment');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot like comment!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot like comment!', $exception->getMessage());
         }
     }
 
@@ -79,71 +65,60 @@ class CommentController extends Controller
 
             return ReactionService::dislikeEntity($comment, $comment->id, $user->id, 'comment');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot dislike comment!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot dislike comment!', $exception->getMessage());
         }
     }
 
     public function fetchDiscussionComments(Request $request, $discussionId)
     {
 
-        $userId = null;
+        try {
+            $userId = null;
 
-        // Check if the user attribute exists and get the user ID
-        if ($request->attributes->has('user')) {
-            $userId = $request->attributes->get('user')->id;
+            // Check if the user attribute exists and get the user ID
+            if ($request->attributes->has('user')) {
+                $userId = $request->attributes->get('user')->id;
+            }
+
+            $items = [];
+            $comments = Comment::where('discussion_id', $discussionId)->get();
+
+            foreach ($comments as $comment) {
+                $items[] = $comment->getData($userId);
+            }
+
+            if (empty($items)) {
+                return ResponseUtil::Success('No comments found');
+            }
+
+            return ResponseUtil::Success('Successfully get comments of this discussion', $items);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot get comments of this discussion!', $exception->getMessage());
         }
-
-        $items = [];
-        $comments = Comment::where('discussion_id', $discussionId)->get();
-
-        foreach ($comments as $comment) {
-            $items[] = $comment->getData($userId);
-        }
-
-        if (empty($items)) {
-            return response()->json([
-                'success' => true,
-                'data' => [],
-                'message' => 'No comments found',
-            ], 200);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfully fetched discussion comments',
-            'data' => $items,
-        ], 200);
     }
 
     public function editComment(Request $request, $id)
     {
-        $user = $request->attributes->get('user');
-        $comment = Comment::findOrFail($id);
+        try {
+            $user = $request->attributes->get('user');
+            $comment = Comment::findOrFail($id);
 
-        if ($comment->owner_id != $user->id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No permission',
-            ], 403);
+            if ($comment->owner_id != $user->id) {
+                return ResponseUtil::NoPermission();
+            }
+
+            $validatedData = $request->validate([
+                'body' => 'required|string',
+            ]);
+            $body = $validatedData['body'];
+
+            $comment->body = $body;
+            $comment->save();
+
+            return ResponseUtil::Success('Successfully edited comment', $body);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot edit comment!', $exception->getMessage());
         }
-
-        $validatedData = $request->validate([
-            'body' => 'required|string',
-        ]);
-        $body = $validatedData['body'];
-
-        $comment->body = $body;
-        $comment->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Edited comment',
-            'data' => $body,
-        ], 200);
     }
 
     public function createComment(Request $request)
@@ -173,17 +148,10 @@ class CommentController extends Controller
 
             // receiver_id is book owner_id
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully added a comment',
-                'data' => $comment->getData(),
-            ], 200);
+
+            return ResponseUtil::Success('Successfully add a comment', $comment);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot add comment!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot add comment!', $exception->getMessage());
         }
     }
 }

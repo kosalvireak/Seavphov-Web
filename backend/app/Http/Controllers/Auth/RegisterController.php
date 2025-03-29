@@ -51,7 +51,7 @@ class RegisterController extends Controller
                 'success' => false,
                 'message' => 'User validation error!',
                 'error' => $exception->getMessage()
-            ], 442);
+            ], 422);
         } catch (Exception  $exception) {
             return response()->json([
                 'success' => false,

@@ -46,7 +46,7 @@ class CopMemberRequestService
         return $memberDetails;
     }
 
-    public static function isPendingRequest($copId, $userId)
+    public static function userInPendingRequest($copId, $userId)
     {
         $query = CopMembersRequest::query();
         $query->where('cop_id', $copId);

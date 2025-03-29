@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\ResponseUtil;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
-use Illuminate\Support\Facades\Auth;
 
 class ApiTokenAuthentication
 {
@@ -20,29 +20,20 @@ class ApiTokenAuthentication
     {
         $token = $request->bearerToken();
         if (!$token) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized: Missing token',
-            ], 401);
+            return ResponseUtil::Unauthorized('Unauthorized: Missing token');
         }
 
         $user = User::where('api_token', $token)->first();
-        
+
         if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized: Invalid token'
-            ], 401);
+            return ResponseUtil::Unauthorized('Unauthorized: Invalid token');
         }
 
         if (now()->gt($user->api_token_expires_at)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized: Token expired'
-            ], 401);
+            return ResponseUtil::Unauthorized('Unauthorized: Token expired');
         }
         $request->attributes->add(['user' => $user]);
-        
+
         return $next($request);
     }
 }

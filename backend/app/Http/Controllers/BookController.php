@@ -315,7 +315,6 @@ class BookController extends Controller
 
             $book = Book::findOrFail($id);
 
-
             if ($book->owner_id != $user->id) {
                 return response()->json([
                     'success' => false,

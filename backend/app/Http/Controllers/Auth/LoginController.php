@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\ResponseUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,37 +42,12 @@ class LoginController extends Controller
                 $user->generateToken();
             }
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Authentication succeeded',
-                'data' => $user->toArray(),
-            ], 201);
+            return ResponseUtil::Success('Authentication succeeded', $user);
         } else {
-            return $this->sendFailedLoginResponse($request);
+
+            $errors = ['error' => trans('auth.failed')];
+            return ResponseUtil::UnProcessable('Authentication failed', $errors);
         }
-    }
-
-    public function logout()
-    {
-        $user = Auth::guard('api')->user();
-
-        if ($user) {
-            $user->api_token = null;
-            $user->save();
-        }
-
-        return response()->json(['data' => 'User logged out.'], 200);
-    }
-
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        $errors = ['error' => trans('auth.failed')];
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Authentication failed',
-            'error' => $errors,
-        ], 422);
     }
 
     /**

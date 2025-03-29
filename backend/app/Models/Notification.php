@@ -20,13 +20,13 @@ class Notification extends Model
     public function getObjectImage()
     {
         if ($this->type == 'book') {
-            $book = Book::Find($this->object_id);
+            $book = Book::find($this->object_id);
             return $book != null ? $book->images : $this->getImageNotFound();
         } else if ($this->type == 'discussion') {
-            $discussion = Discussion::Find($this->object_id);
+            $discussion = Discussion::find($this->object_id);
             return $discussion != null ? $discussion->image : $this->getImageNotFound();
         } else if ($this->isCopNotification()) {
-            $cop = Community::Find($this->object_id);
+            $cop = Community::find($this->object_id);
             return $cop != null ? $cop->profile : $this->getImageNotFound();
         }
     }
@@ -34,7 +34,7 @@ class Notification extends Model
     public function getNotificationObjectId()
     {
         if ($this->isCopNotification()) {
-            $cop = Community::Find($this->object_id);
+            $cop = Community::find($this->object_id);
             return $cop != null ? $cop->route : null;
         } else {
             return $this->object_id;

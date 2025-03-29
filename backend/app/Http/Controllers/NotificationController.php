@@ -17,7 +17,7 @@ class NotificationController extends Controller
             $items = [];
 
             foreach ($notifications as $notification) {
-                $user = User::Find($notification->user_id);
+                $user = User::find($notification->user_id);
 
                 $items[] = [
                     'user_picture' =>  $user->picture,

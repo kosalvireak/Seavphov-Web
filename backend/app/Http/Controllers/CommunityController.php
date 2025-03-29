@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\ResponseUtil;
 use Illuminate\Http\Request;
 use Exception;
 use App\Models\Community;
-use App\Models\CopMember;
 use App\Models\User;
 use App\Service\CopMemberRequestService;
 use App\Service\CopMemberService;
 use App\Service\NotificationService;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\QueryException;
 
 class CommunityController extends Controller
@@ -19,52 +19,44 @@ class CommunityController extends Controller
 
     public function fetchCommunityWithFilter(Request $request)
     {
-
-        $name = $request->get('name');
-        $visibility = $request->get('visibility');
-        $role = $request->get('role');
-        $query = Community::query(); // Start with a base query
-
-        // Filter by name if name = "", it will return all
-        if ($name) {
-            $query->where('name', 'like', '%' . $name . '%');
-        }
-
-        // if visibility == all it won't filter
-        if ($visibility == 'private') { // Filter by visibility
-            $query->where('private', 1);
-        } else if ($visibility == 'public') {
-            $query->where('private', 0);
-        }
-
-
-        $user = $request->attributes->get('user');
-
-        if ($user) {
-            // Filter by role using a join with cop_members table
-            if ($role == 'admin' || $role == 'member') {
-                $query->whereHas('members', function ($query) use ($role, $user) {
-                    // Filter by role: admin (role = 1) or member (role = 2)
-                    $query->where('user_id', $user->id)
-                        ->where('role', $role == 'admin' ? 1 : 2);
-                });
-            }
-        }
-
-        $cops = $query->paginate(6); // Apply pagination 
-
         try {
-            return response()->json([
-                'success' => true,
-                'data' => $cops,
-                'message' => 'Fetch community success',
-            ], 200);
+
+            $name = $request->get('name');
+            $visibility = $request->get('visibility');
+            $role = $request->get('role');
+            $query = Community::query(); // Start with a base query
+
+            // Filter by name if name = "", it will return all
+            if ($name) {
+                $query->where('name', 'like', '%' . $name . '%');
+            }
+
+            // if visibility == all it won't filter
+            if ($visibility == 'private') { // Filter by visibility
+                $query->where('private', 1);
+            } else if ($visibility == 'public') {
+                $query->where('private', 0);
+            }
+
+
+            $user = $request->attributes->get('user');
+
+            if ($user) {
+                // Filter by role using a join with cop_members table
+                if ($role == 'admin' || $role == 'member') {
+                    $query->whereHas('members', function ($query) use ($role, $user) {
+                        // Filter by role: admin (role = 1) or member (role = 2)
+                        $query->where('user_id', $user->id)
+                            ->where('role', $role == 'admin' ? 1 : 2);
+                    });
+                }
+            }
+
+            $cops = $query->paginate(6); // Apply pagination 
+
+            return ResponseUtil::Success('Search community success', $cops);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching community.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot search community!', $exception->getMessage());
         }
     }
 
@@ -75,23 +67,12 @@ class CommunityController extends Controller
             $cop = Community::where('route', $route)->first();
 
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 404);
+                return ResponseUtil::NotFound('Community not found');
             };
 
-            return response()->json([
-                'success' => true,
-                'data' => $cop,
-                'message' => 'Fetch community success',
-            ], 200);
+            return ResponseUtil::Success('Get community success', $cop);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching community.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get community!', $exception->getMessage());
         }
     }
 
@@ -122,18 +103,10 @@ class CommunityController extends Controller
             // add user as cop admin
             $response = CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
             if ($response) {
-                return response()->json([
-                    'success' => true,
-                    'data' => $cop,
-                    'message' => 'Community created successfully',
-                ]);
+                return ResponseUtil::Success('Community created successfully', $cop);
             }
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot Create Community!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot Create Community!', $exception->getMessage());
         }
     }
 
@@ -141,37 +114,25 @@ class CommunityController extends Controller
     {
         try {
 
+            // TODO: CopAdmin Api
+
             $user = $request->attributes->get('user');
 
             $cop = Community::where('route', $route)->first();
 
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 404);
+                return ResponseUtil::NotFound('Community not found');
             };
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not admin of this community',
-                ], 404);
+                return ResponseUtil::Unauthorized('You are not admin of this community');
             }
 
             $copMember = CopMemberService::getCopMembers($cop->id);
 
-            return response()->json([
-                'success' => true,
-                'data' => $copMember,
-                'message' => 'Get Community members successfully',
-            ]);
+            return ResponseUtil::Success('Get Community members successfully', $copMember);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot get Community members!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get Community members!', $exception->getMessage());
         }
     }
 
@@ -181,37 +142,26 @@ class CommunityController extends Controller
     {
         try {
 
+            // TODO: CopAdmin Api
+
             $user = $request->attributes->get('user');
 
             $cop = Community::where('route', $route)->first();
 
+
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 404);
+                return ResponseUtil::NotFound('Community not found');
             };
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not admin of this community',
-                ], 404);
+                return ResponseUtil::Unauthorized('You are not admin of this community');
             }
 
             $memberRequests = CopMemberRequestService::getCopMemberRequest($cop->id);
 
-            return response()->json([
-                'success' => true,
-                'data' => $memberRequests,
-                'message' => 'Get Community member requests successfully',
-            ]);
+            return ResponseUtil::Success('Get Community member requests successfully', $memberRequests);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot get Community member requests!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get Community member requests!', $exception->getMessage());
         }
     }
 
@@ -224,69 +174,50 @@ class CommunityController extends Controller
 
             $cop = Community::where('route', $route)->first();
 
+
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 404);
+                return ResponseUtil::NotFound('Community not found');
             };
 
             // non login User View Cop
             if (!$user) {
-                return response()->json([
-                    'success' => true,
-                    'data' => [
-                        'isCopMember' => false,
-                        'isCopAdmin' => false,
-                        'isPrivate' => $cop->isPrivate(),
-                        'isPendingRequest' => false,
-                        'ableToViewHome' => false
-                    ],
-                    'message' => 'Non login User View Cop',
-                ], 200);
+                return ResponseUtil::Success('Non login User View Cop',  [
+                    'isCopMember' => false,
+                    'isCopAdmin' => false,
+                    'isPrivate' => $cop->isPrivate(),
+                    'userInPendingRequest' => false,
+                    'ableToViewHome' => false
+                ],);
             }
 
             $isCopMember = CopMemberService::isCopMember($user->id, $cop->id);
 
             $isCopAdmin = CopMemberService::isCopAdmin($user->id, $cop->id);
 
-            $isPendingRequest = CopMemberRequestService::isPendingRequest($cop->id, $user->id);
+            $userInPendingRequest = CopMemberRequestService::userInPendingRequest($cop->id, $user->id);
 
             // Check if the community is private and not a member or admin of cop
             if ($cop->isPrivate()) {
                 if (!$isCopMember && !$isCopAdmin) {
-                    return response()->json([
-                        'success' => true,
-                        'data' => [
-                            'isCopMember' => $isCopMember,
-                            'isCopAdmin' => $isCopAdmin,
-                            'isPrivate' => $cop->isPrivate(),
-                            'isPendingRequest' => $isPendingRequest,
-                            'ableToViewHome' => false
-                        ],
-                        'message' => 'No permission to view this community',
-                    ], 200);
+                    return ResponseUtil::Success('No permission to view this community',  [
+                        'isCopMember' => $isCopMember,
+                        'isCopAdmin' => $isCopAdmin,
+                        'isPrivate' => $cop->isPrivate(),
+                        'userInPendingRequest' => $userInPendingRequest,
+                        'ableToViewHome' => false
+                    ],);
                 }
             }
 
-
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'isCopMember' => $isCopMember,
-                    'isCopAdmin' => $isCopAdmin,
-                    'isPrivate' => $cop->isPrivate(),
-                    'isPendingRequest' => $isPendingRequest,
-                    'ableToViewHome' => true
-                ],
-                'message' => 'Get Community permission successfully',
-            ], 200);
+            return ResponseUtil::Success('Get Community permission successfully',  [
+                'isCopMember' => $isCopMember,
+                'isCopAdmin' => $isCopAdmin,
+                'isPrivate' => $cop->isPrivate(),
+                'userInPendingRequest' => $userInPendingRequest,
+                'ableToViewHome' => true
+            ],);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot get community permission!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get Community permission!', $exception->getMessage());
         }
     }
 
@@ -299,17 +230,11 @@ class CommunityController extends Controller
             $cop = Community::where('route', $route)->first();
 
             if (CopMemberService::isCopMember($user->id, $cop->id)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are already a member of this community',
-                ], 200);
+                return ResponseUtil::Success('You are already a member of this community');
             }
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are already an admin of this community',
-                ], 200);
+                return ResponseUtil::Success('You are already an admin of this community');
             }
 
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
@@ -321,17 +246,9 @@ class CommunityController extends Controller
 
             CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
 
-            return response()->json([
-                'success' => true,
-                'data' => 'Waiting admin approval',
-                'message' => 'Request to join community successfully',
-            ], 200);
+            return ResponseUtil::Success('Request to join community successfully');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot request to join community',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot request to join community!', $exception->getMessage());
         }
     }
 
@@ -345,17 +262,12 @@ class CommunityController extends Controller
             $cop = Community::where('route', $route)->first();
 
             if (CopMemberService::isCopMember($user->id, $cop->id)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are already a member of this community',
-                ], 200);
+
+                return ResponseUtil::Success('You are already a member of this community');
             }
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are already an admin of this community',
-                ], 200);
+                return ResponseUtil::Success('You are already an admin of this community');
             }
 
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
@@ -367,17 +279,9 @@ class CommunityController extends Controller
 
             CopMemberService::addUserAsCopMember($cop->id, $user->id);
 
-            return response()->json([
-                'success' => true,
-                'data' => null,
-                'message' => 'Join community successfully',
-            ], 200);
+            return ResponseUtil::Success('Join community successfully');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot Join community',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot Join community!', $exception->getMessage());
         }
     }
 
@@ -393,24 +297,16 @@ class CommunityController extends Controller
             $request_user = User::where('uuid', $uuid)->first();
 
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 200);
+                return ResponseUtil::NotFound('Community not found');
             };
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not an admin of this community',
-                ], 200);
+
+                return ResponseUtil::Unauthorized('You are not admin of this community');
             }
 
-            if (CopMemberRequestService::isPendingRequest($cop->id, $request_user->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No pending request',
-                ], 200);
+            if (CopMemberRequestService::userInPendingRequest($cop->id, $request_user->id) == false) {
+                return ResponseUtil::Success('No pending request');
             }
 
             CopMemberRequestService::deleteCopMemberRequest($cop->id, $request_user->id);
@@ -420,17 +316,10 @@ class CommunityController extends Controller
             NotificationService::storeApproveRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'approve your request to join ' . $cop->name);
 
             if ($response) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Approve member request successfully',
-                ], 200);
+                return ResponseUtil::Success('Approve member request successfully');
             }
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot approve member request',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot approve member request!', $exception->getMessage());
         }
     }
 
@@ -446,40 +335,25 @@ class CommunityController extends Controller
             $request_user = User::where('uuid', $uuid)->first();
 
             if (!$cop) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Community not found',
-                ], 200);
+                return ResponseUtil::NotFound('Community not found');
             };
 
             if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not an admin of this community',
-                ], 200);
+
+                return ResponseUtil::Success('You are already an admin of this community');
             }
 
-            if (CopMemberRequestService::isPendingRequest($cop->id, $request_user->id) == false) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No pending request',
-                ], 200);
+            if (CopMemberRequestService::userInPendingRequest($cop->id, $request_user->id) == false) {
+                return ResponseUtil::Success('No pending request');
             }
 
             CopMemberRequestService::deleteCopMemberRequest($cop->id, $request_user->id);
 
             NotificationService::storeRejectRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'reject your request to join ' . $cop->name);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Reject member request successfully',
-            ], 200);
+            return ResponseUtil::Success('Reject member request successfully');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot reject member request',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot reject member request!', $exception->getMessage());
         }
     }
 }

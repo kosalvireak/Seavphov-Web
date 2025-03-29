@@ -3,12 +3,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\BookReview;
 use App\Service\NotificationService;
 use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class BookReviewController extends Controller
 {
@@ -21,23 +23,13 @@ class BookReviewController extends Controller
             $review = BookReview::findOrFail($id);
 
             if ($review->user_id != $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No permission',
-                ], 403);
+                return ResponseUtil::NoPermission();
             }
 
             $review->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Deleted Review Success',
-            ], 200);
+            return ResponseUtil::Success('Deleted Review Success');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot delete Review!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot delete Review!');
         }
     }
     public function likeReview(Request $request, $reviewId)
@@ -52,11 +44,7 @@ class BookReviewController extends Controller
 
             return ReactionService::likeEntity($review, $review->id, $user->id, 'review');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot like review!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot like review!');
         }
     }
     public function dislikeReview(Request $request, $reviewId)
@@ -71,11 +59,7 @@ class BookReviewController extends Controller
 
             return ReactionService::dislikeEntity($review, $review->id, $user->id, 'review');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot dislike review!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot dislike review!', $exception->getMessage());
         }
     }
 
@@ -92,18 +76,10 @@ class BookReviewController extends Controller
         }
 
         if (empty($items)) {
-            return response()->json([
-                'success' => true,
-                'data' => [],
-                'message' => 'No reviews found',
-            ], 200);
+            return ResponseUtil::Success('No reviews found',);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfully fetched your reviews',
-            'data' => $items,
-        ], 200);
+        return ResponseUtil::Success('Successfully get your reviews', $items);
     }
 
 
@@ -125,46 +101,40 @@ class BookReviewController extends Controller
         }
 
         if (empty($items)) {
-            return response()->json([
-                'success' => true,
-                'data' => [],
-                'message' => 'No reviews found',
-            ], 200);
+            return ResponseUtil::Success('No reviews found',);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Successfully fetched book reviews',
-            'data' => $items,
-        ], 200);
+        return ResponseUtil::Success('Successfully get book reviews', $items);
     }
 
 
     public function editReview(Request $request, $id)
     {
-        $user = $request->attributes->get('user');
-        $review = BookReview::findOrFail($id);
+        try {
 
-        if ($review->user_id != $user->id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No permission',
-            ], 403);
+            $user = $request->attributes->get('user');
+            $review = BookReview::findOrFail($id);
+
+            if ($review->user_id != $user->id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No permission',
+                ], 403);
+                return ResponseUtil::NoPermission();
+            }
+
+            $validatedData = $request->validate([
+                'body' => 'required|string',
+            ]);
+            $body = $validatedData['body'];
+
+            $review->body = $body;
+            $review->save();
+
+            return ResponseUtil::Success('Successfully edited review', $body);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot edit review!', $exception->getMessage());
         }
-
-        $validatedData = $request->validate([
-            'body' => 'required|string',
-        ]);
-        $body = $validatedData['body'];
-
-        $review->body = $body;
-        $review->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Edited review',
-            'data' => $body,
-        ], 200);
     }
 
 
@@ -192,17 +162,10 @@ class BookReviewController extends Controller
 
             // receiver_id is book owner_id
             NotificationService::storeNotification($user->id, $book->owner_id, $book_id, 'added a review!');
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully added a review',
-                'data' => $review->getData(),
-            ], 200);
+
+            return ResponseUtil::Success('Successfully add a review', $review->getData());
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot add review!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot add review!', $exception->getMessage());
         }
     }
 }
