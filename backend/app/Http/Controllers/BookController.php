@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\User;
 use Exception;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,16 +20,9 @@ class BookController extends Controller
         try {
             $books = Book::orderBy('created_at', 'desc')->take(6)->get();
 
-            return response()->json([
-                'success' => true,
-                'message' => $books,
-            ], 200);
+            return ResponseUtil::Success('Get newest book success', $books);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching newest books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get newest book!', $exception->getMessage());
         }
     }
 
@@ -38,16 +34,9 @@ class BookController extends Controller
                 ->take(6) // Limit the result to the top 6 books
                 ->get();
 
-            return response()->json([
-                'success' => true,
-                'message' => $books,
-            ], 200);
+            return ResponseUtil::Success('Get most reviewed book success', $books);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching most review books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get most reviewed book!', $exception->getMessage());
         }
     }
     public function fetchBooksWithFilter(Request $request)
@@ -104,16 +93,9 @@ class BookController extends Controller
         }
 
         try {
-            return response()->json([
-                'success' => true,
-                'message' => $books,
-            ], 200);
+            return ResponseUtil::Success('Get filtered book success', $books);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get filtered book!', $exception->getMessage());
         }
     }
 
@@ -123,16 +105,9 @@ class BookController extends Controller
         $books = $user->books()->get();
 
         try {
-            return response()->json([
-                'success' => true,
-                'message' => $books,
-            ], 200);
+            return ResponseUtil::Success('Get my book success', $books);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get my book!', $exception->getMessage());
         }
     }
     public function getMyBook(Request $request, $id)
@@ -142,21 +117,11 @@ class BookController extends Controller
             $book = $user->book($id);
 
             if (!$book) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No permission',
-                ], 200);
+                return ResponseUtil::NoPermission();
             }
-            return response()->json([
-                'success' => true,
-                'message' => $book,
-            ], 200);
+            return ResponseUtil::Success('Get my book success', $book);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get my book!', $exception->getMessage());
         }
     }
 
@@ -164,7 +129,11 @@ class BookController extends Controller
     {
         try {
 
-            $book = Book::findOrFail($bookId);
+            $book = Book::find($bookId);
+
+            if (!$book) {
+                return ResponseUtil::NotFound('Book not found');
+            }
 
             $book->makeHidden(['owner_id', 'updated_at', 'created_at']);
 
@@ -186,27 +155,16 @@ class BookController extends Controller
             }
             $book->issaved = $issaved;
 
-            return response()->json([
-                'success' => true,
+            return ResponseUtil::Success('Get book detail success', [
                 'book' => $book,
                 'owner' => $book->owner(),
-            ], 200);
-        } catch (ModelNotFoundException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Book not found!',
-                'error' => $exception->getMessage()
-            ], 404);
+            ]);
         } catch (\Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Internal Server Error',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot get book detail!', $exception->getMessage());
         }
     }
 
-    public function createBook(Request $request)
+    public function addBook(Request $request)
     {
         $user = $request->attributes->get('user');
         try {
@@ -223,23 +181,9 @@ class BookController extends Controller
             $validatedData['owner_id'] = $user->id;
 
             $book = Book::create($validatedData);
-            return response()->json([
-                'success' => true,
-                'message' => 'Uploaded ' . $book->title,
-                'bookId' => $book->id
-            ], 201);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Book validation error!',
-                'error' => $exception->getMessage()
-            ], 442);
+            return ResponseUtil::Success('Add book success', $book->id);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot Upload Book!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot upload book!', $exception->getMessage());
         }
     }
 
@@ -251,10 +195,7 @@ class BookController extends Controller
             $book = Book::findOrFail($id);
 
             if ($book->owner_id != $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You do not have permission',
-                ], 403);
+                return ResponseUtil::NoPermission();
             }
 
             $validatedData = $request->validate([
@@ -268,16 +209,9 @@ class BookController extends Controller
             ]);
 
             $book->update($validatedData);
-            return response()->json([
-                'success' => true,
-                'message' => 'Updated ' . $book->title,
-            ], 200);
-        } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while fetching books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::Success('Update book success', 'Updated ' . $book->title);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot update book!', $exception->getMessage());
         }
     }
 
@@ -288,24 +222,14 @@ class BookController extends Controller
             $book = Book::findOrFail($id);
 
             if ($book->owner_id != $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You do not have permission',
-                ], 403);
+                return ResponseUtil::NoPermission();
             }
             $book->availability = !$book->availability;
             $book->save();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully changed availability',
-            ], 200);
+            return ResponseUtil::Success('Update availability success');
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot change Book!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot change availability!', $exception->getMessage());
         }
     }
     public function deleteBook(Request $request, $id)
@@ -316,23 +240,13 @@ class BookController extends Controller
             $book = Book::findOrFail($id);
 
             if ($book->owner_id != $user->id) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No permission',
-                ], 403);
+                return ResponseUtil::NoPermission();
             }
 
             $book->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Deleted "' . $book->title . '"',
-            ], 200);
+            return ResponseUtil::Success("Deleted " . $book->title);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot delete Book!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot delete book!', $exception->getMessage());
         }
     }
 }

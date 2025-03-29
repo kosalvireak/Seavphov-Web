@@ -61,7 +61,7 @@ Route::prefix('books')->group(function () {
     Route::get('/mostReviewed',  [BookController::class, 'getMostReviewed']);
     Route::get('/availability/{id}',  [BookController::class, 'changeAvailability'])->middleware([ApiTokenAuthentication::class]);
     Route::get('/{bookId}',  [BookController::class, 'fetchBookDetail'])->middleware([OptionalApiTokenAuthentication::class]);
-    Route::post('', [BookController::class, 'createBook'])->middleware([ApiTokenAuthentication::class]);
+    Route::post('', [BookController::class, 'addBook'])->middleware([ApiTokenAuthentication::class]);
     Route::put('{id}', [BookController::class, 'modifyBook'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('{id}', [BookController::class, 'deleteBook'])->middleware([ApiTokenAuthentication::class]);
 });
@@ -109,7 +109,7 @@ Route::prefix('user')->group(function () {
 
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('{bookId}', [UserBookController::class, 'saveBook']);
-    Route::get('', [UserBookController::class, 'fetchSavedBook']);
+    Route::get('', [UserBookController::class, 'getSavedBook']);
 });
 
 Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->group(function () {
