@@ -102,7 +102,7 @@ const store = createStore({
       }
     },
 
-    async resetPassword({}, formData) {
+    async resetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/", formData, true);
         if (response.data.success) {
@@ -144,7 +144,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBook({}, id) {
+    async adminDeleteBook({ }, id) {
       try {
         const response = await getData(`/api/admin/books/delete/${id}`, true);
         if (response.data.success) {
@@ -154,7 +154,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBanner({}, id) {
+    async adminDeleteBanner({ }, id) {
       try {
         const response = await getData(`/api/admin/banners/${id}`, true);
         if (response.data.success) {
@@ -164,7 +164,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async changeSelectedBanner({}, id) {
+    async changeSelectedBanner({ }, id) {
       try {
         const response = await getData(
           `/api/admin/banners/selected/${id}`,
@@ -220,7 +220,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminAddBanner({}, formData) {
+    async adminAddBanner({ }, formData) {
       try {
         const response = await postForm("/api/admin/banners/", formData, true);
         toast.success(response.data.message);
@@ -242,7 +242,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async getMyBook({}, id) {
+    async getMyBook({ }, id) {
       try {
         const response = await getData(`/api/auth/book/${id}`, true);
         if (response.data.success) {
@@ -264,7 +264,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async createBook({}, formData) {
+    async createBook({ }, formData) {
       try {
         const response = await postForm("/api/books", formData, true);
         toast.success(response.data.message);
@@ -274,7 +274,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async modifyBook({}, formData) {
+    async modifyBook({ }, formData) {
       try {
         let id = formData.get("id");
         const response = await postForm(`/api/books/${id}`, formData, true);
@@ -285,7 +285,7 @@ const store = createStore({
         return false;
       }
     },
-    async deleteBook({}, id) {
+    async deleteBook({ }, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);
         toast.success(response.data.message);
@@ -295,7 +295,7 @@ const store = createStore({
         return false;
       }
     },
-    async toggleSaveBook({}, bookId) {
+    async toggleSaveBook({ }, bookId) {
       try {
         const response = await getData(`/api/saved/${bookId}`, true);
         if (response.data.success) {
@@ -318,7 +318,7 @@ const store = createStore({
         return false;
       }
     },
-    async sendEmailResetPassword({}, formData) {
+    async sendEmailResetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/send", formData, true);
         if (response.data.success) {
@@ -330,7 +330,7 @@ const store = createStore({
         return false;
       }
     },
-    async likeReview({}, reviewId) {
+    async likeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/like/${reviewId}`, true);
         if (response.data.success) {
@@ -342,7 +342,7 @@ const store = createStore({
         return false;
       }
     },
-    async dislikeReview({}, reviewId) {
+    async dislikeReview({ }, reviewId) {
       try {
         const response = await getData(`/api/review/dislike/${reviewId}`, true);
         if (response.data.success) {
@@ -355,7 +355,7 @@ const store = createStore({
       }
     },
 
-    async likeDiscussion({}, discussionId) {
+    async likeDiscussion({ }, discussionId) {
       try {
         const response = await getData(
           `/api/discussions/like/${discussionId}`,
@@ -370,7 +370,7 @@ const store = createStore({
         return false;
       }
     },
-    async dislikeDiscussion({}, discussionId) {
+    async dislikeDiscussion({ }, discussionId) {
       try {
         const response = await getData(
           `/api/discussions/dislike/${discussionId}`,
@@ -385,7 +385,7 @@ const store = createStore({
         return false;
       }
     },
-    async likeComment({}, commentId) {
+    async likeComment({ }, commentId) {
       try {
         const response = await getData(`/api/comment/like/${commentId}`, true);
         if (response.data.success) {
@@ -397,7 +397,7 @@ const store = createStore({
         return false;
       }
     },
-    async dislikeComment({}, commentId) {
+    async dislikeComment({ }, commentId) {
       try {
         const response = await getData(
           `/api/comment/dislike/${commentId}`,
