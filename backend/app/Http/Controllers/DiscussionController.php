@@ -215,7 +215,7 @@ class DiscussionController extends Controller
             ]);
 
 
-            return ResponseUtil::Success('Successfully added a discussion', $discussion->getData());
+            return ResponseUtil::Success('Successfully added a discussion', $discussion->getData($user->id));
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot add discussion!', $exception->getMessage());
         }

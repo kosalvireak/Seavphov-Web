@@ -7,7 +7,7 @@
       <Loader :size="40" />
     </div>
     <template v-else>
-      <div class="d-flex gap-4 flex-wrap justify-content-center">
+      <div class="d-flex gap-4 flex-wrap justify-content-evenly">
         <Book v-for="book in books" :book="book" :key="book.id" />
       </div>
     </template>

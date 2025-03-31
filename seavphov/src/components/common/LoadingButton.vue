@@ -28,6 +28,7 @@ export default {
   <button
     :type="type"
     :disabled="shouldDisabled"
+    :class="{ '!cursor-not-allowed': shouldDisabled }"
     class="min-h-9 btn btn-primary flex-center sp-btn-loading"
     :style="{ 'background-color': 'var(' + backgroundColor + ')' }"
   >

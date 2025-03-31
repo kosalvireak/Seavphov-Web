@@ -13,12 +13,12 @@
       <ul class="py-2 mt-0 w-fit">
         <li>
           <p :class="dropdownItemCss" @click="toRouteName('profile')">
-            My Profile
+            My profile
           </p>
         </li>
         <li>
           <p :class="dropdownItemCss" @click="toRouteName('edit-profile')">
-            Profile Setting
+            Profile settings
           </p>
         </li>
         <li>

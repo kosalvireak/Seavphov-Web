@@ -77,7 +77,9 @@
           </div>
         </form>
         <div class="flex-center !justify-between">
-          <FwbButton @click="resetFilter()">Reset</FwbButton>
+          <FwbButton @click="resetFilter()" :disabled="isDefaultFilter"
+            >Reset</FwbButton
+          >
           <div>
             <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
             <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
@@ -86,6 +88,7 @@
         <LoadingButton
           @click="toRouteName('create-community')"
           class="rounded-lg"
+          :disabled="true"
         >
           Create Community
         </LoadingButton>
@@ -196,6 +199,9 @@ export default {
     },
   },
   computed: {
+    isDefaultFilter() {
+      return this.name == "" && this.visibility == "all" && this.role == "all";
+    },
     isDisabledNext() {
       return this.current_page == this.last_page;
     },
