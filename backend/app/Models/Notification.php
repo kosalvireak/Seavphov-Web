@@ -31,13 +31,33 @@ class Notification extends Model
         }
     }
 
-    public function getNotificationObjectId()
+    public function getNotificationUrl()
     {
-        if ($this->isCopNotification()) {
-            $cop = Community::find($this->object_id);
-            return $cop != null ? $cop->route : null;
+        if ($this->type == "book" || $this->type == "discussion") {
+            return "/" . $this->type . "/" . $this->object_id;
+        } else if ($this->isCopNotification()) {
+            return $this->getCopNotificationUrl();
         } else {
-            return $this->object_id;
+            return null;
+        }
+    }
+
+    private function getCopNotificationUrl(): string
+    {
+        $cop = Community::find($this->object_id);
+        switch ($this->type) {
+            case 'request-to-join-cop':
+                return "/community/" . $cop->route . "/members#tabs=member-requests";
+
+            case 'join-cop':
+                return "/community/" . $cop->route . "/members";
+
+            case 'approve-cop-join-request':
+            case 'reject-cop-join-request':
+                return "/community/" . $cop->route;
+
+            default:
+                return "";
         }
     }
 

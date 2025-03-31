@@ -234,17 +234,6 @@ const store = createStore({
     },
 
 
-    async modifyBook({ }, formData) {
-      try {
-        let id = formData.get("id");
-        const response = await postForm(`/api/books/${id}`, formData, true);
-        toast.success(response.data.message);
-      } catch (error) {
-        console.error("Error adding book:", error);
-        toast.error(error.response.data.message);
-        return false;
-      }
-    },
     async deleteBook({ }, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);

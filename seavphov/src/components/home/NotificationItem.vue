@@ -2,7 +2,7 @@
   <div
     class="NotificationItem w-100 py-2 hover:bg-gray-200 transition duration-300 ease-in-out"
   >
-    <a class="notification-list text-black" :href="routePath">
+    <a class="notification-list text-black" :href="item.url">
       <div class="grid grid-cols-12 items-center px-2">
         <img
           :src="item.user_picture"
@@ -34,26 +34,6 @@ export default {
   name: "NotificationItem",
   props: {
     item: Object,
-  },
-  methods: {
-    getDateDisplay(date) {},
-  },
-  computed: {
-    routePath() {
-      if (this.item.type == "request-to-join-cop") {
-        return `/community/${this.item.object_id}/members#tabs=member-requests`;
-      } else if (this.item.type == "join-cop") {
-        return `/community/${this.item.object_id}/members`;
-      } else if (
-        ["approve-cop-join-request", "reject-cop-join-request"].includes(
-          this.item.type
-        )
-      ) {
-        return `/community/${this.item.object_id}`;
-      } else {
-        return `/${this.item.type}/${this.item.object_id}`;
-      }
-    },
   },
 };
 </script>

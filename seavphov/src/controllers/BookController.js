@@ -143,6 +143,18 @@ export default class BookController {
     }
   }
 
+
+  static async modifyBook(formData) {
+    try {
+      let id = formData.get("id");
+      const response = await postForm(`/api/books/${id}`, formData, true);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.response);
+      return false;
+    }
+  }
+
   static async getBanner() {
     try {
       const response = await getData(BookRoute + "/banner");

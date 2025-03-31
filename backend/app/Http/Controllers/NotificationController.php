@@ -24,9 +24,9 @@ class NotificationController extends Controller
                     'user_name' =>  $user->name,
                     'object_image' => $notification->getObjectImage(),
                     'body' => $notification->body,
-                    'object_id' =>  $notification->getNotificationObjectId(),
                     'type' => $notification->type,
                     'date' => $notification->created_at,
+                    'url' => $notification->getNotificationUrl()
                 ];
             }
             return response()->json([

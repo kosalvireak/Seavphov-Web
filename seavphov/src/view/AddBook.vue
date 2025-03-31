@@ -5,7 +5,7 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <h4 class="mb-4 text-gray font-bold">Add book</h4>
+      <p class="h3">Add book</p>
 
       <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
         <div class="col-12 col-md-6">
@@ -82,7 +82,7 @@
           <ImageUpload @image-uploaded="handleImageChange" />
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <LoadingButton :isLoading="isLoading" text="Add Book" type="submit" />
+          <LoadingButton :isLoading="isLoading" text="Add" type="submit" />
         </div>
       </form>
     </div>
@@ -127,7 +127,7 @@ export default {
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
       const response = await BookController.addBook(this.formData);
-      this.$router.push({ path: `/home/${response}` });
+      this.$router.push({ path: `/book/${response}` });
       this.isLoading = false;
     },
     handleImageChange(url) {

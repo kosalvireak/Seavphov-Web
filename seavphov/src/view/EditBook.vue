@@ -135,7 +135,7 @@ export default {
       this.formData.append("condition", this.book.condition);
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
-      await this.$store.dispatch("modifyBook", this.formData);
+      await BookController.modifyBook(this.formData);
       this.$router.push({ path: `/book/${this.paramsId}` });
       this.isLoading = false;
     },
@@ -152,7 +152,8 @@ export default {
       this.book.descriptions = response.descriptions;
       this.book.condition = response.condition;
       this.book.categories = response.categories;
-      console.log("this.book", this.book);
+
+      this.formData.append("images", response.images);
     },
   },
   async mounted() {
