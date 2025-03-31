@@ -10,6 +10,7 @@
         <div class="mb-4">
           <p>Cover image</p>
           <ImageUpload
+            id="cover"
             @image-uploaded="onUploadCover"
             :initialImage="user.cover"
             :filled="true"
@@ -19,6 +20,7 @@
           <div class="mb-4">
             <p>Profile image</p>
             <ImageUpload
+              id="profile"
               @image-uploaded="onUploadPicture"
               :initialImage="user.picture"
             />
@@ -194,23 +196,4 @@ export default {
 </script>
 
 <style scoped>
-.cover_image {
-  object-fit: cover;
-}
-
-.custom-file-upload {
-  display: inline-block;
-  padding: 2px 7px;
-  cursor: pointer;
-  color: #4f4f4f;
-  background-color: #fff;
-  border-radius: 5px;
-  position: absolute;
-  margin: 2px 0px 0px 1px;
-}
-
-.btn {
-  background-color: #5c836e;
-  color: #fff;
-}
 </style>

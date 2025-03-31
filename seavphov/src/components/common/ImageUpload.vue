@@ -3,7 +3,8 @@
     class="ImageUpload w-full relative clickable flex-center h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 p-1"
   >
     <input
-      id="dropzone-file"
+      :id="`dropzone-file-${id}`"
+      name="`dropzone-file-${id}`"
       type="file"
       class="clickable absolute top-0 left-0 right-0 bottom-0 w-full h-full block opacity-0"
       @change="handleImageChange"
@@ -15,7 +16,7 @@
       @drop.prevent="handleDrop"
     >
       <label
-        for="dropzone-file"
+        :for="`dropzone-file-${id}`"
         class="flex flex-col items-center justify-center w-full"
       >
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -74,7 +75,8 @@
         @click="triggerFileInput"
       />
       <input
-        id="hidden-file-input"
+        :id="`hidden-file-input-${id}`"
+        :name="`hidden-file-input-${id}`"
         type="file"
         class="hidden"
         @change="handleImageChange"
@@ -90,6 +92,10 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export default {
   name: "ImageUpload",
   props: {
+    id: {
+      type: String,
+      default: "image",
+    },
     initialImage: String,
     filled: {
       type: Boolean,
@@ -112,7 +118,7 @@ export default {
           const storageRef = ref(storage, `folder/${selectedFile.name}`);
           const imageUpload = await uploadBytes(storageRef, selectedFile);
           const url = await getDownloadURL(
-            ref(storage, imageUpload.metadata.fullPath),
+            ref(storage, imageUpload.metadata.fullPath)
           );
           this.imageUrl = url;
           this.$emit("imageUploaded", url);
@@ -131,7 +137,7 @@ export default {
       }
     },
     triggerFileInput() {
-      document.getElementById("hidden-file-input").click();
+      document.getElementById(`hidden-file-input-${this.id}`).click();
     },
   },
 };
