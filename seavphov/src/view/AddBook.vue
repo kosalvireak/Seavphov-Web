@@ -1,5 +1,5 @@
 <template>
-  <div class="AddBook w-100 mb-4 container-xl mt-8">
+  <div class="AddBook w-100 container-xl mt-8">
     <BackRoute />
     <div
       v-if="true"
@@ -7,9 +7,16 @@
     >
       <p class="h3">Add book</p>
 
-      <form style="width: 100%" v-on:submit.prevent="AddBook()" class="row">
-        <div class="col-12 col-md-6">
-          <div class="mb-4">
+      <form
+        style="width: 100%"
+        v-on:submit.prevent="AddBook()"
+        class="row flex-center"
+      >
+        <div class="col-12 col-md-6 space-y-4">
+          <div class="">
+            <ImageUpload id="book-images" @image-uploaded="handleImageChange" />
+          </div>
+          <div class="">
             <MDBInput
               type="text"
               label="Title"
@@ -19,7 +26,7 @@
               required
             />
           </div>
-          <div class="mb-4">
+          <div class="">
             <MDBInput
               type="text"
               label="Author"
@@ -29,7 +36,7 @@
               required
             />
           </div>
-          <div class="mb-4">
+          <div class="">
             <MDBInput
               type="text"
               label="Descriptions"
@@ -39,7 +46,7 @@
               required
             />
           </div>
-          <div class="input-group mb-4">
+          <div class="input-group">
             <label
               class="input-group-text h-3rem"
               for="condition"
@@ -57,7 +64,7 @@
             </select>
           </div>
 
-          <div class="input-group mb-4">
+          <div class="input-group">
             <label
               class="input-group-text h-3rem"
               for="categories"
@@ -77,9 +84,16 @@
               <option value="Fantasy">Fantasy</option>
             </select>
           </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <ImageUpload @image-uploaded="handleImageChange" />
+          <div class="pdf-section">
+            <FwbToggle
+              v-model="book.has_pdf"
+              label="Has PDF?"
+              reverse
+              color="blue"
+            />
+
+            <ImageUpload id="pdf-url" @image-uploaded="handlePDFChange" />
+          </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <LoadingButton :isLoading="isLoading" text="Add" type="submit" />
@@ -96,12 +110,13 @@
 </template>
 
 <script>
+import { FwbToggle } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import NoLoggin from "../components/NoLoggin.vue";
 import BookController from "../controllers/BookController";
 export default {
   name: "AddBook",
-  components: { NoLoggin, MDBInput },
+  components: { NoLoggin, MDBInput, FwbToggle },
   data() {
     return {
       book: {
@@ -111,6 +126,7 @@ export default {
         descriptions: "",
         condition: "Good",
         categories: "Novel",
+        has_pdf: false,
       },
       isLoading: false,
       formData: new FormData(),
@@ -126,6 +142,7 @@ export default {
       this.formData.append("condition", this.book.condition);
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
+      this.formData.append("has_pdf", this.book.has_pdf);
       const response = await BookController.addBook(this.formData);
       this.$router.push({ path: `/book/${response}` });
       this.isLoading = false;
@@ -133,6 +150,9 @@ export default {
     handleImageChange(url) {
       this.book.images = url;
       this.formData.append("images", url);
+    },
+    handlePDFChange(url) {
+      this.formData.append("pdf_url", url);
     },
   },
 };

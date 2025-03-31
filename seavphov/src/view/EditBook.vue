@@ -6,10 +6,21 @@
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <p class="h4 mb-4">Edit book</p>
+      <p class="h3 mb-4">Edit book</p>
 
-      <form style="width: 100%" v-on:submit.prevent="modifyBook()" class="row">
+      <form
+        style="width: 100%"
+        v-on:submit.prevent="modifyBook()"
+        class="row flex-center"
+      >
         <div class="col-12 col-md-6">
+          <div class="mb-4">
+            <ImageUpload
+              v-if="book.images"
+              @image-uploaded="onUploadBookImage"
+              :initialImage="book.images"
+            />
+          </div>
           <div class="mb-4">
             <MDBInput
               type="text"
@@ -74,15 +85,6 @@
               <option value="Science">Science</option>
               <option value="Fantasy">Fantasy</option>
             </select>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="mb-4">
-            <ImageUpload
-              v-if="book.images"
-              @image-uploaded="onUploadBookImage"
-              :initialImage="book.images"
-            />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">

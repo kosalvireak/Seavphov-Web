@@ -10,6 +10,10 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'has_pdf' => 'boolean', // Explicitly cast 'has_pdf' to boolean
+    ];
+
     protected $fillable = [
         'title',
         'author',
