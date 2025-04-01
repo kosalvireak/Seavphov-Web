@@ -14,7 +14,7 @@
     </button>
     <div
       ref="content"
-      class="whitespace-nowrap absolute w-auto z-50 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+      class="container-xl whitespace-nowrap absolute w-auto z-50 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
       :class="[cssContent, position]"
       :id="id_content"
     >
@@ -34,6 +34,10 @@ export default {
     id_content: {
       type: String,
       default: "dropdown-toggle",
+    },
+    disabledListener: {
+      type: Boolean,
+      default: false,
     },
     cssContent: String,
     cssButton: String,
@@ -84,7 +88,9 @@ export default {
     },
   },
   mounted() {
-    document.addEventListener("click", this.closeDropdown);
+    if (!this.disabledListener) {
+      document.addEventListener("click", this.closeDropdown);
+    }
   },
   beforeDestroy() {
     document.removeEventListener("click", this.closeDropdown);

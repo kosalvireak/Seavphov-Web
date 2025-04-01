@@ -17,6 +17,7 @@
           <Dropdown
             id="notification-dropdown"
             id_content="notification-dropdown_content"
+            :disabled-listener="true"
             cssContent="sp-top-4 "
           >
             <template #button>
