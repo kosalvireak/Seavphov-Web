@@ -149,7 +149,7 @@ const router = createRouter({
               path: "new",
               name: "add-book",
               component: AddBook,
-              meta: { requiresCookie: true, title: appName + " - Create Book" },
+              // meta: { requiresCookie: true, title: appName + " - Create Book" },
             },
             {
               path: "edit/:id",

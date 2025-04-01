@@ -91,10 +91,10 @@
                 v-model="book.has_pdf"
                 label="Has PDF?"
                 reverse
-                color="blue"
+                color="orange"
             />
 
-            <ImageUpload id="pdf-url" @image-uploaded="handlePDFChange" />
+            <PdfUpload id="pdf-url" @pdf-uploaded="handlePDFChange" />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center mt-8">

@@ -7,6 +7,7 @@
       name="`dropzone-file-${id}`"
       type="file"
       class="clickable absolute top-0 left-0 right-0 bottom-0 w-full h-full block opacity-0"
+      accept="image/jpeg, image/png, image/gif"
       @change="handleImageChange"
     />
     <div
@@ -37,6 +38,9 @@
           </svg>
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
             <span class="font-semibold">Click to upload</span> or drag and drop
+          </p>
+          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            File Formats Accepted: <span class="font-semibold">PNG, JPG, JPEG, GIF</span>
           </p>
         </div>
       </label>
@@ -79,6 +83,7 @@
         :name="`hidden-file-input-${id}`"
         type="file"
         class="hidden"
+        accept="image/jpeg, image/png, image/gif"
         @change="handleImageChange"
       />
     </div>
@@ -114,6 +119,13 @@ export default {
       this.imageUrl = "";
       try {
         const selectedFile = event.target.files[0];
+
+        // Validate file type (only allow JPEG, PNG, and GIF)
+        const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+        if (!allowedTypes.includes(selectedFile.type)) {
+          throw new Error("Only JPEG, PNG, and GIF files are allowed.");
+        }
+
         if (selectedFile) {
           const storageRef = ref(storage, `folder/${selectedFile.name}`);
           const imageUpload = await uploadBytes(storageRef, selectedFile);

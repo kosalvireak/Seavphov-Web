@@ -33,6 +33,7 @@ import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
 import LoadingButton from "./components/common/LoadingButton.vue";
 import ImageUpload from "./components/common/ImageUpload.vue";
+import PdfUpload from "./components/common/PdfUpload.vue";
 import HomeNavigation from "./components/home/HomeNavigation.vue";
 import Info from "./components/common/Info.vue";
 
@@ -63,6 +64,7 @@ app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);
 app.component("ImageUpload", ImageUpload);
+app.component("PdfUpload", PdfUpload);
 app.component("HomeNavigation", HomeNavigation);
 app.component("Info", Info);
 

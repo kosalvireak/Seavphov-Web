@@ -77,7 +77,7 @@
           </div>
         </form>
         <div class="flex-center !justify-between">
-          <FwbButton @click="resetFilter()" :disabled="isDefaultFilter"
+          <FwbButton @click="resetFilter()" :disabled="isDefaultFilter" color="yellow"
             >Reset</FwbButton
           >
           <div>
