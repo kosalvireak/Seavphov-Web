@@ -1,12 +1,12 @@
 <template>
-  <div class="AddBook w-100  mt-8 container-xl">
+  <div class="AddBook w-100 mt-8 container-xl">
     <BackRoute />
 
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <p class="h3 ">Edit book</p>
+      <p class="h3">Edit book</p>
 
       <form
         style="width: 100%"
@@ -52,7 +52,7 @@
               required
             />
           </div>
-          <div class="input-group ">
+          <div class="input-group">
             <label
               class="input-group-text"
               for="condition"
@@ -66,7 +66,7 @@
             </select>
           </div>
 
-          <div class="input-group ">
+          <div class="input-group">
             <label
               class="input-group-text"
               for="categories"
@@ -88,13 +88,18 @@
           </div>
           <div class="pdf-section space-y-4">
             <FwbToggle
-                v-model="book.has_pdf"
-                label="Has PDF?"
-                reverse
-                color="orange"
+              v-model="book.has_pdf"
+              label="Has PDF?"
+              reverse
+              color="yellow"
             />
 
-            <PdfUpload id="pdf-url" @pdf-uploaded="handlePDFChange" />
+            <PdfUpload
+              v-if="book.has_pdf"
+              id="pdf-url"
+              @pdf-uploaded="handlePDFChange"
+              :initial-pdf="book.pdf_url"
+            />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center mt-8">
@@ -112,12 +117,13 @@
 </template>
 
 <script>
+import { FwbToggle } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import NoLoggin from "../components/NoLoggin.vue";
 import BookController from "../controllers/BookController";
 export default {
   name: "EditBook",
-  components: { NoLoggin, MDBInput },
+  components: { NoLoggin, MDBInput, FwbToggle },
   data() {
     return {
       paramsId: this.$route.params.id,
@@ -156,9 +162,15 @@ export default {
     },
     async onUploadBookImage(url) {
       this.book.images = url;
+      if (this.formData.has("images")) {
+        this.formData.delete("images");
+      }
       this.formData.append("images", url);
     },
     handlePDFChange(url) {
+      if (this.formData.has("pdf_url")) {
+        this.formData.delete("pdf_url");
+      }
       this.formData.append("pdf_url", url);
     },
     async getBook(id) {
@@ -171,10 +183,13 @@ export default {
       this.book.condition = response.condition;
       this.book.categories = response.categories;
       this.book.has_pdf = response.has_pdf;
-      this.book.pdf_url = response.pdf_url;
 
       this.formData.append("images", response.images);
-      this.formData.append("pdf_url", response.pdf_url);
+
+      if (response.pdf_url !== "null") {
+        this.book.pdf_url = response.pdf_url;
+        this.formData.append("pdf_url", response.pdf_url);
+      }
     },
   },
   async mounted() {

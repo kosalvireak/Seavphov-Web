@@ -92,7 +92,11 @@
               color="yellow"
             />
 
-            <PdfUpload v-if="book.has_pdf" id="pdf-url" @pdf-uploaded="handlePDFChange" />
+            <PdfUpload
+              v-if="book.has_pdf"
+              id="pdf-url"
+              @pdf-uploaded="handlePDFChange"
+            />
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center mt-8">
@@ -120,10 +124,10 @@ export default {
   data() {
     return {
       book: {
-        title: "",
-        author: "",
+        title: "asdsa",
+        author: "asdas",
         images: "",
-        descriptions: "",
+        descriptions: "213",
         condition: "Good",
         categories: "Novel",
         has_pdf: false,
@@ -135,6 +139,11 @@ export default {
   },
   methods: {
     async AddBook() {
+      this.formData.append(
+        "images",
+        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2FHoly-Communion---Cover-2025.jpg?alt=media&token=7a84255a-196f-47b1-82cc-7b9c97cc211b"
+      );
+
       this.isLoading = true;
       this.formData.append("title", this.book.title);
       this.formData.append("author", this.book.author);
@@ -149,9 +158,15 @@ export default {
     },
     handleImageChange(url) {
       this.book.images = url;
+      if (this.formData.has("images")) {
+        this.formData.delete("images");
+      }
       this.formData.append("images", url);
     },
     handlePDFChange(url) {
+      if (this.formData.has("pdf_url")) {
+        this.formData.delete("pdf_url");
+      }
       this.formData.append("pdf_url", url);
     },
   },

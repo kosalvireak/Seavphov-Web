@@ -35,23 +35,40 @@
             </button>
           </div>
           <div class="text-black space-y-4">
-            <p><span class="font-bold">by</span> {{ book.author }}</p>
+            <p><span class="font-bold">Author: </span> {{ book.author }}</p>
             <p>
-              <span class="font-bold">Category</span>:
+              <span class="font-bold">Category:</span>
               {{ book.categories }}
             </p>
             <p>
-              <span class="font-bold">Condition</span>:
+              <span class="font-bold">Condition:</span>
               {{ book.condition }}
             </p>
+
             <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
               buttonText
             }}</FwbButton>
-            <p class="h6">Descriptions</p>
-            <div class="max-h-44 lg:h-44 overflow-auto text-base">
+            <p class="h6">Description</p>
+            <div
+              class="min-h-auto max-h-44 lg:h-44 overflow-auto text-base bg-gray-100 rounded-md p-2"
+            >
               <p>
                 {{ book.descriptions }}
               </p>
+            </div>
+
+            <div
+              v-if="book.has_pdf"
+              class="icon-name flex align-items-center space-x-2"
+            >
+              <img
+                src="../assets/pdf-icon.svg"
+                alt="pdf logo"
+                class="img-fluid h-8 w-8"
+              />
+              <a :href="book.pdf_url" class="text-primary"
+                >Holy Communion.pdf</a
+              >
             </div>
           </div>
         </div>

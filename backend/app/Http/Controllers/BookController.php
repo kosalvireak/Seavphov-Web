@@ -167,9 +167,19 @@ class BookController extends Controller
                 'descriptions' => 'required|string',
                 'availability' => 'required|int',
                 'images' => 'required|string',
-                'has_pdf' => 'required|boolean',
-                'pdf_url' => 'string',
+                'has_pdf' => 'required|in:true,false',
             ]);
+
+
+            if ($validatedData['has_pdf'] == true) {
+                $validatedData['pdf_url'] = $request->get('pdf_url');
+                if ($validatedData['pdf_url'] == null) {
+                    return ResponseUtil::UnProcessable('PDF URL is required');
+                }
+            }
+
+            // Convert the string value to a boolean
+            $validatedData['has_pdf'] = filter_var($validatedData['has_pdf'], FILTER_VALIDATE_BOOLEAN);
 
             $validatedData['owner_id'] = $user->id;
 
@@ -199,7 +209,18 @@ class BookController extends Controller
                 'descriptions' => 'required|string',
                 'availability' => 'required|int',
                 'images' => 'required|string',
+                'has_pdf' => 'required|in:true,false',
             ]);
+
+            if ($validatedData['has_pdf'] == true) {
+                $validatedData['pdf_url'] = $request->get('pdf_url');
+                if ($validatedData['pdf_url'] == null) {
+                    return ResponseUtil::UnProcessable('PDF URL is required');
+                }
+            }
+
+            // Convert the string value to a boolean
+            $validatedData['has_pdf'] = filter_var($validatedData['has_pdf'], FILTER_VALIDATE_BOOLEAN);
 
             $book->update($validatedData);
             return ResponseUtil::Success('Update book success', 'Updated ' . $book->title);

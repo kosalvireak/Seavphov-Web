@@ -36,8 +36,8 @@ export default class BookController {
       toast.success(response.data.message);
       return response.data.data;
     } catch (error) {
-      console.error("Error adding book:", error);
-      toast.error(error.response.data.message);
+      toast.error(error.response);
+      return null;
     }
   }
 
