@@ -1,5 +1,3 @@
-import { getCookie } from "../services/cookie.js";
-
 export const RouterMixin = {
   methods: {
     toRouteName(route, paramId) {
@@ -14,14 +12,6 @@ export const RouterMixin = {
     async logout() {
       await this.$store.dispatch("logoutUser");
       this.toRouteName("login");
-    },
-    isEqual(var1, var2) {
-      return JSON.stringify(var1) === JSON.stringify(var2);
-    }
-  },
-  computed: {
-    isLogin() {
-      return !!getCookie();
     },
   },
 };

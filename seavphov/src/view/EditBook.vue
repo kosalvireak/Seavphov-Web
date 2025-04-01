@@ -162,16 +162,10 @@ export default {
     },
     async onUploadBookImage(url) {
       this.book.images = url;
-      if (this.formData.has("images")) {
-        this.formData.delete("images");
-      }
-      this.formData.append("images", url);
+      this.setValueToFormAttribute(this.formData, "images", url);
     },
     handlePDFChange(url) {
-      if (this.formData.has("pdf_url")) {
-        this.formData.delete("pdf_url");
-      }
-      this.formData.append("pdf_url", url);
+      this.setValueToFormAttribute(this.formData, "pdf_url", url);
     },
     async getBook(id) {
       const response = await BookController.getMyBook(id);

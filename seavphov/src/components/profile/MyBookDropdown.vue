@@ -22,9 +22,7 @@
           </li>
           <li>
             <p :class="dropdownItemCss" @click="deleteBook(id)">
-              <span v-if="isDeleting">Deleting...</span>
-
-              <span v-else>Delete</span>
+              <span>Delete</span>
             </p>
           </li>
         </ul>

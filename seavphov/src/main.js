@@ -22,9 +22,9 @@ import App from "./App.vue";
 import router from "./router/index";
 import store from "./utils/store";
 import { RouterMixin } from "./utils/routerUtils";
+import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
-import mobileUtils from "./utils/mobileUtils";
 
 // component
 import { FwbButton, FwbModal, FwbAvatar, FwbBadge } from "flowbite-vue";
@@ -40,7 +40,6 @@ import Info from "./components/common/Info.vue";
 const app = createApp(App);
 
 // global variable
-app.config.globalProperties.isMobile = mobileUtils.isMobile();
 app.config.globalProperties.logoUrl =
   "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
 app.config.globalProperties.maxRelatedBook = 5;
@@ -71,6 +70,7 @@ app.component("Info", Info);
 // global mixin
 app.mixin(RouterMixin);
 app.mixin(DateMixin);
+app.mixin(UtilsMixin);
 
 // use plugin
 app.use(router);

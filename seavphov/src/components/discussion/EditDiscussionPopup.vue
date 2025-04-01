@@ -82,7 +82,7 @@ export default {
     },
     handleImageChange(url) {
       this.discussion.image = url;
-      this.formData.append("image", url);
+      this.setValueToFormAttribute(this.formData, "image", url);
     },
     showModal() {
       this.isShowModal = true;

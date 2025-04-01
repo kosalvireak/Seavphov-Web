@@ -91,7 +91,7 @@ export default {
     },
     async onUploadProfile(url) {
       this.community.profile = url;
-      this.formData.append("profile", url);
+      this.setValueToFormAttribute(this.formData, "profile", url);
     },
   },
   computed: {

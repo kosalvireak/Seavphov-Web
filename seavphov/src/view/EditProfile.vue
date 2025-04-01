@@ -180,11 +180,11 @@ export default {
     },
     async onUploadPicture(url) {
       this.user.picture = url;
-      this.formData.append("picture", url);
+      this.setValueToFormAttribute(this.formData, "picture", url);
     },
     async onUploadCover(url) {
       this.user.cover = url;
-      this.formData.append("cover", url);
+      this.setValueToFormAttribute(this.formData, "cover", url);
     },
   },
   async mounted() {
