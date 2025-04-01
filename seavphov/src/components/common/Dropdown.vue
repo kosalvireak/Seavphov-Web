@@ -14,7 +14,7 @@
     </button>
     <div
       ref="content"
-      class="container-xl whitespace-nowrap absolute w-auto z-50 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+      class="whitespace-nowrap absolute w-auto z-50 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
       :class="[cssContent, position]"
       :id="id_content"
     >

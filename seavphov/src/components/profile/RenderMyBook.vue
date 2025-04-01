@@ -12,7 +12,12 @@
         <div class="h-12 d-flex align-items-center justify-content-end m-1">
           <p class="h6">Result: {{ books.length }} Books</p>
         </div>
-        <MyBook v-for="book in books" :book="book" :key="book.id" />
+        <MyBook
+          v-for="book in books"
+          :book="book"
+          :key="book.id"
+          @delete-book="deleteBook($event)"
+        />
       </div>
       <div v-else class="h-100 w-100">
         <div
@@ -41,6 +46,11 @@ export default {
       books: [],
       isLoading: false,
     };
+  },
+  methods: {
+    deleteBook(id) {
+      this.books = this.books.filter((book) => book.id !== id);
+    },
   },
   computed: {
     isBooksEmpty() {

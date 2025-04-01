@@ -34,6 +34,7 @@
       :key="book.id"
       :book="book"
       class="absolute right-4 top-4"
+      @delete-book="$emit('deleteBook', book.id)"
       @change="ChangeAvailability()"
     />
   </div>

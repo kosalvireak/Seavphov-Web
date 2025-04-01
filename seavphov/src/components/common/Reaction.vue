@@ -1,7 +1,7 @@
 <template>
   <div class="Reaction d-flex space-x-2 w-fit mr-auto">
     <div class="flex-center w-fit min-w-16 rounded-lg">
-      <Loader v-if="isLoadingLike" />
+      <TinyLoader v-if="isLoadingLike" />
       <button
         v-else
         class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"
@@ -20,7 +20,7 @@
       </button>
     </div>
     <div class="flex-center w-fit min-w-16 rounded-lg">
-      <Loader v-if="isLoadingDislike" />
+      <TinyLoader v-if="isLoadingDislike" />
       <button
         v-else
         class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"

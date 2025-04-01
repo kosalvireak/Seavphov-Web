@@ -35,7 +35,7 @@ export default {
     <slot v-if="!isLoading">
       <span>{{ text }}</span>
     </slot>
-    <Loader v-else :size="15" :Color="'#FFFFFF'" />
+    <TinyLoader v-else :size="15" :Color="'#FFFFFF'" />
   </button>
 </template>
 

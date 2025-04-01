@@ -29,6 +29,7 @@ import toastPlugin from "./services/toastPlugin";
 // component
 import { FwbButton, FwbModal, FwbAvatar, FwbBadge } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
+import TinyLoader from "./components/common/TinyLoader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
 import Dropdown from "./components/common/Dropdown.vue";
 import LoadingButton from "./components/common/LoadingButton.vue";
@@ -59,6 +60,7 @@ app.component("FwbAvatar", FwbAvatar);
 app.component("Badge", FwbBadge);
 
 app.component("Loader", Loader);
+app.component("TinyLoader", TinyLoader);
 app.component("BackRoute", BackRoute);
 app.component("Dropdown", Dropdown);
 app.component("LoadingButton", LoadingButton);

@@ -57,6 +57,7 @@ export default {
     },
     async deleteBook(id) {
       await this.$store.dispatch("deleteBook", id);
+      this.$emit("deleteBook");
     },
   },
   computed: {
