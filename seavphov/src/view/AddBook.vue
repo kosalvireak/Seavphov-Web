@@ -84,7 +84,7 @@
               <option value="Fantasy">Fantasy</option>
             </select>
           </div>
-          <div class="pdf-section">
+          <div class="pdf-section space-y-4">
             <FwbToggle
               v-model="book.has_pdf"
               label="Has PDF?"
@@ -92,10 +92,10 @@
               color="blue"
             />
 
-            <ImageUpload id="pdf-url" @image-uploaded="handlePDFChange" />
+            <ImageUpload v-if="book.has_pdf" id="pdf-url" @image-uploaded="handlePDFChange" />
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center mt-8">
           <LoadingButton :isLoading="isLoading" text="Add" type="submit" />
         </div>
       </form>
@@ -159,28 +159,4 @@ export default {
 </script>
 
 <style scoped>
-.border-bdbdbd {
-  border: 1px !important;
-  border-style: solid !important;
-  border-color: #bdbdbd !important;
-}
-.custom-file-upload {
-  display: inline-block;
-  padding: 4px 12px;
-  cursor: pointer;
-  color: #4f4f4f;
-  background-color: #fff;
-  border-radius: 5px;
-  position: absolute;
-  margin: 2px 0px 0px 1px;
-}
-
-.form-control {
-  padding: 0.375rem 0.75rem !important;
-}
-
-.logo_img {
-  width: 150px;
-  height: auto;
-}
 </style>

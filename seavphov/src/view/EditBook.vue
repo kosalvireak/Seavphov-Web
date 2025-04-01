@@ -1,27 +1,27 @@
 <template>
-  <div class="AddBook w-100 mb-4 mt-8 container-xl">
+  <div class="AddBook w-100  mt-8 container-xl">
     <BackRoute />
 
     <div
       v-if="true"
       class="d-flex align-items-center justify-content-center flex-column"
     >
-      <p class="h3 mb-4">Edit book</p>
+      <p class="h3 ">Edit book</p>
 
       <form
         style="width: 100%"
         v-on:submit.prevent="modifyBook()"
         class="row flex-center"
       >
-        <div class="col-12 col-md-6">
-          <div class="mb-4">
+        <div class="col-12 col-md-6 space-y-4">
+          <div class="">
             <ImageUpload
               v-if="book.images"
               @image-uploaded="onUploadBookImage"
               :initialImage="book.images"
             />
           </div>
-          <div class="mb-4">
+          <div class="">
             <MDBInput
               type="text"
               label="Title"
@@ -32,7 +32,7 @@
               required
             />
           </div>
-          <div class="mb-4">
+          <div class="">
             <MDBInput
               type="text"
               label="Author"
@@ -42,7 +42,7 @@
               required
             />
           </div>
-          <div class="mb-4">
+          <div class="">
             <MDBInput
               type="text"
               label="Descriptions"
@@ -52,7 +52,7 @@
               required
             />
           </div>
-          <div class="input-group mb-4">
+          <div class="input-group ">
             <label
               class="input-group-text"
               for="condition"
@@ -66,7 +66,7 @@
             </select>
           </div>
 
-          <div class="input-group mb-4">
+          <div class="input-group ">
             <label
               class="input-group-text"
               for="categories"
@@ -86,8 +86,18 @@
               <option value="Fantasy">Fantasy</option>
             </select>
           </div>
+          <div class="pdf-section space-y-4">
+            <FwbToggle
+                v-model="book.has_pdf"
+                label="Has PDF?"
+                reverse
+                color="blue"
+            />
+
+            <ImageUpload id="pdf-url" @image-uploaded="handlePDFChange" />
+          </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center mt-8">
           <LoadingButton type="submit" text="Save" :isLoading="isLoading" />
         </div>
       </form>
@@ -119,6 +129,8 @@ export default {
         descriptions: "",
         condition: "Good",
         categories: "Novel",
+        has_pdf: false,
+        pdf_url: "",
       },
       isLoading: false,
       author: {},
@@ -137,6 +149,7 @@ export default {
       this.formData.append("condition", this.book.condition);
       this.formData.append("descriptions", this.book.descriptions);
       this.formData.append("availability", 1);
+      this.formData.append("has_pdf", this.book.has_pdf);
       await BookController.modifyBook(this.formData);
       this.$router.push({ path: `/book/${this.paramsId}` });
       this.isLoading = false;
@@ -144,6 +157,9 @@ export default {
     async onUploadBookImage(url) {
       this.book.images = url;
       this.formData.append("images", url);
+    },
+    handlePDFChange(url) {
+      this.formData.append("pdf_url", url);
     },
     async getBook(id) {
       const response = await BookController.getMyBook(id);
@@ -154,8 +170,11 @@ export default {
       this.book.descriptions = response.descriptions;
       this.book.condition = response.condition;
       this.book.categories = response.categories;
+      this.book.has_pdf = response.has_pdf;
+      this.book.pdf_url = response.pdf_url;
 
       this.formData.append("images", response.images);
+      this.formData.append("pdf_url", response.pdf_url);
     },
   },
   async mounted() {

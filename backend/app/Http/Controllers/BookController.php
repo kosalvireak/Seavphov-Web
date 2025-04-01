@@ -167,6 +167,8 @@ class BookController extends Controller
                 'descriptions' => 'required|string',
                 'availability' => 'required|int',
                 'images' => 'required|string',
+                'has_pdf' => 'required|boolean',
+                'pdf_url' => 'string',
             ]);
 
             $validatedData['owner_id'] = $user->id;
@@ -174,7 +176,7 @@ class BookController extends Controller
             $book = Book::create($validatedData);
             return ResponseUtil::Success('Add book success', $book->id);
         } catch (Exception  $exception) {
-            return ResponseUtil::ServerError('Cannot upload book!', $exception->getMessage());
+            return ResponseUtil::ServerError('Cannot add book!', $exception->getMessage());
         }
     }
 
