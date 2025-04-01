@@ -38,7 +38,6 @@ class CommunityController extends Controller
                 $query->where('private', 0);
             }
 
-
             $user = $request->attributes->get('user');
 
             if ($user) {

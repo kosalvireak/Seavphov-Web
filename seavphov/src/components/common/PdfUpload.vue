@@ -29,12 +29,15 @@
               alt="pdf logo"
               class="img-fluid h-12 w-12"
             />
-            <p class="text-sm text-gray-500 dark:text-gray-400">
+            <p class="text-sm text-gray-500">
               <span class="font-semibold">Click to upload</span> or drag and
               drop
             </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">
+            <p class="text-sm text-gray-500">
               File Formats Accepted: <span class="font-semibold">PDF</span>
+            </p>
+            <p class="text-sm text-gray-500">
+              Max File Size: <span class="font-semibold">25MB</span>
             </p>
           </div>
         </label>
