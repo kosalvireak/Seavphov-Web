@@ -30,7 +30,7 @@ class CommentController extends Controller
             }
 
             $comment->delete();
-            return ResponseUtil::Success('Deleted comment Success');
+            return ResponseUtil::Success('Deleted comment Success', true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot delete comment!', $exception->getMessage());
         }

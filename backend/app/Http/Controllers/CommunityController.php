@@ -245,7 +245,7 @@ class CommunityController extends Controller
 
             CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
 
-            return ResponseUtil::Success('Request to join community successfully');
+            return ResponseUtil::Success('Request to join community successfully', true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot request to join community!', $exception->getMessage());
         }
@@ -278,7 +278,7 @@ class CommunityController extends Controller
 
             CopMemberService::addUserAsCopMember($cop->id, $user->id);
 
-            return ResponseUtil::Success('Join community successfully');
+            return ResponseUtil::Success('Join community successfully', true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot Join community!', $exception->getMessage());
         }
@@ -315,7 +315,7 @@ class CommunityController extends Controller
             NotificationService::storeApproveRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'approve your request to join ' . $cop->name);
 
             if ($response) {
-                return ResponseUtil::Success('Approve member request successfully');
+                return ResponseUtil::Success('Approve member request successfully', true);
             }
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot approve member request!', $exception->getMessage());
@@ -350,7 +350,7 @@ class CommunityController extends Controller
 
             NotificationService::storeRejectRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'reject your request to join ' . $cop->name);
 
-            return ResponseUtil::Success('Reject member request successfully');
+            return ResponseUtil::Success('Reject member request successfully', true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot reject member request!', $exception->getMessage());
         }

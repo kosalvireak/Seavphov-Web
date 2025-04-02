@@ -1,101 +1,37 @@
-import { deleteData, getData, postForm } from "../utils/apiUtils.js";
-import { useToast } from "vue-toastification";
-
-const toast = useToast();
+import { getData, postForm } from "../utils/apiUtils.js";
 
 const BookRoute = "/api/books";
 
 export default class BookController {
   static async getMostReviewed() {
-    try {
-      const response = await getData(BookRoute + "/mostReviewed");
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.message);
-      return null;
-    }
+    return await getData(BookRoute + "/mostReviewed");
   }
 
   static async fetchNewestAddition() {
-    try {
-      const response = await getData(BookRoute + "/newest");
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.message);
-      return null;
-    }
+    return await getData(BookRoute + "/newest");
   }
 
   static async addBook(formData) {
-    try {
-      const response = await postForm(BookRoute, formData, true);
-      toast.success(response.data.message);
-      return response.data.data;
-    } catch (error) {
-      toast.error(error.response);
-      return null;
-    }
+    return await postForm(BookRoute, formData, true);
   }
 
   static async getBookDetailWithOwner(id) {
-    try {
-      const response = await getData(BookRoute + `/${id}`, true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return false;
-    }
+    return await getData(BookRoute + `/${id}`, true);
   }
 
   static async changeBookAvailability(id) {
-    try {
-      const response = await getData(BookRoute + `/availability/${id}`, true);
-      toast.success(response.data.message);
-      return response.data.success;
-    } catch (error) {
-      console.error("Error change book status:", error);
-      toast.error(error.response.data.message);
-    }
+    return await getData(BookRoute + `/availability/${id}`, true);
   }
 
   static async getMyBooks() {
-    try {
-      const response = await getData("/api/auth/book", true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData("/api/auth/book", true);
   }
 
   static async getMyBook(id) {
-    try {
-      const response = await getData(`/api/auth/book/${id}`, true);
-      if (response.data.success) {
-        return response.data.data;
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error(error.response.message);
-    }
+    return await getData(`/api/auth/book/${id}`, true);
   }
   static async getSavedBook() {
-    try {
-      const response = await getData("/api/saved", true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData("/api/saved", true);
   }
 
 
@@ -128,42 +64,21 @@ export default class BookController {
     if (filters.page) {
       params.append("page", filters.page);
     }
-    try {
-      const response = await getData(BookRoute + `?${params.toString()}`);
-      if (response.data.success) {
-        if (paginate) {
-          return response.data.data;
-        }
-        return response.data.data.data;
-
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null;
+    const response = await getData(BookRoute + `?${params.toString()}`);
+    if (paginate) {
+      return response;
     }
+    return response.data;
   }
 
 
   static async modifyBook(formData) {
-    try {
-      let id = formData.get("id");
-      const response = await postForm(`/api/books/${id}`, formData, true);
-      toast.success(response.data.message);
-    } catch (error) {
-      toast.error(error.response);
-      return false;
-    }
+    let id = formData.get("id");
+    return await postForm(`/api/books/${id}`, formData, true);
+
   }
 
   static async getBanner() {
-    try {
-      const response = await getData(BookRoute + "/banner");
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null;
-    }
+    return await getData(BookRoute + "/banner");
   }
 }

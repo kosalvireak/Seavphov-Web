@@ -118,12 +118,11 @@ export default {
     async requestToJoinCop() {
       this.loadingRequestToJoin = true;
 
-      const data = await CopMemberController.requestToJoinCop(
+      const response = await CopMemberController.requestToJoinCop(
         this.$route.params.route
       );
 
-      if (data.success) {
-        this.$toast.success(data.message);
+      if (response === true) {
         this.permissionObject.isPendingRequest = true;
       }
 
@@ -132,10 +131,9 @@ export default {
     async joinCop() {
       this.loadingJoinCop = true;
 
-      const data = await CopMemberController.joinCop(this.$route.params.route);
+      const response = await CopMemberController.joinCop(this.$route.params.route);
 
-      if (data.success) {
-        this.$toast.success(data.message);
+      if (response) {
         this.permissionObject.isCopMember = true;
       }
 

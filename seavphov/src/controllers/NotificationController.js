@@ -7,15 +7,6 @@ const NotificationRoute = "/api/notification";
 
 export default class NotificationController {
     static async getNotifications(params) {
-        try {
-            const response = await getData(NotificationRoute + `?${params}`, true);
-            if (response.data.success) {
-                return response.data.data;
-            }
-        } catch (error) {
-            toast.error(error.response);
-            return false;
-        }
+        return await getData(NotificationRoute + `?${params}`, true);
     }
-
 }

@@ -81,9 +81,8 @@ export default {
         this.route,
       );
 
-      if (!response.data.isCopAdmin) {
+      if (!response.isCopAdmin) {
         this.toRouteName("not-found");
-        return;
       } else {
         this.isCheckingPermission = false;
       }

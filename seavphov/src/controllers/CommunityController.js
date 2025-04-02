@@ -7,40 +7,14 @@ const CommunityRoute = "/api/community";
 
 export default class CommunityController {
   static async searchCommunity(params) {
-    try {
-      const response = await getData(CommunityRoute + `?${params}`, true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null
-    }
+    return await getData(CommunityRoute + `?${params}`, true);
   }
 
   static async getCommunityByRoute(route) {
-    try {
-      const response = await getData(CommunityRoute + `/route/${route}`);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null
-    }
+    return await getData(CommunityRoute + `/route/${route}`);
   }
 
   static async createCommunity(formData) {
-    try {
-      const response = await postForm(CommunityRoute + `/new`, formData, true);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.data;
-      }
-    } catch (error) {
-      console.error("Error create community:", error);
-      toast.error(error.response.data.error);
-      return null;
-    }
+    return await postForm(CommunityRoute + `/new`, formData, true);
   }
 }

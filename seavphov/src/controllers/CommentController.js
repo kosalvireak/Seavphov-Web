@@ -7,60 +7,26 @@ const CommentRoute = "/api/comment";
 
 export default class CommentController {
   static async getCommentsOfDiscussion(discussionId) {
-    try {
-      const response = await getData(
-        CommentRoute + `/discussion/${discussionId}`,
-        true,
-      );
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData(
+      CommentRoute + `/discussion/${discussionId}`,
+      true,
+    );
   }
 
   static async deleteComment(id) {
-    try {
-      const response = await deleteData(CommentRoute + `/delete/${id}`);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.message;
-      }
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-      toast.error(error.response.data.message);
-    }
+    return await deleteData(CommentRoute + `/delete/${id}`);
   }
 
   static async editComment(formData) {
-    try {
-      let id = formData.get("id");
-      const response = await postForm(
-        CommentRoute + `/edit/${id}`,
-        formData,
-        true,
-      );
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.data;
-      }
-    } catch (error) {
-      console.error("Error editing comment:", error);
-      toast.error(error.response.data.message);
-    }
+    let id = formData.get("id");
+    return await postForm(
+      CommentRoute + `/edit/${id}`,
+      formData,
+      true,
+    );
   }
 
   static async createComment(formData) {
-    try {
-      const response = await postForm(CommentRoute + `/add`, formData, true);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.data;
-      }
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      toast.error(error.response.data.message);
-    }
+    return await postForm(CommentRoute + `/add`, formData, true);
   }
 }

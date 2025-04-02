@@ -1,7 +1,4 @@
 import { deleteData, getData, postForm } from "../utils/apiUtils.js";
-import { useToast } from "vue-toastification";
-
-const toast = useToast();
 
 const DiscussionRoute = "/api/discussions";
 
@@ -14,75 +11,29 @@ export default class DiscussionController {
     if (filters.uuid) {
       params.append("uuid", filters.uuid);
     }
-    try {
-      const response = await getData(
-        DiscussionRoute + `?${params.toString()}`,
-        true,
-      );
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData(
+      DiscussionRoute + `?${params.toString()}`,
+      true,
+    );
   }
 
   static async getMyDiscussions() {
-    try {
-      const response = await getData(DiscussionRoute + "/my-discussions", true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData(DiscussionRoute + "/my-discussions", true);
+
   }
   static async getDiscussionById(id) {
-    try {
-      const response = await getData(DiscussionRoute + `/${id}`, true);
-      if (response.data.success) {
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData(DiscussionRoute + `/${id}`, true);
   }
 
   static async deleteDiscussion(id) {
-    try {
-      const response = await deleteData(DiscussionRoute + `/delete/${id}`);
-      if (response.data.success) {
-        toast.success(response.data.message);
-
-        return response.data.message;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return  await deleteData(DiscussionRoute + `/delete/${id}`);
   }
 
   static async createDiscussion(formData) {
-    try {
-      const response = await postForm(DiscussionRoute, formData, true);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null;
-    }
+      return await postForm(DiscussionRoute, formData, true);
   }
   static async editDiscussion(formData, id) {
-    try {
-      const response = await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        return response.data.data;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      return null;
-    }
+      return await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
+
   }
 }

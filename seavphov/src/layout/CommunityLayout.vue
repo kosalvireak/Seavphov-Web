@@ -51,9 +51,9 @@ export default {
       this.$route.params.route,
     );
 
-    this.permissionObject = response.data;
+    this.permissionObject = response;
 
-    if (response.data.isCopAdmin) {
+    if (response.isCopAdmin) {
       this.tabs.push(
         {
           name: "Members",
@@ -67,11 +67,6 @@ export default {
         },
       );
     }
-
-    // if (!this.data.ableToViewHome) {
-    //   this.$toast.info(response.message);
-    //   this.toRouteName("not-found");
-    // }
 
     this.isLoading = false;
   },
