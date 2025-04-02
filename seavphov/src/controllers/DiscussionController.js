@@ -11,29 +11,24 @@ export default class DiscussionController {
     if (filters.uuid) {
       params.append("uuid", filters.uuid);
     }
-    return await getData(
-      DiscussionRoute + `?${params.toString()}`,
-      true,
-    );
+    return await getData(DiscussionRoute + `?${params.toString()}`, true);
   }
 
   static async getMyDiscussions() {
     return await getData(DiscussionRoute + "/my-discussions", true);
-
   }
   static async getDiscussionById(id) {
     return await getData(DiscussionRoute + `/${id}`, true);
   }
 
   static async deleteDiscussion(id) {
-    return  await deleteData(DiscussionRoute + `/delete/${id}`);
+    return await deleteData(DiscussionRoute + `/delete/${id}`);
   }
 
   static async createDiscussion(formData) {
-      return await postForm(DiscussionRoute, formData, true);
+    return await postForm(DiscussionRoute, formData, true);
   }
   static async editDiscussion(formData, id) {
-      return await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
-
+    return await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
   }
 }

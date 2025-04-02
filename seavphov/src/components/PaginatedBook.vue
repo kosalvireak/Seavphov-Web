@@ -62,7 +62,7 @@ export default {
         {
           page: this.current_page,
         },
-        true
+        true,
       );
       this.books = response.data;
       this.current_page = response.current_page;

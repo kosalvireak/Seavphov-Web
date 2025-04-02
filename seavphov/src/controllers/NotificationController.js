@@ -6,7 +6,7 @@ const toast = useToast();
 const NotificationRoute = "/api/notification";
 
 export default class NotificationController {
-    static async getNotifications(params) {
-        return await getData(NotificationRoute + `?${params}`, true);
-    }
+  static async getNotifications(params) {
+    return await getData(NotificationRoute + `?${params}`, true);
+  }
 }

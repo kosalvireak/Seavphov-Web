@@ -119,7 +119,7 @@ export default {
       this.loadingRequestToJoin = true;
 
       const response = await CopMemberController.requestToJoinCop(
-        this.$route.params.route
+        this.$route.params.route,
       );
 
       if (response === true) {
@@ -131,7 +131,9 @@ export default {
     async joinCop() {
       this.loadingJoinCop = true;
 
-      const response = await CopMemberController.joinCop(this.$route.params.route);
+      const response = await CopMemberController.joinCop(
+        this.$route.params.route,
+      );
 
       if (response) {
         this.permissionObject.isCopMember = true;

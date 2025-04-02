@@ -30,7 +30,7 @@ import CommunityMembers from "../components/community/CommunityMembers.vue";
 import NotFound from "../view/auth/NotFound.vue";
 import CommunitySettings from "../components/community/CommunitySettings.vue";
 
-const appName = import.meta.env.VITE_APP_NAME
+const appName = import.meta.env.VITE_APP_NAME;
 
 const router = createRouter({
   history: createWebHistory(),

@@ -85,14 +85,14 @@ export default {
       this.isLoading = true;
       this.filters.title = this.keyword;
       const response = await DiscussionController.getDiscussionsWithFilter(
-        this.filters
+        this.filters,
       );
       this.isLoading = false;
       this.discussions = response;
     },
     onDeleteDiscussion(id) {
       this.discussions = this.discussions.filter(
-        (discussion) => discussion.id !== id
+        (discussion) => discussion.id !== id,
       );
     },
   },

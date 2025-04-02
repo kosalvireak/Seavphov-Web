@@ -74,7 +74,7 @@ export default {
       this.formData.append("body", this.discussion.body);
       const response = await DiscussionController.editDiscussion(
         this.formData,
-        this.discussion.id
+        this.discussion.id,
       );
       this.$emit("onDoneEdit", response);
       this.closeModal();
@@ -95,5 +95,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

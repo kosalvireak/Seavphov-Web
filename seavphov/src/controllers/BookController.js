@@ -34,7 +34,6 @@ export default class BookController {
     return await getData("/api/saved", true);
   }
 
-
   static async getBooksWithFilter(filters = {}, paginate = false) {
     const params = new URLSearchParams();
     if (filters.title) {
@@ -71,11 +70,9 @@ export default class BookController {
     return response.data;
   }
 
-
   static async modifyBook(formData) {
     let id = formData.get("id");
     return await postForm(`/api/books/${id}`, formData, true);
-
   }
 
   static async getBanner() {

@@ -17,15 +17,10 @@ export default class ReviewController {
 
   static async createReview(formData) {
     return await postForm(ReviewRoute + `/add`, formData, true);
-
   }
 
   static async editReview(formData) {
     let id = formData.get("id");
-    return await postForm(
-      ReviewRoute + `/edit/${id}`,
-      formData,
-      true,
-    );
+    return await postForm(ReviewRoute + `/edit/${id}`, formData, true);
   }
 }

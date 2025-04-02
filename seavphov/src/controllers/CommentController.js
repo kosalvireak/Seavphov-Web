@@ -7,10 +7,7 @@ const CommentRoute = "/api/comment";
 
 export default class CommentController {
   static async getCommentsOfDiscussion(discussionId) {
-    return await getData(
-      CommentRoute + `/discussion/${discussionId}`,
-      true,
-    );
+    return await getData(CommentRoute + `/discussion/${discussionId}`, true);
   }
 
   static async deleteComment(id) {
@@ -19,11 +16,7 @@ export default class CommentController {
 
   static async editComment(formData) {
     let id = formData.get("id");
-    return await postForm(
-      CommentRoute + `/edit/${id}`,
-      formData,
-      true,
-    );
+    return await postForm(CommentRoute + `/edit/${id}`, formData, true);
   }
 
   static async createComment(formData) {

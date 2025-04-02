@@ -141,7 +141,7 @@ export default {
     async AddBook() {
       this.formData.append(
         "images",
-        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2FHoly-Communion---Cover-2025.jpg?alt=media&token=7a84255a-196f-47b1-82cc-7b9c97cc211b"
+        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2FHoly-Communion---Cover-2025.jpg?alt=media&token=7a84255a-196f-47b1-82cc-7b9c97cc211b",
       );
 
       this.isLoading = true;
@@ -167,5 +167,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -7,21 +7,21 @@ const axiosInstance = axios.create({
   timeout: 30000,
 });
 
-function handleSuccessResponse(response){
-  const { success, message ,data } = response.data
-    if(success) {
-      toast.success(message)
-      return data;
-    }
+function handleSuccessResponse(response) {
+  const { success, message, data } = response.data;
+  if (success) {
+    toast.success(message);
+    return data;
+  }
 }
 
-function handleErrorResponse(error){
-  let message = ""
+function handleErrorResponse(error) {
+  let message = "";
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    message = error.response.message
+    message = error.response.message;
   } else if (error.request) {
     // The request was made but no response was received
 
@@ -30,19 +30,23 @@ function handleErrorResponse(error){
       moreInfo = "Server not reachable";
     }
 
-    message = error.message + ": " + moreInfo
+    message = error.message + ": " + moreInfo;
   } else {
     // Something happened in setting up the request that triggered an Error
 
-    message = 'Something went wrong: ' + error.message
+    message = "Something went wrong: " + error.message;
   }
-  toast.error(message)
+  toast.error(message);
   return null;
 }
 
 axiosInstance.interceptors.response.use(
-    (response) => { handleSuccessResponse(response) },
-    (error) => { handleErrorResponse(error) },
+  (response) => {
+    handleSuccessResponse(response);
+  },
+  (error) => {
+    handleErrorResponse(error);
+  },
 );
 
 export default axiosInstance;

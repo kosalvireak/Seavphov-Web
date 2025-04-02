@@ -7,28 +7,22 @@ const CommunityRoute = "/api/community";
 
 export default class CopMemberController {
   static async getCommunityMembers(route) {
-    return await getData(
-      CommunityRoute + `/${route}/members`,
-      true,
-    );
+    return await getData(CommunityRoute + `/${route}/members`, true);
   }
 
   static async getCommunityMemberRequest(route) {
-    return await getData(
-      CommunityRoute + `/${route}/member-requests`,
-      true,
-    );
+    return await getData(CommunityRoute + `/${route}/member-requests`, true);
   }
 
   static async checkViewCopHomePermission(route) {
-    return await getData(
-      CommunityRoute + `/${route}/permission/home`,
-      true,
-    );
+    return await getData(CommunityRoute + `/${route}/permission/home`, true);
   }
 
   static async requestToJoinCop(route) {
-    return await getData(CommunityRoute + `/${route}/request-to-join-cop`, true);
+    return await getData(
+      CommunityRoute + `/${route}/request-to-join-cop`,
+      true,
+    );
   }
 
   static async joinCop(route) {
@@ -49,11 +43,6 @@ export default class CopMemberController {
   static async rejectMemberRequest(route, uuid) {
     const formData = new FormData();
     formData.append("uuid", uuid);
-    return await postForm(
-      CommunityRoute + `/${route}/reject`,
-      formData,
-      true,
-    );
+    return await postForm(CommunityRoute + `/${route}/reject`, formData, true);
   }
-
 }

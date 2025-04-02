@@ -11,7 +11,6 @@ export const UtilsMixin = {
       }
       form.append(attribute, value);
     },
-
   },
   computed: {
     isLogin() {
