@@ -53,7 +53,7 @@ class CommunityController extends Controller
 
             $cops = $query->paginate(6); // Apply pagination 
 
-            return ResponseUtil::Success('Search community success', $cops);
+            return ResponseUtil::Success('Search community success', $cops, false);
         } catch (QueryException  $exception) {
             return ResponseUtil::ServerError('Cannot search community!', $exception->getMessage());
         }

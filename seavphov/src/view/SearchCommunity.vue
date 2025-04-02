@@ -91,7 +91,6 @@
         <LoadingButton
           @click="toRouteName('create-community')"
           class="rounded-lg"
-          :disabled="true"
         >
           Create Community
         </LoadingButton>
@@ -176,7 +175,7 @@ export default {
       params.append("role", this.role);
       params.append("page", page);
       const response = await CommunityController.searchCommunity(params); // response is the pagination object
-      if (response){
+      if (response) {
         this.communities = response.data;
         this.current_page = response.current_page;
         this.last_page = response.last_page;

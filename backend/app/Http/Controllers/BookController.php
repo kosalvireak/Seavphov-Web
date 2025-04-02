@@ -34,7 +34,7 @@ class BookController extends Controller
                 ->take(6) // Limit the result to the top 6 books
                 ->get();
 
-            return ResponseUtil::Success('Get most reviewed book success', $books);
+            return ResponseUtil::Success('Get most reviewed book success', $books, false);
         } catch (QueryException  $exception) {
             return ResponseUtil::ServerError('Cannot get most reviewed book!', $exception->getMessage());
         }
@@ -84,7 +84,7 @@ class BookController extends Controller
         }
 
         try {
-            return ResponseUtil::Success('Get filtered book success', $books);
+            return ResponseUtil::Success(null, $books);
         } catch (QueryException  $exception) {
             return ResponseUtil::ServerError('Cannot get filtered book!', $exception->getMessage());
         }

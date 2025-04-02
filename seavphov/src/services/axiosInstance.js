@@ -8,10 +8,26 @@ const axiosInstance = axios.create({
 });
 
 function handleSuccessResponse(response) {
-  const { success, message, data } = response.data;
+  const { success, message, data, toast } = response.data;
   if (success) {
-    toast.success(message);
+    handleToastMessage(toast, message);
     return data;
+  }
+}
+
+function handleToastMessage(toastObject, message) {
+  if (toastObject.show) {
+    switch (toastObject.type) {
+      case "success":
+        toast.success(message);
+        break;
+      case "error":
+        toast.error(message);
+        break;
+      default:
+        toast.info(message);
+        break;
+    }
   }
 }
 
@@ -42,10 +58,10 @@ function handleErrorResponse(error) {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    handleSuccessResponse(response);
+    return handleSuccessResponse(response);
   },
   (error) => {
-    handleErrorResponse(error);
+    return handleErrorResponse(error);
   },
 );
 

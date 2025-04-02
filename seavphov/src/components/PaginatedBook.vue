@@ -2,8 +2,8 @@
   <div>
     <RenderBook :books="books" :loading="isLoading" />
     <div
-      v-if="!isLoading && books.length"
-      class="pagination d-flex align-items-center justify-content-center  h-3rem mt-4"
+      v-if="books.length > 0"
+      class="pagination d-flex align-items-center justify-content-center h-3rem mt-4"
     >
       <p
         @click="previous()"
@@ -63,10 +63,10 @@ export default {
         {
           page: this.current_page,
         },
-        true,
+        true
       );
-      if (response){
-        this.books = response;
+      if (response) {
+        this.books = response.data;
         this.current_page = response.current_page;
         this.last_page = response.last_page;
       }

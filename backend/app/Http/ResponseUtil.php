@@ -6,17 +6,16 @@ use Illuminate\Http\Request;
 
 class ResponseUtil
 {
-    private bool $success;
-    private string $message;
-    private  $data;
-    private string $error;
-
-    public static function Success($message, $data = null)
+    public static function Success($message, $data = null, $showToast = true, $toastType = 'success')
     {
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
+            'toast' => [
+                'show' => $showToast,
+                'type' => $toastType,
+            ]
         ], 200);
     }
 
