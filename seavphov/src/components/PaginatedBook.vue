@@ -2,7 +2,8 @@
   <div>
     <RenderBook :books="books" :loading="isLoading" />
     <div
-      class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
+      v-if="!isLoading && books.length"
+      class="pagination d-flex align-items-center justify-content-center  h-3rem mt-4"
     >
       <p
         @click="previous()"
@@ -49,10 +50,10 @@ export default {
   },
   computed: {
     isDisabledNext() {
-      return this.current_page == this.last_page;
+      return this.current_page === this.last_page;
     },
     isDisabledPrev() {
-      return this.current_page == 1;
+      return this.current_page === 1;
     },
   },
   methods: {
@@ -64,9 +65,12 @@ export default {
         },
         true,
       );
-      this.books = response.data;
-      this.current_page = response.current_page;
-      this.last_page = response.last_page;
+      if (response){
+        this.books = response;
+        this.current_page = response.current_page;
+        this.last_page = response.last_page;
+      }
+
       this.isLoading = false;
     },
     previous() {

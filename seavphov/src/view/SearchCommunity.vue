@@ -162,10 +162,9 @@ export default {
       role: "all",
       communities: [],
       isLoading: false,
-      response: null,
       last_page: 5,
       current_page: 1,
-      total: 6, // for hide if length less then paginate
+      total: 0, // for hide if length less then paginate
     };
   },
   methods: {
@@ -176,11 +175,13 @@ export default {
       params.append("visibility", this.visibility);
       params.append("role", this.role);
       params.append("page", page);
-      this.response = await CommunityController.searchCommunity(params); // response is the pagination object
-      this.communities = this.response.data;
-      this.current_page = this.response.current_page;
-      this.last_page = this.response.last_page;
-      this.total = this.response.total;
+      const response = await CommunityController.searchCommunity(params); // response is the pagination object
+      if (response){
+        this.communities = response.data;
+        this.current_page = response.current_page;
+        this.last_page = response.last_page;
+        this.total = response.total;
+      }
       this.isLoading = false;
     },
     resetFilter() {
