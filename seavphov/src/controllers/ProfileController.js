@@ -7,14 +7,7 @@ const ProfileRoute = "/api/profile";
 
 export default class ProfileController {
   static async getMyProfileInfo() {
-    try {
-      const response = await getData(ProfileRoute, true);
-      if (response.data.success) {
-        return response.data.message;
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    return await getData(ProfileRoute, true);
   }
 
   static async getOtherUserProfile(uuid) {

@@ -95,6 +95,7 @@
             <PdfUpload
               v-if="book.has_pdf"
               id="pdf-url"
+              @pdf-name-update="handlePDFNameChange"
               @pdf-uploaded="handlePDFChange"
             />
           </div>
@@ -124,10 +125,10 @@ export default {
   data() {
     return {
       book: {
-        title: "asdsa",
-        author: "asdas",
+        title: "",
+        author: "",
         images: "",
-        descriptions: "213",
+        descriptions: "",
         condition: "Good",
         categories: "Novel",
         has_pdf: false,
@@ -141,7 +142,7 @@ export default {
     async AddBook() {
       this.formData.append(
         "images",
-        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2FHoly-Communion---Cover-2025.jpg?alt=media&token=7a84255a-196f-47b1-82cc-7b9c97cc211b",
+        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2FHoly-Communion---Cover-2025.jpg?alt=media&token=7a84255a-196f-47b1-82cc-7b9c97cc211b"
       );
 
       this.isLoading = true;
@@ -162,6 +163,9 @@ export default {
     },
     handlePDFChange(url) {
       this.setValueToFormAttribute(this.formData, "pdf_url", url);
+    },
+    handlePDFNameChange(name) {
+      this.setValueToFormAttribute(this.formData, "pdf_filename", name);
     },
   },
 };

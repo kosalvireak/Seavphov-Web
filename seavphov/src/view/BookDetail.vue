@@ -57,19 +57,19 @@
               </p>
             </div>
 
-            <div
+            <a
               v-if="book.has_pdf"
-              class="icon-name flex align-items-center space-x-2"
+              :href="book.pdf_url"
+              target="_blank"
+              class="icon-name flex align-items-center"
             >
               <img
                 src="../assets/pdf-icon.svg"
                 alt="pdf logo"
-                class="img-fluid h-8 w-8"
+                class="img-fluid h-8 w-8 mr-2"
               />
-              <a :href="book.pdf_url" class="text-primary"
-                >Holy Communion.pdf</a
-              >
-            </div>
+              {{ book.pdf_filename }}
+            </a>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ export default {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId,
+        this.paramsId
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

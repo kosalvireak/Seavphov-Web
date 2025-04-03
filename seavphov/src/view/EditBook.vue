@@ -97,8 +97,10 @@
             <PdfUpload
               v-if="book.has_pdf"
               id="pdf-url"
+              @pdf-name-update="handlePDFNameChange"
               @pdf-uploaded="handlePDFChange"
               :initial-pdf="book.pdf_url"
+              :initial-file-name="book.pdf_filename"
             />
           </div>
         </div>
@@ -137,6 +139,7 @@ export default {
         categories: "Novel",
         has_pdf: false,
         pdf_url: "",
+        pdf_filename: "",
       },
       isLoading: false,
       author: {},
@@ -167,6 +170,9 @@ export default {
     handlePDFChange(url) {
       this.setValueToFormAttribute(this.formData, "pdf_url", url);
     },
+    handlePDFNameChange(name) {
+      this.setValueToFormAttribute(this.formData, "pdf_filename", name);
+    },
     async getBook(id) {
       const response = await BookController.getMyBook(id);
       this.book.id = response.id;
@@ -177,6 +183,7 @@ export default {
       this.book.condition = response.condition;
       this.book.categories = response.categories;
       this.book.has_pdf = response.has_pdf;
+      this.book.pdf_filename = response.pdf_filename;
 
       this.formData.append("images", response.images);
 

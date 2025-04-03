@@ -72,14 +72,18 @@
       <div
         class="preview-pdf border-2 border-gray-300 border-dashed rounded-lg flex align-items-center justify-content-between p-2"
       >
-        <div class="icon-name flex align-items-center space-x-2">
+        <a
+          :href="pdfUrl"
+          target="_blank"
+          class="icon-name flex align-items-center"
+        >
           <img
             src="../../assets/pdf-icon.svg"
             alt="pdf logo"
-            class="img-fluid h-8 w-8"
+            class="img-fluid h-8 w-8 mr-2"
           />
-          <a :href="pdfUrl">{{ fileName }}</a>
-        </div>
+          {{ fileName }}
+        </a>
         <i class="fa-solid fa-lg fa-xmark clickable" @click="emitPDF('')"></i>
       </div>
     </div>
@@ -98,12 +102,13 @@ export default {
       default: "pdf",
     },
     initialPdf: String,
+    initialFileName: String,
   },
   data() {
     return {
       uploadingPdf: false,
       pdfUrl: this.initialPdf,
-      fileName: "",
+      fileName: this.initialFileName,
     };
   },
   methods: {
@@ -119,7 +124,7 @@ export default {
         }
 
         // Extract the file name
-        this.fileName = selectedFile.name;
+        this.emitFileName(selectedFile.name);
 
         // Validate file size (25MB limit)
         const maxSize = 25 * 1024 * 1024; // 25MB in bytes
@@ -131,7 +136,7 @@ export default {
           const storageRef = ref(storage, `pdf/${selectedFile.name}`);
           const imageUpload = await uploadBytes(storageRef, selectedFile);
           const url = await getDownloadURL(
-            ref(storage, imageUpload.metadata.fullPath),
+            ref(storage, imageUpload.metadata.fullPath)
           );
           this.emitPDF(url);
         }
@@ -154,6 +159,10 @@ export default {
     emitPDF(url) {
       this.pdfUrl = url;
       this.$emit("pdfUploaded", url);
+    },
+    emitFileName(name) {
+      this.fileName = name;
+      this.$emit("pdfNameUpdate", name);
     },
   },
 };

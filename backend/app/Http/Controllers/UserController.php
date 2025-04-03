@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
+use GuzzleHttp\Psr7\Response;
 
 class UserController extends Controller
 {
@@ -20,16 +22,9 @@ class UserController extends Controller
         $filteredUser = $user->except(['api_token', 'remember_token', 'created_at']);
 
         try {
-            return response()->json([
-                'success' => true,
-                'message' => $filteredUser,
-            ], 200);
+            return ResponseUtil::Success('Get user profile success', $filteredUser);
         } catch (ModelNotFoundException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while get user profile.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('An error occurred while get user profile.', $exception->getMessage());
         }
     }
     public function modifyUserProfile(Request $request)
