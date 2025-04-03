@@ -2,11 +2,9 @@
 
 namespace App\Http;
 
-use Illuminate\Http\Request;
-
 class ResponseUtil
 {
-    public static function Success($message, $data = null, $showToast = true, $toastType = 'success')
+    public static function Success($message, $data = null, $showToast = false, $toastType = 'success')
     {
         return response()->json([
             'success' => true,

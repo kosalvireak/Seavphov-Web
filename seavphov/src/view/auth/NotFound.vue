@@ -16,7 +16,7 @@
           Sorry, we can't find that page. You'll find lots to explore on the
           home page.
         </p>
-        <FwbButton @click="toRouteName('home')" color="blue">
+        <FwbButton @click="toRouteName('home')" color="yellow">
           Back to Homepage
         </FwbButton>
       </div>

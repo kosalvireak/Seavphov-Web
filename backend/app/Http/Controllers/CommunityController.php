@@ -204,7 +204,7 @@ class CommunityController extends Controller
                         'isPrivate' => $cop->isPrivate(),
                         'userInPendingRequest' => $userInPendingRequest,
                         'ableToViewHome' => false
-                    ],);
+                    ], true, 'info');
                 }
             }
 

@@ -1,4 +1,5 @@
 import { useToast } from "vue-toastification";
+import router from "../router";
 import axios from "axios";
 
 const toast = useToast();
@@ -37,7 +38,11 @@ function handleErrorResponse(error) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    message = error.response.message;
+    message = error.response.data.message;
+
+    if (error.response.status === 404) {
+      router.push("/not-found")
+    }
   } else if (error.request) {
     // The request was made but no response was received
 
