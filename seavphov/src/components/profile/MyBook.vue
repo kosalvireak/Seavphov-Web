@@ -26,6 +26,9 @@
           <Badge :type="buttonColor" size="sm" class="w-fit">{{
             buttonText
           }}</Badge>
+          <Badge v-if="book.has_pdf" type="red" size="sm" class="w-fit"
+            >PDF</Badge
+          >
         </div>
       </div>
     </div>

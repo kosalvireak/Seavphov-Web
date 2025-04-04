@@ -173,6 +173,7 @@ class BookController extends Controller
 
             if ($validatedData['has_pdf'] == true) {
                 $validatedData['pdf_url'] = $request->get('pdf_url');
+                $validatedData['pdf_filename'] = $request->get('pdf_filename');
                 if ($validatedData['pdf_url'] == null) {
                     return ResponseUtil::UnProcessable('PDF URL is required');
                 }
@@ -214,9 +215,13 @@ class BookController extends Controller
 
             if ($validatedData['has_pdf'] == true) {
                 $validatedData['pdf_url'] = $request->get('pdf_url');
+                $validatedData['pdf_filename'] = $request->get('pdf_filename');
                 if ($validatedData['pdf_url'] == null) {
                     return ResponseUtil::UnProcessable('PDF URL is required');
                 }
+            } else {
+                $validatedData['pdf_url'] = null;
+                $validatedData['pdf_filename'] = null;
             }
 
             // Convert the string value to a boolean

@@ -20,6 +20,14 @@
         </p>
 
         <Badge
+          v-else-if="book.has_pdf"
+          type="red"
+          size="sm"
+          class="absolute right-2 bottom-2 w-fit text-xs m-0"
+          >PDF</Badge
+        >
+
+        <Badge
           :type="buttonColor"
           size="sm"
           class="absolute left-2 bottom-2 px-2 text-xs w-fit m-0 mt-1"

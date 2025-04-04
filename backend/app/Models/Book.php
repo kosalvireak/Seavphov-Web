@@ -25,6 +25,7 @@ class Book extends Model
         'owner_id',
         'has_pdf',
         'pdf_url',
+        'pdf_filename',
     ];
 
     public function owner()

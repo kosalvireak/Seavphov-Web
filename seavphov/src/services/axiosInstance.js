@@ -17,7 +17,7 @@ function handleSuccessResponse(response) {
 }
 
 function handleToastMessage(toastObject, message) {
-  if (toastObject.show) {
+  if (toastObject?.show) {
     switch (toastObject.type) {
       case "success":
         toast.success(message);
