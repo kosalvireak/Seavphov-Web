@@ -21,14 +21,14 @@ import AdminLayout from "../layout/AdminLayout.vue";
 import DashboardOverview from "../view/admin/DashboardOverview.vue";
 import Discussion from "../view/Discussion.vue";
 import DiscussionDetail from "../view/DiscussionDetail.vue";
-import SearchCommunity from "../view/SearchCommunity.vue";
-import CommunityHome from "../view/CommunityHome.vue";
-import CreateCommunity from "../view/CreateCommunity.vue";
+import SearchCommunity from "../view/community/SearchCommunity.vue";
+import CommunityHome from "../view/community/CommunityHome.vue";
+import CreateCommunity from "../view/community/CreateCommunity.vue";
 import SendEmail from "../view/auth/SendEmail.vue";
 import CommunityLayout from "../layout/CommunityLayout.vue";
 import CommunityMembers from "../components/community/CommunityMembers.vue";
 import NotFound from "../view/auth/NotFound.vue";
-import CommunitySettings from "../components/community/CommunitySettings.vue";
+import CommunitySettings from "../components/community/CommunityAdmin.vue";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -202,12 +202,11 @@ const router = createRouter({
               props: true,
               meta: { title: appName + " - Community Members" },
             },
-
             {
-              path: "settings",
-              name: "community-settings",
+              path: "admin",
+              name: "community-admin",
               component: CommunitySettings,
-              meta: { title: appName + " - Community Settings" },
+              meta: { title: appName + " - Community Admin" },
             },
           ],
         },

@@ -48,7 +48,7 @@ export default {
   async mounted() {
     this.isLoading = true;
     const response = await CopMemberController.checkViewCopHomePermission(
-      this.$route.params.route,
+      this.$route.params.route
     );
 
     this.permissionObject = response;
@@ -61,10 +61,10 @@ export default {
           iconClass: "fa-user-group",
         },
         {
-          name: "Settings",
-          routeName: "community-settings",
+          name: "Admin",
+          routeName: "community-admin",
           iconClass: "fa-gear",
-        },
+        }
       );
     }
 
