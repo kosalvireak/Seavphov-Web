@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Http\ResponseUtil;
 use App\Models\Reaction;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -27,13 +28,11 @@ class ReactionService
 
                     $existingReaction->delete();
 
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'No reaction',
+                    return ResponseUtil::Success('No reaction', [
                         'reaction' => null,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], 200);
+                    ], true);
                 } else {
                     // user disliked then like -> reduce dislike, add like 
                     $existingReaction->reaction = true;
@@ -42,13 +41,11 @@ class ReactionService
                     $model->increaseLike();
                     $model->decreaseDislike();
 
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Change to like',
+                    return ResponseUtil::Success('Change to like', [
                         'reaction' => true,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], 200);
+                    ], true);
                 }
             } else {
                 // user has no reaction -> create like record
@@ -61,20 +58,14 @@ class ReactionService
 
                 $model->increaseLike();
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'You like a ' . $entityType,
+                return ResponseUtil::Success('You like a ' . $entityType, [
                     'reaction' => true,
                     'like' => $model->like,
                     'dislike' => $model->dislike
-                ], 200);
+                ], true);
             }
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot like entity!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot link entity!', $exception->getMessage());
         }
     }
 
@@ -93,13 +84,11 @@ class ReactionService
 
                     $existingReaction->delete();
 
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'No reaction',
+                    return ResponseUtil::Success('No reaction', [
                         'reaction' => null,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], 200);
+                    ], true);
                 } else {
                     // user like then dislike -> reduce like, add dislike 
                     $existingReaction->reaction = false;
@@ -108,13 +97,11 @@ class ReactionService
                     $model->increaseDislike();
                     $model->decreaseLike();
 
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Change to dislike',
+                    return ResponseUtil::Success('Change to dislike', [
                         'reaction' => false,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], 200);
+                    ], true);
                 }
             } else {
                 // user has no reaction -> create dislike record
@@ -127,20 +114,14 @@ class ReactionService
 
                 $model->increaseDislike();
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'You dislike a ' . $entityType,
+                return ResponseUtil::Success('You dislike a ' . $entityType, [
                     'reaction' => false,
                     'like' => $model->like,
                     'dislike' => $model->dislike
-                ], 200);
+                ], true);
             }
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot dislike entity!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot dislike entity!', $exception->getMessage());
         }
     }
 }

@@ -102,7 +102,7 @@ const store = createStore({
       }
     },
 
-    async resetPassword({}, formData) {
+    async resetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/", formData, true);
         if (response.data.success) {
@@ -144,7 +144,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBook({}, id) {
+    async adminDeleteBook({ }, id) {
       try {
         const response = await getData(`/api/admin/books/delete/${id}`, true);
         if (response.data.success) {
@@ -154,7 +154,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBanner({}, id) {
+    async adminDeleteBanner({ }, id) {
       try {
         const response = await getData(`/api/admin/banners/${id}`, true);
         if (response.data.success) {
@@ -164,7 +164,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async changeSelectedBanner({}, id) {
+    async changeSelectedBanner({ }, id) {
       try {
         const response = await getData(
           `/api/admin/banners/selected/${id}`,
@@ -220,7 +220,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminAddBanner({}, formData) {
+    async adminAddBanner({ }, formData) {
       try {
         const response = await postForm("/api/admin/banners/", formData, true);
         toast.success(response.data.message);
@@ -233,7 +233,7 @@ const store = createStore({
       }
     },
 
-    async deleteBook({}, id) {
+    async deleteBook({ }, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);
         toast.success(response.data.message);
@@ -243,7 +243,7 @@ const store = createStore({
         return false;
       }
     },
-    async toggleSaveBook({}, bookId) {
+    async toggleSaveBook({ }, bookId) {
       try {
         const response = await getData(`/api/saved/${bookId}`, true);
         if (response.data.success) {
@@ -266,7 +266,7 @@ const store = createStore({
         return false;
       }
     },
-    async sendEmailResetPassword({}, formData) {
+    async sendEmailResetPassword({ }, formData) {
       try {
         const response = await postForm("/api/reset/send", formData, true);
         if (response.data.success) {
@@ -278,87 +278,25 @@ const store = createStore({
         return false;
       }
     },
-    async likeReview({}, reviewId) {
-      try {
-        const response = await getData(`/api/review/like/${reviewId}`, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async likeReview({ }, reviewId) {
+      return await getData(`/api/review/like/${reviewId}`, true);
+
     },
-    async dislikeReview({}, reviewId) {
-      try {
-        const response = await getData(`/api/review/dislike/${reviewId}`, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async dislikeReview({ }, reviewId) {
+      return getData(`/api/review/dislike/${reviewId}`, true);
     },
 
-    async likeDiscussion({}, discussionId) {
-      try {
-        const response = await getData(
-          `/api/discussions/like/${discussionId}`,
-          true,
-        );
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async likeDiscussion({ }, discussionId) {
+      return await getData(`/api/discussions/like/${discussionId}`, true,);
     },
-    async dislikeDiscussion({}, discussionId) {
-      try {
-        const response = await getData(
-          `/api/discussions/dislike/${discussionId}`,
-          true,
-        );
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async dislikeDiscussion({ }, discussionId) {
+      return await getData(`/api/discussions/dislike/${discussionId}`, true,);
     },
-    async likeComment({}, commentId) {
-      try {
-        const response = await getData(`/api/comment/like/${commentId}`, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async likeComment({ }, commentId) {
+      return await getData(`/api/comment/like/${commentId}`, true);
     },
-    async dislikeComment({}, commentId) {
-      try {
-        const response = await getData(
-          `/api/comment/dislike/${commentId}`,
-          true,
-        );
-        if (response.data.success) {
-          toast.success(response.data.message);
-          return response.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-        return false;
-      }
+    async dislikeComment({ }, commentId) {
+      return await getData(`/api/comment/dislike/${commentId}`, true,);
     },
   },
 });
