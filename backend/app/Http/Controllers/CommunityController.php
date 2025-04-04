@@ -173,7 +173,6 @@ class CommunityController extends Controller
 
             $cop = Community::where('route', $route)->first();
 
-
             if (!$cop) {
                 return ResponseUtil::NotFound('Community not found');
             };
