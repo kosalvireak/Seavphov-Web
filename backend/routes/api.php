@@ -12,8 +12,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\CopMemberController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
+use App\Http\Middleware\CopAdminAuthorization;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
 use Illuminate\Support\Facades\Route;
 
@@ -39,19 +41,19 @@ Route::prefix('community')->group(function () {
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
 
     // Members
-    Route::get('{route}/members', [CommunityController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('{route}/member-requests', [CommunityController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/members', [CopMemberController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::get('{route}/member-requests', [CopMemberController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
 
     // Permission
     Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);
 
     // Join cop
-    Route::get('{route}/request-to-join-cop', [CommunityController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('{route}/join-cop', [CommunityController::class, 'joinCop'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/request-to-join-cop', [CopMemberController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/join-cop', [CopMemberController::class, 'joinCop'])->middleware([ApiTokenAuthentication::class]);
 
     // Approve or Reject request
-    Route::post('{route}/approved', [CommunityController::class, 'approveMemberRequest'])->middleware([ApiTokenAuthentication::class]);
-    Route::post('{route}/reject', [CommunityController::class, 'rejectMemberRequest'])->middleware([ApiTokenAuthentication::class]);
+    Route::post('{route}/approved', [CopMemberController::class, 'approveMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::post('{route}/reject', [CopMemberController::class, 'rejectMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
 });
 
 Route::prefix('books')->group(function () {
