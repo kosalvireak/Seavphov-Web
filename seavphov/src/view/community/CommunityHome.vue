@@ -15,12 +15,17 @@
       <div class="Content col-span-12 lg:col-span-9 space-y-8">
         <CommunityHomeBanner :bannerUrl="community.banner" />
         <ReadingChallengeEntry v-if="permissionObject.isCopAdmin" />
+        <ReadingChallengeList
+          v-if="permissionObject.ableToViewHome"
+          :route="route"
+        />
       </div>
     </template>
   </section>
 </template>
 
 <script>
+import ReadingChallengeList from "../../components/community/home/ReadingChallengeList.vue";
 import ReadingChallengeEntry from "../../components/community/home/ReadingChallengeEntry.vue";
 import CommunityHomeProfile from "../../components/community/home/CommunityHomeProfile.vue";
 import CommunityController from "../../controllers/CommunityController";
@@ -31,6 +36,7 @@ export default {
     CommunityHomeProfile,
     ReadingChallengeEntry,
     CommunityHomeBanner,
+    ReadingChallengeList,
   },
   props: {
     permissionObject: {

@@ -71,14 +71,10 @@ class CopMemberService
     public static function isAdminOrMember($userId, $copId)
     {
         // Check if the user is a member or admin of the community
-        $copMember = CopMember::where('cop_id', $copId)
+        return CopMember::where('cop_id', $copId)
             ->where('user_id', $userId)
-            ->first();
-
-        $isCopMember = $copMember && $copMember->role === 2; // Role 2 = Member
-        $isCopAdmin = $copMember && $copMember->role === 1;  // Role 1 = Admin
-
-        return $isCopMember || $isCopAdmin;
+            ->whereIn('role', [1, 2]) // Check for roles 1 (Admin) or 2 (Member)
+            ->exists();
     }
 
     public static function getCopMembers($copId)

@@ -13,6 +13,7 @@ use App\Http\Controllers\UserBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CopMemberController;
+use App\Http\Controllers\ReadingChallengeController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\CopAdminAuthorization;
@@ -33,6 +34,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [BookController::class, 'getMyBooks']);
     Route::get('{id}', [BookController::class, 'getMyBook']);
+});
+
+Route::prefix('reading-challenge')->group(function () {
+    Route::get('{route}', [ReadingChallengeController::class, 'getReadingChallenges'])->middleware([OptionalApiTokenAuthentication::class]);;
+    Route::post('{route}/add', [ReadingChallengeController::class, 'addReadingChallenge'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
 });
 
 Route::prefix('community')->group(function () {
@@ -118,7 +124,6 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
 Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [NotificationController::class, 'getNotifications']);
 });
-
 
 Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function () {
     Route::get('/auth', [AdminController::class, 'adminGetAuth']);

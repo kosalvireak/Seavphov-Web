@@ -5,18 +5,18 @@
     </div>
     <div v-else>
       <EditCopProfile :route="route" />
-      <AddReadingChallenge />
+      <CreateReadingChallenge :route="route" />
     </div>
   </section>
 </template>
 
 <script>
 import CopMemberController from "../../../controllers/CopMemberController";
-import AddReadingChallenge from "../admin/AddReadingChallenge.vue";
+import CreateReadingChallenge from "../admin/CreateReadingChallenge.vue";
 import EditCopProfile from "../admin/EditCopProfile.vue";
 export default {
   name: "CommunityAdmin",
-  components: { AddReadingChallenge, EditCopProfile },
+  components: { CreateReadingChallenge, EditCopProfile },
   data() {
     return {
       isLoading: false,

@@ -87,11 +87,6 @@ export default {
   },
   methods: {
     async Save() {
-      this.formData.append(
-        "profile",
-        "https://firebasestorage.googleapis.com/v0/b/seavphov-919d7.appspot.com/o/folder%2Fseavphov_logo.png?alt=media&token=550a1b65-e64b-4b88-8663-d65ec49c4813"
-      );
-
       this.isLoadingEdit = true;
       this.formData.append("_method", "put");
       this.formData.append("name", this.cop.name);

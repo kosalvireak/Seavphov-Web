@@ -18,7 +18,6 @@ class ResponseUtil
     }
 
 
-
     public static function Unauthorized($message, $error = null)
     {
         return response()->json([
@@ -57,7 +56,6 @@ class ResponseUtil
             'error' => $error
         ], 422);
     }
-
 
 
     public static function ServerError($message, $error = null)

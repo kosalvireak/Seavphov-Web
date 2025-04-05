@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 class DiscussionController extends Controller
 {
 
-
     public function deleteDiscussion(Request $request, $id)
     {
         try {
