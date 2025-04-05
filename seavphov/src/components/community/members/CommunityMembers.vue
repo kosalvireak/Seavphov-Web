@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CopMemberController from "../../controllers/CopMemberController";
+import CopMemberController from "../../../controllers/CopMemberController";
 import CopMemberRequestList from "./CopMemberRequestList.vue";
 import CopMemberList from "./CopMemberList.vue";
 export default {
@@ -78,7 +78,7 @@ export default {
     async checkViewPermission() {
       this.isCheckingPermission = true;
       const response = await CopMemberController.checkViewCopHomePermission(
-        this.route,
+        this.route
       );
 
       if (!response.isCopAdmin) {

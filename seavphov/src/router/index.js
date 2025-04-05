@@ -7,7 +7,7 @@ import Profile from "../view/Profile.vue";
 import SearchResult from "../view/SearchResult.vue";
 import AddBook from "../view/AddBook.vue";
 import EditBook from "../view/EditBook.vue";
-import EditProfile from "../view/EditProfile.vue";
+import EditUserProfile from "../view/EditUserProfile.vue";
 import ViewProfile from "../view/ViewProfile.vue";
 import UsersList from "../view/admin/UsersList.vue";
 import BannersList from "../view/admin/BannersList.vue";
@@ -26,9 +26,9 @@ import CommunityHome from "../view/community/CommunityHome.vue";
 import CreateCommunity from "../view/community/CreateCommunity.vue";
 import SendEmail from "../view/auth/SendEmail.vue";
 import CommunityLayout from "../layout/CommunityLayout.vue";
-import CommunityMembers from "../components/community/CommunityMembers.vue";
+import CommunityMembers from "../components/community/members/CommunityMembers.vue";
 import NotFound from "../view/auth/NotFound.vue";
-import CommunitySettings from "../components/community/CommunityAdmin.vue";
+import CommunitySettings from "../components/community/home/CommunityAdmin.vue";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -127,7 +127,7 @@ const router = createRouter({
         {
           path: "/edit-profile",
           name: "edit-profile",
-          component: EditProfile,
+          component: EditUserProfile,
           meta: { requiresCookie: true, title: appName + " - Profile Setting" },
         },
         {
@@ -149,7 +149,7 @@ const router = createRouter({
               path: "new",
               name: "add-book",
               component: AddBook,
-              // meta: { requiresCookie: true, title: appName + " - Create Book" },
+              meta: { requiresCookie: true, title: appName + " - Create Book" },
             },
             {
               path: "edit/:id",
@@ -200,13 +200,13 @@ const router = createRouter({
               name: "community-members",
               component: CommunityMembers,
               props: true,
-              meta: { title: appName + " - Community Members" },
+              meta: { requiresCookie: true, title: appName + " - Community Members" },
             },
             {
               path: "admin",
               name: "community-admin",
               component: CommunitySettings,
-              meta: { title: appName + " - Community Admin" },
+              meta: { requiresCookie: true, title: appName + " - Community Admin" },
             },
           ],
         },

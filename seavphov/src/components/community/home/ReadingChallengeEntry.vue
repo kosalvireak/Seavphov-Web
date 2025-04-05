@@ -23,7 +23,9 @@
       📢 Ready to Lead the Challenge? Click <b>CREATE CHALLENGE</b> and let the
       reading begin! 🚀
     </p>
-    <LoadingButton class="w-48 mt-4">Create Challenge</LoadingButton>
+    <LoadingButton class="w-48 mt-4" @click="toRouteName('community-admin')"
+      >Create Challenge</LoadingButton
+    >
   </section>
 </template>
 

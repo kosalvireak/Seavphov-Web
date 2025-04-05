@@ -1,5 +1,10 @@
 <template>
   <section class="CopMemberList w-100">
+    <MemberRequestPopup
+      v-if="selectedMember"
+      :user="selectedMember"
+      @on-close="selectedMember = null"
+    />
     <EasyDataTable
       :server-items-length="serverItemsLength"
       :headers="headers"
@@ -15,15 +20,15 @@
         </a>
       </template>
 
-      <template #item-join_date="members">
-        {{ formatDate(members.join_date) }}
+      <template #item-request_date="members">
+        {{ formatDate(members.request_date) }}
       </template>
 
       <template #item-action="members">
         <LoadingButton
-          @click="onClickEditMember(members)"
+          @click="onAction(members)"
           color="primary"
-          text="Edit"
+          text="Action"
           type="button"
           class="text-center"
         />
@@ -33,9 +38,11 @@
 </template>
 
 <script>
-import CopMemberController from "../../controllers/CopMemberController";
+import MemberRequestPopup from "./MemberRequestPopup.vue";
+import CopMemberController from "../../../controllers/CopMemberController";
 export default {
-  name: "CopMemberList",
+  name: "CopMemberRequestList",
+  components: { MemberRequestPopup },
   data() {
     return {
       isLoading: false,
@@ -45,22 +52,24 @@ export default {
       headers: [
         { text: "Profile", value: "picture", sortable: true, width: 50 },
         { text: "Name", value: "name", sortable: true, width: 300 },
-        { text: "Role", value: "role", sortable: true },
-        { text: "Join date", value: "join_date", sortable: true },
+        { text: "Request date", value: "request_date", sortable: true },
         { text: "", value: "action", width: 50 },
       ],
+      selectedMember: null,
     };
   },
   async mounted() {
     this.getCopMemberList();
   },
   methods: {
-    onClickEditMember(member) {
-      console.log(member);
+    onAction(member) {
+      this.selectedMember = member;
     },
     async getCopMemberList() {
       this.isLoading = true;
-      this.members = await CopMemberController.getCommunityMembers(this.route);
+      this.members = await CopMemberController.getCommunityMemberRequest(
+        this.route
+      );
       this.serverItemsLength = this.members.length;
       this.isLoading = false;
     },

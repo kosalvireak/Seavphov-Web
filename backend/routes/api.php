@@ -39,6 +39,7 @@ Route::prefix('community')->group(function () {
     Route::get('', [CommunityController::class, 'searchCommunity'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);
+    Route::put('/edit/{route}', [CommunityController::class, 'editCommunity'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
 
     // Members
     Route::get('{route}/members', [CopMemberController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);

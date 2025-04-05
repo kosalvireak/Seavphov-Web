@@ -1,7 +1,7 @@
 <template>
-  <div class="EditProfile w-100 mb-4 mt-8 container-xl">
+  <div class="EditUserProfile w-100 mb-4 mt-8 container-xl">
     <BackRoute />
-    <div v-if="isLogin" class="flex-center flex-column">
+    <div class="flex-center flex-column">
       <p class="h3">Edit profile</p>
       <div v-if="isLoading" class="flex-center h-96">
         <Loader :size="40" />
@@ -124,22 +124,15 @@
         </div>
       </form>
     </div>
-    <div
-      v-else
-      class="d-flex align-items-center justify-content-center flex-column"
-    >
-      <NoLoggin />
-    </div>
   </div>
 </template>
 
 <script>
 import ProfileController from "../controllers/ProfileController";
-import NoLoggin from "../components/NoLoggin.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 export default {
-  name: "EditProfile",
-  components: { NoLoggin, MDBInput },
+  name: "EditUserProfile",
+  components: { MDBInput },
   data() {
     return {
       isLoading: false,
@@ -157,9 +150,18 @@ export default {
         location: "",
       },
       formData: new FormData(),
-      uploadingBook: false,
     };
   },
+
+  //   "id": 9,
+  // "name": "1mmee",
+  // "route": "1mmee",
+  // "profile": "https:\/\/static.vecteezy.com\/system\/resources\/previews\/054\/453\/530\/non_2x\/proactive-community-engagement-icon-vector.jpg",
+  // "banner": "https:\/\/charitysmith.org\/wp-content\/uploads\/2023\/09\/community.webp",
+  // "description": "asd",
+  // "private": true,
+  // "created_at": "2025-03-05T14:08:13.000000Z",
+  // "updated_at": "2025-03-05T14:08:13.000000Z"
   methods: {
     async Save() {
       this.isLoading = true;

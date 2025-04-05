@@ -76,6 +76,30 @@ class CommunityController extends Controller
         }
     }
 
+    public function editCommunity(Request $request)
+    {
+        try {
+            $cop = $request->attributes->get('cop');
+
+            $validatedData = $request->validate([
+                'name' => 'required|string|regex:/^[a-zA-Z0-9\s]+$/',
+                'description' => 'nullable|string',
+                'private' => 'required|in:true,false',
+                'profile' => 'nullable|url',
+                'banner' => 'nullable|url',
+            ]);
+
+            // Convert the string value to a boolean
+            $validatedData['private'] = filter_var($validatedData['private'], FILTER_VALIDATE_BOOLEAN);
+
+            $cop->update($validatedData);
+
+            return ResponseUtil::Success('Edit community success', $cop, true);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot Edit Community!', $exception->getMessage());
+        }
+    }
+
     public function createCommunity(Request $request)
     {
         try {
