@@ -32,7 +32,7 @@ class CopAdminAuthorization
             return ResponseUtil::NotFound('Community not found');
         };
 
-        if (CopMemberService::isCopAdmin($user->id, $cop->id) == false) {
+        if (!CopMemberService::isCopAdmin($user->id, $cop->id)) {
             return ResponseUtil::Unauthorized('You are not admin of this community');
         }
 

@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Models\CopMember;
 use App\Models\User;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 
 
 class CopMemberService
@@ -55,28 +54,32 @@ class CopMemberService
 
     public static function isCopAdmin($userId, $copId)
     {
-        $query = CopMember::query();
-        $query->where('cop_id', $copId);
-        $query->where('user_id', $userId);
-        $query->where('role', 1);
-
-        $copAdmin = $query->first();
-
-        return $copAdmin != null ? true : false;
+        return CopMember::where('cop_id', $copId)
+            ->where('user_id', $userId)
+            ->where('role', 1)
+            ->exists();
     }
 
     public static function isCopMember($userId, $copId)
     {
-        $query = CopMember::query();
-        $query->where('cop_id', $copId);
-        $query->where('user_id', $userId);
-        $query->where('role', 2);
-
-        $copMember = $query->first();
-
-        return $copMember != null ? true : false;
+        return CopMember::where('cop_id', $copId)
+            ->where('user_id', $userId)
+            ->where('role', 2)
+            ->exists();
     }
 
+    public static function isAdminOrMember($userId, $copId)
+    {
+        // Check if the user is a member or admin of the community
+        $copMember = CopMember::where('cop_id', $copId)
+            ->where('user_id', $userId)
+            ->first();
+
+        $isCopMember = $copMember && $copMember->role === 2; // Role 2 = Member
+        $isCopAdmin = $copMember && $copMember->role === 1;  // Role 1 = Admin
+
+        return $isCopMember || $isCopAdmin;
+    }
 
     public static function getCopMembers($copId)
     {

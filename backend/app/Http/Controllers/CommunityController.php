@@ -6,6 +6,7 @@ use App\Http\ResponseUtil;
 use Illuminate\Http\Request;
 use Exception;
 use App\Models\Community;
+use App\Models\CopMember;
 use App\Models\User;
 use App\Service\CopMemberRequestService;
 use App\Service\CopMemberService;
@@ -117,12 +118,11 @@ class CommunityController extends Controller
             $user = $request->attributes->get('user');
 
             $cop = Community::where('route', $route)->first();
-
             if (!$cop) {
                 return ResponseUtil::NotFound('Community not found');
             };
 
-            // non login User View Cop
+            // Handle non-logged-in User
             if (!$user) {
                 return ResponseUtil::Success('Non login User View Cop',  [
                     'isCopMember' => false,
@@ -133,23 +133,25 @@ class CommunityController extends Controller
                 ],);
             }
 
-            $isCopMember = CopMemberService::isCopMember($user->id, $cop->id);
+            // Check if the user is a member or admin of the community
+            $copMember = CopMember::where('cop_id', $cop->id)
+                ->where('user_id', $user->id)
+                ->first();
 
-            $isCopAdmin = CopMemberService::isCopAdmin($user->id, $cop->id);
+            $isCopMember = $copMember && $copMember->role === 2; // Role 2 = Member
+            $isCopAdmin = $copMember && $copMember->role === 1;  // Role 1 = Admin
 
             $userInPendingRequest = CopMemberRequestService::userInPendingRequest($cop->id, $user->id);
 
-            // Check if the community is private and not a member or admin of cop
-            if ($cop->isPrivate()) {
-                if (!$isCopMember && !$isCopAdmin) {
-                    return ResponseUtil::Success('No permission to view this community',  [
-                        'isCopMember' => $isCopMember,
-                        'isCopAdmin' => $isCopAdmin,
-                        'isPrivate' => $cop->isPrivate(),
-                        'userInPendingRequest' => $userInPendingRequest,
-                        'ableToViewHome' => false
-                    ], true, 'info');
-                }
+            // If the community is private and the user is neither a member nor an admin
+            if ($cop->isPrivate() && !$isCopMember && !$isCopAdmin) {
+                return ResponseUtil::Success('No permission to view this community', [
+                    'isCopMember' => $isCopMember,
+                    'isCopAdmin' => $isCopAdmin,
+                    'isPrivate' => $cop->isPrivate(),
+                    'userInPendingRequest' => $userInPendingRequest,
+                    'ableToViewHome' => false,
+                ], true, 'info');
             }
 
             return ResponseUtil::Success('Get Community permission successfully',  [

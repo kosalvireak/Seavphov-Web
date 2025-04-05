@@ -50,12 +50,8 @@ class CopMemberController extends Controller
 
             $cop = Community::where('route', $route)->first();
 
-            if (CopMemberService::isCopMember($user->id, $cop->id)) {
+            if (CopMemberService::isAdminOrMember($user->id, $cop->id)) {
                 return ResponseUtil::Success('You are already a member of this community');
-            }
-
-            if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
-                return ResponseUtil::Success('You are already an admin of this community');
             }
 
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);
@@ -81,13 +77,8 @@ class CopMemberController extends Controller
 
             $cop = Community::where('route', $route)->first();
 
-            if (CopMemberService::isCopMember($user->id, $cop->id)) {
-
+            if (CopMemberService::isAdminOrMember($user->id, $cop->id)) {
                 return ResponseUtil::Success('You are already a member of this community');
-            }
-
-            if (CopMemberService::isCopAdmin($user->id, $cop->id)) {
-                return ResponseUtil::Success('You are already an admin of this community');
             }
 
             $copAdminIds = CopMemberService::getCopAdminIds($cop->id);

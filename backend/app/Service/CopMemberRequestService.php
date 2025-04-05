@@ -48,12 +48,10 @@ class CopMemberRequestService
 
     public static function userInPendingRequest($copId, $userId)
     {
-        $query = CopMembersRequest::query();
-        $query->where('cop_id', $copId);
-        $query->where('user_id', $userId);
-        $query->where('status', 1);
-        $request = $query->first();
-        return $request != null ? true : false;
+        return CopMembersRequest::where('cop_id', $copId)
+            ->where('user_id', $userId)
+            ->where('status', 1) // Status 1 indicates a pending request
+            ->exists();
     }
 
     public static function deleteCopMemberRequest($copId, $userId)
