@@ -23,8 +23,10 @@
       📢 Ready to Lead the Challenge? Click <b>CREATE CHALLENGE</b> and let the
       reading begin! 🚀
     </p>
-    <LoadingButton class="w-48 mt-4" @click="toRouteName('community-admin')"
-      >Create Challenge</LoadingButton
+    <a
+      :href="buildCreateChallengeRoute()"
+      class="w-fit mt-4 bg-sp-primary text-white p-2 px-3 rounded-lg"
+      >Create Challenge</a
     >
   </section>
 </template>
@@ -32,6 +34,12 @@
 <script>
 export default {
   name: "ReadingChallengeEntry",
+  methods: {
+    buildCreateChallengeRoute() {
+      const route = this.$route.params.route;
+      return `/community/${route}/admin#tabs=create-challenge`;
+    },
+  },
 };
 </script>
 

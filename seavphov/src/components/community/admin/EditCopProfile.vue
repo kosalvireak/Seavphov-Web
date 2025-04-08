@@ -5,8 +5,12 @@
       <div v-if="isLoading" class="flex-center h-96">
         <Loader :size="40" />
       </div>
-      <form v-else v-on:submit.prevent="Save()" class="row flex-center">
-        <div class="mb-4">
+      <form
+        v-else
+        v-on:submit.prevent="Save()"
+        class="row flex-center space-y-4"
+      >
+        <div>
           <p>Banner image</p>
           <ImageUpload
             id="banner"
@@ -24,6 +28,8 @@
               :initialImage="cop.profile"
             />
           </div>
+        </div>
+        <div class="col-12 col-md-6 space-y-4">
           <div>
             <MDBInput
               type="text"
@@ -57,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center mt-8">
           <LoadingButton type="submit" text="Save" :isLoading="isLoadingEdit" />
         </div>
       </form>
