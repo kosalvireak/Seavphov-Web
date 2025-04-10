@@ -70,7 +70,7 @@
       />
     </div>
 
-    <p v-if="!isNotCopMember">Your's role: {{ roleText }}</p>
+    <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
     <p>Created on: {{ formatDate(community.created_at) }}</p>
   </section>
 </template>

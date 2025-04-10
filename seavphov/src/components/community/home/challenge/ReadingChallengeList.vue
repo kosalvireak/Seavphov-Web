@@ -1,13 +1,19 @@
 <template>
-  <section class="ReadingChallengeList">
-    {{ readingChallenges }}
+  <section class="ReadingChallengeList space-y-8">
+    <ReadingChallengeItem
+      v-for="item in readingChallenges"
+      :key="item.id"
+      :item="item"
+    />
   </section>
 </template>
 
 <script>
-import ReadingChallengeController from "../../../controllers/ReadingChallengeController";
+import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
+import ReadingChallengeItem from "../challenge/ReadingChallengeItem.vue";
 export default {
   name: "ReadingChallengeList",
+  components: { ReadingChallengeItem },
   props: {
     route: {
       type: String,
