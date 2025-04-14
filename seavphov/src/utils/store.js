@@ -41,65 +41,17 @@ const store = createStore({
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
       commit("SET_USER", { name, email, api_token, picture });
     },
-    async registerUser({ dispatch }, signupData) {
-      try {
-        const response = await axiosInstance.post(
-          backend_url + "/api/user/register",
-          signupData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const responseData = await response.data;
-        if (responseData.success) {
-          const user = {
-            name: responseData.data.name,
-            email: responseData.data.email,
-            api_token: responseData.data.api_token,
-            uuid: responseData.data.uuid,
-            picture: responseData.data.picture,
-          };
-          setCookie(user);
-          dispatch("setUserFromCookies");
-          toast.success(responseData.message);
-          router.push("/home");
-        }
-      } catch (error) {
-        console.error("Error register user:", error);
-        toast.error(error.response.data.message);
-      }
-    },
-    async loginUser({ dispatch }, loginData) {
-      try {
-        const response = await axiosInstance.post(
-          backend_url + "/api/user/login",
-          loginData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const responseData = await response.data;
-        if (responseData.success) {
-          const user = {
-            name: responseData.data.name,
-            email: responseData.data.email,
-            api_token: responseData.data.api_token,
-            picture: responseData.data.picture,
-            uuid: responseData.data.uuid,
-          };
-          setCookie(user);
-          dispatch("setUserFromCookies");
-          toast.success(responseData.message);
-          router.push("/home");
-        }
-      } catch (error) {
-        console.error("Error login user:", error);
-        toast.error(error.response.data.message);
-      }
+    async setCookieAndRedirectToHome({ dispatch }, responseData) {
+      const user = {
+        name: responseData.name,
+        email: responseData.email,
+        api_token: responseData.api_token,
+        uuid: responseData.uuid,
+        picture: responseData.picture,
+      };
+      setCookie(user);
+      dispatch("setUserFromCookies");
+      router.push("/home");
     },
 
     async resetPassword({ }, formData) {

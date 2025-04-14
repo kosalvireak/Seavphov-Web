@@ -76,6 +76,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import UserController from "../../controllers/UserController";
 export default {
   name: "Login",
   components: { MDBInput },
@@ -91,22 +92,28 @@ export default {
   },
   methods: {
     async Login() {
-      if (this.email.length == 0 || this.password.length == 0) {
+      if (this.password.length > 8) {
         this.Error = true;
-        this.errorMessage = "Email or password cannot be empty!";
-      } else if (this.email.length > 0 || this.password.length > 6) {
-        const loginData = {
-          email: this.email,
-          password: this.password,
-        };
-        this.isLoading = true;
-        await this.$store.dispatch("loginUser", loginData);
-        this.isLoading = false;
-      } else {
-        this.Error = true;
-        this.errorMessage = "Incorrect email or password!";
+        this.errorMessage = "Password must be 8 characters or more";
+        return;
+      }
+
+      this.isLoading = true;
+      const responseData = await UserController.login(this.createLoginDate());
+      this.isLoading = false;
+
+      if (responseData) {
+        await this.$store.dispatch("setCookieAndRedirectToHome", responseData);
       }
     },
+
+    createLoginDate() {
+      const form = new FormData();
+      form.append("email", this.email);
+      form.append("password", this.password);
+      return form;
+    },
+
     showPassword() {
       if (this.isShowPassword) {
         password.type = "password";

@@ -93,6 +93,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import UserController from "../../controllers/UserController";
 export default {
   name: "Register",
   components: { MDBInput },
@@ -110,25 +111,36 @@ export default {
   },
   methods: {
     async Register() {
-      if (this.password.length >= 8) {
-        if (this.password === this.password_confirmation) {
-          const RegisterData = {
-            email: this.email,
-            name: this.name,
-            password: this.password,
-            password_confirmation: this.password_confirmation,
-          };
-          this.isLoading = true;
-          await this.$store.dispatch("registerUser", RegisterData);
-          this.isLoading = false;
-        } else {
-          this.Error = true;
-          this.errorMessage = "Password & confirm password does not match!";
-        }
-      } else {
+      if (this.password.length > 8) {
         this.Error = true;
         this.errorMessage = "Password must be 8 characters or more";
+        return;
       }
+
+      if (this.password !== this.password_confirmation) {
+        this.Error = true;
+        this.errorMessage = "Password & confirm password does not match!";
+        return;
+      }
+
+      this.isLoading = true;
+      const responseData = await UserController.register(
+        this.createSignupDate()
+      );
+      this.isLoading = false;
+
+      if (responseData) {
+        await this.$store.dispatch("setCookieAndRedirectToHome", responseData);
+      }
+    },
+
+    createSignupDate() {
+      const form = new FormData();
+      form.append("email", this.email);
+      form.append("name", this.name);
+      form.append("password", this.password);
+      form.append("password_confirmation", this.password_confirmation);
+      return form;
     },
 
     showPassword() {

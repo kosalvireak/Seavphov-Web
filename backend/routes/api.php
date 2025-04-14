@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -112,8 +113,8 @@ Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(fun
 });
 
 Route::prefix('user')->group(function () {
-    Route::post('login', [LoginController::class, 'loginUser']);
-    Route::post('register', [RegisterController::class, 'registerUser']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 });
 
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {

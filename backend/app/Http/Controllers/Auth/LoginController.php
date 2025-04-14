@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
-    public function loginUser(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
