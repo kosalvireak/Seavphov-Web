@@ -47,7 +47,10 @@
         >...see more</span
       >
     </div>
-    <div v-if="discussion.image !== 'null'" class="w-100 max-h-72 flex-center">
+    <div
+      v-if="inValidProperty(discussion, 'image')"
+      class="w-100 max-h-72 flex-center"
+    >
       <img :src="discussion.image" class="max-h-64" alt="discussion image" />
     </div>
     <div class="d-flex justify-content-start space-x-2">

@@ -25,6 +25,7 @@ class ReadingChallenge extends Model
     {
         $isOwner = $userId == null ? false : $userId == $this->user_id;
         return [
+            'id' => $this->id,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'total_member' => $this->total_member,

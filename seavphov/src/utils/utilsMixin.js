@@ -11,6 +11,13 @@ export const UtilsMixin = {
       }
       form.append(attribute, value);
     },
+    inValidProperty(obj, attribute) {
+      if (obj == null) {
+        return false;
+      }
+      return !(obj[attribute] == null || obj[attribute] === 'null');
+
+    }
   },
   computed: {
     isLogin() {

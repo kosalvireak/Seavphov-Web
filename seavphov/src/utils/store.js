@@ -53,39 +53,6 @@ const store = createStore({
       dispatch("setUserFromCookies");
       router.push("/home");
     },
-
-    async resetPassword({ }, formData) {
-      try {
-        const response = await postForm("/api/reset/", formData, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-        }
-      } catch (error) {
-        console.error("Error reset password", error);
-        toast.error(error.response.data.message);
-      }
-    },
-    async modifyUserProfile({ dispatch }, formData) {
-      try {
-        const response = await postForm("/api/profile", formData, true);
-        if (response.data.success) {
-          const responseData = response.data.data;
-          const user = {
-            name: responseData.name,
-            email: responseData.email,
-            api_token: responseData.api_token,
-            picture: responseData.picture,
-            uuid: responseData.uuid,
-          };
-          setCookie(user);
-          dispatch("setUserFromCookies");
-          toast.success(response.data.message);
-        }
-      } catch (error) {
-        console.error("Error adding book:", error);
-        toast.error(error.response.data.message);
-      }
-    },
     async adminGetBooks() {
       try {
         const response = await getData("/api/admin/books", true);
@@ -184,7 +151,6 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-
     async deleteBook({ }, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);
@@ -218,26 +184,12 @@ const store = createStore({
         return false;
       }
     },
-    async sendEmailResetPassword({ }, formData) {
-      try {
-        const response = await postForm("/api/reset/send", formData, true);
-        if (response.data.success) {
-          toast.success(response.data.message);
-        }
-      } catch (error) {
-        console.error("Error sending email", error);
-        toast.error(error.response.data.message);
-        return false;
-      }
-    },
     async likeReview({ }, reviewId) {
       return await getData(`/api/review/like/${reviewId}`, true);
-
     },
     async dislikeReview({ }, reviewId) {
       return getData(`/api/review/dislike/${reviewId}`, true);
     },
-
     async likeDiscussion({ }, discussionId) {
       return await getData(`/api/discussions/like/${discussionId}`, true,);
     },

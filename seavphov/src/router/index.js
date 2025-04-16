@@ -7,7 +7,7 @@ import Profile from "../view/Profile.vue";
 import SearchResult from "../view/SearchResult.vue";
 import AddBook from "../view/AddBook.vue";
 import EditBook from "../view/EditBook.vue";
-import EditUserProfile from "../view/EditUserProfile.vue";
+import EditProfile from "../view/EditProfile.vue";
 import ViewProfile from "../view/ViewProfile.vue";
 import UsersList from "../view/admin/UsersList.vue";
 import BannersList from "../view/admin/BannersList.vue";
@@ -29,6 +29,7 @@ import CommunityLayout from "../layout/CommunityLayout.vue";
 import CommunityMembers from "../components/community/members/CommunityMembers.vue";
 import NotFound from "../view/auth/NotFound.vue";
 import CommunitySettings from "../components/community/home/CommunityAdmin.vue";
+import ReadingChallengeDetail from "../view/community/ReadingChallengeDetail.vue";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -127,7 +128,7 @@ const router = createRouter({
         {
           path: "/edit-profile",
           name: "edit-profile",
-          component: EditUserProfile,
+          component: EditProfile,
           meta: { requiresCookie: true, title: appName + " - Profile Setting" },
         },
         {
@@ -207,6 +208,12 @@ const router = createRouter({
               name: "community-admin",
               component: CommunitySettings,
               meta: { requiresCookie: true, title: appName + " - Community Admin" },
+            },
+            {
+              path: "reading-challenge/:id",
+              name: "reading-challenge-detail",
+              component: ReadingChallengeDetail,
+              meta: { requiresCookie: true, title: appName + " - Reading Challenge" },
             },
           ],
         },

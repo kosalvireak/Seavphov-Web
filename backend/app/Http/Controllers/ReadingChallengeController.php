@@ -19,6 +19,26 @@ use Illuminate\Http\Request;
 class ReadingChallengeController extends Controller
 {
 
+    public function getReadingChallenge(Request $request, $route, $id)
+    {
+        try {
+            $cop = Community::where('route', $route)->first();
+            $userId = $request->attributes->get('user')->id;
+
+            if (!CopMemberService::isAdminOrMember($userId, $cop->id)) {
+                return ResponseUtil::NotFound("You need to be member of this cop to see this reading challenge", []);
+            }
+
+            $readingChallenge = ReadingChallenge::where('cop_id', $cop->id)->where('id', $id)->first();
+            if (!$readingChallenge) {
+                return ResponseUtil::NotFound("Reading challenge not found");
+            }
+            return ResponseUtil::Success("Successfully get reading challenge", $readingChallenge->getData($userId));
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot get reading challenge!', $exception->getMessage());
+        }
+    }
+
     public function getReadingChallenges(Request $request, $route)
     {
         try {

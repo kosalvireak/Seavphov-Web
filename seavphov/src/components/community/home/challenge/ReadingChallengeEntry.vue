@@ -28,6 +28,10 @@
       class="w-fit mt-4 bg-sp-primary text-white p-2 px-3 rounded-lg"
       >Create Challenge</a
     >
+    <Info
+      text="Only community admins can see this banner and create reading challenges."
+      class="mt-2"
+    />
   </section>
 </template>
 

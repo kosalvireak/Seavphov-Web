@@ -2,6 +2,7 @@
   <Dropdown
     id="user-profile-dropdown"
     id_content="user-profile-dropdown_content"
+    placement="bottom-end"
   >
     <template #button>
       <img

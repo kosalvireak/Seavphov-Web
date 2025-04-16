@@ -10,4 +10,8 @@ export default class ReadingChallengeController {
     static async getReadingChallenges(route) {
         return await getData(ReadingChallengeRoute + `/${route}`, true);
     }
+
+    static async getReadingChallenge(route, id) {
+        return await getData(ReadingChallengeRoute + `/${route}/${id}`, true);
+    }
 }

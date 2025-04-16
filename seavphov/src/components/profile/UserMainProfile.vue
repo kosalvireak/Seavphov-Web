@@ -24,7 +24,7 @@
               v-if="user.picture"
               :src="user.picture"
               alt="profile image"
-              class="w-100 h-100 img-fluid object-cover shadow rounded-circle"
+              class="w-100 h-100 img-fluid object-cover shadow rounded-circle ring-1 ring-gray-300"
             />
           </div>
           <div
@@ -32,10 +32,10 @@
           >
             <p class="text-2xl font-bold">{{ user.name }}</p>
             <p v-if="fromProfile" class="text-base">{{ user.email }}</p>
-            <p v-if="inValidProperty(user,'phone')" class="text-base">
+            <p v-if="inValidProperty(user, 'phone')" class="text-base">
               {{ user.phone }}
             </p>
-            <p v-if="inValidProperty(user,'bio')" class="text-base">
+            <p v-if="inValidProperty(user, 'bio')" class="text-base">
               {{ user.bio }}
             </p>
           </div>

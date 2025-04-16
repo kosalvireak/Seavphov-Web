@@ -169,7 +169,7 @@ class CommunityController extends Controller
 
             // If the community is private and the user is neither a member nor an admin
             if ($cop->isPrivate() && !$isCopMember && !$isCopAdmin) {
-                return ResponseUtil::Success('No permission to view this community', [
+                return ResponseUtil::Success('No permission to view content of this community', [
                     'isCopMember' => $isCopMember,
                     'isCopAdmin' => $isCopAdmin,
                     'isPrivate' => $cop->isPrivate(),

@@ -117,7 +117,7 @@ class CopMemberController extends Controller
             NotificationService::storeApproveRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'approve your request to join ' . $cop->name);
 
             if ($response) {
-                return ResponseUtil::Success('Approve member request successfully', true);
+                return ResponseUtil::Success('Approve member request successfully', true, true);
             }
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot approve member request!', $exception->getMessage());
@@ -142,7 +142,7 @@ class CopMemberController extends Controller
 
             NotificationService::storeRejectRequestToJoinCopNotification($user->id, $request_user->id, $cop->id, 'reject your request to join ' . $cop->name);
 
-            return ResponseUtil::Success('Reject member request successfully', true);
+            return ResponseUtil::Success('Reject member request successfully', true, true, 'danger');
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot reject member request!', $exception->getMessage());
         }
