@@ -77,13 +77,11 @@
             </div>
             <p v-if="Error" class="text-danger">{{ errorMessage }}</p>
             <div class="form-floating flex-center justify-content-end">
-              <button
+              <LoadingButton
                 type="submit"
-                class="btn btn-primary mt-2 flex-center btn_submit"
-              >
-                <span v-if="!isLoading">Reset</span>
-                <Loader v-else :size="15" :Color="'#FFFFFF'" />
-              </button>
+                text="Reset"
+                :isLoading="isLoading"
+              />
             </div>
           </form>
         </div>
@@ -94,6 +92,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import AuthController from "../../controllers/AuthController";
 export default {
   name: "ForgotPassword",
 
@@ -121,10 +120,13 @@ export default {
       formData.append("token", this.token);
       formData.append("password", this.password);
       formData.append("password_confirmation", this.password_confirmation);
-      await this.$store.dispatch("resetPassword", formData);
+
+      const response = await AuthController.resetPassword(formData);
       this.isLoading = false;
-      if (this.page == 2) {
-        this.toRouteName("login");
+      if (response) {
+        if (this.page == 2) {
+          this.toRouteName("login");
+        }
       }
     },
     showPassword() {

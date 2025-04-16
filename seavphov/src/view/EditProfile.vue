@@ -120,7 +120,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-          <LoadingButton type="submit" text="Save" :isLoading="isLoading" />
+          <LoadingButton type="submit" text="Save" :isLoading="isSaving" />
         </div>
       </form>
     </div>
@@ -128,14 +128,15 @@
 </template>
 
 <script>
-import ProfileController from "../controllers/ProfileController";
 import { MDBInput } from "mdb-vue-ui-kit";
+import UserController from "../controllers/UserController.js";
 export default {
-  name: "EditUserProfile",
+  name: "EditProfile",
   components: { MDBInput },
   data() {
     return {
       isLoading: false,
+      isSaving: false,
       user: {
         name: "",
         email: "",
@@ -152,33 +153,33 @@ export default {
       formData: new FormData(),
     };
   },
-
-  //   "id": 9,
-  // "name": "1mmee",
-  // "route": "1mmee",
-  // "profile": "https:\/\/static.vecteezy.com\/system\/resources\/previews\/054\/453\/530\/non_2x\/proactive-community-engagement-icon-vector.jpg",
-  // "banner": "https:\/\/charitysmith.org\/wp-content\/uploads\/2023\/09\/community.webp",
-  // "description": "asd",
-  // "private": true,
-  // "created_at": "2025-03-05T14:08:13.000000Z",
-  // "updated_at": "2025-03-05T14:08:13.000000Z"
   methods: {
     async Save() {
-      this.isLoading = true;
-      this.formData.append("_method", "put");
-      this.formData.append("name", this.user.name);
-      this.formData.append("email", this.user.email);
-      this.formData.append("picture", this.user.picture);
-      this.formData.append("cover", this.user.cover);
-      this.formData.append("bio", this.user.bio);
-      this.formData.append("phone", this.user.phone);
-      this.formData.append("instagram", this.user.instagram);
-      this.formData.append("facebook", this.user.facebook);
-      this.formData.append("twitter", this.user.twitter);
-      this.formData.append("telegram", this.user.telegram);
-      this.formData.append("location", this.user.location);
-      await this.$store.dispatch("modifyUserProfile", this.formData);
+      this.isSaving = true;
+
+      this.createProfileData(this.formData);
+      const responseData = await UserController.editProfile(this.formData);
+      this.isSaving = false;
+
+      if (responseData) {
+        await this.$store.dispatch("setCookieAndRedirectToHome", responseData);
+      }
+
       this.toRouteName("profile");
+    },
+    createProfileData(formData) {
+      formData.append("_method", "put");
+      formData.append("name", this.user.name);
+      formData.append("email", this.user.email);
+      formData.append("picture", this.user.picture);
+      formData.append("cover", this.user.cover);
+      formData.append("bio", this.user.bio);
+      formData.append("phone", this.user.phone);
+      formData.append("instagram", this.user.instagram);
+      formData.append("facebook", this.user.facebook);
+      formData.append("twitter", this.user.twitter);
+      formData.append("telegram", this.user.telegram);
+      formData.append("location", this.user.location);
     },
     async onUploadPicture(url) {
       this.user.picture = url;
@@ -191,7 +192,7 @@ export default {
   },
   async mounted() {
     this.isLoading = true;
-    this.user = await ProfileController.getMyProfileInfo();
+    this.user = await UserController.getProfile();
     this.isLoading = false;
   },
 };

@@ -76,7 +76,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
-import UserController from "../../controllers/UserController";
+import AuthController from "../../controllers/AuthController";
 export default {
   name: "Login",
   components: { MDBInput },
@@ -99,21 +99,19 @@ export default {
       }
 
       this.isLoading = true;
-      const responseData = await UserController.login(this.createLoginDate());
+      const responseData = await AuthController.login(this.createLoginDate());
       this.isLoading = false;
 
       if (responseData) {
         await this.$store.dispatch("setCookieAndRedirectToHome", responseData);
       }
     },
-
     createLoginDate() {
       const form = new FormData();
       form.append("email", this.email);
       form.append("password", this.password);
       return form;
     },
-
     showPassword() {
       if (this.isShowPassword) {
         password.type = "password";

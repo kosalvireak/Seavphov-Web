@@ -93,7 +93,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
-import UserController from "../../controllers/UserController";
+import AuthController from "../../controllers/AuthController";
 export default {
   name: "Register",
   components: { MDBInput },
@@ -124,7 +124,7 @@ export default {
       }
 
       this.isLoading = true;
-      const responseData = await UserController.register(
+      const responseData = await AuthController.register(
         this.createSignupDate()
       );
       this.isLoading = false;

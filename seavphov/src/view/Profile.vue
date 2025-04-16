@@ -19,7 +19,7 @@
 import ProfileDetail from "../components/profile/ProfileDetail.vue";
 import ProfileNavigation from "../components/profile/ProfileNavigation.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
-import ProfileController from "../controllers/ProfileController";
+import UserController from "../controllers/UserController";
 export default {
   name: "Profile",
   components: {
@@ -40,7 +40,7 @@ export default {
   methods: {
     async getProfile() {
       this.isLoadingProfile = true;
-      this.User = await ProfileController.getMyProfileInfo();
+      this.User = await UserController.getProfile();
       this.isLoadingProfile = false;
     },
     onSelectNavigation(navigation) {

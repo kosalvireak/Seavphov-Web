@@ -12,6 +12,19 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const DEFAULT_COVER_PHOTO = 'https://flowbite.com/docs/images/examples/image-3@2x.jpg';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->cover) || $user->cover === "null") {
+                $user->cover = self::DEFAULT_COVER_PHOTO;
+            }
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

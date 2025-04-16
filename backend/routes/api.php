@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookReviewController;
 use App\Http\Controllers\CommentController;
@@ -106,17 +104,6 @@ Route::prefix('discussions')->group(function () {
     Route::delete('/delete/{id}', [DiscussionController::class, 'deleteDiscussion'])->middleware([ApiTokenAuthentication::class]);
 });
 
-Route::prefix('profile')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('', [UserController::class, 'getMyProfileInfo']);
-    Route::put('', [UserController::class, 'modifyUserProfile']);
-    Route::get('{uuid}', [UserController::class, 'getOtherUserProfile']);
-});
-
-Route::prefix('user')->group(function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-});
-
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('{bookId}', [UserBookController::class, 'saveBook']);
     Route::get('', [UserBookController::class, 'getSavedBook']);
@@ -138,7 +125,15 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/banners/selected/{id}', [BannerController::class, 'changeSelectedBanner']);
 });
 
-Route::prefix('reset')->group(function () {
-    Route::post('/', [UserController::class, 'resetPassword']);
-    Route::post('/send', [UserController::class, 'sendEmailResetPassword']);
+Route::prefix('user')->middleware([ApiTokenAuthentication::class])->group(function () {
+    Route::get('', [UserController::class, 'getProfile']);
+    Route::put('/edit', [UserController::class, 'editProfile']);
+    Route::get('{uuid}', [UserController::class, 'getOtherProfile']);
+});
+
+Route::prefix('auth')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('reset', [AuthController::class, 'resetPassword']);
+    Route::post('reset/send-mail', [AuthController::class, 'sendMailResetPassword']);
 });

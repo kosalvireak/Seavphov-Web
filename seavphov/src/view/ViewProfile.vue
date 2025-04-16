@@ -18,7 +18,7 @@ import RenderBook from "../components/RenderBook.vue";
 import UserMainProfile from "../components/profile/UserMainProfile.vue";
 import NoLoggin from "../components/NoLoggin.vue";
 import ViewProfileNavigation from "../components/profile/ViewProfileNavigation.vue";
-import ProfileController from "../controllers/ProfileController";
+import UserController from "../controllers/UserController";
 export default {
   name: "ViewProfile",
   components: {
@@ -42,7 +42,7 @@ export default {
   methods: {
     async getOtherUserProfile(uuid) {
       this.isLoadingProfile = true;
-      this.User = await ProfileController.getOtherUserProfile(uuid);
+      this.User = await UserController.getOtherProfile(uuid);
       this.isLoadingProfile = false;
     },
     onSelectNavigation(navigation) {

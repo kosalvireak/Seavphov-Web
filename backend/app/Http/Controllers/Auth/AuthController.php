@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\ResponseUtil;
+use App\Mail\SendMail;
 use App\Models\User;
-use Dotenv\Exception\ValidationException;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -59,6 +62,72 @@ class AuthController extends Controller
             return ResponseUtil::Success('Registered!', $user->toArray(), true);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('Cannot register user!', $exception->getMessage());
+        }
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'email' => 'required|string|email|',
+                'password' => 'required|string|min:6|confirmed',
+                'password_confirmation' => 'required',
+            ]);
+
+            $email = $request->get('email');
+            $token = $request->get('token');
+
+            $isResetExist = DB::table('password_reset_tokens')
+                ->where([
+                    'email' => $email,
+                    'token' => $token
+                ])->first();
+
+            if (!$isResetExist) {
+                return ResponseUtil::UnProcessable('Token do not exist or expired!');
+            }
+
+            if ($isResetExist->token != $token) {
+                return ResponseUtil::UnProcessable('Token do not match!');
+            }
+
+            DB::table('password_reset_tokens')
+                ->where([
+                    'email' => $email
+                ])->delete();
+
+            User::where('email', $email)
+                ->update(['password' => bcrypt($validatedData['password'])]);
+
+            return ResponseUtil::Success('Updated! Login with your new password', true, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('An error occurred while reset password.', $exception->getMessage());
+        }
+    }
+
+    public function sendMailResetPassword(Request $request)
+    {
+        try {
+            $email = $request->get('email');
+            $user = User::where('email', $email)->first();
+
+            if ($user) {
+                $token =  random_int(100000, 999999);
+
+                DB::table('password_reset_tokens')->insert([
+                    'email' => $user->email,
+                    'token' => $token,
+                    'created_at' => Carbon::now()
+                ]);
+                $subject = "Reset Password Token";
+                $body = $token;
+
+                Mail::to($user->email)->send(new SendMail($subject, $body));
+            }
+            return ResponseUtil::Success('Token sent to your email', null, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('An error occurred while send email reset password.', $exception->getMessage());
         }
     }
 }

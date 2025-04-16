@@ -34,6 +34,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import AuthController from "../../controllers/AuthController";
 export default {
   name: "SendEmail",
   components: { MDBInput },
@@ -49,7 +50,9 @@ export default {
       this.isLoading = true;
       const formData = new FormData();
       formData.append("email", this.email);
-      await this.$store.dispatch("sendEmailResetPassword", formData);
+
+      await AuthController.sendMailResetPassword(formData);
+
       this.toRouteName("forgot-password");
       this.isLoading = false;
     },

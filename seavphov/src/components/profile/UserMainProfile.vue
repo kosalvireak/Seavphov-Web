@@ -32,10 +32,12 @@
           >
             <p class="text-2xl font-bold">{{ user.name }}</p>
             <p v-if="fromProfile" class="text-base">{{ user.email }}</p>
-            <p class="text-base">
+            <p v-if="inValidProperty(user,'phone')" class="text-base">
               {{ user.phone }}
             </p>
-            <p class="text-base">{{ user.bio }}</p>
+            <p v-if="inValidProperty(user,'bio')" class="text-base">
+              {{ user.bio }}
+            </p>
           </div>
           <div class="ProfileSocialMedia flex-shrink-0">
             <SocialMediaList

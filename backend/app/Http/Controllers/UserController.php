@@ -15,7 +15,7 @@ use GuzzleHttp\Psr7\Response;
 
 class UserController extends Controller
 {
-    public function getMyProfileInfo(Request $request)
+    public function getProfile(Request $request)
     {
         $user = collect($request->attributes->get('user'));
 
@@ -27,9 +27,8 @@ class UserController extends Controller
             return ResponseUtil::ServerError('An error occurred while get user profile.', $exception->getMessage());
         }
     }
-    public function modifyUserProfile(Request $request)
+    public function editProfile(Request $request)
     {
-
         try {
             $user = $request->attributes->get('user');
 
@@ -70,7 +69,7 @@ class UserController extends Controller
         }
     }
 
-    public function getOtherUserProfile(Request $request, $uuid)
+    public function getOtherProfile(Request $request, $uuid)
     {
         try {
             $user = collect(User::where('uuid', $uuid)
@@ -88,90 +87,9 @@ class UserController extends Controller
                 ])
                 ->first());
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Done',
-                'data' => $user,
-            ], 201);
+            return ResponseUtil::Success('Get user profile success', $user);
         } catch (Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot get user profile!',
-                'error' => $exception->getMessage()
-            ], 500);
-        }
-    }
-    public function sendEmailResetPassword(Request $request)
-    {
-        try {
-            $email = $request->get('email');
-
-            $user = User::where('email', $email)->first();
-
-            if ($user) {
-
-                $token =  random_int(100000, 999999);
-
-                DB::table('password_reset_tokens')->insert([
-                    'email' => $user->email,
-                    'token' => $token,
-                    'created_at' => Carbon::now()
-                ]);
-                $subject = "Reset Password Token";
-                $body = $token;
-
-                Mail::to($user->email)->send(new SendMail($subject, $body));
-            }
-            return response()->json([
-                'success' => true,
-                'message' => 'Token sent to your email',
-            ], 200);
-        } catch (Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong!',
-                'error' => $exception->getMessage()
-            ], 500);
-        }
-    }
-    public function resetPassword(Request $request)
-    {
-        try {
-            $validatedData = $request->validate([
-                'email' => 'required|string|email|',
-                'password' => 'required|string|min:6|confirmed',
-                'password_confirmation' => 'required',
-            ]);
-
-            $isResetExist = DB::table('password_reset_tokens')
-                ->where([
-                    'email' => $request->get('email')
-                ])->first();
-
-            if ($isResetExist->token != $request->get('token')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Token do not match!',
-                ], 400);
-            }
-            DB::table('password_reset_tokens')
-                ->where([
-                    'email' => $request->get('email')
-                ])->delete();
-
-            User::where('email', $request->get('email'))
-                ->update(['password' => bcrypt($validatedData['password'])]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Updated password.',
-            ], 200);
-        } catch (Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('An error occurred while get user profile.', $exception->getMessage());
         }
     }
 }
