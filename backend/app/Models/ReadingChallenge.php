@@ -34,6 +34,12 @@ class ReadingChallenge extends Model
             'book_title' => $this->book_title,
             'book_author' => $this->book_author,
             'is_owner' => $isOwner,
+            'owner' => $this->owner()
         ];
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->get();
     }
 }

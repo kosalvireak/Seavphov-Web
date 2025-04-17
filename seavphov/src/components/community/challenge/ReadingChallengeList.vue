@@ -1,15 +1,15 @@
 <template>
   <section class="ReadingChallengeList space-y-8">
     <ReadingChallengeItem
-      v-for="item in readingChallenges"
-      :key="item.id"
-      :item="item"
+      v-for="challenge in challenges"
+      :key="challenge.id"
+      :challenge="challenge"
     />
   </section>
 </template>
 
 <script>
-import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
+import ReadingChallengeController from "../../../controllers/ReadingChallengeController";
 import ReadingChallengeItem from "../challenge/ReadingChallengeItem.vue";
 export default {
   name: "ReadingChallengeList",
@@ -22,12 +22,13 @@ export default {
   },
   data() {
     return {
-      readingChallenges: {},
+      challenges: {},
     };
   },
   async mounted() {
-    this.readingChallenges =
-      await ReadingChallengeController.getReadingChallenges(this.route);
+    this.challenges = await ReadingChallengeController.getReadingChallenges(
+      this.route
+    );
   },
 };
 </script>

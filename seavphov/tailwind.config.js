@@ -14,7 +14,8 @@ export default {
         'sp-tertiary': '#edf8f5',
         'sp-danger': '#c81e1e', // 'sp-danger'
         'sp-gray': '#6b7280',
-        'sp-dark': '#000000'
+        'sp-dark': '#000000',
+        'sp-yellow': '#faca15'
       },
       height: {
         '500': '500px'

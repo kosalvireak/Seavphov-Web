@@ -77,8 +77,6 @@ class NotificationService
         ]);
     }
 
-
-
     public static function storeApproveRequestToJoinCopNotification($userId, $receiverId, $copId, $body)
     {
         if ($userId == $receiverId) {
@@ -89,6 +87,21 @@ class NotificationService
             'receiver_id' => $receiverId,
             'object_id' => $copId,
             'type' => 'approve-cop-join-request',
+            'body' => $body
+        ]);
+    }
+
+
+    public static function storeJoinReadingChallengeNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'join-reading-challenge',
             'body' => $body
         ]);
     }

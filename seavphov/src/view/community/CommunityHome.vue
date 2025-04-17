@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import ReadingChallengeList from "../../components/community/home/challenge/ReadingChallengeList.vue";
-import ReadingChallengeEntry from "../../components/community/home/challenge/ReadingChallengeEntry.vue";
+import ReadingChallengeList from "../../components/community/challenge/ReadingChallengeList.vue";
+import ReadingChallengeEntry from "../../components/community/challenge/ReadingChallengeEntry.vue";
 import CommunityHomeProfile from "../../components/community/home/CommunityHomeProfile.vue";
 import CommunityController from "../../controllers/CommunityController";
 import CommunityHomeBanner from "../../components/community/home/CommunityHomeBanner.vue";

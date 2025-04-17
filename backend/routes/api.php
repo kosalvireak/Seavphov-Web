@@ -39,6 +39,7 @@ Route::prefix('reading-challenge')->group(function () {
     Route::get('{route}/{id}', [ReadingChallengeController::class, 'getReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{route}', [ReadingChallengeController::class, 'getReadingChallenges'])->middleware([OptionalApiTokenAuthentication::class]);;
     Route::post('{route}/add', [ReadingChallengeController::class, 'addReadingChallenge'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::get('{route}/{id}/join', [ReadingChallengeController::class, 'joinReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('community')->group(function () {

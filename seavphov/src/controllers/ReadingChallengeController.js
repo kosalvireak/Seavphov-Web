@@ -14,4 +14,8 @@ export default class ReadingChallengeController {
     static async getReadingChallenge(route, id) {
         return await getData(ReadingChallengeRoute + `/${route}/${id}`, true);
     }
+
+    static async joinReadingChallenge(route, id) {
+        return await getData(ReadingChallengeRoute + `/${route}/${id}/join`, true);
+    }
 }

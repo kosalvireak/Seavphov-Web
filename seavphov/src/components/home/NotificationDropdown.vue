@@ -17,14 +17,15 @@
       <template v-else>
         <template v-if="items.length > 0">
           <NotificationItem v-for="item in items" :key="item" :item="item" />
-
-          <p
-            v-if="shouldShowLoadMore && !isLoadingMore"
-            @click.prevent="loadMore()"
-            class="text-center bg-gray-100 hover:bg-gray-300 p-2 clickable rounded-lg text-sm w-100"
-          >
-            Load more
-          </p>
+          <div class="w-100">
+            <p
+              v-if="shouldShowLoadMore && !isLoadingMore"
+              @click.prevent="loadMore()"
+              class="text-center bg-gray-100 hover:bg-gray-300 clickable rounded-lg p-2 mx-2 mt-2 text-sm"
+            >
+              Load more
+            </p>
+          </div>
 
           <div v-if="isLoadingMore" class="flex-center min-h-32">
             <Loader :size="20" />

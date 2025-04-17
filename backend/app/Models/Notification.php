@@ -54,6 +54,7 @@ class Notification extends Model
 
             case 'approve-cop-join-request':
             case 'reject-cop-join-request':
+            case 'join-reading-challenge':
                 return "/community/" . $cop->route;
 
             default:
@@ -67,7 +68,8 @@ class Notification extends Model
             'request-to-join-cop',
             'approve-cop-join-request',
             'reject-cop-join-request',
-            'join-cop'
+            'join-cop',
+            'join-reading-challenge'
         ]);
     }
 

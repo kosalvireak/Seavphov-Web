@@ -27,7 +27,7 @@
                 <i
                   class="fa-bookmark fa-2xl w-10 h-10"
                   :class="
-                    book.issaved ? 'fa-solid text-yellow-300' : 'fa-regular'
+                    book.issaved ? 'fa-solid text-sp-yellow' : 'fa-regular'
                   "
                   @click="toggleSaveBook()"
                 ></i>

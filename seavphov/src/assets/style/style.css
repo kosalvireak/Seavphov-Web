@@ -5,8 +5,9 @@
   --sp-secondary: #467e60;
   --sp-tertiary: #edf8f5;
   --sp-dark: #000000;
-  --sp-gray: #6b7280; /* text-gray-600 */
+  --sp-gray: #6b7280; /* gray-600 */
   --sp-danger: #c81e1e;
+  --sp-yellow: #faca15; /* yellow-300 */
 
   --max-width-img-sm: 20rem; /*320px*/
   --max-width-img-md: 48.125rem; /*770px*/

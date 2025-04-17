@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Http\ResponseUtil;
 use App\Models\Community;
-use App\Models\Discussion;
 use App\Models\ReadingChallenge;
-use App\Models\User;
+use App\Models\ReadingProgress;
 use App\Service\CopMemberService;
 use App\Service\NotificationService;
-use App\Service\ReactionService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,6 +16,39 @@ use Illuminate\Http\Request;
 
 class ReadingChallengeController extends Controller
 {
+
+    public function joinReadingChallenge(Request $request, $route, $id)
+    {
+        try {
+            $cop = Community::where('route', $route)->first();
+            $userId = $request->attributes->get('user')->id;
+            $readingChallenge = ReadingChallenge::where('id', $id)->first();
+
+            // Add user to reading progress table
+            // Send Notification to owner
+
+            if (!CopMemberService::isAdminOrMember($userId, $cop->id))
+                return ResponseUtil::NoPermission("You need to be member of this cop to join this reading challenge", []);
+
+            if (!$readingChallenge)
+                return ResponseUtil::NotFound("Reading challenge not found");
+
+            ReadingProgress::create([
+                'user_id' => $userId,
+                'reading_challenge_id' => $readingChallenge->id,
+                'progress' => 0,
+            ]);
+
+            $readingChallenge->total_member = $readingChallenge->total_member + 1;
+            $readingChallenge->save();
+
+            NotificationService::storeJoinReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
+
+            return ResponseUtil::Success("Successfully join reading challenge", true, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot join reading challenge!', $exception->getMessage());
+        }
+    }
 
     public function getReadingChallenge(Request $request, $route, $id)
     {
