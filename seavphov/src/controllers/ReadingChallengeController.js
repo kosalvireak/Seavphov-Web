@@ -2,6 +2,8 @@ import { deleteData, getData, postForm } from "../utils/apiUtils.js";
 
 const ReadingChallengeRoute = "/api/reading-challenge";
 
+const ReadingChallengeMemberRoute = "/api/members/reading-challenge";
+
 export default class ReadingChallengeController {
     static async addReadingChallenge(formData, route) {
         return await postForm(ReadingChallengeRoute + `/${route}/add`, formData, true);
@@ -17,5 +19,9 @@ export default class ReadingChallengeController {
 
     static async joinReadingChallenge(route, id) {
         return await getData(ReadingChallengeRoute + `/${route}/${id}/join`, true);
+    }
+
+    static async getReadingChallengeMembers(id) {
+        return await getData(ReadingChallengeMemberRoute + `/${id}`, true);
     }
 }

@@ -34,14 +34,13 @@
 
           <p><b>Total members:</b> {{ challenge.total_member }}</p>
           <p><b>Challenge Owner:</b></p>
-          <!-- <ReadingMemberList /> -->
           <router-link
-            :to="`/profile/${challenge.owner[0].uuid}`"
+            :to="`/profile/${challenge.owner.uuid}`"
             class="bg-gray-100 rounded-pill w-fit p-2"
           >
             <div class="flex-center space-x-2">
-              <FwbAvatar :img="challenge.owner[0].picture" rounded size="md" />
-              <p>{{ challenge.owner[0].name }}</p>
+              <FwbAvatar :img="challenge.owner.picture" rounded size="md" />
+              <p>{{ challenge.owner.name }}</p>
             </div>
           </router-link>
         </div>
@@ -51,9 +50,7 @@
 </template>
 
 <script>
-import ReadingMemberList from "./ReadingMemberList.vue";
 export default {
-  components: { ReadingMemberList },
   name: "ReadingChallengeItem",
   props: {
     challenge: Object,

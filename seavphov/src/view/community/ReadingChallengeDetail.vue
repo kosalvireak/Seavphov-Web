@@ -5,14 +5,17 @@
     </div>
     <template v-else>
       <div class="grid grid-cols-12 gap-4 h-100">
-        <div
-          class="hover-zoom col-span-12 lg:col-span-4 align-content-center justify-items-center ring-1 ring-gray-300 rounded-2"
-        >
-          <img
-            :src="challenge.book_image"
-            class="sp-img-lg object-contain"
-            alt="book cover"
-          />
+        <div class="col-span-12 lg:col-span-4">
+          <div
+            class="hover-zoom align-content-center justify-items-center ring-1 ring-gray-300 rounded-2 p-4 h-fit"
+          >
+            <img
+              :src="challenge.book_image"
+              class="sp-img-lg object-contain"
+              alt="book cover"
+            />
+          </div>
+          <div class="card p-4 bg-yellow-200">My Progress</div>
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
           <div class="ChallengeInfo flex flex-column space-y-4">
@@ -36,36 +39,31 @@
             <p><b>Challenge Owner:</b></p>
             <router-link
               v-if="challenge.owner"
-              :to="`/profile/${challenge.owner[0].uuid}`"
+              :to="`/profile/${challenge.owner.uuid}`"
               class="bg-gray-100 rounded-pill w-fit p-2"
             >
               <div class="flex-center space-x-2">
-                <FwbAvatar
-                  :img="challenge.owner[0].picture"
-                  rounded
-                  size="md"
-                />
-                <p>{{ challenge.owner[0].name }}</p>
+                <FwbAvatar :img="challenge.owner.picture" rounded size="md" />
+                <p>{{ challenge.owner.name }}</p>
               </div>
             </router-link>
 
             <p><b>Total members:</b> {{ challenge.total_member }}</p>
+            <ReadingMemberList />
           </div>
         </div>
-      </div>
-      <div class="MemberInfo mt-4">
-        <StartChallengeWidget />
       </div>
     </template>
   </section>
 </template>
 
 <script>
-import StartChallengeWidget from "../../components/community/challenge/StartChallengeWidget.vue";
+import ReadingMemberList from "../../components/community/challenge/detail/ReadingMemberList.vue";
+import StartChallengeWidget from "../../components/community/challenge/detail/StartChallengeWidget.vue";
 import ReadingChallengeController from "../../controllers/ReadingChallengeController";
 export default {
   name: "ReadingChallengeDetail",
-  components: { StartChallengeWidget },
+  components: { StartChallengeWidget, ReadingMemberList },
   data() {
     return {
       route: this.$route.params.route,

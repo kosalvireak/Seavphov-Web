@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ReadingChallengeController from "../../../controllers/ReadingChallengeController";
+import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
 export default {
   name: "StartChallengeWidget",
   data() {
