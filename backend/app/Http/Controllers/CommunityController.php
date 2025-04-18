@@ -76,6 +76,18 @@ class CommunityController extends Controller
         }
     }
 
+    public function deleteCommunity(Request $request)
+    {
+        try {
+            $cop = $request->attributes->get('cop');
+            $cop->delete();
+
+            return ResponseUtil::Success('Delete community success!', true, true);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot delete Community!', $exception->getMessage());
+        }
+    }
+
     public function editCommunity(Request $request)
     {
         try {

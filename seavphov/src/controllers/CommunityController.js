@@ -21,4 +21,8 @@ export default class CommunityController {
   static async editCommunity(formData, route) {
     return await postForm(CommunityRoute + `/edit/${route}`, formData, true);
   }
+
+  static async deleteCommunity(route) {
+    return await deleteData(CommunityRoute + `/delete/${route}`, true);
+  }
 }

@@ -34,13 +34,14 @@ function handleToastMessage(toastObject, message) {
 
 function handleErrorResponse(error) {
   let message = "";
-  if (error.response) {
+  const errorResponse = error.response;
+  if (errorResponse) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    message = error.response.data.message + ": " + error.response.data.error;
+    message = errorResponse.data.message + ": " + errorResponse.data.error ?? "";
 
-    if (error.response.status === 404) {
+    if (errorResponse.status === 404) {
       router.push("/not-found")
     }
   } else if (error.request) {

@@ -7,13 +7,15 @@
         <li>✅ Engage in discussions and share insights.</li>
         <li>✅ Watch everyone's progress with real-time tracking!</li>
       </ul>
-      <LoadingButton
-        text="Start Now"
-        class="mt-3 w-fit"
-        color="yellow"
-        :isLoading="isLoading"
-        @click="joinChallenge()"
-      />
+      <div class="flex justify-content-end">
+        <LoadingButton
+          text="Start Now"
+          class="mt-3 w-fit"
+          color="yellow"
+          :isLoading="isLoading"
+          @click="joinChallenge()"
+        />
+      </div>
     </div>
   </div>
 </template>

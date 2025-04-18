@@ -64,7 +64,12 @@
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-center mt-8">
-          <LoadingButton type="submit" text="Save" :isLoading="isLoadingEdit" />
+          <LoadingButton
+            type="submit"
+            text="Save"
+            :isLoading="isLoadingEdit"
+            :disabled="disableSave"
+          />
         </div>
       </form>
     </div>
@@ -88,6 +93,7 @@ export default {
       isLoading: false,
       isLoadingEdit: false,
       cop: {},
+      originalCop: {},
       formData: new FormData(),
     };
   },
@@ -113,6 +119,7 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.cop = await CommunityController.getCommunityByRoute(this.route);
+    this.originalCop = JSON.parse(JSON.stringify(this.cop));
     this.isLoading = false;
   },
   computed: {
@@ -121,6 +128,9 @@ export default {
     },
     visibilityColor() {
       return this.cop.private ? "red" : "green";
+    },
+    disableSave() {
+      return this.isEqual(this.cop, this.originalCop);
     },
   },
 };

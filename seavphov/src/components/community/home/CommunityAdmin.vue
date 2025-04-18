@@ -26,6 +26,10 @@
           v-else-if="currentTab == 'create-challenge'"
           :route="route"
         />
+        <DeleteCommunity
+          v-else-if="currentTab == 'delete-community'"
+          :route="route"
+        />
       </div>
     </div>
   </section>
@@ -33,11 +37,12 @@
 
 <script>
 import CopMemberController from "../../../controllers/CopMemberController";
+import DeleteCommunity from "../delete/DeleteCommunity.vue";
 import CreateReadingChallenge from "../admin/CreateReadingChallenge.vue";
 import EditCopProfile from "../admin/EditCopProfile.vue";
 export default {
   name: "CommunityAdmin",
-  components: { CreateReadingChallenge, EditCopProfile },
+  components: { CreateReadingChallenge, EditCopProfile, DeleteCommunity },
   data() {
     return {
       isLoading: false,
@@ -45,12 +50,17 @@ export default {
         {
           name: "Edit profile",
           tabRoute: "edit-profile",
-          iconClass: " fa-user-group",
+          iconClass: " fa-id-card",
         },
         {
           name: "Create challenge",
           tabRoute: "create-challenge",
-          iconClass: " fa-user-group",
+          iconClass: "fa-book-open-reader",
+        },
+        {
+          name: "Delete community",
+          tabRoute: "delete-community",
+          iconClass: "fa-trash",
         },
       ],
       currentTab: "edit-profile",
