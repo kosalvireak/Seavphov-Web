@@ -13,4 +13,25 @@ class ReadingProgress extends Model
         'progress',
         'reading_challenge_id',
     ];
+
+    public function readingChallenge()
+    {
+        return $this->belongsTo(ReadingChallenge::class, 'reading_challenge_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id')->first();
+    }
+
+    public function getData()
+    {
+        $user = $this->user();
+        return [
+            'progress' => $this->progress,
+            'uuid' => $user->uuid,
+            'name' => $user->name,
+            'picture' => $user->picture,
+        ];
+    }
 }

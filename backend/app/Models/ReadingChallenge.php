@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReadingChallenge extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'cop_id',
@@ -40,6 +41,11 @@ class ReadingChallenge extends Model
 
     public function owner()
     {
-        return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->get();
+        return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->first();
+    }
+
+    public function getAllProgress()
+    {
+        return $this->hasMany(ReadingProgress::class, 'reading_challenge_id')->get();
     }
 }

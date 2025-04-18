@@ -42,6 +42,11 @@ Route::prefix('reading-challenge')->group(function () {
     Route::get('{route}/{id}/join', [ReadingChallengeController::class, 'joinReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
 });
 
+Route::prefix('members/reading-challenge')->group(function () {
+    // Members
+    Route::get('{id}', [ReadingChallengeController::class, 'getReadingChallengeMembers'])->middleware([ApiTokenAuthentication::class]);
+});
+
 Route::prefix('community')->group(function () {
     Route::get('', [CommunityController::class, 'searchCommunity'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);

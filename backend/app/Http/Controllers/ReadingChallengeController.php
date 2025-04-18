@@ -94,6 +94,31 @@ class ReadingChallengeController extends Controller
         }
     }
 
+    public function getReadingChallengeMembers(Request $request, $id)
+    {
+        try {
+            $userId = $request->attributes->get('user')->id;
+            $readingChallenge = ReadingChallenge::where('id', $id)->first();
+            if (!$readingChallenge) {
+                return ResponseUtil::NotFound("Reading challenge not found");
+            }
+
+            if (!CopMemberService::isAdminOrMember($userId, $readingChallenge->cop_id)) {
+                return ResponseUtil::NotFound("You need to be member of this cop to see this reading challenge", []);
+            }
+
+            $members = [];
+            $readingProgresses = $readingChallenge->getAllProgress();
+            foreach ($readingProgresses as $readingProgress) {
+                $members[] = $readingProgress->getData();
+            }
+
+            return ResponseUtil::Success("Successfully get reading challenge members", $members);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot get reading challenge members!', $exception->getMessage());
+        }
+    }
+
     public function addReadingChallenge(Request $request)
     {
         try {
