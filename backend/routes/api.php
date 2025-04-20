@@ -47,6 +47,7 @@ Route::prefix('members/reading-challenge')->group(function () {
     // Members
     Route::get('{id}', [ReadingChallengeController::class, 'getReadingChallengeMembers'])->middleware([ApiTokenAuthentication::class]);
     Route::get('my-progress/{id}', [ReadingProgressController::class, 'getMyReadingProgress'])->middleware([ApiTokenAuthentication::class]);
+    Route::post('/update-progress/{id}', [ReadingProgressController::class, 'updateReadingProgress'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('community')->group(function () {

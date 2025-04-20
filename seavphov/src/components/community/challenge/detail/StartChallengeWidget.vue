@@ -11,7 +11,6 @@
         <LoadingButton
           text="Start Now"
           class="mt-3 w-fit"
-          color="yellow"
           :isLoading="isLoading"
           @click="joinChallenge()"
         />
@@ -34,10 +33,13 @@ export default {
   methods: {
     async joinChallenge() {
       this.isLoading = true;
-      await ReadingChallengeController.joinReadingChallenge(
+      const success = await ReadingChallengeController.joinReadingChallenge(
         this.route,
         this.id
       );
+      if (success) {
+        this.$router.go(0);
+      }
       this.isLoading = false;
     },
   },

@@ -63,7 +63,7 @@ class CopMemberController extends Controller
 
             CopMemberRequestService::createCopMemberRequest($cop->id, $user->id, 1);
 
-            return ResponseUtil::Success('Request to join community successfully', true);
+            return ResponseUtil::Success('Request to join community successfully', true, true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot request to join community!', $exception->getMessage());
         }

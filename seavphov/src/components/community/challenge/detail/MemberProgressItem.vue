@@ -44,7 +44,7 @@ export default {
         case 1:
           return "bg-zinc-300";
         case 2:
-          return "bg-orange-700";
+          return "bg-orange-600";
         default:
           return "bg-gray-300";
       }

@@ -28,4 +28,8 @@ export default class ReadingChallengeController {
     static async getMyReadingProgress(id) {
         return await getData(ReadingChallengeMemberRoute + `/my-progress/${id}`, true);
     }
+
+    static async updateChallengeProgress(id, formData) {
+        return await postForm(ReadingChallengeMemberRoute + `/update-progress/${id}`, formData, true);
+    }
 }

@@ -46,6 +46,9 @@ class ReadingChallenge extends Model
 
     public function getAllProgress()
     {
-        return $this->hasMany(ReadingProgress::class, 'reading_challenge_id')->get();
+        return $this->hasMany(ReadingProgress::class, 'reading_challenge_id')
+            ->orderBy('progress', 'desc')
+            ->orderBy('updated_at', 'asc')
+            ->get();
     }
 }

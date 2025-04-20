@@ -5,10 +5,10 @@
     <p class="h5">My Reading Progress</p>
     <div class="ProgressInfo">
       <p><b>Started On:</b>{{ formatDate(myProgress.created_at) }}</p>
-      <p><b>Progress:</b></p>
       <Progress
         class="w-full"
         :progress="myProgress.progress"
+        label="Progress"
         label-position="outside"
         label-progress
         size="md"
@@ -17,6 +17,7 @@
     <Dropdown
       id="reading-progress-dropdown"
       id_content="reading-progress-dropdown_content"
+      placement="bottom-end"
       class="position-absolute top-4 end-4"
     >
       <template #button>
@@ -26,7 +27,10 @@
       <template #content>
         <ul class="py-2 mt-0 w-fit">
           <li>
-            <p :class="dropdownItemClass" @click="toRouteName('profile')">
+            <p
+              :class="dropdownItemClass"
+              @click="showUpdateProgressPopup = true"
+            >
               Update progress
             </p>
           </li>
@@ -38,12 +42,24 @@
         </ul>
       </template>
     </Dropdown>
+    <UpdateProgressPopup
+      v-if="showUpdateProgressPopup"
+      :progress="myProgress"
+      @on-close="showUpdateProgressPopup = false"
+    />
   </section>
 </template>
 
 <script>
+import UpdateProgressPopup from "./UpdateProgressPopup.vue";
 export default {
   name: "MyReadingProgress",
+  components: { UpdateProgressPopup },
+  data() {
+    return {
+      showUpdateProgressPopup: false,
+    };
+  },
   props: {
     myProgress: {
       type: Object,
