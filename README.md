@@ -4,6 +4,12 @@
 
 Login, Register, Forgot password
 
+
+![Login](./assets/Screenshot_1.png)
+![Register](./assets/Screenshot_2.png)
+![Forgot password](./assets/Screenshot_3.png)
+![Forgot password](./assets/Screenshot_4.png)
+
 ## Profile
 
 Profile's CRUD, View as others
@@ -44,7 +50,7 @@ Community manage members
 
 Community's role
 
-## Bannner
+## Banner
 
 Dynamic Banner
 
@@ -54,10 +60,6 @@ Admin manages Books, Users, Review, Banner
 
 ## Image
 
-![Login](./assets/Screenshot_1.png)
-![Register](./assets/Screenshot_2.png)
-![Forgot password](./assets/Screenshot_3.png)
-![Forgot password](./assets/Screenshot_4.png)
 ![Home](./assets/Screenshot_5.png)
 ![Search](./assets/Screenshot_6.png)
 ![Search](./assets/Screenshot_7.png)

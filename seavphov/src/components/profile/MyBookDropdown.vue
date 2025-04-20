@@ -13,15 +13,15 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="changeAvailability(id)">
+            <p :class="dropdownItemClass" @click="changeAvailability(id)">
               Mark as {{ buttonText }}
             </p>
           </li>
           <li>
-            <p :class="dropdownItemCss" @click="editBook(id)">Edit</p>
+            <p :class="dropdownItemClass" @click="editBook(id)">Edit</p>
           </li>
           <li>
-            <p :class="dropdownItemCss" @click="deleteBook(id)">
+            <p :class="dropdownItemClass" @click="deleteBook(id)">
               <span>Delete</span>
             </p>
           </li>
@@ -35,12 +35,6 @@
 import BookController from "../../controllers/BookController";
 export default {
   name: "MyBookDropdown",
-  data() {
-    return {
-      dropdownItemCss:
-        "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable",
-    };
-  },
   props: {
     id: Number,
     book: Object,

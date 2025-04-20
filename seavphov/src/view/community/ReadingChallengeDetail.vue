@@ -5,9 +5,9 @@
     </div>
     <template v-else>
       <div class="grid grid-cols-12 gap-4 h-100">
-        <div class="col-span-12 lg:col-span-4">
+        <div class="col-span-12 lg:col-span-4 space-y-8">
           <div
-            class="hover-zoom align-content-center justify-items-center ring-1 ring-gray-300 rounded-2 p-4 h-fit"
+            class="hover-zoom flex-center ring-1 ring-gray-300 rounded-lg p-4 h-fit max-h-96"
           >
             <img
               :src="challenge.book_image"
@@ -15,7 +15,10 @@
               alt="book cover"
             />
           </div>
-          <div class="card p-4 bg-yellow-200">My Progress</div>
+          <MyReadingProgress
+            v-if="myProgress != null"
+            :myProgress="myProgress"
+          />
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
           <div class="ChallengeInfo flex flex-column space-y-4">
@@ -49,7 +52,7 @@
             </router-link>
 
             <p><b>Total members:</b> {{ challenge.total_member }}</p>
-            <ReadingMemberList />
+            <ReadingMemberList :myProgress="myProgress" />
           </div>
         </div>
       </div>
@@ -58,17 +61,19 @@
 </template>
 
 <script>
+import MyReadingProgress from "../../components/community/challenge/detail/MyReadingProgress.vue";
 import ReadingMemberList from "../../components/community/challenge/detail/ReadingMemberList.vue";
 import StartChallengeWidget from "../../components/community/challenge/detail/StartChallengeWidget.vue";
 import ReadingChallengeController from "../../controllers/ReadingChallengeController";
 export default {
   name: "ReadingChallengeDetail",
-  components: { StartChallengeWidget, ReadingMemberList },
+  components: { StartChallengeWidget, ReadingMemberList, MyReadingProgress },
   data() {
     return {
       route: this.$route.params.route,
       id: this.$route.params.id,
       challenge: {},
+      myProgress: null,
       isLoading: false,
     };
   },
@@ -80,6 +85,10 @@ export default {
       this.id
     );
     this.isLoading = false;
+
+    this.myProgress = await ReadingChallengeController.getMyReadingProgress(
+      this.id
+    );
   },
   methods: {
     isOverDue() {

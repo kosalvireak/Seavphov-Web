@@ -1,5 +1,11 @@
 <template>
-  <section class="ReadingChallengeItem container-xl card p-4">
+  <section class="ReadingChallengeItem container-xl card p-4 position-relative">
+    <FwbButton
+      @click="visitChallengeDetail()"
+      gradient="blue"
+      class="w-fit position-absolute top-6 end-6"
+      >Details</FwbButton
+    >
     <p class="h4">{{ challenge.book_title }}</p>
     <p class="h5">By: {{ challenge.book_author }}</p>
     <div class="flex flex-col md:flex-row gap-4">
@@ -8,7 +14,7 @@
       >
         <div
           class="flex-center sp-img-md clickable"
-          @click="toRouteName('reading-challenge-detail', challenge.id)"
+          @click="visitChallengeDetail()"
         >
           <img
             :src="challenge.book_image"
@@ -60,6 +66,9 @@ export default {
     return {};
   },
   methods: {
+    visitChallengeDetail() {
+      this.toRouteName("reading-challenge-detail", this.challenge.id);
+    },
     isOverDue() {
       return this.getFutureDifferentDays(this.challenge.end_date) < 0;
     },

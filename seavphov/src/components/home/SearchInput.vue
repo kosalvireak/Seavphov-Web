@@ -40,7 +40,7 @@
         type="search"
         v-model="keyword"
         id="search-dropdown"
-        placeholder="Search..."
+        placeholder="Search book..."
         required
       />
       <button

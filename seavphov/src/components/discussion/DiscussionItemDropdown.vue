@@ -13,12 +13,12 @@
       <template #content>
         <ul class="py-2 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="editDiscussion()">
+            <p :class="dropdownItemClass" @click="editDiscussion()">
               <span>Edit</span>
             </p>
           </li>
           <li>
-            <p :class="dropdownItemCss" @click="deleteDiscussion()">
+            <p :class="dropdownItemClass" @click="deleteDiscussion()">
               <span v-if="isDeleting">Deleting...</span>
               <span v-else>Delete</span>
             </p>
@@ -37,8 +37,6 @@ export default {
     return {
       isDeleting: false,
       isEditing: false,
-      dropdownItemCss:
-        "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable",
     };
   },
   props: {

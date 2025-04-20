@@ -24,4 +24,8 @@ export default class ReadingChallengeController {
     static async getReadingChallengeMembers(id) {
         return await getData(ReadingChallengeMemberRoute + `/${id}`, true);
     }
+
+    static async getMyReadingProgress(id) {
+        return await getData(ReadingChallengeMemberRoute + `/my-progress/${id}`, true);
+    }
 }

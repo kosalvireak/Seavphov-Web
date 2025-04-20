@@ -15,10 +15,10 @@
       <template #content>
         <ul class="py-1 mt-0">
           <li>
-            <p :class="dropdownItemCss" @click="toRouteName()">Category</p>
+            <p :class="dropdownItemClass" @click="toRouteName()">Category</p>
           </li>
           <li>
-            <p :class="dropdownItemCss" @click="toRouteName('discussion')">
+            <p :class="dropdownItemClass" @click="toRouteName('discussion')">
               Discussion
             </p>
           </li>
@@ -31,11 +31,5 @@
 <script>
 export default {
   name: "NavItemDropdown",
-  data() {
-    return {
-      dropdownItemCss:
-        "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable",
-    };
-  },
 };
 </script>

@@ -13,17 +13,17 @@
     <template #content>
       <ul class="py-2 mt-0 w-fit">
         <li>
-          <p :class="dropdownItemCss" @click="toRouteName('profile')">
+          <p :class="dropdownItemClass" @click="toRouteName('profile')">
             My profile
           </p>
         </li>
         <li>
-          <p :class="dropdownItemCss" @click="toRouteName('edit-profile')">
+          <p :class="dropdownItemClass" @click="toRouteName('edit-profile')">
             Profile settings
           </p>
         </li>
         <li>
-          <p :class="dropdownItemCss" @click="logout()">Logout</p>
+          <p :class="dropdownItemClass" @click="logout()">Logout</p>
         </li>
       </ul>
     </template>
@@ -33,11 +33,6 @@
 <script>
 export default {
   name: "AvatarDropdown",
-  computed: {
-    dropdownItemCss() {
-      return "block px-4 py-2 mb-0 w-100 text-sm text-center text-gray-700 hover:bg-gray-200 clickable";
-    },
-  },
 };
 </script>
 

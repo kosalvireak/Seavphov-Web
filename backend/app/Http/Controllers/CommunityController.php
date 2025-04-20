@@ -63,7 +63,6 @@ class CommunityController extends Controller
     public function getCommunityByRoute($route)
     {
         try {
-
             $cop = Community::where('route', $route)->first();
 
             if (!$cop) {

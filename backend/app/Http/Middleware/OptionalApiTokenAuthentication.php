@@ -16,7 +16,7 @@ class OptionalApiTokenAuthentication
      */
     public function handle(Request $request, Closure $next): Response
     {
-       $token = $request->bearerToken();
+        $token = $request->bearerToken();
 
         if ($token) {
             $user = User::where('api_token', $token)->first();

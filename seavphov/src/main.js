@@ -27,7 +27,7 @@ import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
 
 // component
-import { FwbButton, FwbModal, FwbAvatar, FwbBadge } from "flowbite-vue";
+import { FwbButton, FwbModal, FwbAvatar, FwbBadge, FwbProgress } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import TinyLoader from "./components/common/TinyLoader.vue";
 import BackRoute from "./components/common/BackRoute.vue";
@@ -58,6 +58,7 @@ app.component("FwbButton", FwbButton);
 app.component("FwbModal", FwbModal);
 app.component("FwbAvatar", FwbAvatar);
 app.component("Badge", FwbBadge);
+app.component("Progress", FwbProgress);
 
 app.component("Loader", Loader);
 app.component("TinyLoader", TinyLoader);

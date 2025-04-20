@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CopMemberController;
 use App\Http\Controllers\ReadingChallengeController;
+use App\Http\Controllers\ReadingProgressController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\CopAdminAuthorization;
@@ -45,6 +46,7 @@ Route::prefix('reading-challenge')->group(function () {
 Route::prefix('members/reading-challenge')->group(function () {
     // Members
     Route::get('{id}', [ReadingChallengeController::class, 'getReadingChallengeMembers'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('my-progress/{id}', [ReadingProgressController::class, 'getMyReadingProgress'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('community')->group(function () {
