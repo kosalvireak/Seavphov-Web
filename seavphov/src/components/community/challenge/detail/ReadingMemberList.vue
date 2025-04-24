@@ -4,8 +4,8 @@
       <Loader :size="40" />
     </div>
     <template v-else>
-      <CompleteChallengeWidgetVue v-if="hasCompleted" />
-      <StartChallengeWidget v-else-if="myProgress == null" />
+      <StartChallengeWidget v-if="myProgress == null" />
+      <CompleteChallengeWidgetVue v-else :myProgress="myProgress" />
 
       <div
         v-if="members.length > 0"
@@ -27,7 +27,7 @@
 import StartChallengeWidget from "./StartChallengeWidget.vue";
 import MemberProgressItem from "./MemberProgressItem.vue";
 import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
-import CompleteChallengeWidgetVue from "./CompleteChallengeWidget.vue";
+import CompleteChallengeWidgetVue from "./ProgressAndCompleteChallengeWidget.vue";
 export default {
   name: "ReadingMemberList",
   components: {
@@ -55,11 +55,6 @@ export default {
       this.id
     );
     this.isLoading = false;
-  },
-  computed: {
-    hasCompleted() {
-      return this.myProgress && this.myProgress.progress == 100;
-    },
   },
 };
 </script>

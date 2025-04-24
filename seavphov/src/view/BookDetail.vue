@@ -144,7 +144,7 @@ export default {
   },
   watch: {
     "$route.params.id"() {
-      this.$router.go(0);
+      this.reloadPage();
     },
   },
   computed: {

@@ -73,7 +73,6 @@ class ReadingChallengeController extends Controller
     public function getReadingChallenges(Request $request, $route)
     {
         try {
-
             $cop = Community::where('route', $route)->first();
 
             if ($cop->private == true && !CopMemberService::isAdminOrMember($request->attributes->get('user')->id, $cop->id)) {

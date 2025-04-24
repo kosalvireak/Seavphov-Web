@@ -9,6 +9,9 @@ export const RouterMixin = {
     backRoute() {
       return this.$router.back();
     },
+    reloadPage() {
+      return this.$router.go(0);
+    },
     async logout() {
       await this.$store.dispatch("logoutUser");
       this.toRouteName("login");

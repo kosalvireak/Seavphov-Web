@@ -3,12 +3,13 @@
     class="MyReadingProgress card p-4 ring-1 ring-gray-300 position-relative"
   >
     <p class="h5">My Reading Progress</p>
-    <div class="ProgressInfo">
-      <p><b>Started On:</b>{{ formatDate(myProgress.created_at) }}</p>
+    <div class="ProgressInfo space-y-2">
+      <p><b>Started on:</b>{{ formatDate(myProgress.created_at) }}</p>
+      <p><b>Late updated on:</b>{{ formatDate(myProgress.updated_at) }}</p>
       <Progress
         class="w-full"
         :progress="myProgress.progress"
-        label="Progress"
+        label="Current progress"
         label-position="outside"
         label-progress
         size="md"
@@ -35,8 +36,8 @@
             </p>
           </li>
           <li>
-            <p :class="dropdownItemClass" @click="toRouteName('edit-profile')">
-              Withdraw
+            <p :class="dropdownItemClass" @click="withDrawChallenge()">
+              Withdraw challenge
             </p>
           </li>
         </ul>
@@ -44,13 +45,15 @@
     </Dropdown>
     <UpdateProgressPopup
       v-if="showUpdateProgressPopup"
-      :progress="myProgress"
+      :progressObj="myProgress"
       @on-close="showUpdateProgressPopup = false"
+      @update-progress="updateProgress"
     />
   </section>
 </template>
 
 <script>
+import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
 import UpdateProgressPopup from "./UpdateProgressPopup.vue";
 export default {
   name: "MyReadingProgress",
@@ -64,6 +67,19 @@ export default {
     myProgress: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    updateProgress(newProgress) {
+      this.myProgress.progress = newProgress;
+    },
+    async withDrawChallenge() {
+      const success = await ReadingChallengeController.withDrawChallenge(
+        this.myProgress.id
+      );
+      if (success) {
+        this.reloadPage();
+      }
     },
   },
 };

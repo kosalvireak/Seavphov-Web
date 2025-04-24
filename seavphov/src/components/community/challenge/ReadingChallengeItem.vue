@@ -32,7 +32,7 @@
           </p>
 
           <p>
-            <b class="pr-1">Remaining days:</b>
+            <b>Remaining days:</b>
             <span :class="isOverDue() ? 'text-red-500 font-bold' : ''">
               {{ getRemainingDateDisplay() }}
             </span>

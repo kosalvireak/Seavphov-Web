@@ -14,7 +14,6 @@ class ReadingProgressController extends Controller
     public function getMyReadingProgress(Request $request, $id)
     {
         try {
-
             $userId = $request->attributes->get('user')->id;
             $readingChallenge = ReadingChallenge::where('id', $id)->first();
             if (!$readingChallenge)
@@ -27,6 +26,26 @@ class ReadingProgressController extends Controller
             return ResponseUtil::Success('Successfully get your reading progress', $readingProgress);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('Cannot get your reading progress!', $exception->getMessage());
+        }
+    }
+
+    public function withDrawChallenge(Request $request, $id)
+    {
+        try {
+            $userId = $request->attributes->get('user')->id;
+            $readingProgress = ReadingProgress::where('user_id', $userId)->where('id', $id)->first();
+            if (!$readingProgress)
+                return ResponseUtil::NoPermission("You don't have any progress");
+
+            $readingProgress->delete();
+
+            // Reduce total member of original challenge
+            $readingProgress->readingChallenge->total_member = $readingProgress->readingChallenge->total_member - 1;
+            $readingProgress->readingChallenge->save();
+
+            return ResponseUtil::Success('Successfully delete your reading progress', true, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot delete your reading progress!', $exception->getMessage());
         }
     }
 
@@ -45,7 +64,7 @@ class ReadingProgressController extends Controller
             $readingProgress->progress = $validatedData['progress'];
             $readingProgress->save();
 
-            return ResponseUtil::Success('Successfully update your reading progress', $readingProgress, true);
+            return ResponseUtil::Success('Successfully update your reading progress', $readingProgress->progress, true);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('Cannot update your reading progress!', $exception->getMessage());
         }

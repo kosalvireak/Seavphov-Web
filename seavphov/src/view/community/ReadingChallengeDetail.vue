@@ -108,8 +108,8 @@ export default {
 };
 </script>
 
-<style scoped>
-p {
-  margin: 0;
+<style>
+p > b {
+  margin-right: 0.25rem;
 }
 </style>

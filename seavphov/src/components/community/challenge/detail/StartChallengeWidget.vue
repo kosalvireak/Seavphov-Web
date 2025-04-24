@@ -38,7 +38,7 @@ export default {
         this.id
       );
       if (success) {
-        this.$router.go(0);
+        this.reloadPage();
       }
       this.isLoading = false;
     },

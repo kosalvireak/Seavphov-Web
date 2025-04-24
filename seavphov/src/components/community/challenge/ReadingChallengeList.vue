@@ -1,10 +1,16 @@
 <template>
   <section class="ReadingChallengeList space-y-8">
-    <ReadingChallengeItem
-      v-for="challenge in challenges"
-      :key="challenge.id"
-      :challenge="challenge"
-    />
+    <div v-if="isLoading" class="w-100 h-96 flex-center flex-column">
+      <Loader :size="30" />
+      <p>Fetching reading challenges</p>
+    </div>
+    <template v-else>
+      <ReadingChallengeItem
+        v-for="challenge in challenges"
+        :key="challenge.id"
+        :challenge="challenge"
+      />
+    </template>
   </section>
 </template>
 
@@ -22,13 +28,16 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       challenges: {},
     };
   },
   async mounted() {
+    this.isLoading = true;
     this.challenges = await ReadingChallengeController.getReadingChallenges(
       this.route
     );
+    this.isLoading = false;
   },
 };
 </script>

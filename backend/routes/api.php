@@ -43,11 +43,12 @@ Route::prefix('reading-challenge')->group(function () {
     Route::get('{route}/{id}/join', [ReadingChallengeController::class, 'joinReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
 });
 
-Route::prefix('members/reading-challenge')->group(function () {
+Route::prefix('members/reading-challenge')->middleware([ApiTokenAuthentication::class])->group(function () {
     // Members
-    Route::get('{id}', [ReadingChallengeController::class, 'getReadingChallengeMembers'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('my-progress/{id}', [ReadingProgressController::class, 'getMyReadingProgress'])->middleware([ApiTokenAuthentication::class]);
-    Route::post('/update-progress/{id}', [ReadingProgressController::class, 'updateReadingProgress'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{id}', [ReadingChallengeController::class, 'getReadingChallengeMembers']);
+    Route::get('my-progress/{id}', [ReadingProgressController::class, 'getMyReadingProgress']);
+    Route::post('/update-progress/{id}', [ReadingProgressController::class, 'updateReadingProgress']);
+    Route::delete('/withdraw/{id}', [ReadingProgressController::class, 'withDrawChallenge']);
 });
 
 Route::prefix('community')->group(function () {

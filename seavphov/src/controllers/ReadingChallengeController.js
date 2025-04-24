@@ -32,4 +32,8 @@ export default class ReadingChallengeController {
     static async updateChallengeProgress(id, formData) {
         return await postForm(ReadingChallengeMemberRoute + `/update-progress/${id}`, formData, true);
     }
+
+    static async withDrawChallenge(id, formData) {
+        return await deleteData(ReadingChallengeMemberRoute + `/withdraw/${id}`, formData, true);
+    }
 }
