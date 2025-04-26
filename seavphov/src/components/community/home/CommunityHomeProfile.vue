@@ -20,6 +20,10 @@
       {{ community.description }}
     </p>
 
+    <p>Members: {{ community.member_count }}</p>
+    <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
+    <p>Created on: {{ formatDate(community.created_at) }}</p>
+
     <!-- Not member or Admin
       - Login 
         - Public -> Join
@@ -40,7 +44,7 @@
 
       <!-- Login waiting for approval -->
       <LoadingButton
-        v-else-if="permissionObject.isPendingRequest"
+        v-else-if="permissionObject.userInPendingRequest"
         color="primary"
         text="Waiting admin approval"
         type="button"
@@ -69,10 +73,6 @@
         class="text-center"
       />
     </div>
-
-    <p>Members: {{ community.member_count }}</p>
-    <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
-    <p>Created on: {{ formatDate(community.created_at) }}</p>
 
     <LoadingButton
       v-if="permissionObject.isCopMember"
@@ -138,7 +138,7 @@ export default {
       this.loadingRequestToJoin = true;
       const response = await CopMemberController.requestToJoinCop(this.route);
       if (response === true) {
-        this.permissionObject.isPendingRequest = true;
+        this.permissionObject.userInPendingRequest = true;
       }
       this.loadingRequestToJoin = false;
     },
