@@ -55,6 +55,7 @@ class Notification extends Model
             case 'approve-cop-join-request':
             case 'reject-cop-join-request':
             case 'join-reading-challenge':
+            case 'leave-reading-challenge':
                 return "/community/" . $cop->route;
 
             default:

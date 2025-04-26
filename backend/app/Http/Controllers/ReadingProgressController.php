@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use App\Http\ResponseUtil;
 use App\Models\ReadingChallenge;
 use App\Models\ReadingProgress;
+use App\Service\NotificationService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 
 class ReadingProgressController extends Controller
 {
@@ -40,8 +42,11 @@ class ReadingProgressController extends Controller
             $readingProgress->delete();
 
             // Reduce total member of original challenge
-            $readingProgress->readingChallenge->total_member = $readingProgress->readingChallenge->total_member - 1;
-            $readingProgress->readingChallenge->save();
+            $readingChallenge = $readingProgress->readingChallenge;
+            $readingChallenge->total_member = $readingChallenge->total_member - 1;
+            $readingChallenge->save();
+
+            NotificationService::storeLeaveReadingChallengeNotification($userId, $readingChallenge->user_id, $readingChallenge->cop_id,  " leave reading challenge " . $readingChallenge->book_title);
 
             return ResponseUtil::Success('Successfully delete your reading progress', true, true);
         } catch (Exception $exception) {

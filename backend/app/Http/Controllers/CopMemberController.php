@@ -28,12 +28,62 @@ class CopMemberController extends Controller
         }
     }
 
+    public function removeMemberFromCop(Request $request)
+    {
+        try {
+            $user = $request->attributes->get('user');
+            $cop = $request->attributes->get('cop');
+            $uuid = $request->get('uuid');
+            $member = User::where('uuid', $uuid)->first();
+
+            if ($user->id == $member->id) {
+                return ResponseUtil::Success('You cannot remove yourself from community', true, true, 'info');
+            }
+
+            return ResponseUtil::Success('Remove member from community successfully', CopMemberService::deleteCopMember($cop->id, $member->id), true);
+        } catch (Exception $e) {
+            return ResponseUtil::ServerError('Cannot remove member from community!', $e->getMessage());
+        }
+    }
+
+    public function changeUserRole(Request $request)
+    {
+        try {
+            $cop = $request->attributes->get('cop');
+            $uuid = $request->get('uuid');
+            $member = User::where('uuid', $uuid)->first();
+            $newRole = $request->get('role');
+
+            if ($newRole != 'Admin' && $newRole != 'Member') {
+                return ResponseUtil::Success('Role is not valid');
+            }
+
+            // check if user change themselves to member and no admin left 
+            if ($newRole == 'Member') {
+                if (!CopMemberService::hasOtherAdmin($cop->id, $member->id)) {
+                    return ResponseUtil::Success('You cannot remove yourself, A community must have at least one admin.', true, true, 'info');
+                }
+            }
+
+            $newRole = ($newRole == 'Admin') ? 1 : 2;
+
+            if (CopMemberService::isAdminOrMember($member->id, $cop->id) == false) {
+                return ResponseUtil::Success('User is not admin or member of this community');
+            }
+
+            $copMember = CopMemberService::changeUserRole($cop->id, $member->id, $newRole);
+            return ResponseUtil::Success('Change user role successfully', $copMember, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot change user role!', $exception->getMessage());
+        }
+    }
+
+
 
     public function getCommunityMembers(Request $request)
     {
         try {
             $cop = $request->attributes->get('cop');
-
             $copMember = CopMemberService::getCopMembers($cop->id);
 
             return ResponseUtil::Success('Get Community members successfully', $copMember);

@@ -97,11 +97,36 @@ class NotificationService
         if ($userId == $receiverId) {
             return;
         }
+        // if challenge owner no longer a member of community, they won't receive notification
+        if (!CopMemberService::isAdminOrMember($receiverId, $copId)) {
+            return;
+        }
+
         Notification::create([
             'user_id' => $userId,
             'receiver_id' => $receiverId,
             'object_id' => $copId,
             'type' => 'join-reading-challenge',
+            'body' => $body
+        ]);
+    }
+
+
+    public static function storeLeaveReadingChallengeNotification($userId, $receiverId, $copId, $body)
+    {
+        if ($userId == $receiverId) {
+            return;
+        }
+        // if challenge owner no longer a member of community, they won't receive notification
+        if (!CopMemberService::isAdminOrMember($receiverId, $copId)) {
+            return;
+        }
+
+        Notification::create([
+            'user_id' => $userId,
+            'receiver_id' => $receiverId,
+            'object_id' => $copId,
+            'type' => 'leave-reading-challenge',
             'body' => $body
         ]);
     }

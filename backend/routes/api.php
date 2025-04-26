@@ -61,6 +61,9 @@ Route::prefix('community')->group(function () {
     // Members
     Route::get('{route}/members', [CopMemberController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
     Route::get('{route}/member-requests', [CopMemberController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::post('{route}/change-role', [CopMemberController::class, 'changeUserRole'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::post('{route}/remove-member/{uuid}', [CopMemberController::class, 'removeMemberFromCop'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+
 
     // Check Permission
     Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);

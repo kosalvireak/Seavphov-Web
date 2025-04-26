@@ -246,7 +246,7 @@ class BookController extends Controller
             $book->availability = !$book->availability;
             $book->save();
 
-            return ResponseUtil::Success('Update availability success');
+            return ResponseUtil::Success('Update availability', true, true);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot change availability!', $exception->getMessage());
         }
