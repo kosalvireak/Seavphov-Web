@@ -9,6 +9,7 @@ import MyDiscussion from "./MyDiscussions.vue";
 import MyReviews from "./MyReviews.vue";
 import RenderUserBook from "./RenderUserBook.vue";
 import RenderUserDiscussion from "./RenderUserDiscussion.vue";
+import MyComments from "./MyComments.vue";
 export default {
   name: "ProfileDetail",
   components: {
@@ -18,6 +19,7 @@ export default {
     MyReviews,
     RenderUserBook,
     RenderUserDiscussion,
+    MyComments,
   },
   props: {
     page: {
@@ -54,7 +56,7 @@ export default {
             this.selectedComponent = "MyReviews";
             break;
           case "my-comments":
-            this.selectedComponent = "RenderSavedBooks";
+            this.selectedComponent = "MyComments";
             break;
 
           // view user profile
