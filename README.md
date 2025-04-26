@@ -50,6 +50,14 @@ Community manage members
 
 Community's role
 
+## Community's reading challenge
+
+Create reading challenge
+
+User join reading challenge
+
+Update reading progress
+
 ## Banner
 
 Dynamic Banner
