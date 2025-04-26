@@ -91,6 +91,11 @@ export default {
     if (!this.disabledListener) {
       document.addEventListener("click", this.closeDropdown);
     }
+
+    // Close dropdown when click dropdown item
+    this.$refs.content.addEventListener("click", () => {
+      this.hiddenContent = false;
+    });
   },
   beforeDestroy() {
     document.removeEventListener("click", this.closeDropdown);
