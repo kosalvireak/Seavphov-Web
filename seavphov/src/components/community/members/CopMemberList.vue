@@ -1,6 +1,12 @@
 <template>
   <section class="CopMemberList w-100">
+    <EditMemberPopup
+      v-if="selectedMember"
+      :user="selectedMember"
+      @on-close="selectedMember = null"
+    />
     <EasyDataTable
+      table-class-name="customize-table"
       :server-items-length="serverItemsLength"
       :headers="headers"
       :items="members"
@@ -33,9 +39,11 @@
 </template>
 
 <script>
+import EditMemberPopup from "./EditMemberPopup.vue";
 import CopMemberController from "../../../controllers/CopMemberController";
 export default {
   name: "CopMemberList",
+  components: { EditMemberPopup },
   data() {
     return {
       isLoading: false,
@@ -49,6 +57,7 @@ export default {
         { text: "Join date", value: "join_date", sortable: true },
         { text: "", value: "action", width: 50 },
       ],
+      selectedMember: null,
     };
   },
   async mounted() {
@@ -56,7 +65,7 @@ export default {
   },
   methods: {
     onClickEditMember(member) {
-      console.log(member);
+      this.selectedMember = member;
     },
     async getCopMemberList() {
       this.isLoading = true;
@@ -68,4 +77,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.customize-table {
+  --easy-table-body-row-height: 50px;
+}
+</style>

@@ -52,6 +52,8 @@ class CommunityController extends Controller
                 }
             }
 
+            $query->withCount('members');
+
             $cops = $query->paginate(6); // Apply pagination 
 
             return ResponseUtil::Success('Search community success', $cops, false);
@@ -68,6 +70,8 @@ class CommunityController extends Controller
             if (!$cop) {
                 return ResponseUtil::NotFound('Community not found');
             };
+
+            $cop->member_count = $cop->members()->count();
 
             return ResponseUtil::Success('Get community success', $cop);
         } catch (QueryException  $exception) {

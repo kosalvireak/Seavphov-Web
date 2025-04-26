@@ -28,7 +28,7 @@
             alt="not found"
             class="w-25 img-fluid mb-3 rounded rounded-7"
           />
-          <h3>No books found...!</h3>
+          <h3>You don't have any book!</h3>
         </div>
       </div>
     </template>
@@ -54,11 +54,7 @@ export default {
   },
   computed: {
     isBooksEmpty() {
-      if (this.books & (this.books.length == 0)) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.books && this.books.length == 0;
     },
   },
   async mounted() {

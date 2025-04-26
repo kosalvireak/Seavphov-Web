@@ -6,6 +6,7 @@
       @on-close="selectedMember = null"
     />
     <EasyDataTable
+      table-class-name="customize-table"
       :server-items-length="serverItemsLength"
       :headers="headers"
       :items="members"
@@ -77,4 +78,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.customize-table {
+  --easy-table-body-row-height: 50px;
+}
+</style>
+

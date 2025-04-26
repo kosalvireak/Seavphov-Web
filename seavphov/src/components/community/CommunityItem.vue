@@ -25,6 +25,11 @@
           {{ community.description }}
         </p>
 
+        <p>
+          {{ community.members_count
+          }}<span class="pl-1">{{ memberText }}</span>
+        </p>
+
         <Info :text="infoText" :margin="false" :center="true" />
       </div>
     </div>
@@ -43,6 +48,9 @@ export default {
     },
     visibilityText() {
       return this.community.private ? "Private" : "Public";
+    },
+    memberText() {
+      return this.community.me > 1 ? "member" : "members";
     },
     infoText() {
       return this.community.private

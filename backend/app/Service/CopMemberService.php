@@ -81,7 +81,8 @@ class CopMemberService
     {
         // Get the cop members with role 1 (admins)
         $copMembers = CopMember::where('cop_id', $copId)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('role', 'asc')
+            ->orderBy('created_at', 'asc')
             ->get(['user_id', 'role', 'created_at']); // Get user_id and role fields
 
         // Extract user_ids from the cop members
@@ -108,5 +109,20 @@ class CopMemberService
     {
         $copMembers = CopMember::where('cop_id', $copId)->where('role', 1)->get(['user_id']);
         return $copMembers->pluck('user_id')->toArray();
+    }
+
+    public static function changeUserRole($copId, $userId, $role)
+    {
+        return CopMember::where('user_id', $userId)->where('cop_id', $copId)->update(['role' => $role]);
+    }
+
+    public static function deleteCopMember($copId, $userId)
+    {
+        return CopMember::where('user_id', $userId)->where('cop_id', $copId)->delete();
+    }
+
+    public static function hasOtherAdmin($copId, $userId)
+    {
+        return CopMember::where('cop_id', $copId)->where('role', 1)->where('user_id', '!=', $userId)->exists();
     }
 }

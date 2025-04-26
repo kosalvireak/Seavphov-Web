@@ -70,6 +70,7 @@
       />
     </div>
 
+    <p>Members: {{ community.member_count }}</p>
     <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
     <p>Created on: {{ formatDate(community.created_at) }}</p>
   </section>
