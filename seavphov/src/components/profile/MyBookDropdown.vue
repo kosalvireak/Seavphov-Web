@@ -46,7 +46,7 @@ export default {
     async changeAvailability(id) {
       const response = await BookController.changeBookAvailability(id);
       if (response) {
-        this.$emit("change");
+        this.$emit("changeAvailability");
       }
     },
     async deleteBook(id) {
