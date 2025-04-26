@@ -3,7 +3,7 @@
     <Dropdown
       id="comment-item-dropdown"
       id_content="comment-item-dropdown_content"
-      placement="bottom-start"
+      placement="bottom-end"
     >
       <template #button>
         <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">

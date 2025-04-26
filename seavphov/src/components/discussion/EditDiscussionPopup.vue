@@ -44,6 +44,7 @@ import DiscussionController from "../../controllers/DiscussionController";
 export default {
   name: "EditDiscussionPopup",
   components: { MDBTextarea },
+
   data() {
     return {
       isLoading: false,

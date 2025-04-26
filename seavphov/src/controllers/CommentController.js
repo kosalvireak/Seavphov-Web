@@ -22,4 +22,8 @@ export default class CommentController {
   static async createComment(formData) {
     return await postForm(CommentRoute + `/add`, formData, true);
   }
+
+  static async getMyComments() {
+    return await getData(CommentRoute + `/my-comments`, true);
+  }
 }

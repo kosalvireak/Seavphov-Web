@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     isEmpty() {
-      return this.reviews.length == 0;
+      return this.reviews && this.reviews.length == 0;
     },
   },
   methods: {

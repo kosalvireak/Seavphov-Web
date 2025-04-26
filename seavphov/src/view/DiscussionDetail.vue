@@ -6,8 +6,10 @@
       <div class="flex-center w-100 h-44" v-if="isLoading">
         <Loader :size="40" />
       </div>
-      <DiscussionItem :discussion="discussion" />
-      <CommentSection :discussion_id="paramsId" />
+      <template v-else>
+        <DiscussionItem :discussion="discussion" />
+        <CommentSection :discussion_id="paramsId" />
+      </template>
     </div>
     <AdsContainer class="bg-green-400" />
   </section>
@@ -35,8 +37,7 @@ export default {
   methods: {
     async getDiscussionById(id) {
       this.isLoading = true;
-      const response = await DiscussionController.getDiscussionById(id);
-      this.discussion = response;
+      this.discussion = await DiscussionController.getDiscussionById(id);
       this.isLoading = false;
     },
   },
