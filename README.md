@@ -50,6 +50,15 @@ Community manage members
 
 Community's role
 
+### Functionality
+---
+
+Community Admin can assign any member as cop admin
+
+Admin can only assign themselves as member only if there is another admin
+
+---
+
 ## Community's reading challenge
 
 Create reading challenge
