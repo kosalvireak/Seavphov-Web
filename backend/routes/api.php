@@ -40,7 +40,7 @@ Route::prefix('reading-challenge')->group(function () {
     Route::get('{route}/{id}', [ReadingChallengeController::class, 'getReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{route}', [ReadingChallengeController::class, 'getReadingChallenges'])->middleware([OptionalApiTokenAuthentication::class]);;
     Route::post('{route}/add', [ReadingChallengeController::class, 'addReadingChallenge'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
-    Route::get('{route}/{id}/join', [ReadingChallengeController::class, 'joinReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/{id}/join', [ReadingChallengeController::class, 'startReadingChallenge'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('members/reading-challenge')->middleware([ApiTokenAuthentication::class])->group(function () {
@@ -69,8 +69,11 @@ Route::prefix('community')->group(function () {
     Route::get('{route}/permission/home', [CommunityController::class, 'checkViewCopHomePermission'])->middleware([OptionalApiTokenAuthentication::class]);
 
     // Join cop
-    Route::get('{route}/request-to-join-cop', [CopMemberController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
-    Route::get('{route}/join-cop', [CopMemberController::class, 'joinCop'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/request-to-join-community', [CopMemberController::class, 'requestToJoinCop'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('{route}/join-community', [CopMemberController::class, 'joinCop'])->middleware([ApiTokenAuthentication::class]);
+
+    // Leave cop
+    Route::get('{route}/leave-community', [CopMemberController::class, 'leaveCommunity'])->middleware([ApiTokenAuthentication::class]);
 
     // Approve or Reject request
     Route::post('{route}/approved', [CopMemberController::class, 'approveMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);

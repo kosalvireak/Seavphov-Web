@@ -44,6 +44,11 @@ class ReadingChallenge extends Model
         return $this->belongsTo(User::class, 'user_id')->select(['name', 'picture', 'uuid'])->first();
     }
 
+    public function cop()
+    {
+        return $this->belongsTo(Community::class, 'cop_id');
+    }
+
     public function getAllProgress()
     {
         return $this->hasMany(ReadingProgress::class, 'reading_challenge_id')

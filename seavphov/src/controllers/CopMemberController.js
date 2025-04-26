@@ -20,13 +20,17 @@ export default class CopMemberController {
 
   static async requestToJoinCop(route) {
     return await getData(
-      CommunityRoute + `/${route}/request-to-join-cop`,
+      CommunityRoute + `/${route}/request-to-join-community`,
       true,
     );
   }
 
   static async joinCop(route) {
-    return await getData(CommunityRoute + `/${route}/join-cop`, true);
+    return await getData(CommunityRoute + `/${route}/join-community`, true);
+  }
+
+  static async leaveCommunity(route) {
+    return await getData(CommunityRoute + `/${route}/leave-community`, true);
   }
 
   static async approveMemberRequest(route, uuid) {

@@ -92,7 +92,7 @@ class NotificationService
     }
 
 
-    public static function storeJoinReadingChallengeNotification($userId, $receiverId, $copId, $body)
+    public static function storestartReadingChallengeNotification($userId, $receiverId, $copId, $body)
     {
         if ($userId == $receiverId) {
             return;

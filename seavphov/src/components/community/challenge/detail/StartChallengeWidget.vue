@@ -33,7 +33,7 @@ export default {
   methods: {
     async joinChallenge() {
       this.isLoading = true;
-      const success = await ReadingChallengeController.joinReadingChallenge(
+      const success = await ReadingChallengeController.startReadingChallenge(
         this.route,
         this.id
       );

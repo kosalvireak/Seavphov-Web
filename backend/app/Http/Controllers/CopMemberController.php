@@ -28,6 +28,26 @@ class CopMemberController extends Controller
         }
     }
 
+    public function leaveCommunity(Request $request, $route)
+    {
+        try {
+            $user = $request->attributes->get('user');
+            $cop = Community::where('route', $route)->first();
+            if (!$cop) {
+                return ResponseUtil::NotFound('Community not found');
+            };
+
+            if (!CopMemberService::isCopMember($user->id, $cop->id)) {
+                return ResponseUtil::Success('You are not a member of this community', null, true, 'info');
+            }
+            $copMember = CopMemberService::deleteCopMember($cop->id, $user->id);
+
+            return ResponseUtil::Success('Leave community successfully', true, true);
+        } catch (Exception $e) {
+            return ResponseUtil::ServerError('Cannot leave community!', $e->getMessage());
+        }
+    }
+
     public function removeMemberFromCop(Request $request)
     {
         try {
@@ -37,7 +57,9 @@ class CopMemberController extends Controller
             $member = User::where('uuid', $uuid)->first();
 
             if ($user->id == $member->id) {
-                return ResponseUtil::Success('You cannot remove yourself from community', true, true, 'info');
+                if (!CopMemberService::hasOtherAdmin($cop->id, $member->id)) {
+                    return ResponseUtil::Success('You cannot remove yourself, A community must have at least one admin.', true, true, 'info');
+                }
             }
 
             return ResponseUtil::Success('Remove member from community successfully', CopMemberService::deleteCopMember($cop->id, $member->id), true);
@@ -61,7 +83,7 @@ class CopMemberController extends Controller
             // check if user change themselves to member and no admin left 
             if ($newRole == 'Member') {
                 if (!CopMemberService::hasOtherAdmin($cop->id, $member->id)) {
-                    return ResponseUtil::Success('You cannot remove yourself, A community must have at least one admin.', true, true, 'info');
+                    return ResponseUtil::Success('You cannot change yourself to member, A community must have at least one admin.', true, true, 'info');
                 }
             }
 

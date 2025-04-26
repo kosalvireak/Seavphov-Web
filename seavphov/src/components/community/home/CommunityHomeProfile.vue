@@ -73,6 +73,16 @@
     <p>Members: {{ community.member_count }}</p>
     <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
     <p>Created on: {{ formatDate(community.created_at) }}</p>
+
+    <LoadingButton
+      v-if="permissionObject.isCopMember"
+      @click="leaveCommunity()"
+      :isLoading="loadingLeaveCommunity"
+      color="danger"
+      text="Leave Community"
+      type="button"
+      class="text-center"
+    />
   </section>
 </template>
 
@@ -92,6 +102,8 @@ export default {
       loadingRequestToJoin: false,
       loadingJoinCop: false,
       requestToJoinText: "Request to join",
+      loadingLeaveCommunity: false,
+      route: this.$route.params.route,
     };
   },
   computed: {
@@ -114,30 +126,28 @@ export default {
     loginToJoin() {
       this.toRouteName("login");
     },
+    async leaveCommunity() {
+      this.loadingLeaveCommunity = true;
+      const response = await CopMemberController.leaveCommunity(this.route);
+      if (response === true) {
+        this.reloadPage();
+      }
+      this.loadingLeaveCommunity = false;
+    },
     async requestToJoinCop() {
       this.loadingRequestToJoin = true;
-
-      const response = await CopMemberController.requestToJoinCop(
-        this.$route.params.route
-      );
-
+      const response = await CopMemberController.requestToJoinCop(this.route);
       if (response === true) {
         this.permissionObject.isPendingRequest = true;
       }
-
       this.loadingRequestToJoin = false;
     },
     async joinCop() {
       this.loadingJoinCop = true;
-
-      const response = await CopMemberController.joinCop(
-        this.$route.params.route
-      );
-
+      const response = await CopMemberController.joinCop(this.route);
       if (response) {
         this.permissionObject.isCopMember = true;
       }
-
       this.loadingJoinCop = false;
     },
   },

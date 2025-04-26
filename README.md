@@ -57,6 +57,8 @@ Community Admin can assign any member as cop admin
 
 Admin can only assign themselves as member only if there is another admin
 
+Admin can only remove themselves from community only if there is another admin
+
 ---
 
 ## Community's reading challenge
@@ -66,6 +68,15 @@ Create reading challenge
 User join reading challenge
 
 Update reading progress
+
+
+### Functionality
+---
+Community member can join challenge
+
+Non community member can see challenge only for public community
+
+---
 
 ## Banner
 

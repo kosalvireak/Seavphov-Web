@@ -17,21 +17,21 @@ use Illuminate\Http\Request;
 class ReadingChallengeController extends Controller
 {
 
-    public function joinReadingChallenge(Request $request, $route, $id)
+    public function startReadingChallenge(Request $request, $route, $id)
     {
         try {
             $cop = Community::where('route', $route)->first();
             $userId = $request->attributes->get('user')->id;
             $readingChallenge = ReadingChallenge::where('id', $id)->first();
 
+            if (!$readingChallenge)
+                return ResponseUtil::NotFound("Reading challenge not found");
+
             // Add user to reading progress table
             // Send Notification to owner
 
             if (!CopMemberService::isAdminOrMember($userId, $cop->id))
-                return ResponseUtil::NoPermission("You need to be member of this cop to join this reading challenge", []);
-
-            if (!$readingChallenge)
-                return ResponseUtil::NotFound("Reading challenge not found");
+                return ResponseUtil::Success("You need to be member of this community to start this reading challenge", false, true, 'info');
 
             ReadingProgress::create([
                 'user_id' => $userId,
@@ -42,7 +42,7 @@ class ReadingChallengeController extends Controller
             $readingChallenge->total_member = $readingChallenge->total_member + 1;
             $readingChallenge->save();
 
-            NotificationService::storeJoinReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
+            NotificationService::storestartReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
 
             return ResponseUtil::Success("Successfully join reading challenge", true, true);
         } catch (Exception $exception) {
@@ -56,8 +56,8 @@ class ReadingChallengeController extends Controller
             $cop = Community::where('route', $route)->first();
             $userId = $request->attributes->get('user')->id;
 
-            if (!CopMemberService::isAdminOrMember($userId, $cop->id)) {
-                return ResponseUtil::NotFound("You need to be member of this cop to see this reading challenge", []);
+            if (!CopMemberService::isAdminOrMember($userId, $cop->id) && $cop->private == true) {
+                return ResponseUtil::Success("You need to be member of this community to see this reading challenge", [], true, 'info');
             }
 
             $readingChallenge = ReadingChallenge::where('cop_id', $cop->id)->where('id', $id)->first();
@@ -102,8 +102,8 @@ class ReadingChallengeController extends Controller
                 return ResponseUtil::NotFound("Reading challenge not found");
             }
 
-            if (!CopMemberService::isAdminOrMember($userId, $readingChallenge->cop_id)) {
-                return ResponseUtil::NotFound("You need to be member of this cop to see this reading challenge", []);
+            if (!CopMemberService::isAdminOrMember($userId, $readingChallenge->cop_id) && $readingChallenge->cop->private == true) {
+                return ResponseUtil::Success("You need to be member of this community to see this reading challenge", [], true, 'info');
             }
 
             $members = [];
