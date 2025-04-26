@@ -99,4 +99,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class, 'receiver_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'owner_id');
+    }
 }

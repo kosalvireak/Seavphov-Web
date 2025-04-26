@@ -23,6 +23,10 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'owner_id')->select(['name', 'picture', 'uuid'])->get();
     }
 
+    public function discussion()
+    {
+        return $this->belongsTo(Discussion::class, 'discussion_id');
+    }
 
     public function increaseLike()
     {

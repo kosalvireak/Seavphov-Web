@@ -35,6 +35,29 @@ class CommentController extends Controller
             return ResponseUtil::ServerError('Cannot delete comment!', $exception->getMessage());
         }
     }
+
+    public function getMyComments(Request $request)
+    {
+        try {
+
+            $user = $request->attributes->get('user');
+            $items = [];
+            $userComments = $user->comments;
+
+            foreach ($userComments as $comment) {
+                $items[] = [
+                    'comment' => $comment->getData($user->id),
+                    'discussion' => $comment->discussion
+                ];
+            };
+
+            return ResponseUtil::Success('Successfully get your comments', $items);
+        } catch (Exception $e) {
+            return ResponseUtil::ServerError('Cannot get your comments!', $e->getMessage());
+        }
+    }
+
+
     public function likeComment(Request $request, $commentId)
     {
         try {

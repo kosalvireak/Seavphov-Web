@@ -103,6 +103,7 @@ Route::prefix('comment')->group(function () {
     Route::post('/add', [CommentController::class, 'createComment'])->middleware([ApiTokenAuthentication::class]);
     Route::put('/edit/{id}', [CommentController::class, 'editComment'])->middleware([ApiTokenAuthentication::class]);
     Route::delete('/delete/{id}', [CommentController::class, 'deleteComment'])->middleware([ApiTokenAuthentication::class]);
+    Route::get('/my-comments', [CommentController::class, 'getMyComments'])->middleware([ApiTokenAuthentication::class]);
 });
 
 Route::prefix('discussions')->group(function () {

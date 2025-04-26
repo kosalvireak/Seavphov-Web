@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BookReview extends Model
 {
@@ -26,6 +27,13 @@ class BookReview extends Model
     public function book()
     {
         return $this->belongsTo(Book::class, 'book_id');
+    }
+
+    public function reactions($userId): HasMany
+    {
+        return $this->hasMany(Reaction::class, 'entity_id')
+            ->where('entity_type', 'review')
+            ->where('user_id', $userId);
     }
 
     public function increaseLike()
@@ -56,14 +64,12 @@ class BookReview extends Model
         }
         $this->save();
     }
+
     private function getUserReaction($userId = null)
     {
         if ($userId == null) return null;
-        $reviewReaction = Reaction::where('entity_id', $this->id)
-            ->where('user_id', $userId)
-            ->where('entity_type', 'review')
-            ->first();
-        return $reviewReaction != null ? $reviewReaction->getReactionAsBoolean() : null;
+        $reaction = $this->reactions($userId)->first();
+        return $reaction != null ? $reaction->getReactionAsBoolean() : null;
     }
 
     public function getData($userId = null)
@@ -83,7 +89,7 @@ class BookReview extends Model
 
     public function getMyReview($userId)
     {
-        $book = Book::where('id', $this->book_id)->first();
+        $book = $this->book;
 
         return [
             'id' => $this->id,
