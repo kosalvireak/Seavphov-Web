@@ -1,0 +1,60 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/discussions/{id}": {
+            "get": {
+                "tags": [
+                    "Discussion"
+                ],
+                "summary": "Get a specific discussion by ID",
+                "operationId": "9ac9d236037877a78e36d150a50b9b66",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the discussion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get discussion success"
+                    },
+                    "500": {
+                        "description": "Cannot get discussion!"
+                    }
+                }
+            }
+        },
+        "/discussions": {
+            "get": {
+                "tags": [
+                    "Discussion"
+                ],
+                "summary": "Get a list of discussion",
+                "operationId": "4a4dfb89b98f37badf90b813d184b96c",
+                "responses": {
+                    "200": {
+                        "description": "Successfully get discussions"
+                    },
+                    "500": {
+                        "description": "Cannot get discussion!"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Discussion",
+            "description": "Discussion"
+        }
+    ]
+}

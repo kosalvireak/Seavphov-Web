@@ -11,6 +11,15 @@ use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
 
+
+/**
+ * @OA\Info(
+ *     title="My API",
+ *     version="1.0.0"
+ * )
+ */
+
+
 class DiscussionController extends Controller
 {
 
@@ -83,7 +92,22 @@ class DiscussionController extends Controller
     }
 
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/discussions/{id}",
+     *     summary="Get a specific discussion by ID",
+     *     tags={"Discussion"},*     
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Id of the discussion",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Get discussion success"),
+     *     @OA\Response(response=500, description="Cannot get discussion!")
+     * )
+     */
     public function getDiscussionById(Request $request, $id)
     {
         try {
@@ -106,7 +130,15 @@ class DiscussionController extends Controller
         }
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/discussions",
+     *     summary="Get a list of discussion",
+     *     tags={"Discussion"},
+     *     @OA\Response(response=200, description="Successfully get discussions"),
+     *     @OA\Response(response=500, description="Cannot get discussion!")
+     * )
+     */
     public function getDiscussionsWithFilter(Request $request)
     {
         try {
