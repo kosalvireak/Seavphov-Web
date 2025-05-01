@@ -5,6 +5,10 @@ const ReadingChallengeRoute = "/api/reading-challenge";
 const ReadingChallengeMemberRoute = "/api/members/reading-challenge";
 
 export default class ReadingChallengeController {
+
+    static async editReadingChallenge(formData, id) {
+        return await postForm(ReadingChallengeRoute + `/${id}/edit`, formData, true);
+    }
     static async addReadingChallenge(formData, route) {
         return await postForm(ReadingChallengeRoute + `/${route}/add`, formData, true);
     }
@@ -35,5 +39,9 @@ export default class ReadingChallengeController {
 
     static async withDrawChallenge(id, formData) {
         return await deleteData(ReadingChallengeMemberRoute + `/withdraw/${id}`, formData, true);
+    }
+
+    static async deleteChallenge(id) {
+        return await deleteData(ReadingChallengeRoute + `/${id}`, true)
     }
 }

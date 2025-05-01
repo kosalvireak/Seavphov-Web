@@ -22,8 +22,16 @@
           />
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
-          <div class="ChallengeInfo flex flex-column space-y-4">
-            <p class="h4">Book title: {{ challenge.book_title }}</p>
+          <div
+            class="ChallengeInfo flex flex-column space-y-4 position-relative"
+          >
+            <EditReadingChallenge
+              v-if="challenge.is_owner"
+              class="position-absolute top-0 end-0"
+              :propsChallenge="challenge"
+            />
+
+            <p class="h4 pr-10 m-0">Book title: {{ challenge.book_title }}</p>
             <p class="h5">By: {{ challenge.book_author }}</p>
             <p><b>Description:</b>{{ challenge.description }}</p>
 
@@ -35,9 +43,7 @@
 
             <p>
               <b class="pr-1">Remaining days:</b>
-              <span
-                :class="challengeCompleted() ? 'text-red-600 font-bold' : ''"
-              >
+              <span :class="challengeCompleted ? 'text-red-600 font-bold' : ''">
                 {{ getRemainingDateDisplay() }}
               </span>
             </p>
@@ -71,9 +77,15 @@ import MyReadingProgress from "../../components/community/challenge/detail/MyRea
 import ReadingMemberList from "../../components/community/challenge/detail/ReadingMemberList.vue";
 import StartChallengeWidget from "../../components/community/challenge/detail/StartChallengeWidget.vue";
 import ReadingChallengeController from "../../controllers/ReadingChallengeController";
+import EditReadingChallenge from "../../components/community/challenge/detail/EditReadingChallenge.vue";
 export default {
   name: "ReadingChallengeDetail",
-  components: { StartChallengeWidget, ReadingMemberList, MyReadingProgress },
+  components: {
+    StartChallengeWidget,
+    ReadingMemberList,
+    MyReadingProgress,
+    EditReadingChallenge,
+  },
   data() {
     return {
       route: this.$route.params.route,
@@ -83,7 +95,11 @@ export default {
       isLoading: false,
     };
   },
-  computed: {},
+  computed: {
+    challengeCompleted() {
+      return !!(this.getFutureDifferentDays(this.challenge.end_date) < 0);
+    },
+  },
   async mounted() {
     this.isLoading = true;
     this.challenge = await ReadingChallengeController.getReadingChallenge(
@@ -97,9 +113,6 @@ export default {
     );
   },
   methods: {
-    challengeCompleted() {
-      return this.getFutureDifferentDays(this.challenge.end_date) < 0;
-    },
     getRemainingDateDisplay() {
       const different = this.getFutureDifferentDays(this.challenge.end_date);
       if (different < 0) {

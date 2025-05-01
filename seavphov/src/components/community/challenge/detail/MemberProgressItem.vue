@@ -12,10 +12,11 @@
           <Progress
             class="w-full"
             :label="member.name"
-            :progress="member.progress"
             label-position="outside"
             label-progress
             size="lg"
+            :progress="member.progress"
+            :color="hasCompleted ? 'green' : 'blue'"
           />
         </div>
       </a>
@@ -34,6 +35,11 @@ export default {
     index: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    hasCompleted() {
+      return this.member && this.member.progress == 100;
     },
   },
   methods: {

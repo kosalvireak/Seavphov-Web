@@ -8,11 +8,12 @@
       <p><b>Late updated on:</b>{{ formatDate(myProgress.updated_at) }}</p>
       <Progress
         class="w-full"
-        :progress="myProgress.progress"
         label="Current progress"
         label-position="outside"
         label-progress
         size="md"
+        :color="hasCompleted ? 'green' : 'blue'"
+        :progress="myProgress.progress"
       />
     </div>
     <Dropdown
@@ -72,6 +73,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+  },
+  computed: {
+    hasCompleted() {
+      return this.myProgress && this.myProgress.progress == 100;
     },
   },
   methods: {

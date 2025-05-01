@@ -70,6 +70,29 @@ class ReadingChallengeController extends Controller
         }
     }
 
+    public function deleteChallenge(Request $request, $id)
+    {
+        try {
+
+            $userId = $request->attributes->get('user')->id;
+            $readingChallenge = ReadingChallenge::where('id', $id)->first();
+            if (!$readingChallenge) {
+                return ResponseUtil::NotFound("Reading challenge not found");
+            }
+
+            if ($readingChallenge->user_id != $userId) {
+                return ResponseUtil::Success("You are not challenge owner", [], true, "info");
+            }
+
+            return ResponseUtil::Success('Successfully delete challenge', true, true);
+
+            // $readingChallenge->delete();
+            // return ResponseUtil::Success('Successfully delete challenge', true, true);
+        } catch (Exception $e) {
+            return ResponseUtil::ServerError('Something went wrong, cannot delete challenge', $e->getMessage());
+        }
+    }
+
     public function getReadingChallenges(Request $request, $route)
     {
         try {
@@ -115,6 +138,42 @@ class ReadingChallengeController extends Controller
             return ResponseUtil::Success("Successfully get reading challenge members", $members);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('Cannot get reading challenge members!', $exception->getMessage());
+        }
+    }
+
+    public function editReadingChallenge(Request $request, $id)
+    {
+        try {
+
+            $userId = $request->attributes->get('user')->id;
+            $readingChallenge = ReadingChallenge::where('id', $id)->first();
+            if (!$readingChallenge) {
+                return ResponseUtil::NotFound("Reading challenge not found");
+            }
+            if ($readingChallenge->user_id != $userId) {
+                return ResponseUtil::Success("You are not challenge owner", [], true, "info");
+            }
+
+            $validatedData = $request->validate([
+                'book_image' => 'required|string',
+                'book_title' => 'required|string',
+                'book_author' => 'required|string',
+                'description' => 'required|string',
+                'start_date' => 'required|date|after_or_equal:today',
+                'end_date' => 'required|date|after_or_equal:today',
+            ]);
+
+            $readingChallenge->book_image = $validatedData['book_image'];
+            $readingChallenge->book_title = $validatedData['book_title'];
+            $readingChallenge->book_author = $validatedData['book_author'];
+            $readingChallenge->description = $validatedData['description'];
+            $readingChallenge->start_date = $validatedData['start_date'];
+            $readingChallenge->end_date = $validatedData['end_date'];
+            $readingChallenge->save();
+
+            return ResponseUtil::Success('Successfully edit challenge', true, true);
+        } catch (Exception $e) {
+            return ResponseUtil::ServerError('Can not edit challenge', $e->getMessage());
         }
     }
 
