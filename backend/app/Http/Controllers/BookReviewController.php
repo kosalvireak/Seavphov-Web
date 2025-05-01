@@ -88,6 +88,23 @@ class BookReviewController extends Controller
     }
 
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/review/book/{bookId}",
+     *     summary="Get book's review",
+     *     tags={"Book's Review"},*     
+     *     @OA\Parameter(
+     *         name="bookId",
+     *         in="path",
+     *         required=true,
+     *         description="Id of the book",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Successfully get book reviews"),
+     *     @OA\Response(response=500, description="Cannot get review of book!")
+     * )
+     */
     public function getReviewsOfBook(Request $request, $bookId)
     {
         try {

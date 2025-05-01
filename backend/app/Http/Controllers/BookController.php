@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *     path="/api/books/newest",
+     *     summary="Get 6 newest books",
+     *     tags={"Book"},*
+     *     @OA\Response(response=200, description="Get newest book success"),
+     *     @OA\Response(response=500, description="Cannot get newest book!")
+     * )
+     */
     public function getNewest()
     {
         try {
@@ -26,6 +36,16 @@ class BookController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/books/mostReviewed",
+     *     summary="Get 6 most reviewed books",
+     *     tags={"Book"},*
+     *     @OA\Response(response=200, description="Get most reviewed book success"),
+     *     @OA\Response(response=500, description="Cannot get most reviewed book!")
+     * )
+     */
     public function getMostReviewed()
     {
         try {
@@ -116,6 +136,22 @@ class BookController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/books/{bookId}",
+     *     summary="Get book detail",
+     *     tags={"Book"},*     
+     *     @OA\Parameter(
+     *         name="bookId",
+     *         in="path",
+     *         required=true,
+     *         description="Id of the book",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Get book detail success"),
+     *     @OA\Response(response=500, description="Cannot get book detail!")
+     * )
+     */
     public function getBookDetailWithOwner(Request $request, $bookId)
     {
         try {

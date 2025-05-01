@@ -54,21 +54,28 @@
 <script>
 export default {
   name: "Footer",
-  computed: {
-    hideFooter() {
-      if (this.$route.name) {
-        if (
-          this.$route.name == "login" ||
-          this.$route.name == "signup" ||
-          this.$route.name == "forgot-password" ||
-          this.$route.name.startsWith("admin") ||
-          this.$route.name.startsWith("community")
-        ) {
-          return false;
-        } else {
-          return true;
-        }
-      }
+  data() {
+    return {
+      route: this.$route.name,
+      hideFooter: true,
+      hiddenRouteList: [
+        "login",
+        "signup",
+        "forgot-password",
+        "community",
+        "admin",
+      ],
+    };
+  },
+  watch: {
+    "$route.fullPath": {
+      immediate: true,
+      handler(newPath) {
+        const matched = this.hiddenRouteList.some((route) =>
+          newPath.includes(route)
+        );
+        this.hideFooter = !matched;
+      },
     },
   },
 };
