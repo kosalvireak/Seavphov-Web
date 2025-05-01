@@ -50,5 +50,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install production dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+RUN php artisan l5-swagger:generate
+
 # Start Laravel dev server
-CMD ["php-fpm"]
+CMD php-fpm -D && nginx -g 'daemon off;'
