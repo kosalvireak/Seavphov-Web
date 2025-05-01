@@ -6,7 +6,7 @@
     >
       <p class="h4 m-0 text-white">You have completed this challenge</p>
     </section>
-    <div v-if="inProgress" class="card p-3">
+    <div v-if="inProgress" class="card p-3 InProgressChallengeWidget">
       <p class="h5">📚 Keep the Momentum Going!</p>
       <ul class="ml-4">
         <li>📈 Stay motivated by updating your progress regularly.</li>

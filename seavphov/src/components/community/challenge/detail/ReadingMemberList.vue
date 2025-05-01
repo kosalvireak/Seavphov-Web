@@ -5,7 +5,7 @@
     </div>
     <template v-else>
       <StartChallengeWidget v-if="myProgress == null" />
-      <CompleteChallengeWidgetVue v-else :myProgress="myProgress" />
+      <CompleteChallengeWidget v-else :myProgress="myProgress" />
 
       <div
         v-if="members.length > 0"
@@ -27,13 +27,13 @@
 import StartChallengeWidget from "./StartChallengeWidget.vue";
 import MemberProgressItem from "./MemberProgressItem.vue";
 import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
-import CompleteChallengeWidgetVue from "./ProgressAndCompleteChallengeWidget.vue";
+import CompleteChallengeWidget from "./ProgressAndCompleteChallengeWidget.vue";
 export default {
   name: "ReadingMemberList",
   components: {
     MemberProgressItem,
     StartChallengeWidget,
-    CompleteChallengeWidgetVue,
+    CompleteChallengeWidget,
   },
   props: {
     myProgress: {
