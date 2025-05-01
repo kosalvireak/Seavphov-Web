@@ -1,12 +1,9 @@
 import { createStore } from "vuex";
 import { useToast } from "vue-toastification";
-import axiosInstance from "../services/axiosInstance.js";
 import { getData, deleteData, postForm } from "./apiUtils.js";
 import router from "../router/index.js";
-
 import { setCookie, getCookie, removeCookie } from "../services/cookie.js";
 
-const backend_url = import.meta.env.VITE_BACKEND_URL;
 const toast = useToast();
 
 const store = createStore({

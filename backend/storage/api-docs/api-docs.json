@@ -5,6 +5,124 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/books/newest": {
+            "get": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get 6 newest books",
+                "operationId": "f7cb2f516f54ceed25d7449a2d60bc81",
+                "responses": {
+                    "200": {
+                        "description": "Get newest book success"
+                    },
+                    "500": {
+                        "description": "Cannot get newest book!"
+                    }
+                }
+            }
+        },
+        "/api/books/mostReviewed": {
+            "get": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get 6 most reviewed books",
+                "operationId": "8c764bf3e58ec29a0c3e1d5aa7f3fa19",
+                "responses": {
+                    "200": {
+                        "description": "Get most reviewed book success"
+                    },
+                    "500": {
+                        "description": "Cannot get most reviewed book!"
+                    }
+                }
+            }
+        },
+        "/api/books/{bookId}": {
+            "get": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get book detail",
+                "operationId": "97ad3f951101d83aca443cece9bc6d96",
+                "parameters": [
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "Id of the book",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get book detail success"
+                    },
+                    "500": {
+                        "description": "Cannot get book detail!"
+                    }
+                }
+            }
+        },
+        "/api/review/book/{bookId}": {
+            "get": {
+                "tags": [
+                    "Book's Review"
+                ],
+                "summary": "Get book's review",
+                "operationId": "b1704261196ae22b60ec11f020ccf2b0",
+                "parameters": [
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "Id of the book",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get book reviews"
+                    },
+                    "500": {
+                        "description": "Cannot get review of book!"
+                    }
+                }
+            }
+        },
+        "/api/comment/discussion/{discussionId}": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Get specific discussion's comments by ID",
+                "operationId": "463b2371bee326b9cd078852cf422e6d",
+                "parameters": [
+                    {
+                        "name": "discussionId",
+                        "in": "path",
+                        "description": "Id of the discussion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get comments of this discussion"
+                    },
+                    "500": {
+                        "description": "Cannot get comments of this discussion!"
+                    }
+                }
+            }
+        },
         "/api/discussions/{id}": {
             "get": {
                 "tags": [
@@ -52,6 +170,18 @@
         }
     },
     "tags": [
+        {
+            "name": "Book",
+            "description": "Book"
+        },
+        {
+            "name": "Book's Review",
+            "description": "Book's Review"
+        },
+        {
+            "name": "Comment",
+            "description": "Comment"
+        },
         {
             "name": "Discussion",
             "description": "Discussion"
