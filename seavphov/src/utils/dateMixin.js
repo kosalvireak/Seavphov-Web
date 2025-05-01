@@ -36,8 +36,6 @@ export const DateMixin = {
       const today = new Date();
       const timeDiff = future_date - today;
       return timeDiff / (1000 * 60 * 60 * 24);
-    }
-
-
+    },
   },
 };

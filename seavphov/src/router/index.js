@@ -201,19 +201,28 @@ const router = createRouter({
               name: "community-members",
               component: CommunityMembers,
               props: true,
-              meta: { requiresCookie: true, title: appName + " - Community Members" },
+              meta: {
+                requiresCookie: true,
+                title: appName + " - Community Members",
+              },
             },
             {
               path: "admin",
               name: "community-admin",
               component: CommunitySettings,
-              meta: { requiresCookie: true, title: appName + " - Community Admin" },
+              meta: {
+                requiresCookie: true,
+                title: appName + " - Community Admin",
+              },
             },
             {
               path: "reading-challenge/:id",
               name: "reading-challenge-detail",
               component: ReadingChallengeDetail,
-              meta: { requiresCookie: true, title: appName + " - Reading Challenge" },
+              meta: {
+                requiresCookie: true,
+                title: appName + " - Reading Challenge",
+              },
             },
           ],
         },

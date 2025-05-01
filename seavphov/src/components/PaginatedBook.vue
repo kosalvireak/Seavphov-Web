@@ -63,7 +63,7 @@ export default {
         {
           page: this.current_page,
         },
-        true
+        true,
       );
       if (response) {
         this.books = response.data;

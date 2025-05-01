@@ -81,7 +81,7 @@ export default {
       const response = await CopMemberController.changeUserRole(
         this.route,
         this.user.uuid,
-        this.selectedRole
+        this.selectedRole,
       );
       if (response) this.closeModal();
       this.isSaving = false;
@@ -90,7 +90,7 @@ export default {
       this.isRemoving = true;
       const response = await CopMemberController.removeMemberFromCop(
         this.route,
-        this.user.uuid
+        this.user.uuid,
       );
       if (response) this.closeModal();
       this.isRemoving = false;

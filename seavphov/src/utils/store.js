@@ -60,7 +60,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBook({ }, id) {
+    async adminDeleteBook({}, id) {
       try {
         const response = await getData(`/api/admin/books/delete/${id}`, true);
         if (response.data.success) {
@@ -70,7 +70,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminDeleteBanner({ }, id) {
+    async adminDeleteBanner({}, id) {
       try {
         const response = await getData(`/api/admin/banners/${id}`, true);
         if (response.data.success) {
@@ -80,7 +80,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async changeSelectedBanner({ }, id) {
+    async changeSelectedBanner({}, id) {
       try {
         const response = await getData(
           `/api/admin/banners/selected/${id}`,
@@ -136,7 +136,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async adminAddBanner({ }, formData) {
+    async adminAddBanner({}, formData) {
       try {
         const response = await postForm("/api/admin/banners/", formData, true);
         toast.success(response.data.message);
@@ -148,7 +148,7 @@ const store = createStore({
         toast.error(error.response.data.message);
       }
     },
-    async deleteBook({ }, id) {
+    async deleteBook({}, id) {
       try {
         const response = await deleteData(`/api/books/${id}`);
         toast.success(response.data.message);
@@ -158,7 +158,7 @@ const store = createStore({
         return false;
       }
     },
-    async toggleSaveBook({ }, bookId) {
+    async toggleSaveBook({}, bookId) {
       try {
         const response = await getData(`/api/saved/${bookId}`, true);
         if (response.data.success) {
@@ -181,23 +181,23 @@ const store = createStore({
         return false;
       }
     },
-    async likeReview({ }, reviewId) {
+    async likeReview({}, reviewId) {
       return await getData(`/api/review/like/${reviewId}`, true);
     },
-    async dislikeReview({ }, reviewId) {
+    async dislikeReview({}, reviewId) {
       return getData(`/api/review/dislike/${reviewId}`, true);
     },
-    async likeDiscussion({ }, discussionId) {
-      return await getData(`/api/discussions/like/${discussionId}`, true,);
+    async likeDiscussion({}, discussionId) {
+      return await getData(`/api/discussions/like/${discussionId}`, true);
     },
-    async dislikeDiscussion({ }, discussionId) {
-      return await getData(`/api/discussions/dislike/${discussionId}`, true,);
+    async dislikeDiscussion({}, discussionId) {
+      return await getData(`/api/discussions/dislike/${discussionId}`, true);
     },
-    async likeComment({ }, commentId) {
+    async likeComment({}, commentId) {
       return await getData(`/api/comment/like/${commentId}`, true);
     },
-    async dislikeComment({ }, commentId) {
-      return await getData(`/api/comment/dislike/${commentId}`, true,);
+    async dislikeComment({}, commentId) {
+      return await getData(`/api/comment/dislike/${commentId}`, true);
     },
   },
 });

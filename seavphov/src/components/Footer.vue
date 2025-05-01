@@ -72,7 +72,7 @@ export default {
       immediate: true,
       handler(newPath) {
         const matched = this.hiddenRouteList.some((route) =>
-          newPath.includes(route)
+          newPath.includes(route),
         );
         this.hideFooter = !matched;
       },

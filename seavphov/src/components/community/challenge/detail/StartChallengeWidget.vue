@@ -35,7 +35,7 @@ export default {
       this.isLoading = true;
       const success = await ReadingChallengeController.startReadingChallenge(
         this.route,
-        this.id
+        this.id,
       );
       if (success) {
         this.reloadPage();
@@ -46,5 +46,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

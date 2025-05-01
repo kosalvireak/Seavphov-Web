@@ -60,12 +60,11 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.members = await ReadingChallengeController.getReadingChallengeMembers(
-      this.id
+      this.id,
     );
     this.isLoading = false;
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

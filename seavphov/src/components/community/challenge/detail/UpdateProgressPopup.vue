@@ -77,7 +77,7 @@ export default {
       const newProgress =
         await ReadingChallengeController.updateChallengeProgress(
           this.progressObj.id,
-          formDate
+          formDate,
         );
 
       this.$emit("updateProgress", newProgress);

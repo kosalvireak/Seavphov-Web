@@ -134,7 +134,7 @@ export default {
       this.loadingSaveBook = true;
       const response = await this.$store.dispatch(
         "toggleSaveBook",
-        this.paramsId
+        this.paramsId,
       );
       if (response) {
         this.book.issaved = !this.book.issaved;

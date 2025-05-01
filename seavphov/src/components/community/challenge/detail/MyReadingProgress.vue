@@ -86,7 +86,7 @@ export default {
     },
     async withDrawChallenge() {
       const success = await ReadingChallengeController.withDrawChallenge(
-        this.myProgress.id
+        this.myProgress.id,
       );
       if (success) {
         this.reloadPage();
@@ -96,5 +96,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

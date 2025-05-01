@@ -69,7 +69,7 @@ export default {
     async getCopMemberList() {
       this.isLoading = true;
       this.members = await CopMemberController.getCommunityMemberRequest(
-        this.route
+        this.route,
       );
       this.serverItemsLength = this.members.length;
       this.isLoading = false;
@@ -83,4 +83,3 @@ export default {
   --easy-table-body-row-height: 50px;
 }
 </style>
-

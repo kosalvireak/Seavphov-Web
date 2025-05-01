@@ -39,10 +39,11 @@ function handleErrorResponse(error) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
 
-    message = errorResponse.data.message + ": " + errorResponse.data.error ?? "";
+    message =
+      errorResponse.data.message + ": " + errorResponse.data.error ?? "";
 
     if (errorResponse.status === 404) {
-      router.push("/not-found")
+      router.push("/not-found");
     }
   } else if (error.request) {
     // The request was made but no response was received

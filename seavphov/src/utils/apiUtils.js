@@ -6,8 +6,8 @@ const backend_url = import.meta.env.VITE_BACKEND_URL;
 export async function getData(route, auth = false) {
   const headers = auth
     ? {
-      Authorization: `Bearer ${getApiToken()}`,
-    }
+        Authorization: `Bearer ${getApiToken()}`,
+      }
     : {};
   return await axiosInstance.get(backend_url + route, { headers });
 }

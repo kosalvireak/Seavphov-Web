@@ -54,12 +54,20 @@ export default class CopMemberController {
     const formData = new FormData();
     formData.append("uuid", uuid);
     formData.append("role", role);
-    return await postForm(CommunityRoute + `/${route}/change-role`, formData, true);
+    return await postForm(
+      CommunityRoute + `/${route}/change-role`,
+      formData,
+      true,
+    );
   }
 
   static async removeMemberFromCop(route, uuid) {
     const formData = new FormData();
     formData.append("uuid", uuid);
-    return await postForm(CommunityRoute + `/${route}/remove-member/${uuid}`, formData, true);
+    return await postForm(
+      CommunityRoute + `/${route}/remove-member/${uuid}`,
+      formData,
+      true,
+    );
   }
 }

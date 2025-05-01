@@ -136,7 +136,7 @@ export default {
           const storageRef = ref(storage, `pdf/${selectedFile.name}`);
           const imageUpload = await uploadBytes(storageRef, selectedFile);
           const url = await getDownloadURL(
-            ref(storage, imageUpload.metadata.fullPath)
+            ref(storage, imageUpload.metadata.fullPath),
           );
           this.emitPDF(url);
         }
