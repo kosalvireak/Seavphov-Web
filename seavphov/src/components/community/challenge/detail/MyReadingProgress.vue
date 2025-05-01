@@ -27,7 +27,7 @@
       ></template>
       <template #content>
         <ul class="py-2 mt-0 w-fit">
-          <li>
+          <li v-if="!challengeCompleted">
             <p
               :class="dropdownItemClass"
               @click="showUpdateProgressPopup = true"
@@ -67,6 +67,11 @@ export default {
     myProgress: {
       type: Object,
       required: true,
+    },
+    challengeCompleted: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   methods: {

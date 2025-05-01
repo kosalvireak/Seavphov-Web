@@ -18,11 +18,12 @@
           <MyReadingProgress
             v-if="myProgress != null"
             :myProgress="myProgress"
+            :challengeCompleted="challengeCompleted"
           />
         </div>
         <div class="col-span-12 lg:col-span-8 relative">
           <div class="ChallengeInfo flex flex-column space-y-4">
-            <p class="h4">{{ challenge.book_title }}</p>
+            <p class="h4">Book title: {{ challenge.book_title }}</p>
             <p class="h5">By: {{ challenge.book_author }}</p>
             <p><b>Description:</b>{{ challenge.description }}</p>
 
@@ -34,7 +35,9 @@
 
             <p>
               <b class="pr-1">Remaining days:</b>
-              <span :class="isOverDue() ? 'text-red-600 font-bold' : ''">
+              <span
+                :class="challengeCompleted() ? 'text-red-600 font-bold' : ''"
+              >
                 {{ getRemainingDateDisplay() }}
               </span>
             </p>
@@ -52,7 +55,10 @@
             </router-link>
 
             <p><b>Total members:</b> {{ challenge.total_member }}</p>
-            <ReadingMemberList :myProgress="myProgress" />
+            <ReadingMemberList
+              :myProgress="myProgress"
+              :challengeCompleted="challengeCompleted"
+            />
           </div>
         </div>
       </div>
@@ -91,7 +97,7 @@ export default {
     );
   },
   methods: {
-    isOverDue() {
+    challengeCompleted() {
       return this.getFutureDifferentDays(this.challenge.end_date) < 0;
     },
     getRemainingDateDisplay() {

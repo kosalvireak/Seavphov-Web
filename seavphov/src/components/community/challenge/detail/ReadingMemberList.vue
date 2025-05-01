@@ -4,8 +4,9 @@
       <Loader :size="40" />
     </div>
     <template v-else>
-      <StartChallengeWidget v-if="myProgress == null" />
-      <CompleteChallengeWidget v-else :myProgress="myProgress" />
+      <CompletedChallenge v-if="challengeCompleted" />
+      <StartChallengeWidget v-else-if="myProgress == null" />
+      <ContinueOrCompletedProgress v-else :myProgress="myProgress" />
 
       <div
         v-if="members.length > 0"
@@ -27,19 +28,26 @@
 import StartChallengeWidget from "./StartChallengeWidget.vue";
 import MemberProgressItem from "./MemberProgressItem.vue";
 import ReadingChallengeController from "../../../../controllers/ReadingChallengeController";
-import CompleteChallengeWidget from "./ProgressAndCompleteChallengeWidget.vue";
+import ContinueOrCompletedProgress from "./ContinueOrCompletedProgress.vue";
+import CompletedChallenge from "./CompletedChallenge.vue";
 export default {
   name: "ReadingMemberList",
   components: {
     MemberProgressItem,
     StartChallengeWidget,
-    CompleteChallengeWidget,
+    ContinueOrCompletedProgress,
+    CompletedChallenge,
   },
   props: {
     myProgress: {
       type: Object,
       required: false,
       default: null,
+    },
+    challengeCompleted: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {

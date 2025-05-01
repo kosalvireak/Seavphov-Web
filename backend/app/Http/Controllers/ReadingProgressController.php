@@ -7,6 +7,7 @@ use App\Http\ResponseUtil;
 use App\Models\ReadingChallenge;
 use App\Models\ReadingProgress;
 use App\Service\NotificationService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
@@ -61,6 +62,12 @@ class ReadingProgressController extends Controller
             $readingProgress = ReadingProgress::where('user_id', $userId)->where('id', $id)->first();
             if (!$readingProgress)
                 return ResponseUtil::Success("Reading progress not found");
+
+            $readingChallenge = $readingProgress->readingChallenge;
+
+            if (Carbon::parse($readingChallenge->end_date)->lt(Carbon::today())) {
+                return ResponseUtil::Success('You cannot update progress, the challenge is due', false, true, 'info');
+            }
 
             $validatedData = $request->validate([
                 'progress' => 'required|integer|between:0,100',
