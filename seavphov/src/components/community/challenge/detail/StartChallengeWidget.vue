@@ -1,6 +1,6 @@
 <template>
   <div class="StartChallengeWidget flex-center">
-    <div class="card p-3">
+    <div class="card p-3 gradient-border">
       <p class="h4">🔥 Why Start a Challenge?</p>
       <ul class="ml-4">
         <li>✅ Build a reading habit with accountability.</li>

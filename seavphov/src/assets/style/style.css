@@ -1,4 +1,5 @@
 @import "./apply_tailwind.css";
+@import "./gradient.css";
 
 :root {
   --sp-primary: #5c836e; /* please refer to tailwind.config.js */
