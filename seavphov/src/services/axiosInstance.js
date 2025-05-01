@@ -5,7 +5,7 @@ import axios from "axios";
 const toast = useToast();
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
-  timeout: 30000,
+  timeout: 40000,
 });
 
 function handleSuccessResponse(response) {

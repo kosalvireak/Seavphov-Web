@@ -16,7 +16,7 @@
       visibilityText
     }}</Badge>
 
-    <p v-if="community.description" class="truncate-2-lines">
+    <p v-if="community.description" class="truncate-2-lines text-center">
       {{ community.description }}
     </p>
 
