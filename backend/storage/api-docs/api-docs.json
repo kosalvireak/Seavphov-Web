@@ -5,6 +5,23 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/books/banner": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "Get platform banner",
+                "operationId": "4bdeb1ca3d234bbdd62bebf17b94f821",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "An error occurred while get banner."
+                    }
+                }
+            }
+        },
         "/api/books/newest": {
             "get": {
                 "tags": [
@@ -37,6 +54,31 @@
                         "description": "Cannot get most reviewed book!"
                     }
                 }
+            }
+        },
+        "/api/auth/book": {
+            "get": {
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get books belonging to the authenticated user",
+                "operationId": "62cebb5cdc5658b1cd7b98c8407604c6",
+                "responses": {
+                    "200": {
+                        "description": "Get my book success"
+                    },
+                    "401": {
+                        "description": "Unauthorized: Missing, invalid, or expired token"
+                    },
+                    "500": {
+                        "description": "Server error while retrieving books"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/books/{bookId}": {
@@ -98,7 +140,7 @@
         "/api/comment/discussion/{discussionId}": {
             "get": {
                 "tags": [
-                    "Comment"
+                    "Discussion's Comment"
                 ],
                 "summary": "Get specific discussion's comments by ID",
                 "operationId": "463b2371bee326b9cd078852cf422e6d",
@@ -109,7 +151,8 @@
                         "description": "Id of the discussion",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 5
                         }
                     }
                 ],
@@ -121,6 +164,203 @@
                         "description": "Cannot get comments of this discussion!"
                     }
                 }
+            }
+        },
+        "/api/community": {
+            "get": {
+                "tags": [
+                    "Community"
+                ],
+                "summary": "Search for communities by filters",
+                "operationId": "42238015ea4db8f0efbf8bf750bf4390",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the community to search for",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    {
+                        "name": "visibility",
+                        "in": "query",
+                        "description": "Visibility of the community: all, public, or private",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "all",
+                            "enum": [
+                                "all",
+                                "public",
+                                "private"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "User's role in the community: admin or member",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "admin",
+                                "member"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Paginate",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search community success"
+                    },
+                    "500": {
+                        "description": "Cannot search community!"
+                    }
+                }
+            }
+        },
+        "/api/community/route/{route}": {
+            "get": {
+                "tags": [
+                    "Community"
+                ],
+                "summary": "Get specific community by route",
+                "operationId": "b302fafb2c460bb6348442ec6c5dede7",
+                "parameters": [
+                    {
+                        "name": "route",
+                        "in": "path",
+                        "description": "Route of the community",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1mmee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get community success"
+                    },
+                    "500": {
+                        "description": "Cannot get community!"
+                    }
+                }
+            }
+        },
+        "/api/community/{route}/permission/home": {
+            "get": {
+                "tags": [
+                    "Community"
+                ],
+                "summary": "Check community permission",
+                "operationId": "8d1df6a8dbdb8f9ec4bc683b2607d680",
+                "parameters": [
+                    {
+                        "name": "route",
+                        "in": "path",
+                        "description": "Route of the community",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1mmee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Community permission successfully"
+                    },
+                    "500": {
+                        "description": "Cannot get Community permission!"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/community/{route}/member-requests": {
+            "get": {
+                "tags": [
+                    "Community's Member Request"
+                ],
+                "summary": "Get community's member request by route",
+                "operationId": "b95cb3f91a15d33299234611af2d5229",
+                "parameters": [
+                    {
+                        "name": "route",
+                        "in": "path",
+                        "description": "Route of the community",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1mmee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Community member requests successfully"
+                    },
+                    "500": {
+                        "description": "Cannot get Community member requests!"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/community/{route}/members": {
+            "get": {
+                "tags": [
+                    "Community's Member"
+                ],
+                "summary": "Get community's member by route",
+                "operationId": "7903776ddbe33134c9a8db31baa5b316",
+                "parameters": [
+                    {
+                        "name": "route",
+                        "in": "path",
+                        "description": "Route of the community",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "1mmee"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Community members successfully"
+                    },
+                    "500": {
+                        "description": "Cannot get Community members!"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/discussions/{id}": {
@@ -169,7 +409,20 @@
             }
         }
     },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "Token",
+                "scheme": "bearer"
+            }
+        }
+    },
     "tags": [
+        {
+            "name": "Banner",
+            "description": "Banner"
+        },
         {
             "name": "Book",
             "description": "Book"
@@ -179,8 +432,20 @@
             "description": "Book's Review"
         },
         {
-            "name": "Comment",
-            "description": "Comment"
+            "name": "Discussion's Comment",
+            "description": "Discussion's Comment"
+        },
+        {
+            "name": "Community",
+            "description": "Community"
+        },
+        {
+            "name": "Community's Member Request",
+            "description": "Community's Member Request"
+        },
+        {
+            "name": "Community's Member",
+            "description": "Community's Member"
         },
         {
             "name": "Discussion",

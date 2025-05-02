@@ -59,6 +59,7 @@ class BookController extends Controller
             return ResponseUtil::ServerError('Cannot get most reviewed book!', $exception->getMessage());
         }
     }
+
     public function getBooksWithFilter(Request $request)
     {
 
@@ -110,6 +111,18 @@ class BookController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/auth/book",
+     *     summary="Get books belonging to the authenticated user",
+     *     tags={"Book"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(response=200, description="Get my book success"),
+     *     @OA\Response(response=401, description="Unauthorized: Missing, invalid, or expired token"),
+     *     @OA\Response(response=500, description="Server error while retrieving books")
+     * )
+     */
     public function getMyBooks(Request $request)
     {
         $user = $request->attributes->get('user');
@@ -121,6 +134,7 @@ class BookController extends Controller
             return ResponseUtil::ServerError('Cannot get my book!', $exception->getMessage());
         }
     }
+
     public function getMyBook(Request $request, $id)
     {
         try {

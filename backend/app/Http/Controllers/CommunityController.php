@@ -7,21 +7,53 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\Community;
 use App\Models\CopMember;
-use App\Models\User;
 use App\Service\CopMemberRequestService;
 use App\Service\CopMemberService;
-use App\Service\NotificationService;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\QueryException;
 
 class CommunityController extends Controller
 {
-
+    /**
+     * @OA\Get(
+     *     path="/api/community",
+     *     summary="Search for communities by filters",
+     *     tags={"Community"},
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         required=false,
+     *         description="Name of the community to search for",
+     *         @OA\Schema(type="string", default="")
+     *     ),
+     *     @OA\Parameter(
+     *         name="visibility",
+     *         in="query",
+     *         required=false,
+     *         description="Visibility of the community: all, public, or private",
+     *         @OA\Schema(type="string", enum={"all", "public", "private"}, default="all")
+     *     ),
+     *     @OA\Parameter(
+     *         name="role",
+     *         in="query",
+     *         required=false,
+     *         description="User's role in the community: admin or member",
+     *         @OA\Schema(type="string", enum={"admin", "member"})
+     *     ),
+     *      @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         required=false,
+     *         description="Paginate",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Search community success"),
+     *     @OA\Response(response=500, description="Cannot search community!")
+     * )
+     */
 
     public function searchCommunity(Request $request)
     {
         try {
-
             $name = $request->get('name');
             $visibility = $request->get('visibility');
             $role = $request->get('role');
@@ -62,6 +94,23 @@ class CommunityController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/community/route/{route}",
+     *     summary="Get specific community by route",
+     *     tags={"Community"},*     
+     *     @OA\Parameter(
+     *         name="route",
+     *         in="path",
+     *         required=true,
+     *         description="Route of the community",
+     *         @OA\Schema(type="string", default="1mmee")
+     *     ),
+     *     @OA\Response(response=200, description="Get community success"),
+     *     @OA\Response(response=500, description="Cannot get community!")
+     * )
+     */
     public function getCommunityByRoute($route)
     {
         try {
@@ -149,11 +198,26 @@ class CommunityController extends Controller
         }
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/community/{route}/permission/home",
+     *     summary="Check community permission",
+     *     tags={"Community"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="route",
+     *         in="path",
+     *         required=true,
+     *         description="Route of the community",
+     *         @OA\Schema(type="string", default="1mmee")
+     *     ),
+     *     @OA\Response(response=200, description="Get Community permission successfully"),
+     *     @OA\Response(response=500, description="Cannot get Community permission!")
+     * )
+     */
     public function checkViewCopHomePermission(Request $request, $route)
     {
         try {
-
             $user = $request->attributes->get('user');
 
             $cop = Community::where('route', $route)->first();

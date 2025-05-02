@@ -27,6 +27,16 @@ class BannerController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/books/banner",
+     *     summary="Get platform banner",
+     *     tags={"Banner"},
+     *     @OA\Response(response=200, description=""),
+     *     @OA\Response(response=500, description="An error occurred while get banner.")
+     * )
+     */
     public function getBanner()
     {
         try {

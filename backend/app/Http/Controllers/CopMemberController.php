@@ -13,7 +13,23 @@ use App\Service\NotificationService;
 
 class CopMemberController extends Controller
 {
-
+    /**
+     * @OA\Get(
+     *     path="/api/community/{route}/member-requests",
+     *     summary="Get community's member request by route",
+     *     tags={"Community's Member Request"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="route",
+     *         in="path",
+     *         required=true,
+     *         description="Route of the community",
+     *         @OA\Schema(type="string", default="1mmee")
+     *     ),
+     *     @OA\Response(response=200, description="Get Community member requests successfully"),
+     *     @OA\Response(response=500, description="Cannot get Community member requests!")
+     * )
+     */
     public function getCommunityMemberRequest(Request $request)
     {
         try {
@@ -102,6 +118,23 @@ class CopMemberController extends Controller
 
 
 
+    /**
+     * @OA\Get(
+     *     path="/api/community/{route}/members",
+     *     summary="Get community's member by route",
+     *     tags={"Community's Member"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="route",
+     *         in="path",
+     *         required=true,
+     *         description="Route of the community",
+     *         @OA\Schema(type="string", default="1mmee")
+     *     ),
+     *     @OA\Response(response=200, description="Get Community members successfully"),
+     *     @OA\Response(response=500, description="Cannot get Community members!")
+     * )
+     */
     public function getCommunityMembers(Request $request)
     {
         try {

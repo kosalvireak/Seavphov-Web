@@ -9,6 +9,14 @@ use App\Models\User;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="Token"
+ * )
+ */
 
 class ApiTokenAuthentication
 {

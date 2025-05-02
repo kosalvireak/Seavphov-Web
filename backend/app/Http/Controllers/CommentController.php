@@ -97,13 +97,13 @@ class CommentController extends Controller
      * @OA\Get(
      *     path="/api/comment/discussion/{discussionId}",
      *     summary="Get specific discussion's comments by ID",
-     *     tags={"Comment"},*     
+     *     tags={"Discussion's Comment"},*     
      *     @OA\Parameter(
      *         name="discussionId",
      *         in="path",
      *         required=true,
      *         description="Id of the discussion",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer", default=5)
      *     ),
      *     @OA\Response(response=200, description="Successfully get comments of this discussion"),
      *     @OA\Response(response=500, description="Cannot get comments of this discussion!")
