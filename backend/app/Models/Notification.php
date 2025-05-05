@@ -15,6 +15,7 @@ class Notification extends Model
         'object_id',
         'type',
         'body',
+        'unread'
     ];
 
     public function getObjectImage()
