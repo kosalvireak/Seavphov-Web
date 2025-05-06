@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\User;
@@ -62,6 +63,8 @@ class BookController extends Controller
 
     public function getBooksWithFilter(Request $request)
     {
+
+        broadcast(new MessageSent('Hello'))->toOthers();
 
         $title = $request->get('title');
         $author = $request->get('author');

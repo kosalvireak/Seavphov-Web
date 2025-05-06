@@ -21,8 +21,16 @@
             cssContent="sp-top-4 "
           >
             <template #button>
-              <i class="fas fa-bell fa-2xl text-white"></i
-            ></template>
+              <div class="relative inline-block">
+                <i class="fas fa-bell fa-2xl text-white"></i>
+                <span
+                  v-if="notificationCount > 0"
+                  class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+                >
+                  {{ notificationCount }}
+                </span>
+              </div></template
+            >
             <template #content><NotificationDropdown /> </template>
           </Dropdown>
           <AvatarDropdown />
@@ -77,6 +85,7 @@ import SearchInput from "./home/SearchInput.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
 import NotificationDropdown from "./home/NotificationDropdown.vue";
 import NavDropdown from "./common/NavDropdown.vue";
+import echo from "../services/websocket/echo";
 export default {
   name: "UserNavbar",
   components: {
@@ -84,6 +93,16 @@ export default {
     AvatarDropdown,
     NotificationDropdown,
     NavDropdown,
+  },
+  data() {
+    return {
+      notificationCount: 0,
+    };
+  },
+  mounted() {
+    echo.channel("chat").listen("MessageSent", (event) => {
+      this.notificationCount += 1;
+    });
   },
 };
 </script>

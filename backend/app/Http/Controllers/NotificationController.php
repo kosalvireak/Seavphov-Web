@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\Notification;
@@ -16,6 +17,7 @@ class NotificationController extends Controller
     public function getNotifications(Request $request)
     {
         try {
+
             $user = $request->attributes->get('user');
 
             $query = Notification::with(['user', 'receiver']) // Assuming there's a relationship 'user' in the Notification model

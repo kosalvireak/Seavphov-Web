@@ -26,6 +26,10 @@ import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
 
+// socket
+import "./bootstrap";
+import "./services/websocket/echo"
+
 // component
 import {
   FwbButton,
