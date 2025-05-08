@@ -137,6 +137,9 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
 
 Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [NotificationController::class, 'getNotifications']);
+    Route::get('/read-unread/{id}', [NotificationController::class, 'toggleRead']);
+    Route::get('/read/{id}', [NotificationController::class, 'markAsRead']);
+    Route::delete('{id}', [NotificationController::class, 'deleteNotification']);
 });
 
 Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function () {
