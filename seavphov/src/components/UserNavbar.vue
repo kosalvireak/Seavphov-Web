@@ -28,7 +28,7 @@
             @click="toRouteName('signup')"
             gradient="green"
             class="m-0 px-2 text-xs w-fit"
-            >Signup</FwbButton
+            >Register</FwbButton
           >
         </template>
         <button

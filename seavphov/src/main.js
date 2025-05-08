@@ -25,6 +25,7 @@ import { RouterMixin } from "./utils/routerUtils";
 import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
+import { signinState, signinMethods } from "./utils/requireSignin";
 
 // socket
 import "./bootstrap";
@@ -62,6 +63,9 @@ app.config.globalProperties.defaultCopBanner =
   "https://charitysmith.org/wp-content/uploads/2023/09/community.webp";
 
 app.config.globalProperties.maxPaginateCop = 6;
+
+app.config.globalProperties.$signinMethods = signinMethods;
+app.config.globalProperties.$signinState = signinState;
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);

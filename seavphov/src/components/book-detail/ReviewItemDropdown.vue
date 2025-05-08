@@ -1,30 +1,16 @@
 <template>
   <div class="ReviewItemDropdown absolute right-2 top-0">
-    <Dropdown
-      id="comment-item-dropdown"
-      id_content="comment-item-dropdown_content"
-      placement="bottom-end"
-    >
-      <template #button>
-        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-          <i class="fas fa-ellipsis-v fa-xl"></i>
+    <FwbDropdown align-to-end close-inside>
+      <template #trigger>
+        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg clickable">
+          <i class="fas fa-ellipsis-v fa-lg"></i>
         </div>
       </template>
-      <template #content>
-        <ul class="py-2 mt-0">
-          <li>
-            <p :class="dropdownItemClass" @click="onEdit()">Edit</p>
-          </li>
-          <li class="flex-center">
-            <p :class="dropdownItemClass" @click="deleteReview(id)">
-              <span v-if="isDeleting">Deleting...</span>
-
-              <span v-else>Delete</span>
-            </p>
-          </li>
-        </ul>
-      </template>
-    </Dropdown>
+      <nav :class="fwbDropdownNavCss">
+        <p :class="fwbDropdownItemCss" @click="onEdit()">Edit</p>
+        <p :class="fwbDropdownItemCss" @click="deleteReview(id)">Delete</p>
+      </nav>
+    </FwbDropdown>
   </div>
 </template>
 
@@ -32,11 +18,6 @@
 import ReviewController from "../../controllers/ReviewController";
 export default {
   name: "ReviewItemDropdown",
-  data() {
-    return {
-      isDeleting: false,
-    };
-  },
   props: {
     id: Number,
   },
@@ -45,12 +26,11 @@ export default {
       this.$emit("onEdit");
     },
     async deleteReview(id) {
-      this.isDeleting = true;
+      this.$emit("onRemoveReview", id);
       const response = await ReviewController.deleteReview(id);
-      if (response) {
-        this.$emit("onRemoveReview", id);
-      }
-      this.isDeleting = false;
+      // if (response) {
+      //   this.$emit("onRemoveReview", id);
+      // }
     },
   },
 };
