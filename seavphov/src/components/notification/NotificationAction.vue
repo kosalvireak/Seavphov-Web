@@ -1,47 +1,47 @@
 <template>
   <section class="NotificationAction">
-    <Dropdown
-      id="notification-dropdown"
-      id_content="notification-dropdown_content"
-      placement="bottom-end"
-    >
-      <template #button>
+    <FwbDropdown align-to-end close-inside>
+      <template #trigger>
         <div
           class="w-8 h-8 flex-center bg-gray-300 rounded-full text-sp-primary"
         >
           <i class="fa fa-ellipsis fa-xl" aria-hidden="true"></i>
         </div>
       </template>
-      <template #content>
-        <ul class="py-1 mt-0">
-          <li>
-            <p :class="dropdownItemClass" @click.prevent="markAsRead()">
-              Mark as read
-            </p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click.prevent="deleteNotification()">
-              Delete
-            </p>
-          </li>
-        </ul>
-      </template>
-    </Dropdown>
+      <nav :class="fwbDropdownNavCss">
+        <p
+          :class="fwbDropdownItemCss"
+          @click.prevent="toggleRead(notification.id)"
+        >
+          Mark as {{ notification.hasRead ? "read" : "unread" }}
+        </p>
+        <p
+          :class="fwbDropdownItemCss"
+          @click.prevent="deleteNotification(notification.id)"
+        >
+          Delete
+        </p>
+      </nav>
+    </FwbDropdown>
   </section>
 </template>
 
 <script>
+import NotificationController from "../../controllers/NotificationController";
 export default {
   name: "NotificationAction",
   props: {
     notification: Object,
   },
-  data() {
-    return {};
-  },
   methods: {
-    async markAsRead() {},
-    async deleteNotification() {},
+    async toggleRead(id) {
+      await NotificationController.toggleRead(id);
+      this.$emit("toggle-read");
+    },
+    async deleteNotification(id) {
+      await NotificationController.deleteNotification(id);
+      this.$emit("delete", id);
+    },
   },
 };
 </script>

@@ -1,11 +1,12 @@
 <template>
-  <nav class="bg-seavphov w-full">
+  <nav class="UserNavbar bg-seavphov w-full py-2">
     <div
-      class="container-xl flex flex-wrap items-center justify-between mx-auto"
+      class="container-xl flex flex-wrap items-center justify-between mx-auto px-2"
     >
       <router-link :to="{ name: 'home' }" class="flex items-center clickable">
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </router-link>
+
       <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
         <template v-if="isLogin">
           <router-link
@@ -14,25 +15,12 @@
           >
             <i class="fas fa-plus-circle fa-xl"></i>
           </router-link>
-          <Dropdown
-            id="notification-dropdown"
-            id_content="notification-dropdown_content"
-            :disabled-listener="true"
-            cssContent="sp-top-4 w-full"
-          >
-            <template #button>
-              <div class="relative inline-block">
-                <i class="fas fa-bell fa-2xl text-white"></i>
-                <span
-                  v-if="notificationCount > 0"
-                  class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
-                >
-                  {{ notificationCount }}
-                </span>
-              </div></template
-            >
-            <template #content><NotificationDropdown /> </template>
-          </Dropdown>
+
+          <i
+            class="fas fa-bell fa-2xl text-white clickable"
+            @click="openSidebar = true"
+          ></i>
+
           <AvatarDropdown />
         </template>
         <template v-else>
@@ -77,26 +65,28 @@
         </div>
       </div>
     </div>
+    <NotificationSideBar v-model="openSidebar" />
   </nav>
 </template>
 
 <script>
 import SearchInput from "./home/SearchInput.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
-import NotificationDropdown from "./notification/NotificationDropdown.vue";
 import NavDropdown from "./common/NavDropdown.vue";
 import echo from "../services/websocket/echo";
+import NotificationSideBar from "./notification/NotificationSideBar.vue";
 export default {
   name: "UserNavbar",
   components: {
     SearchInput,
     AvatarDropdown,
-    NotificationDropdown,
     NavDropdown,
+    NotificationSideBar,
   },
   data() {
     return {
       notificationCount: 0,
+      openSidebar: false,
     };
   },
   mounted() {
@@ -107,4 +97,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 768px) {
+  .UserNavbar {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
+</style>

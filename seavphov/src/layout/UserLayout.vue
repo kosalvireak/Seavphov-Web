@@ -1,10 +1,10 @@
 <script>
 import { RouterView } from "vue-router";
-import Footer from "../components/Footer.vue";
 import UserNavbar from "../components/UserNavbar.vue";
+import NotificationSideBar from "../components/notification/NotificationSideBar.vue";
 export default {
   name: "UserLayout",
-  components: { RouterView, Footer, UserNavbar },
+  components: { RouterView, UserNavbar, NotificationSideBar },
 };
 </script>
 
@@ -12,7 +12,6 @@ export default {
   <div class="UserLayout flex-center flex-column w-100">
     <UserNavbar />
     <RouterView class="container-xl" />
-    <Footer class="mt-8" />
   </div>
 </template>
 
