@@ -37,6 +37,7 @@ import {
   FwbAvatar,
   FwbBadge,
   FwbProgress,
+  FwbDropdown
 } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import TinyLoader from "./components/common/TinyLoader.vue";
@@ -69,6 +70,7 @@ app.component("FwbModal", FwbModal);
 app.component("FwbAvatar", FwbAvatar);
 app.component("Badge", FwbBadge);
 app.component("Progress", FwbProgress);
+app.component("FwbDropdown", FwbDropdown);
 
 app.component("Loader", Loader);
 app.component("TinyLoader", TinyLoader);

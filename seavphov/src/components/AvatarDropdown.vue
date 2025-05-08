@@ -1,33 +1,22 @@
 <template>
-  <Dropdown
-    id="user-profile-dropdown"
-    id_content="user-profile-dropdown_content"
-    placement="bottom-end"
-  >
-    <template #button>
+  <FwbDropdown align-to-end close-inside>
+    <template #trigger>
       <img
         class="sp-logo-sm rounded-full ring-1 ring-gray-300"
         :src="$store.state.user.picture"
         alt="User Profile"
-    /></template>
-    <template #content>
-      <ul class="py-2 mt-0 w-fit">
-        <li>
-          <p :class="dropdownItemClass" @click="toRouteName('profile')">
-            My profile
-          </p>
-        </li>
-        <li>
-          <p :class="dropdownItemClass" @click="toRouteName('edit-profile')">
-            Profile settings
-          </p>
-        </li>
-        <li>
-          <p :class="dropdownItemClass" @click="logout()">Logout</p>
-        </li>
-      </ul>
+      />
     </template>
-  </Dropdown>
+    <nav :class="fwbDropdownNavCss">
+      <p :class="fwbDropdownItemCss" @click="toRouteName('profile')">
+        My profile
+      </p>
+      <p :class="fwbDropdownItemCss" @click="toRouteName('edit-profile')">
+        Profile settings
+      </p>
+      <p :class="fwbDropdownItemCss" @click="logout()">Logout</p>
+    </nav>
+  </FwbDropdown>
 </template>
 
 <script>
