@@ -10,6 +10,8 @@
   --sp-danger: #c81e1e;
   --sp-yellow: #faca15; /* yellow-300 */
 
+  --background-color: #fff;
+
   --max-width-img-sm: 20rem; /*320px*/
   --max-width-img-md: 48.125rem; /*770px*/
   --navbar-height: 60px;
@@ -22,6 +24,9 @@
   --desktop-width: 992px;
   --widescreen-width: 1200px;
   --fullhd-width: 1400px;
+}
+#app{
+  background-color: var(--background-color);
 }
 
 body {

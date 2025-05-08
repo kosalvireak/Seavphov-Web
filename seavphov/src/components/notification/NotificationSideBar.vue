@@ -83,7 +83,7 @@ export default {
   right: 0;
   height: 100%;
   max-width: 100%;
-  background-color: #fff;
+  background-color: var(--background-color);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
   transition: transform 0.3s ease;
