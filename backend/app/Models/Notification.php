@@ -9,6 +9,12 @@ class Notification extends Model
 {
     use HasFactory;
 
+
+    protected $casts = [
+        'unread' => 'boolean', // Explicitly cast 'unread' to boolean
+    ];
+
+
     protected $fillable = [
         'user_id',
         'receiver_id',

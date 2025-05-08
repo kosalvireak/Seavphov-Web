@@ -1,8 +1,9 @@
 <template>
   <section class="relative">
     <button
+      ref="button"
       type="button"
-      class="flex text-sm rounded-full md:me-0"
+      class="dropdown-button-toggle flex text-sm rounded-full md:me-0"
       :class="cssButton"
       :id="id"
       aria-expanded="false"
@@ -88,13 +89,12 @@ export default {
     },
   },
   mounted() {
-    if (!this.disabledListener) {
-      document.addEventListener("click", this.closeDropdown);
-    }
-
-    // Close dropdown when click dropdown item
-    this.$refs.content.addEventListener("click", () => {
-      this.hiddenContent = false;
+    this.$refs.content.addEventListener("click", (event) => {
+      const shouldClose = event.target.closest("[data-close]");
+      if (shouldClose) {
+        this.$refs.content.classList.add("hidden");
+        this.hiddenContent = false;
+      }
     });
   },
   beforeDestroy() {

@@ -47,7 +47,7 @@ class ApiTokenAuthentication
 
             return $next($request);
         } catch (Exception $e) {
-            return ResponseUtil::ServerError('Something went wrong with token!', []);
+            return ResponseUtil::ServerError('Something went wrong with token!', [], $e->getMessage());
         }
     }
 }

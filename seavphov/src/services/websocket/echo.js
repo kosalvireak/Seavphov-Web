@@ -10,10 +10,14 @@ const echo = new Echo({
     wsPort: 8080,
     wssPort: 443,
     forceTLS: false,
+    disableStats: true,
+    authEndpoint: 'http://localhost:8000/api/broadcasting/auth',
     enabledTransports: ['ws', 'wss'],
-    // auth: {
-    //     bearerToken: 'Vpz2U5ek7weu5dHz0lrxsSh7gVQZZuiNOEMaJHOIRX3vZ8eTmhojHMSasM4Y'
-    // }
+    auth: {
+        headers: {
+            Authorization: `Bearer Vpz2U5ek7weu5dHz0lrxsSh7gVQZZuiNOEMaJHOIRX3vZ8eTmhojHMSasM4Y`, // <-- pass token from your app
+        },
+    },
 });
 
 export default echo;

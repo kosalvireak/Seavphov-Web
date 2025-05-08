@@ -64,8 +64,6 @@ class BookController extends Controller
     public function getBooksWithFilter(Request $request)
     {
 
-        broadcast(new MessageSent('Hello'))->toOthers();
-
         $title = $request->get('title');
         $author = $request->get('author');
         $categories = $request->get('categories');
@@ -129,6 +127,9 @@ class BookController extends Controller
     public function getMyBooks(Request $request)
     {
         $user = $request->attributes->get('user');
+
+        broadcast(new MessageSent('Hello', $user))->toOthers();
+
         $books = $user->books()->get();
 
         try {

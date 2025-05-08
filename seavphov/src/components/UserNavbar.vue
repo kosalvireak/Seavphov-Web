@@ -18,7 +18,7 @@
             id="notification-dropdown"
             id_content="notification-dropdown_content"
             :disabled-listener="true"
-            cssContent="sp-top-4 "
+            cssContent="sp-top-4 w-full"
           >
             <template #button>
               <div class="relative inline-block">
@@ -83,7 +83,7 @@
 <script>
 import SearchInput from "./home/SearchInput.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
-import NotificationDropdown from "./home/NotificationDropdown.vue";
+import NotificationDropdown from "./notification/NotificationDropdown.vue";
 import NavDropdown from "./common/NavDropdown.vue";
 import echo from "../services/websocket/echo";
 export default {
@@ -100,7 +100,7 @@ export default {
     };
   },
   mounted() {
-    echo.channel("chat").listen("MessageSent", (event) => {
+    echo.private("notification").listen("MessageSent", (event) => {
       this.notificationCount += 1;
     });
   },

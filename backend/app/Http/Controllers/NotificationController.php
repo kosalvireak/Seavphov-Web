@@ -35,7 +35,8 @@ class NotificationController extends Controller
                     'body' => $notification->body,
                     'type' => $notification->type,
                     'date' => $notification->created_at->toDateTimeString(), // Format the date if needed
-                    'url' => $notification->getNotificationUrl()
+                    'url' => $notification->getNotificationUrl(),
+                    'hasRead' => $notification->unread
                 ];
             });
 

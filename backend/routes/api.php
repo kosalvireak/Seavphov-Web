@@ -18,6 +18,7 @@ use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\CopAdminAuthorization;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Broadcast::routes([
+    'middleware' => [\App\Http\Middleware\BroadcastTokenAuth::class],
+]);
 
 Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [BookController::class, 'getMyBooks']);
