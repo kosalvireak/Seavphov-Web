@@ -142,7 +142,7 @@ export default {
         }
       } catch (error) {
         console.error("Error uploading pdf:", error);
-        this.$toast.error(error.message);
+        Seavphov.toast.error(error.message);
       } finally {
         this.uploadingPdf = false;
       }

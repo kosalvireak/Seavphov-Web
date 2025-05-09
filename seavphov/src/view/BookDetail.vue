@@ -120,7 +120,7 @@ export default {
     async getRelatedBooks() {
       this.isLoadingRelatedBooks = true;
       this.filters.categories = this.book.categories;
-      this.filters.max = this.maxRelatedBook;
+      this.filters.max = Seavphov.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
       this.relatedBooks = await BookController.getBooksWithFilter(this.filters);
       this.isLoadingRelatedBooks = false;

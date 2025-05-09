@@ -56,6 +56,7 @@ export default {
   name: "Footer",
   data() {
     return {
+      logoUrl: Seavphov.logoUrl,
       route: this.$route.name,
       hideFooter: true,
       hiddenRouteList: [

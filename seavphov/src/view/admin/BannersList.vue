@@ -208,7 +208,7 @@ export default {
           );
         }
       } catch (error) {
-        this.$toast.error(error);
+        Seavphov.toast.error(error);
       }
     },
     changePage(page) {

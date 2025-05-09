@@ -2,7 +2,7 @@
   <FwbModal
     v-if="$signinState.showPopupRequiredSignin"
     size="md"
-    @close="$signinMethods.closeRequiredSigninPopup()"
+    @close="$signinMethods.closeRequiredSignInPopup()"
   >
     <template #header>
       <span class="text-lg"> Sign in required </span>
@@ -18,7 +18,7 @@
     <template #footer>
       <div class="w-full flex justify-between">
         <LoadingButton
-          @click="$signinMethods.closeRequiredSigninPopup()"
+          @click="$signinMethods.closeRequiredSignInPopup()"
           text="Cancel"
           color="danger"
         />
@@ -34,5 +34,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async like(id) {
-      if (this.$signinMethods.requireSigninGuard(this.isLogin)) return;
+      if (this.$signinMethods.requireSignInGuard(this.isLogin)) return;
 
       this.isLoadingLike = true;
       const data = await this.$store.dispatch(this.likeMethodName, id);
@@ -66,7 +66,7 @@ export default {
       this.isLoadingLike = false;
     },
     async dislike(id) {
-      if (this.$signinMethods.requireSigninGuard(this.isLogin)) return;
+      if (this.$signinMethods.requireSignInGuard(this.isLogin)) return;
 
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch(this.dislikeMethodName, id);

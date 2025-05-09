@@ -1,21 +1,21 @@
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
-export const signinState = reactive({
-    showPopupRequiredSignin: false
+export const signInState = reactive({
+  showPopupRequiredSignIn: false,
 });
 
-export const signinMethods = {
-    requireSigninGuard(isLogin) {
-        if (!isLogin) {
-            signinState.showPopupRequiredSignin = true;
-            return true
-        }
-        return false
-    },
-    closeRequiredSigninPopup() {
-        signinState.showPopupRequiredSignin = false;
+export const signInMethods = {
+  requireSignInGuard(isLogin) {
+    if (!isLogin) {
+      signInState.showPopupRequiredSignIn = true;
+      return true;
     }
+    return false;
+  },
+  closeRequiredSignInPopup() {
+    signInState.showPopupRequiredSignIn = false;
+  },
 };
 
-// simply use below code before every method that required signin
-// if (this.$signinMethods.requireSigninGuard(this.isLogin)) return;
+// simply use below code before every method that required signIn
+// if (this.signInMethods.requireSignInGuard(this.isLogin)) return;

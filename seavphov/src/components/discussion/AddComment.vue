@@ -59,7 +59,7 @@ export default {
   methods: {
     async addComment() {
       if (!this.comment.body.trim()) {
-        this.$toast.warning("Comment can't be empty");
+        Seavphov.toast.warning("Comment can't be empty");
       }
       this.isLoading = true;
       let formData = new FormData();

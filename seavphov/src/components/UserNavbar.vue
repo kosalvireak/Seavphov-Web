@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+      logoUrl: Seavphov.logoUrl,
       notificationCount: 0,
       openSidebar: false,
     };

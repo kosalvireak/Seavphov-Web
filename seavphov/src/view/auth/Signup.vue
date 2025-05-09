@@ -125,7 +125,7 @@ export default {
 
       this.isLoading = true;
       const responseData = await AuthController.register(
-        this.createSignupDate()
+        this.createSignupDate(),
       );
       this.isLoading = false;
 

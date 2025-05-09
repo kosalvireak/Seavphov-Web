@@ -70,7 +70,7 @@ export default {
         name: "",
         description: "",
         private: true,
-        profile: this.defaultCopProfile,
+        profile: Seavphov.defaultCopProfile,
       },
       formData: new FormData(),
       isLoading: false,

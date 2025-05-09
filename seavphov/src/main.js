@@ -17,7 +17,7 @@ import "flowbite";
 import VueCookies from "vue-cookies";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 
-// custom
+// custom js
 import App from "./App.vue";
 import router from "./router/index";
 import store from "./utils/store";
@@ -25,11 +25,12 @@ import { RouterMixin } from "./utils/routerUtils";
 import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
-import { signinState, signinMethods } from "./utils/requireSignin";
+import { signInState, signInMethods } from "./utils/requireSignin";
+import Seavphov from "./services/seavphov.js";
 
 // socket
 import "./bootstrap";
-import "./services/websocket/echo"
+import "./services/websocket/echo";
 
 // component
 import {
@@ -38,7 +39,7 @@ import {
   FwbAvatar,
   FwbBadge,
   FwbProgress,
-  FwbDropdown
+  FwbDropdown,
 } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import TinyLoader from "./components/common/TinyLoader.vue";
@@ -53,19 +54,8 @@ import Info from "./components/common/Info.vue";
 const app = createApp(App);
 
 // global variable
-app.config.globalProperties.logoUrl =
-  "https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Seavphov%20Logo-2.png";
-app.config.globalProperties.maxRelatedBook = 5;
-
-app.config.globalProperties.defaultCopProfile =
-  "https://static.vecteezy.com/system/resources/previews/054/453/530/non_2x/proactive-community-engagement-icon-vector.jpg";
-app.config.globalProperties.defaultCopBanner =
-  "https://charitysmith.org/wp-content/uploads/2023/09/community.webp";
-
-app.config.globalProperties.maxPaginateCop = 6;
-
-app.config.globalProperties.$signinMethods = signinMethods;
-app.config.globalProperties.$signinState = signinState;
+app.config.globalProperties.$signinMethods = signInMethods;
+app.config.globalProperties.$signinState = signInState;
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
@@ -100,6 +90,9 @@ app.use(VueCookies);
 // configuration
 VueCookies.config("30d", "", "", true);
 store.dispatch("setUserFromCookies");
+
+// bind globally
+window.Seavphov = Seavphov;
 
 // mounted
 app.mount("#app");

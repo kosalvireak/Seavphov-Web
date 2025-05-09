@@ -156,6 +156,7 @@ export default {
   components: { CommunityItem, MDBInput, FwbRadio, CommunitySearchEmptyState },
   data() {
     return {
+      maxPaginateCop: Seavphov.maxPaginateCop,
       name: "",
       visibility: "all",
       role: "all",

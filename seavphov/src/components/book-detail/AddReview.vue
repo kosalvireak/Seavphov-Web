@@ -53,7 +53,7 @@ export default {
   methods: {
     async addReview() {
       if (!this.review.body.trim()) {
-        this.$toast.warning("Review can't be empty");
+        Seavphov.toast.warning("Review can't be empty");
       }
 
       this.isLoading = true;
