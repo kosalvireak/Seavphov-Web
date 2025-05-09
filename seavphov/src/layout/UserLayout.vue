@@ -3,6 +3,7 @@ import { RouterView } from "vue-router";
 import RequireSigninPopup from "../components/RequireSigninPopup.vue";
 import UserNavbar from "../components/UserNavbar.vue";
 import NotificationSideBar from "../components/notification/NotificationSideBar.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "UserLayout",
   components: {
@@ -10,6 +11,7 @@ export default {
     UserNavbar,
     NotificationSideBar,
     RequireSigninPopup,
+    Footer,
   },
 };
 </script>
@@ -18,6 +20,7 @@ export default {
   <div class="UserLayout flex-center flex-column w-100">
     <UserNavbar />
     <RouterView class="container-xl" />
+    <Footer />
     <RequireSigninPopup />
   </div>
 </template>

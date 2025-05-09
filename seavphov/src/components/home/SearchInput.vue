@@ -3,39 +3,26 @@
     class="max-w-80 bg-white rounded-lg"
     v-on:submit.prevent="searchBooks()"
   >
-    <div class="flex">
-      <Dropdown
-        class="w-auto"
-        id="search-dropdown"
-        id_content="search-dropdown_content"
-      >
-        <template #button>
-          <button
-            type="button"
-            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 pl-4 pr-2 text-sm font-medium border text-center text-gray-900 bg-gray-100 rounded-s-lg hover:bg-gray-200"
-          >
-            All
-            <i class="fa fa-caret-down ml-2"></i>
-          </button>
-        </template>
-        <template #content>
-          <ul
-            class="w-fit py-2 text-sm text-gray-700"
-            aria-labelledby="dropdown-button"
-          >
-            <li v-for="category in categories" :key="category">
-              <button
-                @click="searchCategory(category)"
-                type="button"
-                class="w-full px-4 py-2 hover:bg-gray-200"
-              >
-                {{ category }}
-              </button>
-            </li>
-          </ul>
-        </template>
-      </Dropdown>
-      <input
+    <FwbInput v-model="keyword" placeholder="Enter any book title..." size="md">
+      <template #prefix>
+        <svg
+          aria-hidden="true"
+          class="w-5 h-5 text-gray-500 dark:text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          />
+        </svg>
+      </template>
+    </FwbInput>
+    <!-- <input
         class="border"
         type="search"
         v-model="keyword"
@@ -50,7 +37,7 @@
         <i class="fa fa-magnifying-glass"></i>
         <span class="sr-only">Search</span>
       </button>
-    </div>
+    </div>-->
   </form>
 </template>
 

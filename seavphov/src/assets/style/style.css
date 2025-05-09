@@ -209,3 +209,11 @@ img {
 .border-b.border-gray-200.p-4.rounded-t.flex.justify-between.items-center {
   padding: 0.75rem !important; /* p-2.5 -> fwb-modal */
 }
+
+/* override button focus:ring-4 */
+button:focus {   
+  --tw-ring-offset-width: 0px !important;
+  --tw-ring-offset-color: transparent !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-width: 0px !important;
+}

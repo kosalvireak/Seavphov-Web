@@ -9,24 +9,37 @@
       >
         <p class="h4">Search & Filter</p>
         <form
-          class="w-100 p-0 rounded-lg d-flex flex-col space-y-4"
+          class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
           v-on:submit.prevent="searchCommunity()"
         >
-          <div class="d-flex flex-row">
-            <MDBInput
-              type="text"
-              label="Search community"
-              id="name"
-              v-model="name"
-              wrapperClass="bg-white h-3rem w-100"
-            />
-            <button
-              type="submit"
-              class="w-20 p-2.5 text-sm font-medium text-white bg-seavphov rounded border"
-            >
-              <i class="fa fa-magnifying-glass"></i>
-            </button>
-          </div>
+          <FwbInput
+            v-model="name"
+            placeholder="Search community"
+            size="md"
+            class="w-100"
+            wrapper-class="w-100"
+          >
+            <template #prefix>
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            </template>
+            <template #suffix>
+              <LoadingButton class="my-2">Search</LoadingButton>
+            </template>
+          </FwbInput>
           <div class="visibility-filter">
             <p class="h6 mb-0">Visibility</p>
             <FwbRadio
@@ -76,17 +89,18 @@
             />
           </div>
         </form>
-        <div class="flex-center !justify-between">
-          <FwbButton
-            @click="resetFilter()"
-            :disabled="isDefaultFilter"
-            color="yellow"
-            >Reset</FwbButton
-          >
+        <div class="flex-center !justify-between h-12">
           <div>
             <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
             <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
           </div>
+
+          <FwbButton
+            v-if="!isDefaultFilter"
+            @click="resetFilter()"
+            color="yellow"
+            >Reset</FwbButton
+          >
         </div>
         <LoadingButton
           @click="toRouteName('create-community')"
@@ -254,5 +268,9 @@ export default {
 .pagination p:hover:not(.active) {
   background-color: rgba(56, 151, 83, 0.388);
   border-radius: 5px;
+}
+
+.Search-Form > div {
+  width: 100%;
 }
 </style>
