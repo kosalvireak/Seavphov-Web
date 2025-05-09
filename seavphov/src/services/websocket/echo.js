@@ -6,12 +6,12 @@ window.Pusher = Pusher;
 const echo = new Echo({
     broadcaster: 'reverb',
     key: "pqxvzvc3mgtizpwfeect",
-    wsHost: "localhost",
+    wsHost: import.meta.env.VITE_BACKEND_URL,
     wsPort: 8080,
     wssPort: 443,
     forceTLS: false,
     disableStats: true,
-    authEndpoint: 'http://localhost:8000/api/broadcasting/auth',
+    authEndpoint: import.meta.env.VITE_BACKEND_URL+'/api/broadcasting/auth',
     enabledTransports: ['ws', 'wss'],
     auth: {
         headers: {

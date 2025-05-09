@@ -90,7 +90,7 @@ export default {
     };
   },
   mounted() {
-    echo.private("notification").listen("MessageSent", (event) => {
+    echo.channel("notification").listen("MessageSent", (event) => {
       this.notificationCount += 1;
     });
   },
