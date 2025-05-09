@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\User;
@@ -126,6 +127,9 @@ class BookController extends Controller
     public function getMyBooks(Request $request)
     {
         $user = $request->attributes->get('user');
+
+        broadcast(new MessageSent('Hello', $user))->toOthers();
+
         $books = $user->books()->get();
 
         try {

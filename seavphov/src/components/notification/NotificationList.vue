@@ -1,41 +1,37 @@
 <template>
-  <div>
-    <div class="NotificationDropdown w-96">
-      <p
-        class="h4 flex-center mb-0"
-        style="height: 50px; border-bottom: 1px solid gray"
-      >
-        Notification
-      </p>
+  <div class="NotificationList h-full overflow-y-auto">
+    <div v-if="isLoading" class="flex-center h-96">
+      <Loader :size="20" />
     </div>
     <div
-      class="NotificationContent min-h-60 max-h-96 w-96 mb-2 flex-center flex-column justify-content-start overflow-x-hidden overflow-y-auto"
+      v-else
+      class="NotificationContent mb-2 h-full flex-center flex-column justify-content-start overflow-x-hidden overflow-y-auto"
     >
-      <div v-if="isLoading" class="flex-center min-h-60">
-        <Loader :size="20" />
-      </div>
-      <template v-else>
-        <template v-if="items.length > 0">
-          <NotificationItem v-for="item in items" :key="item" :item="item" />
-          <div class="w-100">
-            <p
-              v-if="shouldShowLoadMore && !isLoadingMore"
-              @click.prevent="loadMore()"
-              class="text-center bg-gray-100 hover:bg-gray-300 clickable rounded-lg p-2 mx-2 mt-2 text-sm"
-            >
-              Load more
-            </p>
-          </div>
+      <template v-if="items.length > 0">
+        <NotificationItem
+          v-for="item in items"
+          :key="item"
+          :item="item"
+          @delete="deleteNotification"
+        />
+        <div class="w-100">
+          <p
+            v-if="shouldShowLoadMore && !isLoadingMore"
+            @click.prevent="loadMore()"
+            class="text-center bg-gray-100 hover:bg-gray-300 clickable rounded-lg p-2 m-3 text-sm"
+          >
+            Load more
+          </p>
+        </div>
 
-          <div v-if="isLoadingMore" class="flex-center min-h-32">
-            <Loader :size="20" />
-          </div>
-        </template>
-
-        <div v-else class="notification-list min-h-60 loader flex-center">
-          <p>Your notification is empty!</p>
+        <div v-if="isLoadingMore" class="flex-center min-h-32">
+          <Loader :size="20" />
         </div>
       </template>
+
+      <div v-else class="notification-list min-h-60 loader flex-center">
+        <p>Your notification is empty!</p>
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +40,7 @@
 import NotificationController from "../../controllers/NotificationController";
 import NotificationItem from "./NotificationItem.vue";
 export default {
-  name: "NotificationDropdown",
+  name: "NotificationList",
   components: { NotificationItem },
   data() {
     return {
@@ -77,6 +73,9 @@ export default {
       await this.getNotifications();
       this.isLoadingMore = false;
     },
+    deleteNotification(id) {
+      this.items = this.items.filter((item) => item.id !== id);
+    },
   },
   computed: {
     shouldShowLoadMore() {
@@ -89,4 +88,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.NotificationList {
+  max-height: calc(100vh - 5rem);
+}
+
+.NotificationContent {
+  max-height: calc(100vh - 6rem);
+}
+</style>

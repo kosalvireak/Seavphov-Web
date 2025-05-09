@@ -64,7 +64,7 @@
                   v-model="isShowPassword"
                   @click="showPassword"
                 />
-                <label class="form-check-label" for="form1Example3">
+                <label class="form-check-label ml-1" for="form1Example3">
                   Show password
                 </label>
               </div>
@@ -125,7 +125,7 @@ export default {
 
       this.isLoading = true;
       const responseData = await AuthController.register(
-        this.createSignupDate(),
+        this.createSignupDate()
       );
       this.isLoading = false;
 

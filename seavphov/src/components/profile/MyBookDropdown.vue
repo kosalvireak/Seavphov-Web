@@ -1,34 +1,18 @@
 <template>
-  <div class="MyBookDropdown">
-    <Dropdown
-      id="my-book-dropdown"
-      id_content="my-book-dropdown_content"
-      placement="bottom-end"
-    >
-      <template #button>
-        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-          <i class="fas fa-ellipsis-v fa-xl"></i>
-        </div>
-      </template>
-      <template #content>
-        <ul class="py-2 mt-0">
-          <li>
-            <p :class="dropdownItemClass" @click="changeAvailability(id)">
-              Mark as {{ buttonText }}
-            </p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click="editBook(id)">Edit</p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click="deleteBook(id)">
-              <span>Delete</span>
-            </p>
-          </li>
-        </ul>
-      </template>
-    </Dropdown>
-  </div>
+  <FwbDropdown align-to-end close-inside>
+    <template #trigger>
+      <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
+        <i class="fas fa-ellipsis-v fa-xl"></i>
+      </div>
+    </template>
+    <nav :class="fwbDropdownNavCss">
+      <p :class="fwbDropdownItemCss" @click="changeAvailability(id)">
+        Mark as {{ buttonText }}
+      </p>
+      <p :class="fwbDropdownItemCss" @click="editBook(id)">Edit</p>
+      <p :class="fwbDropdownItemCss" @click="deleteBook(id)">Delete</p>
+    </nav>
+  </FwbDropdown>
 </template>
 
 <script>

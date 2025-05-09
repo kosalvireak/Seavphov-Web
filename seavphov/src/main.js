@@ -25,6 +25,11 @@ import { RouterMixin } from "./utils/routerUtils";
 import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
+import { signinState, signinMethods } from "./utils/requireSignin";
+
+// socket
+import "./bootstrap";
+import "./services/websocket/echo"
 
 // component
 import {
@@ -33,6 +38,7 @@ import {
   FwbAvatar,
   FwbBadge,
   FwbProgress,
+  FwbDropdown
 } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import TinyLoader from "./components/common/TinyLoader.vue";
@@ -58,6 +64,9 @@ app.config.globalProperties.defaultCopBanner =
 
 app.config.globalProperties.maxPaginateCop = 6;
 
+app.config.globalProperties.$signinMethods = signinMethods;
+app.config.globalProperties.$signinState = signinState;
+
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
 app.component("FwbButton", FwbButton);
@@ -65,6 +74,7 @@ app.component("FwbModal", FwbModal);
 app.component("FwbAvatar", FwbAvatar);
 app.component("Badge", FwbBadge);
 app.component("Progress", FwbProgress);
+app.component("FwbDropdown", FwbDropdown);
 
 app.component("Loader", Loader);
 app.component("TinyLoader", TinyLoader);

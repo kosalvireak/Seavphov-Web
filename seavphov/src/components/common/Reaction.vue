@@ -6,10 +6,8 @@
         v-else
         class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"
         :class="{
-          '!cursor-not-allowed hover:bg-white': !isLogin,
           'text-sp-secondary': entity.reaction != null && entity.reaction,
         }"
-        :disabled="!isLogin"
         @click="like(entity.id)"
       >
         <i
@@ -25,10 +23,8 @@
         v-else
         class="clickable hover:bg-gray-200 p-2 rounded-lg text-md h-100"
         :class="{
-          '!cursor-not-allowed hover:bg-white': !isLogin,
           'text-sp-danger': entity.reaction != null && !entity.reaction,
         }"
-        :disabled="!isLogin"
         @click="dislike(entity.id)"
       >
         <i
@@ -58,6 +54,8 @@ export default {
   },
   methods: {
     async like(id) {
+      if (this.$signinMethods.requireSigninGuard(this.isLogin)) return;
+
       this.isLoadingLike = true;
       const data = await this.$store.dispatch(this.likeMethodName, id);
       if (data) {
@@ -68,6 +66,8 @@ export default {
       this.isLoadingLike = false;
     },
     async dislike(id) {
+      if (this.$signinMethods.requireSigninGuard(this.isLogin)) return;
+
       this.isLoadingDislike = true;
       const data = await this.$store.dispatch(this.dislikeMethodName, id);
       if (data) {

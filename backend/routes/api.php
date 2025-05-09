@@ -18,6 +18,7 @@ use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\CopAdminAuthorization;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Broadcast::routes([
+    'middleware' => [\App\Http\Middleware\BroadcastTokenAuth::class],
+]);
 
 Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [BookController::class, 'getMyBooks']);
@@ -132,6 +137,9 @@ Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(funct
 
 Route::prefix('notification')->middleware([ApiTokenAuthentication::class])->group(function () {
     Route::get('', [NotificationController::class, 'getNotifications']);
+    Route::get('/read-unread/{id}', [NotificationController::class, 'toggleRead']);
+    Route::get('/read/{id}', [NotificationController::class, 'markAsRead']);
+    Route::delete('{id}', [NotificationController::class, 'deleteNotification']);
 });
 
 Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthorization::class])->group(function () {

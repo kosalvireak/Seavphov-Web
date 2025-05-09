@@ -7,7 +7,7 @@ return [
      * @example
      * 'paths' => ['api/*', 'sanctum/csrf-cookie'],
      */
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'broadcasting/auth'],
 
     /*
      * Allowed origins that may make requests.
