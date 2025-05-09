@@ -30,6 +30,7 @@ import CommunityMembers from "../components/community/members/CommunityMembers.v
 import NotFound from "../view/auth/NotFound.vue";
 import CommunitySettings from "../components/community/home/CommunityAdmin.vue";
 import ReadingChallengeDetail from "../view/community/ReadingChallengeDetail.vue";
+import AdminController from "../controllers/admin/AdminController.js";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -258,7 +259,7 @@ router.beforeEach(async (to, from, next) => {
       next("/login");
     }
   } else if (to.meta.requiredAdminAuth) {
-    const auth = await store.dispatch("adminGetAuth");
+    const auth = await AdminController.adminGetAuth();
     if (auth === true) {
       next();
     } else {

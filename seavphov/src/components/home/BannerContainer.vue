@@ -1,10 +1,12 @@
 <template>
   <section class="AdsContainer container-xl h-40 lg:h-72">
+    <a :href="banner.link_url" target="_blank">
     <img
       :src="getBackground"
       alt=""
       class="w-100 h-100 rounded-xl object-cover"
     />
+    </a>
   </section>
 </template>
 
@@ -38,18 +40,3 @@ export default {
   },
 };
 </script>
-
-<!-- 
-<style scoped>
-.backgroundImg {
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 450px;
-}
-
-@media (max-width: 640px) {
-  .backgroundImg {
-    height: 288px;
-  }
-}
-</style> -->

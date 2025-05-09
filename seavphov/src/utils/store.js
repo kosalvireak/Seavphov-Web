@@ -50,16 +50,6 @@ const store = createStore({
       dispatch("setUserFromCookies");
       router.push("/home");
     },
-    async adminGetBooks() {
-      try {
-        const response = await getData("/api/admin/books", true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
     async adminDeleteBook({}, id) {
       try {
         const response = await getData(`/api/admin/books/delete/${id}`, true);
@@ -88,49 +78,6 @@ const store = createStore({
         );
         if (response.data.success) {
           toast.success(response.data.message);
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async adminGetBanners() {
-      try {
-        const response = await getData("/api/admin/banners", true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async adminGetOverviewData() {
-      try {
-        const response = await getData("/api/admin/overview", true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async adminGetUsers() {
-      try {
-        const response = await getData("/api/admin/users", true);
-        if (response.data.success) {
-          return response.data.data;
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
-    },
-    async adminGetAuth() {
-      try {
-        const response = await getData("/api/admin/auth", true);
-        if (response.data.success) {
-          return response.data.data;
-        } else {
-          toast.error(response.data.message);
-          return false;
         }
       } catch (error) {
         toast.error(error.response.data.message);

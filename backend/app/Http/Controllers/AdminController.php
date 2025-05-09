@@ -68,7 +68,6 @@ class AdminController extends Controller
                 ];
             })->toArray();
 
-
             return response()->json([
                 'success' => true,
                 'data' => $users,

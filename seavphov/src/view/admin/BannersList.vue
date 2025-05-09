@@ -136,6 +136,7 @@ import Carousel from "../../components/home/Carousel.vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import AdminController from "../../controllers/admin/AdminController.js";
 
 export default {
   name: "BannersList",
@@ -176,7 +177,7 @@ export default {
     },
     async adminGetBanners() {
       this.isLoading = true;
-      this.banners = await this.$store.dispatch("adminGetBanners");
+      this.banners = await AdminController.adminGetBanners();
       this.isLoading = false;
     },
     async addBanner() {

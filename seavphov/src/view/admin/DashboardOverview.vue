@@ -15,6 +15,7 @@
 
 <script>
 import InfoCard from "../../components/admin/InfoCard.vue";
+import AdminController from "../../controllers/admin/AdminController.js";
 export default {
   name: "DashboardOverview",
   components: { InfoCard },
@@ -50,7 +51,7 @@ export default {
   },
   methods: {
     async adminGetOverviewData() {
-      const response = await this.$store.dispatch("adminGetOverviewData");
+      const response = await AdminController.adminGetOverviewData();
       this.items[0].number = response.totalUsers;
       this.items[1].number = response.totalBooks;
       this.items[2].number = response.totalBanners;
