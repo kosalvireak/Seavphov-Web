@@ -1,4 +1,4 @@
-import {useToast} from "vue-toastification";
+import { useToast } from "vue-toastification";
 
 export default class Seavphov {
   static logoUrl =
@@ -10,5 +10,5 @@ export default class Seavphov {
     "https://charitysmith.org/wp-content/uploads/2023/09/community.webp";
   static maxPaginateCop = 6;
 
-  static toast = useToast()
+  static toast = useToast();
 }

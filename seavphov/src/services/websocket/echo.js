@@ -1,15 +1,15 @@
 import Echo from "laravel-echo";
 
 import Pusher from "pusher-js";
-import {getApiToken} from "../cookie.js";
+import { getApiToken } from "../cookie.js";
 window.Pusher = Pusher;
 
 const echo = new Echo({
   broadcaster: "reverb",
-  key: "pqxvzvc3mgtizpwfeect",
+  key: import.meta.env.VITE_PUSHER_APP_KEY,
   wsHost: import.meta.env.VITE_BACKEND_URL,
-  wsPort: 8080,
-  wssPort: 443,
+  wsPort: import.meta.env.VITE_PUSHER_PORT || 6001,
+  wssPort: import.meta.env.VITE_PUSHER_PORT || 6001,
   forceTLS: false,
   disableStats: true,
   authEndpoint: import.meta.env.VITE_BACKEND_URL + "/api/broadcasting/auth",
