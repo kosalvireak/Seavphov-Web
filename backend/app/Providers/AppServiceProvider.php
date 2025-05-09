@@ -26,12 +26,13 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        app('router')->matched(function ($route) {
-            $ip = Request::ip();
-            $method = Request::method();
-            $uri = Request::path();
+        app('router')->matched(function () use ($request) {
+            $ip = $request->ip();
+            $method = $request->method();
+            $uri = $request->path();
 
             Log::info("Access from IP: $ip - $method $uri");
         });
+
     }
 }

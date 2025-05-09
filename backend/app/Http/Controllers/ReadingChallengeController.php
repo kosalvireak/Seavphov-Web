@@ -27,9 +27,6 @@ class ReadingChallengeController extends Controller
             if (!$readingChallenge)
                 return ResponseUtil::NotFound("Reading challenge not found");
 
-            // Add user to reading progress table
-            // Send Notification to owner
-
             if (!CopMemberService::isAdminOrMember($userId, $cop->id))
                 return ResponseUtil::Success("You need to be member of this community to start this reading challenge", false, true, 'info');
 
@@ -42,7 +39,9 @@ class ReadingChallengeController extends Controller
             $readingChallenge->total_member = $readingChallenge->total_member + 1;
             $readingChallenge->save();
 
-            NotificationService::storestartReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
+            NotificationService::storeStartReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
+
+            // TODO: Send Email notification to user : content: notify to start reading challenge
 
             return ResponseUtil::Success("Successfully join reading challenge", true, true);
         } catch (Exception $exception) {
