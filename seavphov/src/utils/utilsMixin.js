@@ -1,4 +1,5 @@
 import { getCookie } from "../services/cookie";
+import { resizeState } from "./breakpoint";
 
 export const UtilsMixin = {
   data() {
@@ -32,5 +33,8 @@ export const UtilsMixin = {
     isLogin() {
       return !!getCookie();
     },
+    isMobile() {
+      return resizeState.isMobile
+    }
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <form
-    class="max-w-80 bg-white rounded-lg"
+    class="Search-Book-Form w-100 bg-white rounded-lg"
     v-on:submit.prevent="searchBooks()"
   >
     <FwbInput v-model="keyword" placeholder="Enter any book title..." size="md">
@@ -80,4 +80,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 768px) {
+  .Search-Book-Form > div {
+    width: 100%;
+  }
+}
+</style>

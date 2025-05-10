@@ -1,4 +1,5 @@
 import { useToast } from "vue-toastification";
+import { signInMethods } from "../utils/requireSignin";
 
 export default class Seavphov {
   static logoUrl =
@@ -11,4 +12,13 @@ export default class Seavphov {
   static maxPaginateCop = 6;
 
   static toast = useToast();
+
+  static requireSignInGuard(isLogin) {
+    return signInMethods.requireSignInGuard(isLogin)
+  }
+
+  static closeRequiredSignInPopup() {
+    signInMethods.closeRequiredSignInPopup()
+  }
+
 }

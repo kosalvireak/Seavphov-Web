@@ -18,4 +18,4 @@ export const signInMethods = {
 };
 
 // simply use below code before every method that required signIn
-// if (this.signInMethods.requireSignInGuard(this.isLogin)) return;
+// if (Seavphov.requireSignInGuard(this.isLogin)) return;

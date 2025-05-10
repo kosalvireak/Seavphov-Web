@@ -25,8 +25,8 @@ import { RouterMixin } from "./utils/routerUtils";
 import { UtilsMixin } from "./utils/utilsMixin";
 import { DateMixin } from "./utils/dateMixin";
 import toastPlugin from "./services/toastPlugin";
-import { signInState, signInMethods } from "./utils/requireSignin";
 import Seavphov from "./services/seavphov.js";
+import { setupResizeListener } from "./utils/breakpoint.js";
 
 // socket
 import "./bootstrap";
@@ -54,9 +54,8 @@ import Info from "./components/common/Info.vue";
 
 const app = createApp(App);
 
-// global variable
-app.config.globalProperties.$signinMethods = signInMethods;
-app.config.globalProperties.$signinState = signInState;
+// Global listener
+setupResizeListener();
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);

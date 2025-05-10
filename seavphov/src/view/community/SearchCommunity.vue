@@ -5,7 +5,7 @@
       class="Search-Community-Container mt-8 grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
     >
       <div
-        class="Filter w-100 card col-span-12 lg:col-span-3 space-y-4 p-2 !h-fit"
+        class="Filter w-100 card col-span-12 md:col-span-3 space-y-4 p-2 !h-fit"
       >
         <p class="h4">Search & Filter</p>
         <form
@@ -110,7 +110,7 @@
         </LoadingButton>
       </div>
 
-      <div class="Content col-span-12 lg:col-span-9">
+      <div class="Content col-span-12 md:col-span-9">
         <div v-if="isLoading" class="w-100 h-100 flex-center flex-row">
           <Loader :size="40" />
         </div>
@@ -125,14 +125,14 @@
               v-if="total > maxPaginateCop"
               class="d-flex align-items-center justify-content-center pagination h-3rem mt-4"
             >
-              <p
+              <button
                 @click="previous()"
                 :disabled="isDisabledPrev"
                 :class="{ '!cursor-not-allowed': isDisabledPrev }"
               >
                 &laquo;
-              </p>
-              <p
+              </button>
+              <button
                 v-for="page in last_page"
                 :key="page"
                 :class="[
@@ -142,14 +142,14 @@
                 @click="changePage(page)"
               >
                 {{ page }}
-              </p>
-              <p
+              </button>
+              <button
                 @click="next()"
                 :disabled="isDisabledNext"
                 :class="{ '!cursor-not-allowed': isDisabledNext }"
               >
                 &raquo;
-              </p>
+              </button>
             </div>
           </div>
           <CommunitySearchEmptyState v-else />
@@ -252,20 +252,20 @@ export default {
   display: inline-block;
 }
 
-.pagination p {
+.pagination button {
   color: black;
   padding: 0.5rem 1rem;
   text-decoration: none;
   cursor: pointer;
 }
 
-.pagination p.active {
+.pagination button.active {
   background-color: #5c836e;
   color: white;
   border-radius: 5px;
 }
 
-.pagination p:hover:not(.active) {
+.pagination button:hover:not(.active) {
   background-color: rgba(56, 151, 83, 0.388);
   border-radius: 5px;
 }

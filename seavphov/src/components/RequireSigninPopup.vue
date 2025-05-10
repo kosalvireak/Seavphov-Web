@@ -1,8 +1,8 @@
 <template>
   <FwbModal
-    v-if="$signinState.showPopupRequiredSignin"
+    v-if="signInState.showPopupRequiredSignIn"
     size="md"
-    @close="$signinMethods.closeRequiredSignInPopup()"
+    @close="() => Seavphov.closeRequiredSignInPopup()"
   >
     <template #header>
       <span class="text-lg"> Sign in required </span>
@@ -18,19 +18,33 @@
     <template #footer>
       <div class="w-full flex justify-between">
         <LoadingButton
-          @click="$signinMethods.closeRequiredSignInPopup()"
+          @click="() => Seavphov.closeRequiredSignInPopup()"
           text="Cancel"
           color="danger"
         />
-        <LoadingButton @click="toRouteName('signup')" text="Sign in" />
+        <LoadingButton @click="handleClickSignIn()" text="Sign in" />
       </div>
     </template>
   </FwbModal>
 </template>
 
 <script>
+import { signInState } from "../utils/requireSignin";
+import Seavphov from "../services/seavphov";
 export default {
   name: "RequireSigninPopup",
+  setup() {
+    return {
+      signInState,
+      Seavphov,
+    };
+  },
+  methods: {
+    handleClickSignIn() {
+      Seavphov.closeRequiredSignInPopup();
+      this.toRouteName("signup");
+    },
+  },
 };
 </script>
 

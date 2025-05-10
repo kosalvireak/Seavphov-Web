@@ -1,5 +1,5 @@
 <template>
-  <nav class="UserNavbar bg-seavphov w-full py-2">
+  <nav class="UserNavbar bg-seavphov w-full py-1">
     <div
       class="container-xl flex flex-wrap items-center justify-between mx-auto px-2"
     >
@@ -34,7 +34,7 @@
         <button
           data-collapse-toggle="navbar-user"
           type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          class="inline-flex items-center p-2 w-10 h-10 text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           aria-controls="navbar-user"
           aria-expanded="false"
         >
@@ -99,10 +99,10 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .UserNavbar {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }
-}
+} */
 </style>
