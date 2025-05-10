@@ -5,14 +5,14 @@
       v-if="books.length > 0"
       class="pagination d-flex align-items-center justify-content-center h-3rem mt-4"
     >
-      <p
+      <button
         @click="previous()"
         :disabled="isDisabledPrev"
         :class="{ '!cursor-not-allowed': isDisabledPrev || isLoading }"
       >
         &laquo;
-      </p>
-      <p
+      </button>
+      <button
         v-for="page in last_page"
         :key="page"
         :class="[
@@ -22,14 +22,14 @@
         @click="changePage(page)"
       >
         {{ page }}
-      </p>
-      <p
+      </button>
+      <button
         @click="next()"
         :disabled="isDisabledNext"
         :class="{ '!cursor-not-allowed': isDisabledNext || isLoading }"
       >
         &raquo;
-      </p>
+      </button>
     </div>
   </div>
 </template>
@@ -59,12 +59,9 @@ export default {
   methods: {
     async fetchBooks() {
       this.isLoading = true;
-      const response = await BookController.getBooksWithFilter(
-        {
-          page: this.current_page,
-        },
-        true,
-      );
+      const response = await BookController.searchBook({
+        page: this.current_page,
+      });
       if (response) {
         this.books = response.data;
         this.current_page = response.current_page;
@@ -95,27 +92,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.pagination {
-  display: inline-block;
-}
-
-.pagination p {
-  color: black;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.pagination p.active {
-  background-color: #5c836e;
-  color: white;
-  border-radius: 5px;
-}
-
-.pagination p:hover:not(.active) {
-  background-color: rgba(56, 151, 83, 0.388);
-  border-radius: 5px;
-}
-</style>

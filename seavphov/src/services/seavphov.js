@@ -11,6 +11,8 @@ export default class Seavphov {
     "https://charitysmith.org/wp-content/uploads/2023/09/community.webp";
   static maxPaginateCop = 6;
 
+  static maxPaginateBook = 10;
+
   static toast = useToast();
 
   static requireSignInGuard(isLogin) {

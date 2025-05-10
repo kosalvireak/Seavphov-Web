@@ -248,28 +248,6 @@ export default {
 </script>
 
 <style scoped>
-.pagination {
-  display: inline-block;
-}
-
-.pagination button {
-  color: black;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.pagination button.active {
-  background-color: #5c836e;
-  color: white;
-  border-radius: 5px;
-}
-
-.pagination button:hover:not(.active) {
-  background-color: rgba(56, 151, 83, 0.388);
-  border-radius: 5px;
-}
-
 .Search-Form > div {
   width: 100%;
 }

@@ -66,8 +66,10 @@ class BookController extends Controller
 
         $title = $request->get('title');
         $author = $request->get('author');
-        $categories = $request->get('categories');
-        $condition = $request->get('condition');
+        $Category = $request->get('Category');
+        $Condition = $request->get('Condition');
+        $Availability = $request->get('Availability');
+        $HasPdf = $request->get('HasPdf');
         $uuid = $request->get('uuid');
         $max = $request->get('max');
         $excludeId = $request->get('excludeId');
@@ -81,14 +83,21 @@ class BookController extends Controller
         if ($title) {
             $query->where('title', 'like', '%' . $title . '%'); // Filter by title
         }
-
-        if ($categories) {
-            $query->where('categories', $categories); // Filter by categories
-        }
-        if ($condition) {
-            $query->where('condition', $condition); // Filter by categories
+        if (!empty($Category)) {
+            $query->whereIn('categories', $Category);
         }
 
+        if (!empty($Condition)) {
+            $query->whereIn('condition', $Condition);
+        }
+
+        if (!empty($Availability)) {
+            $query->whereIn('availability', $Availability);
+        }
+
+        if (!empty($HasPdf)) {
+            $query->where('has_pdf', in_array('Yes', $HasPdf));
+        }
         if ($author) {
             $query->where('author', $author); // Filter by author
         }

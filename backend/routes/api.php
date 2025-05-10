@@ -88,7 +88,7 @@ Route::prefix('community')->group(function () {
 });
 
 Route::prefix('books')->group(function () {
-    Route::get('',  [BookController::class, 'getBooksWithFilter']);
+    Route::post('/search-book',  [BookController::class, 'getBooksWithFilter']);
     Route::get('/banner',  [BannerController::class, 'getBanner']);
     Route::get('/newest',  [BookController::class, 'getNewest']);
     Route::get('/mostReviewed',  [BookController::class, 'getMostReviewed']);

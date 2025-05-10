@@ -10,10 +10,13 @@
       <Loader :size="40" />
     </div>
     <template v-else-if="books.length">
-      <div class="h-10 d-flex align-items-center justify-content-end p-4">
+      <div
+        v-if="hideResult"
+        class="h-10 d-flex align-items-center justify-content-end p-4"
+      >
         <p class="h6">Result: {{ books.length }} {{ resultBook }}</p>
       </div>
-      <div class="d-flex gap-4 flex-wrap justify-content-evenly p-0 lg:p-4">
+      <div class="d-flex gap-4 flex-wrap p-0 lg:p-4" :class="justifyClass">
         <Book v-for="book in books" :book="book" :key="book.id" />
       </div>
     </template>
@@ -32,6 +35,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideResult: {
+      type: Boolean,
+      default: true,
+    },
     header: {
       type: String,
       default: "All books",
@@ -41,6 +48,10 @@ export default {
       required: true,
     },
     loading: Boolean,
+    center: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     resultBook() {
@@ -49,6 +60,9 @@ export default {
       } else {
         return "Books";
       }
+    },
+    justifyClass() {
+      return this.center ? "justify-content-center" : "justify-content-evenly";
     },
   },
 };

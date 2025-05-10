@@ -34,40 +34,8 @@ export default class BookController {
     return await getData("/api/saved", true);
   }
 
-  static async getBooksWithFilter(filters = {}, paginate = false) {
-    const params = new URLSearchParams();
-    if (filters.title) {
-      params.append("title", filters.title);
-    }
-    if (filters.author) {
-      params.append("author", filters.author);
-    }
-    if (filters.categories) {
-      params.append("categories", filters.categories);
-    }
-    if (filters.condition) {
-      params.append("condition", filters.condition);
-    }
-    if (filters.owner_id) {
-      params.append("owner_id", filters.owner_id);
-    }
-    if (filters.uuid) {
-      params.append("uuid", filters.uuid);
-    }
-    if (filters.max > 0) {
-      params.append("max", filters.max);
-    }
-    if (filters.excludeId) {
-      params.append("excludeId", filters.excludeId);
-    }
-    if (filters.page) {
-      params.append("page", filters.page);
-    }
-    const response = await getData(BookRoute + `?${params.toString()}`);
-    if (paginate) {
-      return response;
-    }
-    return response.data;
+  static async searchBook(formData) {
+    return await postForm(BookRoute + "/search-book", formData, false);
   }
 
   static async modifyBook(formData) {
