@@ -19,18 +19,14 @@
           @delete-book="deleteBook($event)"
         />
       </div>
-      <div v-else class="h-100 w-100">
-        <div
-          class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
-        >
-          <img
-            src="/img/notfound.png"
-            alt="not found"
-            class="w-25 img-fluid mb-3 rounded rounded-7"
-          />
-          <h3>You don't have any book!</h3>
+      <template v-else>
+        <SearchEmptyState long-text="You don't have any book!" />
+        <div class="flex-center align-items-start">
+          <FwbButton @click="toRouteName('add-book')" color="green"
+            >Add Book Now</FwbButton
+          >
         </div>
-      </div>
+      </template>
     </template>
   </div>
 </template>

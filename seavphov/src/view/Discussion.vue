@@ -49,7 +49,12 @@
         <div class="flex-center w-100 h-44" v-if="isLoading">
           <Loader :size="40" />
         </div>
+        <SearchEmptyState
+          v-else-if="discussions.length == 0"
+          text="discussion"
+        />
         <DiscussionItem
+          v-else
           v-for="discussion in discussions"
           :key="discussion"
           :discussion="discussion"
@@ -74,7 +79,6 @@ import AdsContainer from "../components/discussion/AdsContainer.vue";
 import AddDiscussionContainer from "../components/discussion/AddDiscussionContainer.vue";
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
 import DiscussionController from "../controllers/DiscussionController";
-import LoadingButton from "../components/common/LoadingButton.vue";
 export default {
   name: "Discussion",
   components: {

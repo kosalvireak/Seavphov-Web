@@ -115,7 +115,8 @@
           <Loader :size="40" />
         </div>
         <div v-else>
-          <div v-if="!isEmpty" class="space-y-8">
+          <SearchEmptyState v-if="isEmpty" text="community" />
+          <div v-else class="space-y-8">
             <CommunityItem
               v-for="cop in communities"
               :key="cop.id"
@@ -152,7 +153,6 @@
               </button>
             </div>
           </div>
-          <CommunitySearchEmptyState v-else />
         </div>
       </div>
     </div>
@@ -160,14 +160,13 @@
 </template>
 
 <script>
-import CommunitySearchEmptyState from "../../components/community/CommunitySearchEmptyState.vue";
 import { FwbRadio } from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../../components/community/CommunityItem.vue";
 import CommunityController from "../../controllers/CommunityController";
 export default {
   name: "SearchCommunity",
-  components: { CommunityItem, MDBInput, FwbRadio, CommunitySearchEmptyState },
+  components: { CommunityItem, MDBInput, FwbRadio },
   data() {
     return {
       maxPaginateCop: Seavphov.maxPaginateCop,

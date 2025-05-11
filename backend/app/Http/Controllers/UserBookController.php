@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserBookController extends Controller
 {
-    public function saveBook(Request $request, $bookId)
+    public function toggleSaveBook(Request $request, $bookId)
     {
         try {
             $user = $request->attributes->get('user');
@@ -35,10 +35,8 @@ class UserBookController extends Controller
                 $user->savedBooks()->detach($bookId);
 
                 // Unsave
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Unsaved ' . $book->title,
-                ], 200);
+
+                return ResponseUtil::Success('Unsaved book success', false);
             } else {
                 $user->savedBooks()->attach($bookId, [
                     'created_at' => Carbon::now(),
@@ -47,16 +45,10 @@ class UserBookController extends Controller
                 // Save
                 NotificationService::storeNotification($user->id, $book->owner_id, $book->id, 'saved your book!');
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Saved ' . $book->title,
-                ], 201);
+                return ResponseUtil::Success('Saved book success', true);
             }
         } catch (\Exception $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Internal Server Error',
-            ], 500);
+            return ResponseUtil::ServerError('Cannot toggle save book!', $exception->getMessage());
         }
     }
     public function getSavedBook(Request $request)

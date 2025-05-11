@@ -46,18 +46,8 @@
           </div>
         </div>
       </div>
-      <div v-else class="h-100 w-100">
-        <div
-          class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
-        >
-          <img
-            src="/img/notfound.png"
-            alt="not found"
-            class="w-25 img-fluid mb-3 rounded rounded-7"
-          />
-          <h3>No comments found...!</h3>
-        </div>
-      </div>
+
+      <SearchEmptyState v-else text="comment" />
     </div>
   </div>
 </template>

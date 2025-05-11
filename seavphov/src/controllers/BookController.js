@@ -46,4 +46,8 @@ export default class BookController {
   static async getBanner() {
     return await getData(BookRoute + "/banner");
   }
+
+  static async toggleSaveBook(id) {
+    return await getData(`/api/saved/${id}`, true);
+  }
 }

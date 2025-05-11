@@ -1,5 +1,7 @@
 <template>
-  <RenderBook :hideHeader="true" :books="userBooks" :loading="isLoading" />
+  <section class="RenderUserBook">
+    <RenderBook :hideHeader="true" :books="userBooks" :loading="isLoading" />
+  </section>
 </template>
 
 <script>
@@ -22,12 +24,18 @@ export default {
       isLoading: false,
     };
   },
+  methods: {
+    async getSearchBookByUuid() {
+      this.isLoading = true;
+      let filters = { uuid: "" };
+      filters.uuid = this.uuid;
+      const response = await BookController.searchBook(filters);
+      this.userBooks = response.data;
+      this.isLoading = false;
+    },
+  },
   async mounted() {
-    this.isLoading = true;
-    let filters = { uuid: "12" };
-    filters.uuid = this.uuid;
-    this.userBooks = await BookController.getBooksWithFilter(filters);
-    this.isLoading = false;
+    await this.getSearchBookByUuid();
   },
 };
 </script>

@@ -27,18 +27,7 @@
           </div>
         </div>
       </div>
-      <div v-else class="h-100 w-100">
-        <div
-          class="h-auto d-flex flex-column justify-content-center align-items-center m-5"
-        >
-          <img
-            src="/img/notfound.png"
-            alt="not found"
-            class="w-25 img-fluid mb-3 rounded rounded-7"
-          />
-          <h3>No discussions found...!</h3>
-        </div>
-      </div>
+      <SearchEmptyState v-else text="discussion" />
     </div>
   </div>
 </template>
@@ -65,8 +54,9 @@ export default {
     this.isLoading = true;
     let filters = { uuid: null };
     filters.uuid = this.uuid;
-    this.discussions =
-      await DiscussionController.getDiscussionsWithFilter(filters);
+    this.discussions = await DiscussionController.getDiscussionsWithFilter(
+      filters
+    );
     this.isLoading = false;
   },
 };

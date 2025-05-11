@@ -131,7 +131,7 @@ Route::prefix('discussions')->group(function () {
 });
 
 Route::prefix('saved')->middleware([ApiTokenAuthentication::class])->group(function () {
-    Route::get('{bookId}', [UserBookController::class, 'saveBook']);
+    Route::get('{bookId}', [UserBookController::class, 'toggleSaveBook']);
     Route::get('', [UserBookController::class, 'getSavedBook']);
 });
 

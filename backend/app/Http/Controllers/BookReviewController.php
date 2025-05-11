@@ -78,7 +78,7 @@ class BookReviewController extends Controller
             }
 
             if (empty($items)) {
-                return ResponseUtil::Success('No reviews found',);
+                return ResponseUtil::Success('No reviews found', []);
             }
 
             return ResponseUtil::Success('Successfully get your reviews', $items);

@@ -20,7 +20,7 @@ export default {
   <div class="UserLayout flex-center flex-column w-100">
     <UserNavbar />
     <RouterView class="container-xl" />
-    <Footer />
+    <Footer class="mt-24" />
     <RequireSigninPopup />
   </div>
 </template>

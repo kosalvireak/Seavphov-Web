@@ -52,6 +52,7 @@ import ImageUpload from "./components/common/ImageUpload.vue";
 import PdfUpload from "./components/common/PdfUpload.vue";
 import HomeNavigation from "./components/home/HomeNavigation.vue";
 import Info from "./components/common/Info.vue";
+import SearchEmptyState from "./components/common/SearchEmptyState.vue";
 
 const app = createApp(App);
 
@@ -78,6 +79,7 @@ app.component("ImageUpload", ImageUpload);
 app.component("PdfUpload", PdfUpload);
 app.component("HomeNavigation", HomeNavigation);
 app.component("Info", Info);
+app.component("SearchEmptyState", SearchEmptyState);
 
 // global mixin
 app.mixin(RouterMixin);

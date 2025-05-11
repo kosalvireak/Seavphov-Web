@@ -55,11 +55,6 @@ fix
           </div>
         </form>
         <div class="flex-center !justify-between h-12">
-          <div>
-            <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
-            <p v-else class="h6 mb-0">Total: {{ total }} Books</p>
-          </div>
-
           <FwbButton
             v-if="!isDefaultFilter"
             @click="resetFilter()"
@@ -75,6 +70,10 @@ fix
         </div>
         <div v-else>
           <div v-if="!isEmpty" class="space-y-8">
+            <div>
+              <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
+              <p v-else class="h6 mb-0">Total: {{ total }} Books</p>
+            </div>
             <RenderBook
               :books="books"
               :loading="isLoading"
@@ -112,6 +111,8 @@ fix
               </button>
             </div>
           </div>
+
+          <SearchEmptyState v-else text="book" />
         </div>
       </div>
     </div>

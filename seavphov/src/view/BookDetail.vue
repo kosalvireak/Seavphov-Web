@@ -22,12 +22,14 @@
               class="absolute top-1 end-0 w-10 h-10 justify-items-center"
               v-if="isLogin"
             >
-              <Loader v-if="loadingSaveBook" :size="10" />
+              <TinyLoader v-if="loadingSaveBook" />
               <template v-else>
                 <i
-                  class="fa-bookmark fa-2xl w-10 h-10"
+                  class="fa-bookmark fa-2xl"
                   :class="
-                    book.issaved ? 'fa-solid text-sp-yellow' : 'fa-regular'
+                    book.issaved
+                      ? 'fa-solid text-sp-yellow'
+                      : 'fa-regular text-gray-600'
                   "
                   @click="toggleSaveBook()"
                 ></i>
@@ -132,13 +134,7 @@ export default {
     },
     async toggleSaveBook() {
       this.loadingSaveBook = true;
-      const response = await this.$store.dispatch(
-        "toggleSaveBook",
-        this.paramsId,
-      );
-      if (response) {
-        this.book.issaved = !this.book.issaved;
-      }
+      this.book.issaved = await BookController.toggleSaveBook(this.paramsId);
       this.loadingSaveBook = false;
     },
   },

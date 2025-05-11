@@ -1,16 +1,12 @@
 <template>
-  <div class="container-xl flex flex-row items-start justify-between">
+  <div class="container-xl flex flex-row items-center justify-between">
     <!-- Navigation Buttons for Larger Screens -->
     <div class="hidden lg:flex flex-row space-x-2">
       <div
         v-for="navigation in profileNavigation"
         :key="navigation.key"
         @click="onSelectNavigation(navigation)"
-        class="p-3 hover:bg-gray-300 clickable rounded-lg"
-        :class="{
-          'bg-sp-secondary hover:bg-sp-secondary text-white':
-            selectedNavigation.key === navigation.key,
-        }"
+        :class="selectedNavCss(navigation.key)"
       >
         <span>{{ navigation.value }}</span>
       </div>
@@ -20,7 +16,7 @@
     <div class="lg:hidden">
       <button
         @click="toggleDropdown"
-        class="p-3 hover:bg-gray-300 rounded-lg clickable"
+        :class="itemCss + ' ' + 'bg-sp-primary hover:bg-sp-primary text-white'"
       >
         {{ selectedNavigation.value }}
       </button>
@@ -33,7 +29,7 @@
           v-for="navigation in profileNavigation"
           :key="navigation.key"
           @click="onSelectNavigation(navigation)"
-          class="p-3 hover:bg-gray-300 clickable rounded-lg"
+          :class="itemCss"
         >
           <span>{{ navigation.value }}</span>
         </div>
@@ -53,9 +49,15 @@ export default {
       ],
       isDropdownOpen: false,
       selectedNavigation: { key: "books", value: "Books" },
+      itemCss: "px-3 py-2 hover:bg-gray-300 clickable rounded-lg",
     };
   },
   methods: {
+    selectedNavCss(key) {
+      return this.selectedNavigation.key == key
+        ? "bg-sp-secondary hover:bg-sp-secondary text-white " + this.itemCss
+        : this.itemCss;
+    },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
     },
