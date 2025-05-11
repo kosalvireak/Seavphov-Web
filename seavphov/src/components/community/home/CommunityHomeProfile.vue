@@ -1,5 +1,7 @@
 <template>
-  <section class="CommunityHomeProfile card flex flex-center py-6 space-y-2">
+  <section
+    class="CommunityHomeProfile card flex flex-center py-6 px-2 space-y-2"
+  >
     <div
       class="Profile hover-zoom w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
     >
@@ -10,19 +12,21 @@
       />
     </div>
 
-    <p class="h4 font-bold truncate-2-lines">{{ community.name }}</p>
+    <p class="h4 font-bold ellipsis-2">{{ community.name }}</p>
 
     <Badge :type="visibilityColor" size="sm" class="mr-0">{{
       visibilityText
     }}</Badge>
 
-    <p v-if="community.description" class="truncate-2-lines text-center">
+    <p v-if="community.description" class="text-center font-semibold">
       {{ community.description }}
     </p>
 
-    <p>Members: {{ community.member_count }}</p>
-    <p v-if="!isNotCopMember">Role: {{ roleText }}</p>
-    <p>Created on: {{ formatDate(community.created_at) }}</p>
+    <p class="text-gray-600">Members: {{ community.member_count }}</p>
+    <p v-if="!isNotCopMember" class="font-semibold">Role: {{ roleText }}</p>
+    <p class="text-gray-600">
+      Created on: {{ formatDate(community.created_at) }}
+    </p>
 
     <!-- Not member or Admin
       - Login 

@@ -13,11 +13,11 @@
       </router-link>
       <div class="col-md-9">
         <div class="space-y-2">
-          <h5 class="font-bold truncate-2-lines"></h5>
-          <p class="h5 truncate-2-lines pr-10">
+          <h5 class="font-bold ellipsis-2"></h5>
+          <p class="h5 ellipsis-2 pr-10">
             {{ book.title }}
           </p>
-          <p class="truncate-2-lines text-base">
+          <p class="ellipsis-2 text-base">
             {{ book.descriptions }}
           </p>
           <p><span class="font-bold">Author:</span>{{ book.author }}</p>
@@ -74,14 +74,6 @@ export default {
 
 .dropdown-toggle {
   width: 75px !important;
-}
-
-.truncate-2-lines {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  /* Number of lines to show */
-  -webkit-box-orient: vertical;
 }
 
 .MyBook {

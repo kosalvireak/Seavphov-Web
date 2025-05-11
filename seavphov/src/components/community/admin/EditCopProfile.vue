@@ -39,6 +39,10 @@
               wrapperClass="bg-white h-3rem"
               required
             />
+
+            <Info
+              text="Only letters, numbers, and spaces are allowed. Maximum 50 characters."
+            />
           </div>
           <div>
             <MDBTextarea
@@ -46,6 +50,7 @@
               label="Description"
               id="description"
               v-model="cop.description"
+              required
             />
           </div>
 

@@ -1,29 +1,16 @@
 <template>
   <section class="EditReadingChallenge">
-    <Dropdown
-      id="reading-challenge-dropdown"
-      id_content="reading-challenge-dropdown_content"
-      placement="bottom-end"
-    >
-      <template #button>
+    <FwbDropdown align-to-end close-inside>
+      <template #trigger>
         <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-          <i class="fas fa-ellipsis-v fa-xl"></i></div
-      ></template>
-      <template #content>
-        <ul class="py-2 mt-0 w-fit">
-          <li>
-            <p :class="dropdownItemClass" @click="isShowModal = true">
-              Edit challenge
-            </p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click="deleteChallenge">
-              Delete challenge
-            </p>
-          </li>
-        </ul>
+          <i class="fas fa-ellipsis-v fa-xl"></i>
+        </div>
       </template>
-    </Dropdown>
+      <nav :class="fwbDropdownNavCss">
+        <p :class="fwbDropdownItemCss" @click="isShowModal = true">Edit</p>
+        <p :class="fwbDropdownItemCss" @click="deleteChallenge">Delete</p>
+      </nav>
+    </FwbDropdown>
 
     <FwbModal
       v-if="isShowModal"
@@ -137,7 +124,7 @@ export default {
       this.setValueToFormAttribute(
         this.formData,
         "book_image",
-        this.challenge.book_image,
+        this.challenge.book_image
       );
       this.formData.append("start_date", this.challenge.start_date);
       this.formData.append("end_date", this.challenge.end_date);
@@ -147,7 +134,7 @@ export default {
 
       const success = await ReadingChallengeController.editReadingChallenge(
         this.formData,
-        this.$route.params.id,
+        this.$route.params.id
       );
       if (success) {
         this.isShowModal = false;
@@ -156,7 +143,7 @@ export default {
     },
     async deleteChallenge() {
       const success = await ReadingChallengeController.deleteChallenge(
-        this.$route.params.id,
+        this.$route.params.id
       );
       if (success) {
         this.toRouteName("community");

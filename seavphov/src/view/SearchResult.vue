@@ -54,7 +54,7 @@ fix
             </div>
           </div>
         </form>
-        <div class="flex-center !justify-between h-12">
+        <div class="flex-center !justify-end h-12">
           <FwbButton
             v-if="!isDefaultFilter"
             @click="resetFilter()"
@@ -191,6 +191,8 @@ export default {
           this.selectedFlags[group][option] = false;
         });
       });
+      this.title = "";
+      this.searchBook();
     },
     changePage(page) {
       this.current_page = page;
@@ -198,8 +200,10 @@ export default {
   },
   computed: {
     isDefaultFilter() {
-      return !Object.values(this.selectedFlags).some((group) =>
-        Object.values(group).some((isChecked) => isChecked)
+      return (
+        !Object.values(this.selectedFlags).some((group) =>
+          Object.values(group).some((isChecked) => isChecked)
+        ) && !this.title
       );
     },
     isDisabledNext() {

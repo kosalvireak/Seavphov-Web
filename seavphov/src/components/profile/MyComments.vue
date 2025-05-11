@@ -32,7 +32,7 @@
                   />
                 </router-link>
                 <div class="col-md-9 space-y-4 flex flex-col justify-around">
-                  <h5 class="card-title font-bold truncate-2-lines">
+                  <h5 class="card-title font-bold ellipsis-2">
                     {{ data.discussion.body }}
                   </h5>
                   <CommentItem

@@ -13,7 +13,7 @@
       <div
         class="flex-grow-1 flex-center lg:items-start flex-col p-2 space-y-2"
       >
-        <p class="h4 font-bold truncate-2-lines mb-0">
+        <p class="h4 font-bold ellipsis-2 mb-0">
           {{ community.name }}
         </p>
 
@@ -21,7 +21,7 @@
           visibilityText
         }}</Badge>
 
-        <p v-if="community.description" class="truncate-2-lines">
+        <p v-if="community.description" class="ellipsis-2">
           {{ community.description }}
         </p>
 

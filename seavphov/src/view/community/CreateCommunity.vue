@@ -27,7 +27,10 @@
             required
           />
 
-          <Info text="Name must be unique" />
+          <Info text="Name must be unique." />
+          <Info
+            text="Only letters, numbers, and spaces are allowed. Maximum 50 characters."
+          />
 
           <!-- Description -->
           <MDBInput

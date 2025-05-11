@@ -146,8 +146,8 @@ class CommunityController extends Controller
             $cop = $request->attributes->get('cop');
 
             $validatedData = $request->validate([
-                'name' => 'required|string|regex:/^[a-zA-Z0-9\s]+$/',
-                'description' => 'nullable|string',
+                'name' => 'required|string|max:50|regex:/^[a-zA-Z0-9\s]+$/',
+                'description' => 'required|string',
                 'private' => 'required|in:true,false',
                 'profile' => 'nullable|url',
                 'banner' => 'nullable|url',

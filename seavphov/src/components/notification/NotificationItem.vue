@@ -9,7 +9,7 @@
       ></p>
     </div>
     <a
-      class="notification-item flex-center flex-row text-black space-x-2 mr-6"
+      class="notification-item flex-center flex-row !justify-start w-100 text-black space-x-2"
       :href="notification.url"
       @click="markAsRead"
     >

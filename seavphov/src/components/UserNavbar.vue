@@ -17,7 +17,7 @@
           </router-link>
 
           <i
-            class="fas fa-bell fa-2xl text-white clickable"
+            class="fas fa-bell fa-xl text-white clickable"
             @click="openSidebar = true"
           ></i>
 
