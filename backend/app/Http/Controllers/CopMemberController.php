@@ -93,7 +93,7 @@ class CopMemberController extends Controller
             $newRole = $request->get('role');
 
             if ($newRole != 'Admin' && $newRole != 'Member') {
-                return ResponseUtil::Success('Role is not valid');
+                return ResponseUtil::Success('Role is not valid', [], true);
             }
 
             // check if user change themselves to member and no admin left 
