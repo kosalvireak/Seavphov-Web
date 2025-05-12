@@ -49,11 +49,11 @@
     </div>
     <div
       v-if="inValidProperty(localDiscussion, 'image')"
-      class="w-100 max-h-72 flex-center"
+      class="w-100 h-100 max-h-96 flex-center"
     >
       <img
         :src="localDiscussion.image"
-        class="max-h-64"
+        class="max-h-96"
         alt="discussion image"
       />
     </div>
@@ -96,6 +96,9 @@ export default {
     };
   },
   methods: {
+    toDiscussionDetail() {
+      this.toRouteName("discussion-detail", this.localDiscussion.id);
+    },
     editDiscussion() {
       this.isEditing = true;
     },

@@ -16,11 +16,10 @@ export default class Seavphov {
   static toast = useToast();
 
   static requireSignInGuard(isLogin) {
-    return signInMethods.requireSignInGuard(isLogin)
+    return signInMethods.requireSignInGuard(isLogin);
   }
 
   static closeRequiredSignInPopup() {
-    signInMethods.closeRequiredSignInPopup()
+    signInMethods.closeRequiredSignInPopup();
   }
-
 }

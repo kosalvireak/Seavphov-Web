@@ -7,11 +7,11 @@
       <div class="grid grid-cols-12 gap-4 h-100">
         <div class="col-span-12 lg:col-span-4 space-y-8">
           <div
-            class="hover-zoom flex-center ring-1 ring-gray-300 rounded-lg p-4 h-fit max-h-96"
+            class="flex-center ring-1 ring-gray-300 rounded-lg p-4 h-fit max-h-96"
           >
             <img
               :src="challenge.book_image"
-              class="sp-img-lg object-contain"
+              class="img-fluid object-contain"
               alt="book cover"
             />
           </div>

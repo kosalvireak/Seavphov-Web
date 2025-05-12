@@ -11,7 +11,6 @@
       buttons-pagination
     >
       <template #item-picture="users">
-
         <a :href="`/profile/${users.uuid}`" target="_blank">
           <FwbAvatar :img="users.picture" rounded size="md" />
         </a>

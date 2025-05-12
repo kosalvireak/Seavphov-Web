@@ -9,17 +9,12 @@
     <p class="h4">{{ challenge.book_title }}</p>
     <p class="h5">By: {{ challenge.book_author }}</p>
     <div class="flex flex-col md:flex-row gap-4">
-      <div
-        class="w-full md:w-1/3 flex-center book-info hover-zoom bg-gray-100 rounded-lg"
-      >
-        <div
-          class="flex-center sp-img-md clickable"
-          @click="visitChallengeDetail()"
-        >
+      <div class="w-full md:w-1/3 flex-center book-info bg-gray-100 rounded-lg">
+        <div class="flex-center clickable" @click="visitChallengeDetail()">
           <img
             :src="challenge.book_image"
             alt=""
-            class="img-fluid object-cover"
+            class="img-fluid object-cover max-h-72"
           />
         </div>
       </div>

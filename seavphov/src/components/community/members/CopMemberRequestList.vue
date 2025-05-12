@@ -4,6 +4,7 @@
       v-if="selectedMember"
       :user="selectedMember"
       @on-close="selectedMember = null"
+      @re-fetch="getCopMemberRequest()"
     />
     <EasyDataTable
       table-class-name="customize-table"
@@ -41,9 +42,10 @@
 <script>
 import MemberRequestPopup from "./MemberRequestPopup.vue";
 import CopMemberController from "../../../controllers/CopMemberController";
+import EditMemberPopup from "./EditMemberPopup.vue";
 export default {
   name: "CopMemberRequestList",
-  components: { MemberRequestPopup },
+  components: { EditMemberPopup, MemberRequestPopup },
   data() {
     return {
       isLoading: false,
@@ -60,13 +62,13 @@ export default {
     };
   },
   async mounted() {
-    this.getCopMemberList();
+    await this.getCopMemberRequest();
   },
   methods: {
     onAction(member) {
       this.selectedMember = member;
     },
-    async getCopMemberList() {
+    async getCopMemberRequest() {
       this.isLoading = true;
       this.members = await CopMemberController.getCommunityMemberRequest(
         this.route,

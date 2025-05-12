@@ -59,7 +59,10 @@ export default {
     showModal() {
       this.isShowModal = true;
     },
-    closeModal() {
+    closeModal(reload = false) {
+      if (reload) {
+        this.$emit("reFetch");
+      }
       this.isShowModal = false;
       this.$emit("onClose");
     },
@@ -70,7 +73,7 @@ export default {
         this.user.uuid,
       );
 
-      if (response) this.closeModal();
+      if (response) this.closeModal(true);
 
       this.isApproving = false;
     },
@@ -82,7 +85,7 @@ export default {
         this.user.uuid,
       );
 
-      if (response) this.closeModal();
+      if (response) this.closeModal(true);
 
       this.isRejecting = false;
     },

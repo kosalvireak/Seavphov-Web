@@ -34,7 +34,7 @@ export const UtilsMixin = {
       return !!getCookie();
     },
     isMobile() {
-      return resizeState.isMobile
-    }
+      return resizeState.isMobile;
+    },
   },
 };

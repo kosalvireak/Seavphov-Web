@@ -23,11 +23,13 @@
       📢 Ready to Lead the Challenge? Click <b>CREATE CHALLENGE</b> and let the
       reading begin! 🚀
     </p>
-    <a
-      :href="buildCreateChallengeRoute()"
-      class="w-fit mt-4 bg-sp-primary text-white p-2 px-3 rounded-lg"
-      >Create Challenge</a
+    <FwbButton
+      @click="buildCreateChallengeRoute()"
+      color="green"
+      class="w-fit mt-3"
     >
+      Create Challenge
+    </FwbButton>
     <Info
       text="Only community admins can see this banner and create reading challenges."
       class="mt-2"
@@ -36,12 +38,15 @@
 </template>
 
 <script>
+import { FwbButton } from "flowbite-vue";
+
 export default {
   name: "ReadingChallengeEntry",
+  components: { FwbButton },
   methods: {
     buildCreateChallengeRoute() {
       const route = this.$route.params.route;
-      return `/community/${route}/admin#tabs=create-challenge`;
+      window.open(`/community/${route}/admin#tabs=create-challenge`);
     },
   },
 };

@@ -9,7 +9,7 @@ export default class DiscussionController {
       params.append("title", filters.title);
     }
     if (filters.uuid) {
-      params.append("uuid", filters.uuid);
+      params.append("uuid", filters.uuid); // for filter discussion belong to this user
     }
     return await getData(DiscussionRoute + `?${params.toString()}`, true);
   }

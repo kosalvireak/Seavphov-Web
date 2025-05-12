@@ -75,7 +75,7 @@
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
-import AdsContainer from "../components/discussion/AdsContainer.vue";
+import NewestDiscussions from "../components/discussion/NewestDiscussions.vue";
 import AddDiscussionContainer from "../components/discussion/AddDiscussionContainer.vue";
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
 import DiscussionController from "../controllers/DiscussionController";
@@ -84,7 +84,7 @@ export default {
   components: {
     DiscussionItem,
     AddDiscussionContainer,
-    AdsContainer,
+    AdsContainer: NewestDiscussions,
     MDBInput,
   },
   data() {
@@ -101,14 +101,14 @@ export default {
       this.isLoading = true;
       this.filters.title = this.keyword;
       const response = await DiscussionController.getDiscussionsWithFilter(
-        this.filters
+        this.filters,
       );
       this.isLoading = false;
       this.discussions = response;
     },
     onDeleteDiscussion(id) {
       this.discussions = this.discussions.filter(
-        (discussion) => discussion.id !== id
+        (discussion) => discussion.id !== id,
       );
     },
   },

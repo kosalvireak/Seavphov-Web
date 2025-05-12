@@ -41,7 +41,7 @@ import {
   FwbProgress,
   FwbDropdown,
   FwbInput,
-  FwbCheckbox
+  FwbCheckbox,
 } from "flowbite-vue";
 import Loader from "./components/common/Loader.vue";
 import TinyLoader from "./components/common/TinyLoader.vue";

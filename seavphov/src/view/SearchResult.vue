@@ -162,7 +162,7 @@ export default {
     async searchBook() {
       this.isLoading = true;
       const response = await BookController.searchBook(
-        this.getSelectedArrays()
+        this.getSelectedArrays(),
       ); // response is the pagination object
       if (response) {
         this.books = response.data;
@@ -202,7 +202,7 @@ export default {
     isDefaultFilter() {
       return (
         !Object.values(this.selectedFlags).some((group) =>
-          Object.values(group).some((isChecked) => isChecked)
+          Object.values(group).some((isChecked) => isChecked),
         ) && !this.title
       );
     },

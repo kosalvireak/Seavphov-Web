@@ -10,7 +10,7 @@
         @click="toRouteName('signup')"
         gradient="green"
         class="px-2 text-xs w-fit"
-        >Signup</FwbButton
+        >Sign In</FwbButton
       >
     </div>
     <form

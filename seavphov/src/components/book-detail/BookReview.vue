@@ -1,7 +1,7 @@
 <template>
   <section class="BookReview space-y-4">
     <p class="h5">Reviews</p>
-    <AddReview :book_id="book_id" @on-add-review="reviews.unshift($event)" />
+    <AddReview :book_id="book_id" @on-add-review="onAddReview($event)" />
     <ReviewItem
       v-for="review in reviews"
       :key="review.id"
@@ -37,6 +37,13 @@ export default {
   methods: {
     onRemoveReview(id) {
       this.reviews = this.reviews.filter((review) => review.id !== id);
+    },
+    onAddReview(review) {
+      if (!this.reviews) {
+        this.reviews.push(review);
+      } else {
+        this.reviews.unshift(review);
+      }
     },
   },
   watch: {

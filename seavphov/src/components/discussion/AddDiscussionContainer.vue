@@ -10,7 +10,7 @@
         @click="toRouteName('signup')"
         color="green"
         class="m-0 px-2 text-xs w-fit"
-        >Signup</FwbButton
+        >Sign In</FwbButton
       >
     </div>
     <AddDiscussionForm

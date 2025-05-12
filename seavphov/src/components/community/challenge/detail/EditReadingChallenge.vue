@@ -124,7 +124,7 @@ export default {
       this.setValueToFormAttribute(
         this.formData,
         "book_image",
-        this.challenge.book_image
+        this.challenge.book_image,
       );
       this.formData.append("start_date", this.challenge.start_date);
       this.formData.append("end_date", this.challenge.end_date);
@@ -134,7 +134,7 @@ export default {
 
       const success = await ReadingChallengeController.editReadingChallenge(
         this.formData,
-        this.$route.params.id
+        this.$route.params.id,
       );
       if (success) {
         this.isShowModal = false;
@@ -143,7 +143,7 @@ export default {
     },
     async deleteChallenge() {
       const success = await ReadingChallengeController.deleteChallenge(
-        this.$route.params.id
+        this.$route.params.id,
       );
       if (success) {
         this.toRouteName("community");

@@ -1,11 +1,11 @@
 <template>
   <section class="AdsContainer container-xl h-40 lg:h-72">
     <a :href="banner.link_url" target="_blank">
-    <img
-      :src="getBackground"
-      alt=""
-      class="w-100 h-100 rounded-xl object-cover"
-    />
+      <img
+        :src="getBackground"
+        alt=""
+        class="w-100 h-100 rounded-xl object-cover"
+      />
     </a>
   </section>
 </template>

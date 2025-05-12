@@ -65,14 +65,20 @@ export default {
   },
   computed: {
     disableSave() {
-      return this.selectedRole == this.user.role;
+      return this.selectedRole === this.user.role || this.selectedRole === "";
     },
+  },
+  mounted() {
+    this.selectedRole = this.user.role;
   },
   methods: {
     showModal() {
       this.isShowModal = true;
     },
-    closeModal() {
+    closeModal(reload = false) {
+      if (reload) {
+        this.$emit("reFetch");
+      }
       this.isShowModal = false;
       this.$emit("onClose");
     },
@@ -83,7 +89,9 @@ export default {
         this.user.uuid,
         this.selectedRole,
       );
-      if (response) this.closeModal();
+
+      if (response) this.closeModal(true);
+
       this.isSaving = false;
     },
     async removeMemberFromCop() {
@@ -92,7 +100,9 @@ export default {
         this.route,
         this.user.uuid,
       );
-      if (response) this.closeModal();
+
+      if (response) this.closeModal(true);
+
       this.isRemoving = false;
     },
   },

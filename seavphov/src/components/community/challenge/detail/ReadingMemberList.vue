@@ -12,7 +12,7 @@
         v-if="members.length > 0"
         class="bg-gray-100 rounded-lg p-4 space-y-4"
       >
-        <p class="h3 text-center">Leader Board</p>
+        <p class="h3 text-center">LEADER BOARD</p>
         <MemberProgressItem
           v-for="(member, index) in members"
           :key="index"

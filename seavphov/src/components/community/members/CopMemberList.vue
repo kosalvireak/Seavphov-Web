@@ -4,6 +4,7 @@
       v-if="selectedMember"
       :user="selectedMember"
       @on-close="selectedMember = null"
+      @re-fetch="getCopMemberList()"
     />
     <EasyDataTable
       table-class-name="customize-table"
@@ -61,7 +62,7 @@ export default {
     };
   },
   async mounted() {
-    this.getCopMemberList();
+    await this.getCopMemberList();
   },
   methods: {
     onClickEditMember(member) {

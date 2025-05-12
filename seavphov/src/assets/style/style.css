@@ -34,6 +34,10 @@ body {
   font-family: "Nunito", sans-serif;
 }
 
+a:hover {
+  color: inherit;
+}
+
 .sp-logo-sm {
   width: 40px;
   height: 40px;
@@ -212,7 +216,7 @@ img {
 }
 
 /* override button focus:ring-4 */
-button:focus {   
+button:focus {
   --tw-ring-offset-width: 0px !important;
   --tw-ring-offset-color: transparent !important;
   --tw-ring-color: transparent !important;
