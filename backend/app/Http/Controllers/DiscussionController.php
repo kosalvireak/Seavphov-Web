@@ -70,6 +70,26 @@ class DiscussionController extends Controller
         }
     }
 
+    public function getNewestDiscussion()
+    {
+        try {
+            $discussions = Discussion::orderBy('created_at', 'desc')->take(3)->get();
+
+            if (!$discussions) {
+                return ResponseUtil::NotFound('Discussion not found');
+            }
+
+            $items = [];
+            foreach ($discussions as $discussion) {
+                $items[] = $discussion->getData(null, true); // userId = null => delete_able = false
+            }
+
+            return ResponseUtil::Success('Successfully get newest discussion', $items);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot get newest discussion!', $exception->getMessage());
+        }
+    }
+
     public function dislikeDiscussion(Request $request, $discussionId)
     {
         try {

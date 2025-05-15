@@ -3,11 +3,16 @@
     <div
       class="container-xl flex flex-wrap items-center justify-between mx-auto px-2"
     >
-      <router-link :to="{ name: 'home' }" class="flex items-center clickable">
+      <router-link
+        :to="{ name: 'home' }"
+        class="w-32 flex items-center clickable"
+      >
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </router-link>
 
-      <div class="flex items-center md:order-2 space-x-5 rtl:space-x-reverse">
+      <div
+        class="w-32 flex items-center md:order-2 space-x-5 rtl:space-x-reverse"
+      >
         <template v-if="isLogin">
           <router-link
             :to="{ name: 'add-book' }"

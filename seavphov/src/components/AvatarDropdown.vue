@@ -1,11 +1,7 @@
 <template>
   <FwbDropdown align-to-end close-inside>
     <template #trigger>
-      <img
-        class="sp-logo-sm rounded-full ring-1 ring-gray-300"
-        :src="$store.state.user.picture"
-        alt="User Profile"
-      />
+      <FwbAvatar :img="$store.state.user.picture" rounded size="md" />
     </template>
     <nav :class="fwbDropdownNavCss">
       <p :class="fwbDropdownItemCss" @click="toRouteName('profile')">

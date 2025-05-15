@@ -69,7 +69,7 @@ class BookController extends Controller
         $Category = $request->get('Category');
         $Condition = $request->get('Condition');
         $Availability = $request->get('Availability');
-        $HasPdf = $request->get('HasPdf');
+        $PDF = $request->get('PDF');
         $uuid = $request->get('uuid');
         $max = $request->get('max');
         $excludeId = $request->get('excludeId');
@@ -92,12 +92,29 @@ class BookController extends Controller
         }
 
         if (!empty($Availability)) {
-            $query->whereIn('availability', $Availability);
+            // Normalize to array if not already
+            $Availability = is_array($Availability) ? $Availability : [$Availability];
+
+            // Map human-readable status to database values
+            $mappedAvailability = [];
+
+            foreach ($Availability as $status) {
+                if ($status == 'Available') {
+                    $mappedAvailability[] = 1;
+                } elseif ($status == 'Not-Available') {
+                    $mappedAvailability[] = 0;
+                }
+            }
+
+            if (!empty($mappedAvailability)) {
+                $query->whereIn('availability', $mappedAvailability);
+            }
         }
 
-        if (!empty($HasPdf)) {
-            $query->where('has_pdf', in_array('Yes', $HasPdf));
+        if (!empty($PDF)) {
+            $query->where('has_pdf', in_array('Yes', $PDF));
         }
+
         if ($author) {
             $query->where('author', $author); // Filter by author
         }

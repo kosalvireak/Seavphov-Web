@@ -1,6 +1,6 @@
 <template>
-  <div class="space-y-6 container-xl h-100 flex justify-start flex-column">
-    <p class="h4 mb-none">Newest Discussions</p>
+  <div class="space-y-4 container-xl h-100 flex justify-start flex-column">
+    <p class="h4 mb-0">Newest Discussions</p>
 
     <div class="flex-center w-100 h-40" v-if="isLoading">
       <Loader :size="40" />
@@ -29,16 +29,10 @@ export default {
       isLoading: false,
     };
   },
-  methods: {
-    async fetchDiscussions() {
-      this.isLoading = true;
-      const response = await DiscussionController.getDiscussionsWithFilter({});
-      this.discussions = response.slice(0, 3);
-      this.isLoading = false;
-    },
-  },
-  mounted() {
-    this.fetchDiscussions();
+  async mounted() {
+    this.isLoading = true;
+    this.discussions = await DiscussionController.getNewestDiscussion();
+    this.isLoading = false;
   },
 };
 </script>

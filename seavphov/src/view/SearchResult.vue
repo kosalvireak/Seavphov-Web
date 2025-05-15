@@ -15,7 +15,7 @@ fix
         >
           <FwbInput
             v-model="title"
-            placeholder="Search book"
+            placeholder="Enter title..."
             size="md"
             class="w-100"
             wrapper-class="w-100"
@@ -43,24 +43,21 @@ fix
           </FwbInput>
           <div v-for="(options, group) in itemOptions" :key="group">
             <h3 class="text-lg font-semibold mb-2">{{ group }}</h3>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-col gap-2">
               <FwbCheckbox
                 v-for="option in options"
                 :key="option"
+                :disabled="isLoading"
                 v-model="selectedFlags[group][option]"
                 :label="option"
                 :value="option"
+                :class="isLoading ? '!cursor-not-allowed' : 'clickable'"
               />
             </div>
           </div>
         </form>
-        <div class="flex-center !justify-end h-12">
-          <FwbButton
-            v-if="!isDefaultFilter"
-            @click="resetFilter()"
-            color="yellow"
-            >Reset</FwbButton
-          >
+        <div v-if="!isDefaultFilter" class="absolute right-2 top-2 mt-0">
+          <FwbButton @click="resetFilter()" color="yellow">Reset</FwbButton>
         </div>
       </div>
 
@@ -142,16 +139,16 @@ export default {
           "Fantasy",
         ],
         Condition: ["As-new", "Good", "Well-worn"],
-        Availability: ["Available", "Unavailable"],
-        HasPdf: ["Yes", "No"],
+        Availability: ["Available", "Not-Available"],
+        PDF: ["Yes", "No"],
       },
       selectedFlags: {
         Category: {},
         Condition: {},
         Availability: {},
-        HasPdf: {},
+        PDF: {},
       },
-      title: "",
+      title: this.$route.query.q || "",
       last_page: 5,
       current_page: 1,
       total: 0, // for hide if length less then paginate
@@ -194,6 +191,12 @@ export default {
       this.title = "";
       this.searchBook();
     },
+    previous() {
+      this.current_page--;
+    },
+    next() {
+      this.current_page++;
+    },
     changePage(page) {
       this.current_page = page;
     },
@@ -226,12 +229,16 @@ export default {
     current_page(newVal) {
       this.searchBook(newVal);
     },
-    queryParams: {
-      handler() {
-        this.title = this.$route.query.q;
-        this.searchBook();
+    watch: {
+      "$route.query.q": {
+        immediate: true,
+        handler(q) {
+          console.log("Hello");
+
+          this.title = q || "";
+          this.searchBook();
+        },
       },
-      deep: true,
     },
   },
   async mounted() {

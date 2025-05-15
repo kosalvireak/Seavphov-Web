@@ -17,8 +17,13 @@ export default class DiscussionController {
   static async getMyDiscussions() {
     return await getData(DiscussionRoute + "/my-discussions", true);
   }
+
   static async getDiscussionById(id) {
     return await getData(DiscussionRoute + `/${id}`, true);
+  }
+
+  static async getNewestDiscussion() {
+    return await getData(DiscussionRoute + '/newest');
   }
 
   static async deleteDiscussion(id) {
@@ -28,6 +33,7 @@ export default class DiscussionController {
   static async createDiscussion(formData) {
     return await postForm(DiscussionRoute, formData, true);
   }
+
   static async editDiscussion(formData, id) {
     return await postForm(DiscussionRoute + `/edit/${id}`, formData, true);
   }

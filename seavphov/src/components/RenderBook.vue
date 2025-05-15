@@ -16,7 +16,7 @@
       >
         <p class="h6">Result: {{ books.length }} {{ resultBook }}</p>
       </div>
-      <div class="d-flex gap-4 flex-wrap p-0 lg:p-4" :class="justifyClass">
+      <div class="flex-center gap-4 flex-wrap p-0 lg:p-4">
         <Book v-for="book in books" :book="book" :key="book.id" />
       </div>
     </template>
