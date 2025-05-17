@@ -9,20 +9,21 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class SendStartReadingChallengeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    
-    public $subject, $body;
 
-    public function __construct($subject, $body)
+    public $subject, $bookTitle, $challengeUrl;
+
+    public function __construct($subject, $bookTitle, $challengeUrl)
     {
         $this->subject = $subject;
-        $this->body = $body;
+        $this->bookTitle = $bookTitle;
+        $this->challengeUrl = $challengeUrl;
     }
 
     /**
@@ -41,9 +42,10 @@ class SendMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email',
+            view: 'start-reading-challenge-email',
             with: [
-                'token' => $this->body,
+                'bookTitle' => $this->bookTitle,
+                'challengeUrl' => $this->challengeUrl,
             ],
         );
     }

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\ResponseUtil;
+use App\Mail\SendStartReadingChallengeMail;
 use App\Models\Community;
 use App\Models\ReadingChallenge;
 use App\Models\ReadingProgress;
@@ -12,7 +13,7 @@ use App\Service\NotificationService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 
 class ReadingChallengeController extends Controller
 {
@@ -21,7 +22,8 @@ class ReadingChallengeController extends Controller
     {
         try {
             $cop = Community::where('route', $route)->first();
-            $userId = $request->attributes->get('user')->id;
+            $user = $request->attributes->get('user');
+            $userId = $user->id;
             $readingChallenge = ReadingChallenge::where('id', $id)->first();
 
             if (!$readingChallenge)
@@ -41,12 +43,22 @@ class ReadingChallengeController extends Controller
 
             NotificationService::storeStartReadingChallengeNotification($userId, $readingChallenge->user_id, $cop->id,  " joined reading challenge " . $readingChallenge->book_title);
 
-            // TODO: Send Email notification to user : content: notify to start reading challenge
+            // sample https://seavphov-web.onrender.com/community/lorem-ipsum-dolor-sit-amet-consectetur-adipiscing/reading-challenge/5
+            $APP_FRONT_END_URL = env('APP_FRONT_END_URL');
+            $challengeUrl = "$APP_FRONT_END_URL/community/$cop->route/reading-challenge/$readingChallenge->id";
+
+            $this->sendMailStartReadingChallenge($user->email, $readingChallenge->book_title, $challengeUrl);
 
             return ResponseUtil::Success("Successfully join reading challenge", true, true);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('Cannot join reading challenge!', $exception->getMessage());
         }
+    }
+
+    private function sendMailStartReadingChallenge($email, $bookTitle, $challengeUrl)
+    {
+        $subject = "You are in! Start your reading challenge today.";
+        Mail::to($email)->send(new SendStartReadingChallengeMail($subject, $bookTitle, $challengeUrl));
     }
 
     public function getReadingChallenge(Request $request, $route, $id)

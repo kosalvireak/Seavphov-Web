@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
 use GuzzleHttp\Psr7\Response;
 
 class UserController extends Controller

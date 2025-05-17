@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\ResponseUtil;
-use App\Mail\SendMail;
+use App\Mail\SendForgotPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -123,7 +123,7 @@ class AuthController extends Controller
                 $subject = "Your Password Reset Code";
                 $body = $token;
 
-                Mail::to($user->email)->send(new SendMail($subject, $body));
+                Mail::to($user->email)->send(new SendForgotPasswordMail($subject, $body));
             }
             return ResponseUtil::Success('Reset code sent to your email', null, true);
         } catch (Exception $exception) {

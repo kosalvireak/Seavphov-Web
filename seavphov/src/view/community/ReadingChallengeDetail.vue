@@ -11,7 +11,7 @@
           >
             <img
               :src="challenge.book_image"
-              class="img-fluid object-contain"
+              class="img-fluid object-contain max-h-80"
               alt="book cover"
             />
           </div>
@@ -104,12 +104,12 @@ export default {
     this.isLoading = true;
     this.challenge = await ReadingChallengeController.getReadingChallenge(
       this.route,
-      this.id,
+      this.id
     );
     this.isLoading = false;
 
     this.myProgress = await ReadingChallengeController.getMyReadingProgress(
-      this.id,
+      this.id
     );
   },
   methods: {
