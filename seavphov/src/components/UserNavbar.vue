@@ -1,17 +1,14 @@
 <template>
-  <nav class="UserNavbar bg-seavphov w-full py-1">
+  <nav class="UserNavbar bg-seavphov py-1">
     <div
       class="container-xl flex flex-wrap items-center justify-between mx-auto px-2"
     >
-      <router-link
-        :to="{ name: 'home' }"
-        class="w-32 flex items-center clickable"
-      >
+      <router-link :to="{ name: 'home' }" class="md:w-32 flex-center clickable">
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </router-link>
 
       <div
-        class="w-32 flex items-center md:order-2 space-x-5 rtl:space-x-reverse"
+        class="md:w-32 flex items-center md:order-2 space-x-5 rtl:space-x-reverse"
       >
         <template v-if="isLogin">
           <router-link

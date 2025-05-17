@@ -1,7 +1,7 @@
 <template>
   <footer v-if="hideFooter" class="footer-section w-100 bg-seavphov">
-    <div class="container-xl footer-content pt-5">
-      <div class="row">
+    <div class="container-xl footer-content pt-5 pb-10">
+      <div class="row space-y-4">
         <div class="col-xl-4 col-lg-4 mb-50">
           <div class="footer-widget">
             <div class="footer-logo">
@@ -27,9 +27,22 @@
               <h3>Useful Links</h3>
             </div>
             <ul>
-              <li><a href="/home">Home</a></li>
-              <li><a href="/profile">Profile</a></li>
-              <li><a href="/search">Search</a></li>
+              <li>
+                <router-link :to="{ name: 'about-us' }"> About us </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'discussion' }">
+                  Discussion
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'search-community' }">
+                  Community
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'search' }"> Search Book</router-link>
+              </li>
             </ul>
           </div>
         </div>
@@ -40,8 +53,8 @@
             </div>
             <div class="footer-text mb-25">
               <p>
-                Don’t miss to subscribe to our new feeds, kindly fill the form
-                below.
+                Get instant notifications when a new book is added — just fill
+                out the form below to subscribe to our updates!
               </p>
             </div>
           </div>
@@ -73,7 +86,7 @@ export default {
       immediate: true,
       handler(newPath) {
         const matched = this.hiddenRouteList.some((route) =>
-          newPath.includes(route),
+          newPath.includes(route)
         );
         this.hideFooter = !matched;
       },
@@ -86,9 +99,10 @@ ul {
   margin: 0px;
   padding: 0px;
 }
-.footer-section {
+/* .footer-section {
   position: relative;
-}
+  bottom: 0;
+} */
 .footer-cta {
   border-bottom: 1px solid #373636;
 }

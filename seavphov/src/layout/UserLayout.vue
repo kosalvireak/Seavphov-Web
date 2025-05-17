@@ -17,9 +17,11 @@ export default {
 </script>
 
 <template>
-  <div class="UserLayout flex-center flex-column w-100">
+  <div class="UserLayout min-h-screen flex flex-col w-full">
     <UserNavbar />
-    <RouterView class="container-xl" />
+    <div class="flex-1 container-xl">
+      <RouterView />
+    </div>
     <Footer class="mt-24" />
     <RequireSigninPopup />
   </div>

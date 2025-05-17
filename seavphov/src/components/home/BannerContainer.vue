@@ -1,5 +1,5 @@
 <template>
-  <section class="AdsContainer container-xl h-40 lg:h-72">
+  <section v-if="banner" class="AdsContainer container-xl h-40 lg:h-72">
     <a :href="banner.link_url" target="_blank">
       <img
         :src="getBackground"

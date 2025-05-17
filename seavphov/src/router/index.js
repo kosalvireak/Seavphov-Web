@@ -31,6 +31,7 @@ import NotFound from "../view/auth/NotFound.vue";
 import CommunitySettings from "../components/community/home/CommunityAdmin.vue";
 import ReadingChallengeDetail from "../view/community/ReadingChallengeDetail.vue";
 import AdminController from "../controllers/admin/AdminController.js";
+import AboutUs from "../view/AboutUs.vue";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -136,6 +137,11 @@ const router = createRouter({
           path: "/home",
           name: "home",
           component: Home,
+        },
+        {
+          path: "/about-us",
+          name: "about-us",
+          component: AboutUs,
         },
         {
           path: "/search",

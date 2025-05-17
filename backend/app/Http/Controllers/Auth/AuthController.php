@@ -120,12 +120,12 @@ class AuthController extends Controller
                     'token' => $token,
                     'created_at' => Carbon::now()
                 ]);
-                $subject = "Reset Password Token";
+                $subject = "Your Password Reset Code";
                 $body = $token;
 
                 Mail::to($user->email)->send(new SendMail($subject, $body));
             }
-            return ResponseUtil::Success('Token sent to your email', null, true);
+            return ResponseUtil::Success('Reset code sent to your email', null, true);
         } catch (Exception $exception) {
             return ResponseUtil::ServerError('An error occurred while send email reset password.', $exception->getMessage());
         }
