@@ -14,7 +14,6 @@ class LogRequestInfo
         $uri = $request->getRequestUri();
 
         Log::info("Request from IP: $ip - $method $uri");
-
         return $next($request);
     }
 }

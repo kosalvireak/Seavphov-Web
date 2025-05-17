@@ -25,16 +25,5 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
-
-         app('router')->matched(function ($event) {
-            $request = $event->request;
-
-            $ip = $request->ip();
-            $method = $request->method();
-            $uri = $request->path();
-
-            Log::info("Access from IP: $ip - $method $uri");
-        });
-
     }
 }

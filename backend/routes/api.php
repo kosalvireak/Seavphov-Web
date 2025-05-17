@@ -17,6 +17,7 @@ use App\Http\Controllers\ReadingProgressController;
 use App\Http\Middleware\AdminAuthorization;
 use App\Http\Middleware\ApiTokenAuthentication;
 use App\Http\Middleware\CopAdminAuthorization;
+use App\Http\Middleware\LogRequestInfo;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,7 @@ Broadcast::routes([
     'middleware' => [\App\Http\Middleware\BroadcastTokenAuth::class],
 ]);
 
-Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class])->group(function () {
+Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class, LogRequestInfo::class])->group(function () {
     Route::get('', [BookController::class, 'getMyBooks']);
     Route::get('{id}', [BookController::class, 'getMyBook']);
 });
