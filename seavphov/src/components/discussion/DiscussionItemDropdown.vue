@@ -1,31 +1,16 @@
 <template>
   <div class="DiscussionItemDropdown">
-    <Dropdown
-      id="discussion-dropdown"
-      id_content="discussion-dropdown_content"
-      placement="bottom-end"
-    >
-      <template #button>
-        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-          <i class="fas fa-ellipsis-v fa-xl"></i>
+    <FwbDropdown align-to-end close-inside>
+      <template #trigger>
+        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg clickable">
+          <i class="fas fa-ellipsis-v fa-lg"></i>
         </div>
       </template>
-      <template #content>
-        <ul class="py-2 mt-0">
-          <li>
-            <p :class="dropdownItemClass" @click="editDiscussion()">
-              <span>Edit</span>
-            </p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click="deleteDiscussion()">
-              <span v-if="isDeleting">Deleting...</span>
-              <span v-else>Delete</span>
-            </p>
-          </li>
-        </ul>
-      </template>
-    </Dropdown>
+      <nav :class="fwbDropdownNavCss">
+        <p :class="fwbDropdownItemCss" @click="editDiscussion()">Edit</p>
+        <p :class="fwbDropdownItemCss" @click="deleteDiscussion()">Delete</p>
+      </nav>
+    </FwbDropdown>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <section class="DiscussionDetail min-h-screen grid grid-cols-12 gap-4 w-100">
     <div class="col-span-12 lg:col-span-9 my-4 space-y-6 container-xl">
-      <BackRoute />
+      <BackRoute route="discussion" />
       <div class="flex-center w-100 h-44" v-if="isLoading">
         <Loader :size="40" />
       </div>

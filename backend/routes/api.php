@@ -122,6 +122,7 @@ Route::prefix('comment')->group(function () {
 
 Route::prefix('discussions')->group(function () {
     Route::get('', [DiscussionController::class, 'getDiscussionsWithFilter'])->middleware([OptionalApiTokenAuthentication::class]);
+    Route::get('/popular', [DiscussionController::class, 'getPopularDiscussion']);
     Route::get('/newest', [DiscussionController::class, 'getNewestDiscussion']);
     Route::get('/my-discussions', [DiscussionController::class, 'getMyDiscussions'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{id}', [DiscussionController::class, 'getDiscussionById'])->middleware([OptionalApiTokenAuthentication::class]);

@@ -1,18 +1,8 @@
 <template>
   <section class="Discussion">
     <HomeNavigation selectedTab="discussion" />
-    <div class="grid grid-cols-12 w-full mb-6">
-      <div
-        class="col-span-12 lg:col-span-3 h-64 lg:h-96 sm:p-0 lg:p-6 justify-center align-item-center"
-      >
-        <img
-          src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-1.jpg"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      <div
-        class="Search-Discussion col-span-12 lg:col-span-6 mt-4 space-y-6 w-full"
-      >
+    <div class="grid grid-cols-12 w-full gap-4">
+      <div class="Search-Discussion col-span-12 lg:col-span-9 mt-4 space-y-6">
         <form
           class="Search-Form w-full p-0 rounded-lg d-flex flex-row relative"
           v-on:submit.prevent="fetchDiscussions()"
@@ -61,20 +51,14 @@
           @on-delete-discussion="onDeleteDiscussion($event)"
         />
       </div>
-      <div
-        class="col-span-12 lg:col-span-3 hidden lg:flex lg:d-flex h-64 lg:h-96 sm:p-0 lg:p-6"
-      >
-        <img
-          src="https://raw.githubusercontent.com/kosalvireak/Seavphov-Web/refs/heads/vue/assets/Poster-2.jpg"
-          class="w-full h-full"
-        />
-      </div>
+      <PopularDiscussion class="col-span-12 lg:col-span-3 mt-4" />
     </div>
   </section>
 </template>
 
 <script>
 import { MDBInput } from "mdb-vue-ui-kit";
+import PopularDiscussion from "../components/discussion/PopularDiscussion.vue";
 import NewestDiscussions from "../components/discussion/NewestDiscussions.vue";
 import AddDiscussionContainer from "../components/discussion/AddDiscussionContainer.vue";
 import DiscussionItem from "../components/discussion/DiscussionItem.vue";
@@ -82,6 +66,7 @@ import DiscussionController from "../controllers/DiscussionController";
 export default {
   name: "Discussion",
   components: {
+    PopularDiscussion,
     DiscussionItem,
     AddDiscussionContainer,
     AdsContainer: NewestDiscussions,
@@ -101,14 +86,14 @@ export default {
       this.isLoading = true;
       this.filters.title = this.keyword;
       const response = await DiscussionController.getDiscussionsWithFilter(
-        this.filters,
+        this.filters
       );
       this.isLoading = false;
       this.discussions = response;
     },
     onDeleteDiscussion(id) {
       this.discussions = this.discussions.filter(
-        (discussion) => discussion.id !== id,
+        (discussion) => discussion.id !== id
       );
     },
   },

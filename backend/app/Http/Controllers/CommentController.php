@@ -189,7 +189,7 @@ class CommentController extends Controller
             // receiver_id is book owner_id
             NotificationService::storeDiscussionNotification($user->id, $discussion->owner_id, $discussion_id, 'comment on your discussion!');
 
-            return ResponseUtil::Success('Successfully add a comment', $comment);
+            return ResponseUtil::Success('Successfully add a comment', $comment->getData($user->id));
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot add comment!', $exception->getMessage());
         }

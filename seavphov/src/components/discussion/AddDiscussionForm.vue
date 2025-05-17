@@ -8,7 +8,7 @@
       <FwbAvatar :img="$store.state.user.picture" rounded size="md" />
       <div
         @click="showModal"
-        class="w-full rounded-lg p-2 hover:bg-gray-300 clickable"
+        class="w-full rounded-lg p-2 hover:bg-gray-200 clickable"
       >
         What's on your mind?
       </div>
@@ -81,7 +81,7 @@ export default {
       this.isLoading = true;
       this.formData.append("body", this.discussion.body);
       const response = await DiscussionController.createDiscussion(
-        this.formData,
+        this.formData
       );
       this.$emit("onAddDiscussion", response);
       this.closeModal();
