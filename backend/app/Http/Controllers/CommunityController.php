@@ -13,6 +13,16 @@ use Illuminate\Database\QueryException;
 
 class CommunityController extends Controller
 {
+    public function getPopularCommunities()
+    {
+        try {
+            $communities = Community::inRandomOrder()->take(6)->get();
+            return ResponseUtil::Success('Get popular communities success', $communities);
+        } catch (QueryException  $exception) {
+            return ResponseUtil::ServerError('Cannot get popular communities!', $exception->getMessage());
+        }
+    }
+
     /**
      * @OA\Get(
      *     path="/api/community",

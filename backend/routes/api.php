@@ -60,6 +60,7 @@ Route::prefix('members/reading-challenge')->middleware([ApiTokenAuthentication::
 });
 
 Route::prefix('community')->group(function () {
+    Route::get('/popular', [CommunityController::class, 'getPopularCommunities']);
     Route::get('', [CommunityController::class, 'searchCommunity'])->middleware([OptionalApiTokenAuthentication::class]);
     Route::get('/route/{route}', [CommunityController::class, 'getCommunityByRoute']);
     Route::post('/new', [CommunityController::class, 'createCommunity'])->middleware([ApiTokenAuthentication::class]);

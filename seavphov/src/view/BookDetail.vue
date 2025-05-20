@@ -1,5 +1,5 @@
 <template>
-  <div class="container-xl mt-8">
+  <div class="mt-8">
     <div class="BookDetail">
       <div class="grid grid-cols-12 gap-4 h-100">
         <div
@@ -84,33 +84,33 @@
         </div>
       </div>
     </div>
-    <div class="RelatedBooks mt-5">
-      <hr />
-      <!-- <RenderBook
+    <div v-if="book.title" class="RelatedBooks mt-5">
+      <hr class="mb-4" />
+      <RenderBook
         header="Readers also enjoyed"
         :books="relatedBooks"
         :loading="isLoadingRelatedBooks"
-      /> -->
+      />
     </div>
+    <PopularCommunities />
   </div>
 </template>
 
 <script>
+import PopularCommunities from "../components/book-detail/PopularCommunities.vue";
 import RenderBook from "../components/RenderBook.vue";
 import BookAuthorProfile from "../components/book-detail/BookAuthorProfile.vue";
 import BookReview from "../components/book-detail/BookReview.vue";
 import BookController from "../controllers/BookController";
 export default {
   name: "BookDetail",
-  components: { RenderBook, BookAuthorProfile, BookReview },
+  components: { RenderBook, BookAuthorProfile, BookReview, PopularCommunities },
   data() {
     return {
       paramsId: this.$route.params.id,
       book: {},
       relatedBooks: [],
-      filters: {
-        categories: "",
-      },
+      filters: {},
       bookOwner: {},
       isLoadingRelatedBooks: false,
       loadingSaveBook: false,
@@ -121,10 +121,18 @@ export default {
   methods: {
     async getRelatedBooks() {
       this.isLoadingRelatedBooks = true;
-      this.filters.categories = this.book.categories;
+
+      // Add categories from the book to the Category filter (if not already included)
+      this.filters.Category = [this.book.categories];
+
+      // Set other filters
       this.filters.max = Seavphov.maxRelatedBook;
       this.filters.excludeId = this.paramsId;
-      this.relatedBooks = await BookController.getBooksWithFilter(this.filters);
+
+      // Fetch related books
+      const response = await BookController.searchBook(this.filters);
+      this.relatedBooks = response.data;
+
       this.isLoadingRelatedBooks = false;
     },
     async getBook(id) {
