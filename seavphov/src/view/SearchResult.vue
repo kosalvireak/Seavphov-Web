@@ -71,7 +71,9 @@ fix
           <div v-if="!isEmpty" class="space-y-8">
             <div>
               <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
-              <p v-else class="h6 mb-0">Total: {{ total }} {{ bookLabel }}</p>
+              <p v-else class="h6 mb-0">
+                Total: {{ total }} {{ bookPluralize(total) }}
+              </p>
             </div>
 
             <RenderBook
@@ -205,9 +207,6 @@ export default {
     },
   },
   computed: {
-    bookLabel() {
-      return this.total > 1 ? "Books" : "Book";
-    },
     isDefaultFilter() {
       return (
         !Object.values(this.selectedFlags).some((group) =>

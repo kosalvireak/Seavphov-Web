@@ -34,7 +34,7 @@ export default {
       }
     },
     async deleteBook(id) {
-      await this.$store.dispatch("deleteBook", id);
+      await BookController.deleteBook(id);
       this.$emit("deleteBook");
     },
   },

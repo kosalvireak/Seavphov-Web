@@ -1,4 +1,4 @@
-import { getData, postForm } from "../utils/apiUtils.js";
+import { getData, postForm, deleteData } from "../utils/apiUtils.js";
 
 const BookRoute = "/api/books";
 
@@ -30,6 +30,7 @@ export default class BookController {
   static async getMyBook(id) {
     return await getData(`/api/auth/book/${id}`, true);
   }
+
   static async getSavedBook() {
     return await getData("/api/saved", true);
   }
@@ -49,5 +50,9 @@ export default class BookController {
 
   static async toggleSaveBook(id) {
     return await getData(`/api/saved/${id}`, true);
+  }
+
+  static async deleteBook(id) {
+    return await deleteData(BookRoute + `/${id}`, true);
   }
 }

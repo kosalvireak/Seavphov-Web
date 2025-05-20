@@ -13,9 +13,11 @@
       <div
         class="flex-grow-1 flex-center lg:items-start flex-col p-2 space-y-2"
       >
-        <p class="h4 font-bold ellipsis-2 mb-0">
-          {{ community.name }}
-        </p>
+        <router-link :to="`/community/${community.route}`">
+          <p class="h4 font-bold ellipsis-2 mb-0">
+            {{ community.name }}
+          </p>
+        </router-link>
 
         <Badge :type="visibilityColor" size="sm" class="mr-0">{{
           visibilityText

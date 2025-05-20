@@ -14,7 +14,8 @@
           style="height: 40px"
         >
           <h6 class="p-0 m-0 font-bold font-75">
-            Result: {{ comments.length }} Comments
+            Result: {{ comments.length }}
+            {{ textPluralize(comments.length, "Comment", "Comments") }}
           </h6>
         </div>
         <div class="flex flex-col space-y-4">

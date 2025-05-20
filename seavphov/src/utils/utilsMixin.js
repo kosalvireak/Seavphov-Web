@@ -28,6 +28,12 @@ export const UtilsMixin = {
       }
       return !(obj[attribute] == null || obj[attribute] === "null");
     },
+    bookPluralize(total) {
+      return total > 1 ? "Books" : "Book";
+    },
+    textPluralize(total, singular, plural) {
+      return total > 1 ? plural : singular;
+    }
   },
   computed: {
     isLogin() {

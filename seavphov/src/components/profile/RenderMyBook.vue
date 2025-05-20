@@ -10,7 +10,9 @@
     <template v-else>
       <div v-if="!isBooksEmpty" class="space-y-4">
         <div class="h-12 d-flex align-items-center justify-content-end m-1">
-          <p class="h6">Result: {{ books.length }} Books</p>
+          <p class="h6">
+            Result: {{ books.length }} {{ bookPluralize(books.length || 0) }}
+          </p>
         </div>
         <MyBook
           v-for="book in books"

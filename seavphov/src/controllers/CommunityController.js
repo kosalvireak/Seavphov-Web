@@ -25,4 +25,8 @@ export default class CommunityController {
   static async deleteCommunity(route) {
     return await deleteData(CommunityRoute + `/delete/${route}`, true);
   }
+
+  static async getPopularCommunities() {
+    return await getData(CommunityRoute + `/popular`);
+  }
 }

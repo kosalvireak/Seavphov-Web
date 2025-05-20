@@ -14,7 +14,8 @@
         style="height: 40px"
       >
         <h6 class="p-0 m-0 font-bold font-75">
-          Result: {{ reviews.length }} Reviews
+          Result: {{ reviews.length }}
+          {{ textPluralize(reviews.length, "Review", "Reviews") }}
         </h6>
       </div>
       <div class="flex flex-col space-y-4">
