@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     async Register() {
-      if (this.password.length > 8) {
+      if (this.password.length < 8) {
         this.Error = true;
         this.errorMessage = "Password must be 8 characters or more";
         return;
@@ -125,7 +125,7 @@ export default {
 
       this.isLoading = true;
       const responseData = await AuthController.register(
-        this.createSignupDate(),
+        this.createSignupDate()
       );
       this.isLoading = false;
 
