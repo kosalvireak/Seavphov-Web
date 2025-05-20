@@ -1,6 +1,6 @@
 fix
 <template>
-  <div class="SearchResult container-xl w-100 h-100 mb-auto">
+  <div class="SearchResult w-100 h-100 mb-auto">
     <HomeNavigation />
     <div
       class="Search-Book-Container mt-8 grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
@@ -9,6 +9,11 @@ fix
         class="Filter w-100 card col-span-12 md:col-span-3 space-y-4 p-2 !h-fit"
       >
         <p class="h4">Search & Filter</p>
+
+        <div v-if="!isDefaultFilter" class="absolute right-2 top-2 mt-0">
+          <FwbButton @click="resetFilter()" color="yellow">Reset</FwbButton>
+        </div>
+
         <form
           class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
           v-on:submit.prevent="searchBook()"
@@ -56,9 +61,6 @@ fix
             </div>
           </div>
         </form>
-        <div v-if="!isDefaultFilter" class="absolute right-2 top-2 mt-0">
-          <FwbButton @click="resetFilter()" color="yellow">Reset</FwbButton>
-        </div>
       </div>
 
       <div class="Content col-span-12 md:col-span-9">
@@ -69,8 +71,9 @@ fix
           <div v-if="!isEmpty" class="space-y-8">
             <div>
               <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
-              <p v-else class="h6 mb-0">Total: {{ total }} Books</p>
+              <p v-else class="h6 mb-0">Total: {{ total }} {{ bookLabel }}</p>
             </div>
+
             <RenderBook
               :books="books"
               :loading="isLoading"
@@ -159,7 +162,7 @@ export default {
     async searchBook() {
       this.isLoading = true;
       const response = await BookController.searchBook(
-        this.getSelectedArrays(),
+        this.getSelectedArrays()
       ); // response is the pagination object
       if (response) {
         this.books = response.data;
@@ -202,10 +205,13 @@ export default {
     },
   },
   computed: {
+    bookLabel() {
+      return this.total > 1 ? "Books" : "Book";
+    },
     isDefaultFilter() {
       return (
         !Object.values(this.selectedFlags).some((group) =>
-          Object.values(group).some((isChecked) => isChecked),
+          Object.values(group).some((isChecked) => isChecked)
         ) && !this.title
       );
     },

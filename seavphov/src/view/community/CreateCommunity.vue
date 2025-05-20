@@ -24,6 +24,8 @@
             id="name"
             v-model="community.name"
             wrapperClass="bg-white h-3rem"
+            :maxlength="50"
+            counter
             required
           />
 

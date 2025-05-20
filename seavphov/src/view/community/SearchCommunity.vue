@@ -8,6 +8,15 @@
         class="Filter w-100 card col-span-12 md:col-span-3 space-y-4 p-2 !h-fit"
       >
         <p class="h4">Search & Filter</p>
+
+        <FwbButton
+          v-if="!isDefaultFilter"
+          class="absolute right-2 top-2 mt-0"
+          @click="resetFilter()"
+          color="yellow"
+          >Reset</FwbButton
+        >
+
         <form
           class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
           v-on:submit.prevent="searchCommunity()"
@@ -92,15 +101,10 @@
         <div class="flex-center !justify-between h-12">
           <div>
             <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
-            <p v-else class="h6 mb-0">Total: {{ total }} Communities</p>
+            <p v-else class="h6 mb-0">
+              Total: {{ total }} {{ communityLabel }}
+            </p>
           </div>
-
-          <FwbButton
-            v-if="!isDefaultFilter"
-            @click="resetFilter()"
-            color="yellow"
-            >Reset</FwbButton
-          >
         </div>
         <LoadingButton
           @click="toRouteName('create-community')"
@@ -216,6 +220,9 @@ export default {
     },
   },
   computed: {
+    communityLabel() {
+      return this.total > 1 ? "Communities" : "Community";
+    },
     isDefaultFilter() {
       return this.name == "" && this.visibility == "all" && this.role == "all";
     },

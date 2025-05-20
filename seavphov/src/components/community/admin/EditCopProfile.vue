@@ -8,7 +8,7 @@
       <form
         v-else
         v-on:submit.prevent="Save()"
-        class="row flex-center space-y-4"
+        class="row flex-center align-items-start space-y-4"
       >
         <div>
           <p>Banner image</p>
@@ -37,12 +37,12 @@
               id="name"
               v-model="cop.name"
               wrapperClass="bg-white h-3rem"
+              :maxlength="50"
+              counter
               required
             />
 
-            <Info
-              text="Only letters, numbers, and spaces are allowed. Maximum 50 characters."
-            />
+            <Info text="Only letters, numbers, and spaces are allowed." />
           </div>
           <div>
             <MDBTextarea
@@ -50,6 +50,7 @@
               label="Description"
               id="description"
               v-model="cop.description"
+              wrapperClass="pt-2"
               required
             />
           </div>
