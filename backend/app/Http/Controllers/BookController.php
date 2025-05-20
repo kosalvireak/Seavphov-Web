@@ -250,6 +250,9 @@ class BookController extends Controller
                 'has_pdf' => 'required|in:true,false',
             ]);
 
+            // Convert the string value to a boolean
+            $validatedData['has_pdf'] = filter_var($validatedData['has_pdf'], FILTER_VALIDATE_BOOLEAN);
+
 
             if ($validatedData['has_pdf'] == true) {
                 $validatedData['pdf_url'] = $request->get('pdf_url');
@@ -258,9 +261,6 @@ class BookController extends Controller
                     return ResponseUtil::UnProcessable('PDF URL is required');
                 }
             }
-
-            // Convert the string value to a boolean
-            $validatedData['has_pdf'] = filter_var($validatedData['has_pdf'], FILTER_VALIDATE_BOOLEAN);
 
             $validatedData['owner_id'] = $user->id;
 
