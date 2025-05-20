@@ -20,9 +20,9 @@ Profile's social media
 
 Book's CRUD
 
-Search book by title, categories, availability
+Search books by title, categories, or availability
 
-Save book as favorite
+Save the book as a favorite
 
 ## Book's review
 
@@ -40,41 +40,41 @@ Comment's CRUD, like, dislike, notification
 
 ## Community
 
-Search community by name and visibility
+Search the community by name and visibility
 
 Community's CRUD
 
 Community Join request, Notification Join request
 
-Community manage members
+Manage members
 
 Community's role
 
 ### Functionality
 ---
 
-Community Admin can assign any member as cop admin
+Community Admin can assign any member as community admin
 
-Admin can only assign themselves as member only if there is another admin
+Admin can only assign themselves as a member if there is another admin
 
-Admin can only remove themselves from community only if there is another admin
+Admin can only remove themselves from the community if there is another admin
 
 ---
 
 ## Community's reading challenge
 
-Create reading challenge
+Create a reading challenge
 
-User join reading challenge
+User joins reading challenge
 
 Update reading progress
 
 
 ### Functionality
 ---
-Community member can join challenge
+Community members can join the challenge
 
-Non community member can see challenge only for public community
+Non-community members can see the  challenge only for the public community
 
 ---
 
@@ -84,7 +84,7 @@ Dynamic Banner
 
 ## Admin
 
-Admin manages Books, Users, Review, Banner
+Admin manages Books, Users, Reviews, and Banner
 
 ## Image
 
