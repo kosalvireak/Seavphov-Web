@@ -7,7 +7,7 @@
       </div>
       <template v-else>
         <DiscussionItem :discussion="discussion" />
-        <CommentSection :discussion_id="paramsId" />
+        <CommentSection :discussion_id="paramsId" :discussion="discussion" />
       </template>
     </div>
     <NewestDiscussions class="col-span-12 lg:col-span-3 mt-4" />

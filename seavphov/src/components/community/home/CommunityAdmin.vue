@@ -21,7 +21,7 @@
         </ul>
       </div>
       <div class="col-span-12 lg:col-span-9">
-        <EditCopProfile v-if="currentTab == 'edit-profile'" :route="route" />
+        <EditCopProfile v-if="currentTab == 'profile-setting'" :route="route" />
         <CreateReadingChallenge
           v-else-if="currentTab == 'create-challenge'"
           :route="route"
@@ -49,7 +49,7 @@ export default {
       tabs: [
         {
           name: "Edit profile",
-          tabRoute: "edit-profile",
+          tabRoute: "profile-setting",
           iconClass: " fa-id-card",
         },
         {
@@ -63,7 +63,7 @@ export default {
           iconClass: "fa-trash",
         },
       ],
-      currentTab: "edit-profile",
+      currentTab: "profile-setting",
       isCheckingPermission: true,
     };
   },
@@ -90,7 +90,7 @@ export default {
     async checkViewPermission() {
       this.isCheckingPermission = true;
       const response = await CopMemberController.checkViewCopHomePermission(
-        this.route,
+        this.route
       );
 
       if (!response.isCopAdmin) {

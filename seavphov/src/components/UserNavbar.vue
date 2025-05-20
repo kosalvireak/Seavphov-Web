@@ -28,7 +28,7 @@
         <template v-else>
           <FwbButton
             @click="toRouteName('signup')"
-            gradient="green"
+            color="yellow"
             class="m-0 px-2 text-xs w-fit"
             >Register</FwbButton
           >

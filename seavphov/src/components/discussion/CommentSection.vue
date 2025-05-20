@@ -27,6 +27,9 @@ export default {
     discussion_id: {
       type: [Number, String],
     },
+    discussion: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -36,9 +39,11 @@ export default {
   },
   methods: {
     onRemoveComment(id) {
+      this.discussion.number_of_comments--;
       this.comments = this.comments.filter((comment) => comment.id !== id);
     },
     onAddComment(comment) {
+      this.discussion.number_of_comments++;
       if (!this.comments) {
         this.comments = [];
         this.comments.push(comment);

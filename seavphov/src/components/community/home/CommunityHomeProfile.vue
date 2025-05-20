@@ -1,7 +1,16 @@
 <template>
   <section
-    class="CommunityHomeProfile card flex flex-center py-6 px-2 space-y-2"
+    class="CommunityHomeProfile card flex flex-center py-6 px-2 space-y-2 group"
   >
+    <!-- Edit community Pencil Icon -->
+    <div
+      class="hidden group-hover:block clickable absolute right-4 top-4"
+      @click="toRouteName('community-admin')"
+    >
+      <i class="fa fa-pencil fa-xl text-gray-800" aria-hidden="true"></i>
+    </div>
+
+    <!-- Edit community Pencil Icon -->
     <div
       class="Profile hover-zoom w-24 h-24 lg:w-40 lg:h-40 flex-center rounded-full border-2 border-gray-300 overflow-hidden"
     >

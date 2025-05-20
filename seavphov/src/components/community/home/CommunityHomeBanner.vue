@@ -1,10 +1,20 @@
 <template>
-  <section class="CommunityHomeBanner card h-64 p-2">
+  <section class="CommunityHomeBanner card h-64 p-2 relative group">
     <img
       :src="bannerUrl"
       class="w-full h-full object-center rounded-lg"
       alt="community-banner"
     />
+
+    <!-- Edit community Pencil Icon -->
+    <div
+      class="hidden group-hover:block clickable absolute right-4 top-4"
+      @click="toRouteName('community-admin')"
+    >
+      <i class="fa fa-pencil fa-xl text-gray-300" aria-hidden="true"></i>
+    </div>
+
+    <!-- Edit community Pencil Icon -->
   </section>
 </template>
 

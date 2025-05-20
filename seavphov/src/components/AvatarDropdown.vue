@@ -7,7 +7,7 @@
       <p :class="fwbDropdownItemCss" @click="toRouteName('profile')">
         My profile
       </p>
-      <p :class="fwbDropdownItemCss" @click="toRouteName('edit-profile')">
+      <p :class="fwbDropdownItemCss" @click="toRouteName('profile-setting')">
         Profile settings
       </p>
       <p :class="fwbDropdownItemCss" @click="logout()">Logout</p>

@@ -6,7 +6,7 @@
     <FwbInput
       v-if="!isSearchRoute"
       v-model="keyword"
-      placeholder="Enter any book title..."
+      placeholder="Search By Title, Category, Condition or Availability"
       size="md"
     >
       <template #prefix>

@@ -104,7 +104,7 @@ export default {
       this.formData.append("description", this.readingChallenge.description);
       await ReadingChallengeController.addReadingChallenge(
         this.formData,
-        this.route,
+        this.route
       );
       this.isLoading = false;
     },

@@ -17,8 +17,17 @@
           />
         </div>
         <div
-          class="ProfileSection h-fit flex items-center justify-between flex-col lg:flex-row space-y-4 space-x-0 lg:space-y-0 lg:space-x-4"
+          class="ProfileSection group relative h-fit flex items-center justify-between flex-col lg:flex-row space-y-4 space-x-0 lg:space-y-0 lg:space-x-4"
         >
+          <!-- Edit profile Pencil Icon -->
+          <div
+            class="hidden group-hover:block clickable absolute right-2 top-2"
+            @click="toRouteName('profile-setting')"
+          >
+            <i class="fa fa-pencil fa-xl text-gray-800" aria-hidden="true"></i>
+          </div>
+
+          <!-- Edit profile Pencil Icon -->
           <div class="ProfileImage h-32 w-32 lg:h-40 lg:w-40 flex-shrink-0">
             <img
               v-if="user.picture"
