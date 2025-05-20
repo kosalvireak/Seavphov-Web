@@ -37,6 +37,10 @@ const appName = import.meta.env.VITE_APP_NAME;
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 }
+  },
   routes: [
     {
       path: "/",
@@ -128,8 +132,8 @@ const router = createRouter({
           component: ViewProfile,
         },
         {
-          path: "/edit-profile",
-          name: "edit-profile",
+          path: "/profile-setting",
+          name: "profile-setting",
           component: EditProfile,
           meta: { requiresCookie: true, title: appName + " - Profile Setting" },
         },
