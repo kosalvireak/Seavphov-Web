@@ -5,10 +5,14 @@
     </div>
 
     <template v-else>
-      <div class="ProfileInfo col-span-12 lg:col-span-3">
+      <div class="ProfileInfo col-span-12 lg:col-span-3 space-y-8">
         <CommunityHomeProfile
           :community="community"
           :permissionObject="permissionObject"
+        />
+        <CommunityHomeMemberList
+          v-if="permissionObject.isCopAdmin || permissionObject.isCopMember"
+          :route="route"
         />
       </div>
 
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+import CommunityHomeMemberList from "./CommunityHomeMemberList.vue";
 import ReadingChallengeList from "../../components/community/challenge/ReadingChallengeList.vue";
 import ReadingChallengeEntry from "../../components/community/challenge/ReadingChallengeEntry.vue";
 import CommunityHomeProfile from "../../components/community/home/CommunityHomeProfile.vue";
@@ -40,6 +45,7 @@ export default {
     ReadingChallengeEntry,
     CommunityHomeBanner,
     ReadingChallengeList,
+    CommunityHomeMemberList,
   },
   props: {
     permissionObject: {
