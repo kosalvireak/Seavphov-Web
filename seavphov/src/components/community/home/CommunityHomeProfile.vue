@@ -4,6 +4,7 @@
   >
     <!-- Edit community Pencil Icon -->
     <div
+      v-if="permissionObject.isCopAdmin"
       class="hidden group-hover:block clickable absolute right-4 top-4"
       @click="toRouteName('community-admin')"
     >
