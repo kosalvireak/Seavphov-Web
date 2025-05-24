@@ -13,7 +13,10 @@
       </div>
 
       <div class="Content col-span-12 lg:col-span-9 space-y-8">
-        <CommunityHomeBanner :bannerUrl="community.banner" />
+        <CommunityHomeBanner
+          :bannerUrl="community.banner"
+          :isCopAdmin="permissionObject.isCopAdmin"
+        />
         <ReadingChallengeEntry v-if="permissionObject.isCopAdmin" />
         <ReadingChallengeList
           v-if="permissionObject.ableToViewHome"
@@ -61,7 +64,7 @@ export default {
       let params = new URLSearchParams();
       params.append("route", this.route);
       this.community = await CommunityController.getCommunityByRoute(
-        this.route,
+        this.route
       );
 
       this.isLoading = false;

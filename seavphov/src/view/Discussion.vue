@@ -7,7 +7,7 @@
           class="Search-Form w-full p-0 rounded-lg d-flex flex-row relative"
           v-on:submit.prevent="fetchDiscussions()"
         >
-          <FwbInput v-model="keyword" placeholder="Search discussion" size="md">
+          <FwbInput v-model="keyword" placeholder="Search By Title" size="md">
             <template #prefix>
               <svg
                 aria-hidden="true"

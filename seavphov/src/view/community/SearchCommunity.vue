@@ -7,114 +7,119 @@
       <div
         class="Filter w-100 card col-span-12 md:col-span-3 space-y-4 p-2 !h-fit"
       >
-        <p class="h4">Search & Filter</p>
-
-        <FwbButton
-          v-if="!isDefaultFilter"
-          class="absolute right-2 top-2 mt-0"
-          @click="resetFilter()"
-          color="yellow"
-          >Reset</FwbButton
-        >
-
-        <form
-          class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
-          v-on:submit.prevent="searchCommunity()"
-        >
-          <FwbInput
-            v-model="name"
-            placeholder="Search community"
-            size="md"
-            class="w-100"
-            wrapper-class="w-100"
-          >
-            <template #prefix>
-              <svg
-                aria-hidden="true"
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+        <FwbAccordion>
+          <FwbAccordionPanel>
+            <FwbAccordionHeader class="p-1 border-0"
+              ><p class="h4">Search & Filter</p>
+            </FwbAccordionHeader>
+            <FwbAccordionContent class="p-1 border-0">
+              <form
+                class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
+                v-on:submit.prevent="searchCommunity()"
               >
-                <path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </template>
-            <template #suffix>
-              <LoadingButton class="my-2">Search</LoadingButton>
-            </template>
-          </FwbInput>
-          <div class="visibility-filter">
-            <p class="h6 mb-0">Visibility</p>
-            <FwbRadio
-              class="clickable"
-              label="All"
-              name="visibility-all"
-              v-model="visibility"
-              value="all"
-            />
-            <FwbRadio
-              class="clickable"
-              label="Private"
-              name="private"
-              v-model="visibility"
-              value="private"
-            />
-            <FwbRadio
-              class="clickable"
-              label="Public"
-              name="public"
-              v-model="visibility"
-              value="public"
-            />
-          </div>
-          <div v-if="isLogin" class="role-filter">
-            <p class="h6 mb-0">Role</p>
-            <FwbRadio
-              class="clickable"
-              label="All"
-              name="all"
-              v-model="role"
-              value="all"
-            />
-            <FwbRadio
-              class="clickable"
-              label="Admin"
-              name="admin"
-              v-model="role"
-              value="admin"
-            />
-            <FwbRadio
-              class="clickable"
-              label="Member"
-              name="member"
-              v-model="role"
-              value="member"
-            />
-          </div>
-        </form>
-        <div class="flex-center !justify-between h-12">
+                <FwbInput
+                  v-model="name"
+                  placeholder="Search by Title"
+                  size="md"
+                  class="w-100"
+                  wrapper-class="w-100"
+                >
+                  <template #prefix>
+                    <svg
+                      aria-hidden="true"
+                      class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </template>
+                  <template #suffix>
+                    <LoadingButton class="my-2">Search</LoadingButton>
+                  </template>
+                </FwbInput>
+                <div class="visibility-filter">
+                  <p class="h6 mb-0">Visibility</p>
+                  <FwbRadio
+                    class="clickable"
+                    label="All"
+                    name="visibility-all"
+                    v-model="visibility"
+                    value="all"
+                  />
+                  <FwbRadio
+                    class="clickable"
+                    label="Private"
+                    name="private"
+                    v-model="visibility"
+                    value="private"
+                  />
+                  <FwbRadio
+                    class="clickable"
+                    label="Public"
+                    name="public"
+                    v-model="visibility"
+                    value="public"
+                  />
+                </div>
+                <div v-if="isLogin" class="role-filter">
+                  <p class="h6 mb-0">Role</p>
+                  <FwbRadio
+                    class="clickable"
+                    label="All"
+                    name="all"
+                    v-model="role"
+                    value="all"
+                  />
+                  <FwbRadio
+                    class="clickable"
+                    label="Admin"
+                    name="admin"
+                    v-model="role"
+                    value="admin"
+                  />
+                  <FwbRadio
+                    class="clickable"
+                    label="Member"
+                    name="member"
+                    v-model="role"
+                    value="member"
+                  />
+                </div>
+              </form>
+
+              <div v-if="!isDefaultFilter" class="mt-2">
+                <FwbButton @click="resetFilter()" color="yellow"
+                  >Reset</FwbButton
+                >
+              </div>
+            </FwbAccordionContent></FwbAccordionPanel
+          >
+        </FwbAccordion>
+      </div>
+
+      <div class="Content col-span-12 md:col-span-9">
+        <div class="flex-center flex-wrap !justify-between h-12">
           <div>
             <p v-if="isLoading" class="h6 mb-0">Fetching...</p>
             <p v-else class="h6 mb-0">
               Total: {{ total }} {{ communityLabel }}
             </p>
           </div>
+          <LoadingButton
+            @click="toRouteName('create-community')"
+            class="rounded-lg"
+          >
+            Create Community
+          </LoadingButton>
         </div>
-        <LoadingButton
-          @click="toRouteName('create-community')"
-          class="rounded-lg"
-        >
-          Create Community
-        </LoadingButton>
-      </div>
-
-      <div class="Content col-span-12 md:col-span-9">
         <div v-if="isLoading" class="w-100 h-100 flex-center flex-row">
           <Loader :size="40" />
         </div>
@@ -164,13 +169,27 @@
 </template>
 
 <script>
-import { FwbRadio } from "flowbite-vue";
+import {
+  FwbAccordion,
+  FwbAccordionContent,
+  FwbAccordionHeader,
+  FwbAccordionPanel,
+  FwbRadio,
+} from "flowbite-vue";
 import { MDBInput } from "mdb-vue-ui-kit";
 import CommunityItem from "../../components/community/CommunityItem.vue";
 import CommunityController from "../../controllers/CommunityController";
 export default {
   name: "SearchCommunity",
-  components: { CommunityItem, MDBInput, FwbRadio },
+  components: {
+    CommunityItem,
+    MDBInput,
+    FwbRadio,
+    FwbAccordionPanel,
+    FwbAccordionHeader,
+    FwbAccordionContent,
+    FwbAccordion,
+  },
   data() {
     return {
       maxPaginateCop: Seavphov.maxPaginateCop,

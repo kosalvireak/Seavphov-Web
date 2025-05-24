@@ -2,65 +2,74 @@ fix
 <template>
   <div class="SearchResult w-100 h-100 mb-auto">
     <HomeNavigation />
+
     <div
       class="Search-Book-Container mt-8 grid grid-cols-12 w-100 min-h-screen gap-8 w-100"
     >
       <div
         class="Filter w-100 card col-span-12 md:col-span-3 space-y-4 p-2 !h-fit"
       >
-        <p class="h4">Search & Filter</p>
-
-        <div v-if="!isDefaultFilter" class="absolute right-2 top-2 mt-0">
-          <FwbButton @click="resetFilter()" color="yellow">Reset</FwbButton>
-        </div>
-
-        <form
-          class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
-          v-on:submit.prevent="searchBook()"
-        >
-          <FwbInput
-            v-model="title"
-            placeholder="Enter title..."
-            size="md"
-            class="w-100"
-            wrapper-class="w-100"
-          >
-            <template #prefix>
-              <svg
-                aria-hidden="true"
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+        <FwbAccordion>
+          <FwbAccordionPanel>
+            <FwbAccordionHeader class="p-1 border-0"
+              ><p class="h4">Search & Filter</p>
+            </FwbAccordionHeader>
+            <FwbAccordionContent class="p-1 border-0">
+              <form
+                class="Search-Form w-100 p-0 rounded-lg d-flex flex-col space-y-4"
+                v-on:submit.prevent="searchBook()"
               >
-                <path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </svg>
-            </template>
-            <template #suffix>
-              <LoadingButton class="my-2">Search</LoadingButton>
-            </template>
-          </FwbInput>
-          <div v-for="(options, group) in itemOptions" :key="group">
-            <h3 class="text-lg font-semibold mb-2">{{ group }}</h3>
-            <div class="flex flex-col gap-2">
-              <FwbCheckbox
-                v-for="option in options"
-                :key="option"
-                :disabled="isLoading"
-                v-model="selectedFlags[group][option]"
-                :label="option"
-                :value="option"
-                :class="isLoading ? '!cursor-not-allowed' : 'clickable'"
-              />
-            </div>
-          </div>
-        </form>
+                <FwbInput
+                  v-model="title"
+                  placeholder="Enter title..."
+                  size="md"
+                  class="w-100"
+                  wrapper-class="w-100"
+                >
+                  <template #prefix>
+                    <svg
+                      aria-hidden="true"
+                      class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </template>
+                  <template #suffix>
+                    <LoadingButton class="my-2">Search</LoadingButton>
+                  </template>
+                </FwbInput>
+                <div v-for="(options, group) in itemOptions" :key="group">
+                  <h3 class="text-lg font-semibold mb-2">{{ group }}</h3>
+                  <div class="flex flex-col gap-2">
+                    <FwbCheckbox
+                      v-for="option in options"
+                      :key="option"
+                      :disabled="isLoading"
+                      v-model="selectedFlags[group][option]"
+                      :label="option"
+                      :value="option"
+                      :class="isLoading ? '!cursor-not-allowed' : 'clickable'"
+                    />
+                  </div>
+                </div>
+              </form>
+              <div v-if="!isDefaultFilter" class="mt-2">
+                <FwbButton @click="resetFilter()" color="yellow"
+                  >Reset</FwbButton
+                >
+              </div></FwbAccordionContent
+            ></FwbAccordionPanel
+          >
+        </FwbAccordion>
       </div>
 
       <div class="Content col-span-12 md:col-span-9">
@@ -126,9 +135,23 @@ import HomeNavigation from "../components/home/HomeNavigation.vue";
 import RenderBook from "../components/RenderBook.vue";
 import Filter from "../components/Filter.vue";
 import BookController from "../controllers/BookController";
+import {
+  FwbAccordion,
+  FwbAccordionContent,
+  FwbAccordionHeader,
+  FwbAccordionPanel,
+} from "flowbite-vue";
 export default {
   name: "SearchResult",
-  components: { RenderBook, Filter, HomeNavigation },
+  components: {
+    RenderBook,
+    Filter,
+    HomeNavigation,
+    FwbAccordionPanel,
+    FwbAccordionHeader,
+    FwbAccordionContent,
+    FwbAccordion,
+  },
   data() {
     return {
       maxPaginateBook: Seavphov.maxPaginateBook,
