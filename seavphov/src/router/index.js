@@ -132,8 +132,8 @@ const router = createRouter({
           component: ViewProfile,
         },
         {
-          path: "/profile-setting",
-          name: "profile-setting",
+          path: "/edit-profile",
+          name: "edit-profile",
           component: EditProfile,
           meta: { requiresCookie: true, title: appName + " - Profile Setting" },
         },

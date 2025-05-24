@@ -7,8 +7,8 @@
       <p :class="fwbDropdownItemCss" @click="toRouteName('profile')">
         My profile
       </p>
-      <p :class="fwbDropdownItemCss" @click="toRouteName('profile-setting')">
-        Profile settings
+      <p :class="fwbDropdownItemCss" @click="toRouteName('edit-profile')">
+        Edit profile
       </p>
       <p :class="fwbDropdownItemCss" @click="logout()">Logout</p>
     </nav>

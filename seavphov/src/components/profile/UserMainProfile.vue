@@ -21,8 +21,9 @@
         >
           <!-- Edit profile Pencil Icon -->
           <div
+            v-if="viewMyProfile"
             class="hidden group-hover:block clickable absolute right-2 top-2"
-            @click="toRouteName('profile-setting')"
+            @click="toRouteName('edit-profile')"
           >
             <i class="fa fa-pencil fa-xl text-gray-800" aria-hidden="true"></i>
           </div>
@@ -40,7 +41,7 @@
             class="ProfileInfo flex items-center lg:items-start text-center flex-col w-100 !space-y-2"
           >
             <p class="text-2xl font-bold">{{ user.name }}</p>
-            <p v-if="fromProfile" class="text-base">{{ user.email }}</p>
+            <p v-if="viewMyProfile" class="text-base">{{ user.email }}</p>
             <p v-if="inValidProperty(user, 'phone')" class="text-base">
               {{ user.phone }}
             </p>
@@ -70,7 +71,7 @@ export default {
   components: { SocialMediaList },
   props: {
     user: { type: Object, required: true },
-    fromProfile: { type: Boolean, required: true },
+    viewMyProfile: { type: Boolean, required: true },
     loading: { type: Boolean, required: false },
   },
   computed: {
