@@ -23,13 +23,12 @@
       📢 Ready to Lead the Challenge? Click <b>CREATE CHALLENGE</b> and let the
       reading begin! 🚀
     </p>
-    <FwbButton
+    <LoadingButton
       @click="buildCreateChallengeRoute()"
-      color="green"
+      text="Create Challenge"
       class="w-fit mt-3"
     >
-      Create Challenge
-    </FwbButton>
+    </LoadingButton>
     <Info
       text="Only community admins can see this banner and create reading challenges."
       class="mt-2"

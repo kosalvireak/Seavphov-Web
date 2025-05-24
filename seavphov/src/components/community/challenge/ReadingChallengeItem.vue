@@ -1,11 +1,12 @@
 <template>
   <section class="ReadingChallengeItem container-xl card p-4 position-relative">
-    <FwbButton
+    <LoadingButton
       @click="visitChallengeDetail()"
-      gradient="blue"
+      color="gray"
+      text="Details"
       class="w-fit position-absolute top-6 end-6"
-      >Details</FwbButton
     >
+    </LoadingButton>
     <p class="h4">{{ challenge.book_title }}</p>
     <p class="h5">By: {{ challenge.book_author }}</p>
     <div class="flex flex-col md:flex-row gap-4">

@@ -22,28 +22,29 @@
             class="fas fa-bell fa-xl text-white clickable"
             @click="openSidebar = true"
           ></i>
-
           <AvatarDropdown />
         </template>
         <template v-else>
-          <FwbButton
+          <LoadingButton
             @click="toRouteName('signup')"
             color="yellow"
+            text="Register"
             class="m-0 px-2 text-xs w-fit"
-            >Register</FwbButton
           >
+          </LoadingButton>
         </template>
+
+        <!-- Mobile toggle button -->
         <button
-          data-collapse-toggle="navbar-user"
+          @click="isMenuOpen = !isMenuOpen"
           type="button"
-          class="inline-flex items-center p-2 w-10 h-10 text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          class="inline-flex items-center p-2 w-10 h-10 text-sm text-white rounded-lg md:hidden"
           aria-controls="navbar-user"
-          aria-expanded="false"
+          :aria-expanded="isMenuOpen.toString()"
         >
           <span class="sr-only">Open main menu</span>
           <svg
             class="w-5 h-5"
-            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 17 14"
@@ -58,14 +59,19 @@
           </svg>
         </button>
       </div>
-      <div
-        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-        id="navbar-user"
-      >
-        <div class="flex-center my-2">
-          <SearchInput role="search" />
+
+      <!-- Responsive menu with transition -->
+      <transition name="fade-slide">
+        <div
+          v-show="!isMobile || isMenuOpen"
+          class="w-full md:flex md:w-auto md:order-1 items-center justify-between"
+          id="navbar-user"
+        >
+          <div class="flex-center my-2">
+            <SearchInput role="search" />
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
     <NotificationSideBar v-model="openSidebar" />
   </nav>
@@ -90,6 +96,7 @@ export default {
       logoUrl: Seavphov.logoUrl,
       notificationCount: 0,
       openSidebar: false,
+      isMenuOpen: false,
     };
   },
   mounted() {
@@ -101,10 +108,13 @@ export default {
 </script>
 
 <style scoped>
-/* @media screen and (min-width: 768px) {
-  .UserNavbar {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-  }
-} */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease-in;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
+}
 </style>
