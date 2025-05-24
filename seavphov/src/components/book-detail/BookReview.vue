@@ -40,6 +40,7 @@ export default {
     },
     onAddReview(review) {
       if (!this.reviews) {
+        this.reviews = [];
         this.reviews.push(review);
       } else {
         this.reviews.unshift(review);
