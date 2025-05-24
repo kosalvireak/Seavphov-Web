@@ -32,7 +32,7 @@ class ReactionService
                         'reaction' => null,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], true);
+                    ], false);
                 } else {
                     // user disliked then like -> reduce dislike, add like 
                     $existingReaction->reaction = true;
@@ -45,7 +45,7 @@ class ReactionService
                         'reaction' => true,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], true);
+                    ], false);
                 }
             } else {
                 // user has no reaction -> create like record
@@ -62,7 +62,7 @@ class ReactionService
                     'reaction' => true,
                     'like' => $model->like,
                     'dislike' => $model->dislike
-                ], true);
+                ], false);
             }
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot link entity!', $exception->getMessage());
@@ -88,7 +88,7 @@ class ReactionService
                         'reaction' => null,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], true);
+                    ], false);
                 } else {
                     // user like then dislike -> reduce like, add dislike 
                     $existingReaction->reaction = false;
@@ -101,7 +101,7 @@ class ReactionService
                         'reaction' => false,
                         'like' => $model->like,
                         'dislike' => $model->dislike
-                    ], true);
+                    ], false);
                 }
             } else {
                 // user has no reaction -> create dislike record
@@ -118,7 +118,7 @@ class ReactionService
                     'reaction' => false,
                     'like' => $model->like,
                     'dislike' => $model->dislike
-                ], true);
+                ], false);
             }
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot dislike entity!', $exception->getMessage());
