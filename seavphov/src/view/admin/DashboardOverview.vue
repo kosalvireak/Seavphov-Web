@@ -25,7 +25,7 @@ export default {
         {
           title: "Users",
           number: null,
-          icon: "fa fa-xl fa-users",
+          icon: "fa fa-xl fa-user",
           routeName: "admin.users",
         },
         {
@@ -33,6 +33,12 @@ export default {
           number: null,
           icon: " fa fa-xl fa-book",
           routeName: "admin.books",
+        },
+        {
+          title: "Communities",
+          number: null,
+          icon: " fa fa-xl fa-users",
+          routeName: "admin.communities",
         },
         {
           title: "Banners",
@@ -54,8 +60,9 @@ export default {
       const response = await AdminController.adminGetOverviewData();
       this.items[0].number = response.totalUsers;
       this.items[1].number = response.totalBooks;
-      this.items[2].number = response.totalBanners;
-      this.items[3].number = response.totalDiscussions;
+      this.items[2].number = response.totalCommunity;
+      this.items[3].number = response.totalBanners;
+      this.items[4].number = response.totalDiscussions;
     },
   },
   mounted() {

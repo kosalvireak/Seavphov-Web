@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Banner;
 use App\Models\Book;
+use App\Models\Community;
 use App\Models\Discussion;
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Stringable;
@@ -32,6 +35,17 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    public function adminGetCommunities()
+    {
+        try {
+            $communities = Community::all();
+            return ResponseUtil::Success('Get communities success', $communities);
+        } catch (QueryException  $exception) {
+            return ResponseUtil::ServerError('An error occurred while get communities.', $exception->getMessage());
+        }
+    }
+
     public function adminDeleteBook($id)
     {
         try {
@@ -104,6 +118,7 @@ class AdminController extends Controller
             $totalBooks = Book::count();
             $totalDiscussions = Discussion::count();
             $totalBanners = Banner::count();
+            $totalCommunity = Community::count();
 
 
             return response()->json([
@@ -112,7 +127,8 @@ class AdminController extends Controller
                     'totalUsers' => $totalUsers,
                     'totalBooks' => $totalBooks,
                     'totalDiscussions' => $totalDiscussions,
-                    'totalBanners' => $totalBanners
+                    'totalBanners' => $totalBanners,
+                    'totalCommunity' => $totalCommunity
                 ],
             ], 200);
         } catch (QueryException  $exception) {

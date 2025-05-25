@@ -32,6 +32,7 @@ import CommunitySettings from "../components/community/home/CommunityAdmin.vue";
 import ReadingChallengeDetail from "../view/community/ReadingChallengeDetail.vue";
 import AdminController from "../controllers/admin/AdminController.js";
 import AboutUs from "../view/AboutUs.vue";
+import CommunitiesList from "../view/admin/CommunitiesList.vue";
 
 const appName = import.meta.env.VITE_APP_NAME;
 
@@ -100,6 +101,12 @@ const router = createRouter({
           name: "admin.books",
           component: BooksList,
           meta: { requiredAdminAuth: true, title: "Admin - Books" },
+        },
+        {
+          path: "communities",
+          name: "admin.communities",
+          component: CommunitiesList,
+          meta: { requiredAdminAuth: true, title: "Admin - Communities" },
         },
         {
           path: "banners",

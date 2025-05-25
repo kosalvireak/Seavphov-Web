@@ -22,4 +22,8 @@ export default class AdminController {
   static async adminGetBooks() {
     return await getData(AdminRoute + "/books", true);
   }
+
+  static async adminGetCommunities() {
+    return await getData(AdminRoute + "/communities", true);
+  }
 }
