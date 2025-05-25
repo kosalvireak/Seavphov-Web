@@ -22,7 +22,7 @@
       />
     </div>
 
-    <p class="h4 font-bold ellipsis-2">{{ community.name }}</p>
+    <p class="h4 font-bold ellipsis-2 text-center">{{ community.name }}</p>
 
     <Badge :type="visibilityColor" size="sm" class="mr-0">{{
       visibilityText

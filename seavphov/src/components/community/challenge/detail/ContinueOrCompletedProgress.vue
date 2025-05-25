@@ -2,13 +2,15 @@
   <div class="flex-center">
     <section
       v-if="hasCompleted"
-      class="CompleteChallengeWidget card p-4 flex-center flex-row bg-sp-primary w-full gradient-background"
+      class="CompleteChallengeWidget card p-4 flex-center flex-col md:flex-row bg-sp-primary w-full gradient-background"
     >
       <div class="w-24 h-24">
         <img src="/img/award-image.png" alt="award-image" />
       </div>
 
-      <p class="h3 m-0 text-white">You have completed this challenge</p>
+      <p class="h3 m-0 text-white text-center">
+        You have completed this challenge
+      </p>
 
       <div class="w-24 h-24">
         <img src="/img/award-image.png" alt="award-image" />

@@ -34,8 +34,9 @@ export default {
     return {
       navigationItems: [
         { route: "admin.dashboard", name: "Dashboard", icon: "fa-table" },
-        { route: "admin.users", name: "Users", icon: "fa-users" },
+        { route: "admin.users", name: "Users", icon: "fa-user" },
         { route: "admin.books", name: "All Books", icon: "fa-book" },
+        { route: "admin.communities", name: "Communities", icon: "fa-users" },
         { route: "admin.banners", name: "Banners", icon: "fa-th-large" },
       ],
       isCollapsed: false,

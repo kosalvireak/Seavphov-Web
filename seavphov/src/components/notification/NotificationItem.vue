@@ -8,9 +8,8 @@
         class="bg-blue-600 rounded-full min-w-2 h-2"
       ></p>
     </div>
-    <a
+    <div
       class="notification-item flex-center flex-row !justify-start w-100 text-black space-x-2"
-      :href="notification.url"
       @click="markAsRead"
     >
       <FwbAvatar :img="notification.user_picture" rounded size="md" />
@@ -31,7 +30,7 @@
           class="justify-self-end image-fluid"
         />
       </div> -->
-    </a>
+    </div>
     <NotificationAction
       :notification="notification"
       @toggle-read="toggleRead()"
@@ -60,7 +59,12 @@ export default {
       this.notification.hasRead = !this.notification.hasRead;
     },
     async markAsRead() {
-      await NotificationController.markAsRead(this.notification.id);
+      const response = await NotificationController.markAsRead(
+        this.notification.id
+      );
+      if (response) {
+        window.open(this.notification.url);
+      }
     },
   },
 };

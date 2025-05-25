@@ -22,7 +22,7 @@ class NotificationController extends Controller
             $notification->unread = true;
             $notification->save();
 
-            return ResponseUtil::Success("Successfully mark as read");
+            return ResponseUtil::Success("Successfully mark as read", true);
         } catch (Exception $e) {
             return ResponseUtil::ServerError('Cannot read or unread notification', $e->getMessage());
         }

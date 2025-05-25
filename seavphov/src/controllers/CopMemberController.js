@@ -6,6 +6,10 @@ const toast = useToast();
 const CommunityRoute = "/api/community";
 
 export default class CopMemberController {
+  static async getHomeCommunityMembersList(route) {
+    return await getData(CommunityRoute + `/${route}/home/members`, true);
+  }
+
   static async getCommunityMembers(route) {
     return await getData(CommunityRoute + `/${route}/members`, true);
   }

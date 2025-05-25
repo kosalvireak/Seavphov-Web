@@ -147,6 +147,35 @@ class CopMemberController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/community/{route}/members",
+     *     summary="Get community's member by route (display in home)",
+     *     tags={"Community's Member"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="route",
+     *         in="path",
+     *         required=true,
+     *         description="Route of the community",
+     *         @OA\Schema(type="string", default="1mmee")
+     *     ),
+     *     @OA\Response(response=200, description="Get Community members successfully"),
+     *     @OA\Response(response=500, description="Cannot get Community members!")
+     * )
+     */
+    public function getHomeCommunityMembersList($route)
+    {
+        try {
+            $cop = Community::where('route', $route)->first();
+            $copMember = CopMemberService::getCopMembers($cop->id);
+
+            return ResponseUtil::Success('Get Community members successfully', $copMember);
+        } catch (Exception  $exception) {
+            return ResponseUtil::ServerError('Cannot get Community members!', $exception->getMessage());
+        }
+    }
+
 
     public function requestToJoinCop(Request $request, $route)
     {

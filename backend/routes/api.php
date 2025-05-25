@@ -69,6 +69,7 @@ Route::prefix('community')->group(function () {
 
     // Members
     Route::get('{route}/members', [CopMemberController::class, 'getCommunityMembers'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
+    Route::get('{route}/home/members', [CopMemberController::class, 'getHomeCommunityMembersList'])->middleware([ApiTokenAuthentication::class]);
     Route::get('{route}/member-requests', [CopMemberController::class, 'getCommunityMemberRequest'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
     Route::post('{route}/change-role', [CopMemberController::class, 'changeUserRole'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
     Route::post('{route}/remove-member/{uuid}', [CopMemberController::class, 'removeMemberFromCop'])->middleware([ApiTokenAuthentication::class, CopAdminAuthorization::class]);
@@ -150,6 +151,7 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/auth', [AdminController::class, 'adminGetAuth']);
     Route::get('/overview', [AdminController::class, 'adminGetOverviewData']);
     Route::get('/books', [AdminController::class, 'adminGetBooks']);
+    Route::get('/communities', [AdminController::class, 'adminGetCommunities']);
     Route::get('/books/delete/{id}', [AdminController::class, 'adminDeleteBook']);
     Route::get('/users', [AdminController::class, 'adminGetUsers']);
     Route::get('/banners', [BannerController::class, 'adminGetBanners']);

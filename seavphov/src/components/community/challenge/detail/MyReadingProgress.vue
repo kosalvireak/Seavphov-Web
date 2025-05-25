@@ -16,34 +16,25 @@
         :progress="myProgress.progress"
       />
     </div>
-    <Dropdown
-      id="reading-progress-dropdown"
-      id_content="reading-progress-dropdown_content"
-      placement="bottom-end"
+    <FwbDropdown
+      align-to-end
+      close-inside
       class="position-absolute top-4 end-4"
     >
-      <template #button>
-        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg">
-          <i class="fas fa-ellipsis-v fa-xl"></i></div
-      ></template>
-      <template #content>
-        <ul class="py-2 mt-0 w-fit">
-          <li v-if="!challengeCompleted">
-            <p
-              :class="dropdownItemClass"
-              @click="showUpdateProgressPopup = true"
-            >
-              Update progress
-            </p>
-          </li>
-          <li>
-            <p :class="dropdownItemClass" @click="withDrawChallenge()">
-              Withdraw challenge
-            </p>
-          </li>
-        </ul>
+      <template #trigger>
+        <div class="w-8 h-8 flex-center hover:bg-gray-200 rounded-lg clickable">
+          <i class="fas fa-ellipsis-v fa-lg"></i>
+        </div>
       </template>
-    </Dropdown>
+      <nav :class="fwbDropdownNavCss">
+        <p :class="fwbDropdownItemCss" @click="showUpdateProgressPopup = true">
+          Update progress
+        </p>
+        <p :class="fwbDropdownItemCss" @click="withDrawChallenge()">
+          Withdraw challenge
+        </p>
+      </nav>
+    </FwbDropdown>
     <UpdateProgressPopup
       v-if="showUpdateProgressPopup"
       :progressObj="myProgress"
@@ -86,7 +77,7 @@ export default {
     },
     async withDrawChallenge() {
       const success = await ReadingChallengeController.withDrawChallenge(
-        this.myProgress.id,
+        this.myProgress.id
       );
       if (success) {
         this.reloadPage();

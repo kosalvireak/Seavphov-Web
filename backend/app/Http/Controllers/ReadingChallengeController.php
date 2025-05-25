@@ -95,10 +95,8 @@ class ReadingChallengeController extends Controller
                 return ResponseUtil::Success("You are not challenge owner", [], true, "info");
             }
 
+            $readingChallenge->delete();
             return ResponseUtil::Success('Successfully delete challenge', true, true);
-
-            // $readingChallenge->delete();
-            // return ResponseUtil::Success('Successfully delete challenge', true, true);
         } catch (Exception $e) {
             return ResponseUtil::ServerError('Something went wrong, cannot delete challenge', $e->getMessage());
         }
@@ -170,8 +168,8 @@ class ReadingChallengeController extends Controller
                 'book_title' => 'required|string',
                 'book_author' => 'required|string',
                 'description' => 'required|string',
-                'start_date' => 'required|date|after_or_equal:today',
-                'end_date' => 'required|date|after_or_equal:today',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
             ]);
 
             $readingChallenge->book_image = $validatedData['book_image'];

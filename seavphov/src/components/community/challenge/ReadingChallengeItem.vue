@@ -7,7 +7,7 @@
       class="w-fit position-absolute top-6 end-6"
     >
     </LoadingButton>
-    <p class="h4">{{ challenge.book_title }}</p>
+    <p @click="visitChallengeDetail()" class="h4">{{ challenge.book_title }}</p>
     <p class="h5">By: {{ challenge.book_author }}</p>
     <div class="flex flex-col md:flex-row gap-4">
       <div class="w-full md:w-1/3 flex-center book-info bg-gray-100 rounded-lg">

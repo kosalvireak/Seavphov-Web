@@ -23,7 +23,7 @@
       </template>
 
       <template #body>
-        <div class="h-96 overflow-y-auto">
+        <div>
           <form
             v-on:submit.prevent="editReadingChallenge()"
             class="flex flex-col space-y-4 w-full text-start"
@@ -62,8 +62,8 @@
               <label for="start_date">Start date</label>
               <input
                 type="date"
+                class="border-gray-400 rounded"
                 id="start_date"
-                :min="today"
                 v-model="challenge.start_date"
                 required
               />
@@ -71,6 +71,7 @@
             <div class="flex flex-col">
               <label for="end_date">End date</label>
               <input
+                class="border-gray-400 rounded"
                 type="date"
                 id="end_date"
                 :min="challenge.start_date"
@@ -124,7 +125,7 @@ export default {
       this.setValueToFormAttribute(
         this.formData,
         "book_image",
-        this.challenge.book_image,
+        this.challenge.book_image
       );
       this.formData.append("start_date", this.challenge.start_date);
       this.formData.append("end_date", this.challenge.end_date);
@@ -134,7 +135,7 @@ export default {
 
       const success = await ReadingChallengeController.editReadingChallenge(
         this.formData,
-        this.$route.params.id,
+        this.$route.params.id
       );
       if (success) {
         this.isShowModal = false;
@@ -143,10 +144,12 @@ export default {
     },
     async deleteChallenge() {
       const success = await ReadingChallengeController.deleteChallenge(
-        this.$route.params.id,
+        this.$route.params.id
       );
       if (success) {
-        this.toRouteName("community");
+        this.$router.push({ name: "community" }).then(() => {
+          window.location.reload();
+        });
       }
     },
     getDateDuration() {
@@ -165,6 +168,6 @@ export default {
 
 <style scoped>
 :deep(.p-6) {
-  padding: 0.75rem 0rem 0.75rem 0.75rem !important;
+  /* padding: 0.75rem 0rem 0.75rem 0.75rem !important; */
 }
 </style>

@@ -41,7 +41,7 @@
             <input
               type="date"
               id="start_date"
-              :min="today"
+              class="border-gray-400 rounded"
               v-model="readingChallenge.start_date"
               required
             />
@@ -51,6 +51,7 @@
             <input
               type="date"
               id="end_date"
+              class="border-gray-400 rounded"
               :min="readingChallenge.start_date"
               v-model="readingChallenge.end_date"
               :disabled="hasStartDate"
