@@ -12,7 +12,7 @@
           class="flex align-items-center text-black hover:bg-gray-200 clickable py-3 px-4"
           @click="toRouteName(navigation.route)"
         >
-          <i class="w-12 fa fa-xl" :class="navigation.icon"></i>
+          <i class="w-12 fa fa-xl text-gray-700" :class="navigation.icon"></i>
           <p class="m-0">{{ navigation.name }}</p>
         </li>
       </ul>
