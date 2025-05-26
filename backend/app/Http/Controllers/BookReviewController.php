@@ -10,7 +10,6 @@ use App\Service\NotificationService;
 use App\Service\ReactionService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 class BookReviewController extends Controller
 {
@@ -19,17 +18,20 @@ class BookReviewController extends Controller
     {
         try {
             $user = $request->attributes->get('user');
-
             $review = BookReview::findOrFail($id);
+            $bookOwnerId = Book::find($review->book_id)->owner_id;
 
-            if ($review->user_id != $user->id) {
+            $isReviewOwner = $user->id == $review->user_id;
+            $isBookOwner = $user->id == $bookOwnerId;
+
+            if (!$isReviewOwner && !$isBookOwner) {
                 return ResponseUtil::NoPermission();
             }
 
             $review->delete();
-            return ResponseUtil::Success('Deleted Review Success');
+            return ResponseUtil::Success('Deleted Review Success', true);
         } catch (Exception  $exception) {
-            return ResponseUtil::ServerError('Cannot delete Review!');
+            return ResponseUtil::ServerError('Cannot delete Review!', $exception->getMessage());
         }
     }
     public function likeReview(Request $request, $reviewId)
@@ -88,7 +90,6 @@ class BookReviewController extends Controller
     }
 
 
-
     /**
      * @OA\Get(
      *     path="/api/review/book/{bookId}",
@@ -116,11 +117,14 @@ class BookReviewController extends Controller
                 $userId = $request->attributes->get('user')->id;
             }
 
+            // get Book owner (allow book owner to remove review)
+            $bookOwnerId = Book::find($bookId)->owner_id;
+
             $items = [];
             $reviews = BookReview::where('book_id', $bookId)->orderBy('created_at', 'desc')->get();
 
             foreach ($reviews as $review) {
-                $items[] = $review->getData($userId);
+                $items[] = $review->getData($userId, $bookOwnerId);
             }
 
             if (empty($items)) {
