@@ -7,8 +7,20 @@
         </div>
       </template>
       <nav :class="fwbDropdownNavCss">
-        <p :class="fwbDropdownItemCss" @click="onEdit()">Edit</p>
-        <p :class="fwbDropdownItemCss" @click="deleteComment(id)">Delete</p>
+        <p
+          v-if="comment.edit_able"
+          :class="fwbDropdownItemCss"
+          @click="onEdit()"
+        >
+          Edit
+        </p>
+        <p
+          v-if="comment.delete_able"
+          :class="fwbDropdownItemCss"
+          @click="deleteComment(id)"
+        >
+          Delete
+        </p>
       </nav>
     </FwbDropdown>
   </div>
@@ -25,6 +37,7 @@ export default {
   },
   props: {
     id: Number,
+    comment: Object,
   },
   methods: {
     onEdit() {

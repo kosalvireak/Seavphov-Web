@@ -23,8 +23,9 @@
 
     <!-- Comment delete Button -->
     <CommentItemDropdown
-      v-if="comment.delete_able"
+      v-if="comment.delete_able || comment.edit_able"
       :id="comment.id"
+      :comment="comment"
       @on-remove="$emit('onRemove', $event)"
       @on-edit="isEditing = true"
     />

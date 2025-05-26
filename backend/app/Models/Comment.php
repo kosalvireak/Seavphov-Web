@@ -70,9 +70,11 @@ class Comment extends Model
             ->first())->getReactionAsBoolean();
     }
 
-    public function getData($userId = null)
+    public function getData($userId = null, $discussionOwnerId = null)
     {
-        $deleteAble = $userId == null ? false : $userId == $this->owner_id;
+        $isCommentOwner = $userId && $userId == $this->owner_id;
+        $isDiscussionOwner = $userId && $userId == $discussionOwnerId;
+
         return [
             'id' => $this->id,
             'user' => $this->owner(),
@@ -80,7 +82,8 @@ class Comment extends Model
             'reaction' => $this->getUserReaction($userId),
             'like' => $this->like,
             'dislike' => $this->dislike,
-            'delete_able' => $deleteAble,
+            'edit_able' => $isCommentOwner,
+            'delete_able' => $isCommentOwner || $isDiscussionOwner,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
