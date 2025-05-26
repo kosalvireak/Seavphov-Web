@@ -18,8 +18,9 @@
 
     <!-- Review delete Button -->
     <ReviewItemDropdown
-      v-if="review.delete_able"
+      v-if="review.delete_able || review.edit_able"
       :id="review.id"
+      :review="review"
       @on-remove-review="$emit('onRemoveReview', $event)"
       @on-edit="isEditing = true"
     />

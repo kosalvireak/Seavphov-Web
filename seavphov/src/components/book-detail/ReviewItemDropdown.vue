@@ -7,8 +7,20 @@
         </div>
       </template>
       <nav :class="fwbDropdownNavCss">
-        <p :class="fwbDropdownItemCss" @click="onEdit()">Edit</p>
-        <p :class="fwbDropdownItemCss" @click="deleteReview(id)">Delete</p>
+        <p
+          v-if="review.edit_able"
+          :class="fwbDropdownItemCss"
+          @click="onEdit()"
+        >
+          Edit
+        </p>
+        <p
+          v-if="review.delete_able"
+          :class="fwbDropdownItemCss"
+          @click="deleteReview(id)"
+        >
+          Delete
+        </p>
       </nav>
     </FwbDropdown>
   </div>
@@ -20,17 +32,17 @@ export default {
   name: "ReviewItemDropdown",
   props: {
     id: Number,
+    review: Object,
   },
   methods: {
     onEdit() {
       this.$emit("onEdit");
     },
     async deleteReview(id) {
-      this.$emit("onRemoveReview", id);
       const response = await ReviewController.deleteReview(id);
-      // if (response) {
-      //   this.$emit("onRemoveReview", id);
-      // }
+      if (response) {
+        this.$emit("onRemoveReview", id);
+      }
     },
   },
 };

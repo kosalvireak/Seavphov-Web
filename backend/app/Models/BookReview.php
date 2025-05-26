@@ -72,9 +72,11 @@ class BookReview extends Model
         return $reaction != null ? $reaction->getReactionAsBoolean() : null;
     }
 
-    public function getData($userId = null)
+    public function getData($userId = null, $bookOwnerId = null)
     {
-        $deleteAble = $userId == null ? false : $userId == $this->user_id;
+        $isReviewOwner = $userId && $userId == $this->user_id;
+        $isBookOwner = $userId && $userId == $bookOwnerId;
+
         return [
             'id' => $this->id,
             'user' => $this->owner(),
@@ -82,7 +84,8 @@ class BookReview extends Model
             'reaction' => $this->getUserReaction($userId),
             'like' => $this->like,
             'dislike' => $this->dislike,
-            'delete_able' => $deleteAble,
+            'edit_able' => $isReviewOwner,
+            'delete_able' => $isReviewOwner || $isBookOwner,
             'created_at' => $this->created_at
         ];
     }
@@ -99,6 +102,7 @@ class BookReview extends Model
             'like' => $this->like,
             'dislike' => $this->dislike,
             'delete_able' => true,
+            'edit_able' => true,
             'created_at' => $this->created_at,
             'bookId' => $book->id,
             'bookTitle' => $book->title,
