@@ -1,24 +1,32 @@
 <template>
-  <section
-    class="DashboardOverview d-flex flex-wrap justify-content-start gap-4"
-  >
-    <InfoCard
-      v-for="item in items"
-      :key="item"
-      :title="item.title"
-      :number="item.number"
-      :icon="item.icon"
-      :routeName="item.routeName"
-    />
+  <section class="DashboardOverview">
+    <div class="w-100 d-flex flex-wrap gap-4">
+      <InfoCard
+        v-for="item in items"
+        :key="item"
+        :title="item.title"
+        :number="item.number"
+        :icon="item.icon"
+        :routeName="item.routeName"
+      />
+    </div>
+    <div class="GraphSection flex flex-row flex-wrap">
+      <BookTrend />
+      <BookCondition />
+      <BookCategory />
+    </div>
   </section>
 </template>
 
 <script>
+import BookCondition from "../../components/admin/dashboard/BookCondition.vue";
+import BookCategory from "../../components/admin/dashboard/BookCategory.vue";
+import BookTrend from "../../components/admin/dashboard/BookTrend.vue";
 import InfoCard from "../../components/admin/InfoCard.vue";
 import AdminController from "../../controllers/admin/AdminController.js";
 export default {
   name: "DashboardOverview",
-  components: { InfoCard },
+  components: { InfoCard, BookTrend, BookCategory, BookCondition },
   data() {
     return {
       items: [

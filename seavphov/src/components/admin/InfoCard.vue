@@ -1,5 +1,5 @@
 <template>
-  <fwb-card @click="toRouteName(routeName)" class="clickable w-44 h-fit">
+  <fwb-card @click="toRouteName(routeName)" class="card clickable w-100 h-fit">
     <div class="p-4">
       <h5
         class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -29,9 +29,4 @@ export default {
 </script>
 
 <style>
-.DataBanner {
-  width: 18rem;
-  height: 9rem;
-  background-color: white;
-}
 </style>
