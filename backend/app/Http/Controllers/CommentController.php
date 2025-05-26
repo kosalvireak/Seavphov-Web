@@ -17,17 +17,21 @@ class CommentController extends Controller
     public function deleteComment(Request $request, $id)
     {
         try {
-            $user = $request->attributes->get('user');
+            $userId = $request->attributes->get('user')->id;
             $comment = Comment::findOrFail($id);
 
-            $discussion = Discussion::findOrFail($comment->discussion_id);
+            $discussion = Discussion::find($comment->discussion_id);
+
+            $isCommentOwner = $userId == $comment->owner_id;
+            $isDiscussionOwner = $userId  == $discussion->owner_id;
+
+            if (!$isCommentOwner && !$isDiscussionOwner) {
+                return ResponseUtil::NoPermission();
+            }
 
             $discussion->comments = $discussion->comments - 1;
             $discussion->save();
 
-            if ($comment->owner_id != $user->id) {
-                return ResponseUtil::NoPermission();
-            }
 
             $comment->delete();
             return ResponseUtil::Success('Deleted comment Success', true);
@@ -123,8 +127,10 @@ class CommentController extends Controller
             $items = [];
             $comments = Comment::where('discussion_id', $discussionId)->get();
 
+            $discussionOwnerId = Discussion::find($discussionId)->owner_id;
+
             foreach ($comments as $comment) {
-                $items[] = $comment->getData($userId);
+                $items[] = $comment->getData($userId, $discussionOwnerId);
             }
 
             if (empty($items)) {
