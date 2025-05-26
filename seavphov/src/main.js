@@ -6,6 +6,37 @@ import "../node_modules/flowbite-vue/dist/index.css";
 import "vue3-easy-data-table/dist/style.css";
 import "mdb-vue-ui-kit/css/mdb.min.css";
 
+// Vue.js EChart
+import VueECharts from 'vue-echarts';
+import { use } from "echarts/core";
+
+import {
+  CanvasRenderer
+} from 'echarts/renderers';
+import {
+  BarChart,
+  LineChart,
+  PieChart
+} from 'echarts/charts';
+import {
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+} from 'echarts/components';
+
+use([
+  CanvasRenderer,
+  BarChart,
+  LineChart,
+  PieChart,
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+]);
+// Vue.js EChart
+
 // Custom CSS (including Tailwind CSS)
 import "./assets/style/style.css";
 
@@ -61,6 +92,7 @@ setupResizeListener();
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
+app.component('v-chart', VueECharts);
 app.component("FwbButton", FwbButton);
 app.component("FwbModal", FwbModal);
 app.component("FwbAvatar", FwbAvatar);
