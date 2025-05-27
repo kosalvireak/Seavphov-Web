@@ -94,6 +94,7 @@
 <script>
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import imageCompression from "browser-image-compression";
 
 export default {
   name: "ImageUpload",
@@ -127,11 +128,19 @@ export default {
           throw new Error("Only JPEG, PNG, and GIF files are allowed.");
         }
 
-        if (selectedFile) {
-          const storageRef = ref(storage, `folder/${selectedFile.name}`);
-          const imageUpload = await uploadBytes(storageRef, selectedFile);
+        // Compress the image before upload
+        const options = {
+          maxSizeMB: 0.6, // Adjust max size (e.g., 6kB)
+          maxWidthOrHeight: 1280, // Optional: Resize image to max 1280px
+          useWebWorker: true,
+        };
+        const compressedFile = await imageCompression(selectedFile, options);
+
+        if (compressedFile) {
+          const storageRef = ref(storage, `folder/${compressedFile.name}`);
+          const imageUpload = await uploadBytes(storageRef, compressedFile);
           const url = await getDownloadURL(
-            ref(storage, imageUpload.metadata.fullPath),
+            ref(storage, imageUpload.metadata.fullPath)
           );
           this.imageUrl = url;
           this.$emit("imageUploaded", url);
