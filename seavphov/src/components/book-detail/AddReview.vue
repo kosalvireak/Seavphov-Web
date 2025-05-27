@@ -4,13 +4,13 @@
       v-if="!isLogin"
       class="w-100 h-24 flex-center flex-column border rounded-lg justify-content-evenly"
     >
-      <p>Sign up to leave a review!</p>
+      <p>Log in to leave a review!</p>
 
-      <FwbButton
-        @click="toRouteName('signup')"
+      <LoadingButton
+        @click="toRouteName('login')"
         gradient="green"
         class="px-2 text-xs w-fit"
-        >Sign In</FwbButton
+        >Log in</LoadingButton
       >
     </div>
     <form

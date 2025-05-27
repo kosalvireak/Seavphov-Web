@@ -37,11 +37,8 @@
 </template>
 
 <script>
-import { FwbButton } from "flowbite-vue";
-
 export default {
   name: "ReadingChallengeEntry",
-  components: { FwbButton },
   methods: {
     buildCreateChallengeRoute() {
       const route = this.$route.params.route;

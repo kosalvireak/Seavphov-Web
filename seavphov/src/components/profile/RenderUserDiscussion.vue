@@ -10,7 +10,7 @@
     <div v-else>
       <div v-if="!isEmpty">
         <div
-          class="d-flex align-items-center justify-content-end m-1 mt-4"
+          class="d-flex align-items-center justify-content-start m-1 mt-4"
           style="height: 40px"
         >
           <h6 class="p-0 m-0 font-bold font-75">
@@ -54,8 +54,9 @@ export default {
     this.isLoading = true;
     let filters = { uuid: null };
     filters.uuid = this.uuid;
-    this.discussions =
-      await DiscussionController.getDiscussionsWithFilter(filters);
+    this.discussions = await DiscussionController.getDiscussionsWithFilter(
+      filters
+    );
     this.isLoading = false;
   },
 };

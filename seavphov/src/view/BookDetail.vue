@@ -47,9 +47,10 @@
               {{ book.condition }}
             </p>
 
-            <FwbButton :color="buttonColor" class="px-2 text-xs w-fit">{{
+            <Badge :type="buttonColor" class="px-2 text-xs w-fit">{{
               buttonText
-            }}</FwbButton>
+            }}</Badge>
+
             <p class="h6">Description</p>
             <div
               class="min-h-auto max-h-44 lg:h-44 overflow-auto text-base bg-gray-100 rounded-md p-2"

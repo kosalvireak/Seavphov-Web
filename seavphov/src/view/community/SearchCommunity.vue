@@ -96,8 +96,8 @@
               </form>
 
               <div v-if="!isDefaultFilter" class="mt-2">
-                <FwbButton @click="resetFilter()" color="yellow"
-                  >Reset</FwbButton
+                <LoadingButton @click="resetFilter()" color="yellow"
+                  >Reset</LoadingButton
                 >
               </div>
             </FwbAccordionContent></FwbAccordionPanel

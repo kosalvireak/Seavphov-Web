@@ -28,7 +28,7 @@
           <LoadingButton
             @click="toRouteName('login')"
             color="yellow"
-            text="Login"
+            text="Log in"
             class="m-0 px-2 text-xs w-fit"
           >
           </LoadingButton>

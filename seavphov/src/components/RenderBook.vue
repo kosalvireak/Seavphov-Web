@@ -12,7 +12,7 @@
     <template v-else-if="books && books.length">
       <div
         v-if="hideResult"
-        class="h-10 d-flex align-items-center justify-content-end p-4"
+        class="h-10 d-flex align-items-center justify-content-start p-4"
       >
         <p class="h6">
           Result: {{ books.length }} {{ bookPluralize(books.length) }}

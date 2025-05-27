@@ -9,10 +9,11 @@
     </div>
     <template v-else>
       <div v-if="!isBooksEmpty" class="space-y-4">
-        <div class="h-12 d-flex align-items-center justify-content-end m-1">
-          <p class="h6">
+        <div class="h-12 d-flex align-items-center justify-content-between m-1">
+          <p class="h6 mb-0">
             Result: {{ books.length }} {{ bookPluralize(books.length || 0) }}
           </p>
+          <LoadingButton @click="toRouteName('add-book')" text="Add Book" />
         </div>
         <MyBook
           v-for="book in books"
@@ -24,8 +25,8 @@
       <template v-else>
         <SearchEmptyState long-text="You don't have any book!" />
         <div class="flex-center align-items-start">
-          <FwbButton @click="toRouteName('add-book')" color="green"
-            >Add Book Now</FwbButton
+          <LoadingButton @click="toRouteName('add-book')" color="green"
+            >Add Book Now</LoadingButton
           >
         </div>
       </template>

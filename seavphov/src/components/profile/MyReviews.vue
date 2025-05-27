@@ -10,7 +10,7 @@
     <SearchEmptyState v-else-if="isEmpty" text="review" />
     <div v-else>
       <div
-        class="d-flex align-items-center justify-content-end m-1 mt-4"
+        class="d-flex align-items-center justify-content-start m-1 mt-4"
         style="height: 40px"
       >
         <h6 class="p-0 m-0 font-bold font-75">
