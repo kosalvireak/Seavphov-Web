@@ -1,5 +1,7 @@
 import { getCookie } from "../services/cookie";
 import { resizeState } from "./breakpoint";
+import { ref, deleteObject } from 'firebase/storage';
+import { storage } from "../firebase";
 
 export const UtilsMixin = {
   data() {
@@ -34,6 +36,28 @@ export const UtilsMixin = {
     textPluralize(total, singular, plural) {
       return total > 1 ? plural : singular;
     },
+    getStoragePathFromUrl(url) {
+      try {
+        const base = url.split('?')[0]; // remove query params
+        const pathEncoded = base.split('/o/')[1]; // get encoded path after /o/
+        return decodeURIComponent(pathEncoded);  // convert %2F to /
+      } catch (err) {
+        console.error('Failed to extract path from URL:', err);
+        return null;
+      }
+    },
+    async deleteImageFromUrl(imageUrl) {
+      const storagePath = this.getStoragePathFromUrl(imageUrl);
+      if (!storagePath) return;
+
+      const imageRef = ref(storage, storagePath);
+      try {
+        await deleteObject(imageRef);
+      } catch (error) {
+        console.error('Error deleting image:', error);
+      }
+    }
+
   },
   computed: {
     isLogin() {

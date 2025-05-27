@@ -35,6 +35,7 @@ export default {
     },
     async deleteBook(id) {
       await BookController.deleteBook(id);
+      await this.deleteImageFromUrl(this.book.images);
       this.$emit("deleteBook");
     },
   },
