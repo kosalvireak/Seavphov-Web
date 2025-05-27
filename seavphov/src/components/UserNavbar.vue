@@ -26,9 +26,9 @@
         </template>
         <template v-else>
           <LoadingButton
-            @click="toRouteName('signup')"
+            @click="toRouteName('login')"
             color="yellow"
-            text="Register"
+            text="Login"
             class="m-0 px-2 text-xs w-fit"
           >
           </LoadingButton>
