@@ -29,7 +29,6 @@ export default {
           {
             name: "Number of book",
             type: "pie",
-            roseType: "radius",
             data: [
               { value: 335, name: "Fiction" },
               { value: 310, name: "Novel" },

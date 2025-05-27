@@ -11,6 +11,7 @@
       />
     </div>
     <div class="GraphSection flex flex-row flex-wrap">
+      <UserTrend />
       <BookTrend />
       <BookCondition />
       <BookCategory />
@@ -22,11 +23,13 @@
 import BookCondition from "../../components/admin/dashboard/BookCondition.vue";
 import BookCategory from "../../components/admin/dashboard/BookCategory.vue";
 import BookTrend from "../../components/admin/dashboard/BookTrend.vue";
+// Users
+import UserTrend from "../../components/admin/dashboard/UserTrend.vue";
 import InfoCard from "../../components/admin/InfoCard.vue";
 import AdminController from "../../controllers/admin/AdminController.js";
 export default {
   name: "DashboardOverview",
-  components: { InfoCard, BookTrend, BookCategory, BookCondition },
+  components: { InfoCard, BookTrend, BookCategory, BookCondition, UserTrend },
   data() {
     return {
       items: [
