@@ -152,6 +152,7 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/overview', [AdminController::class, 'adminGetOverviewData']);
     Route::get('/books', [AdminController::class, 'adminGetBooks']);
     Route::get('/communities', [AdminController::class, 'adminGetCommunities']);
+    Route::delete('/community/{id}', [AdminController::class, 'adminDeleteCommunity']);
     Route::get('/books/delete/{id}', [AdminController::class, 'adminDeleteBook']);
     Route::get('/users', [AdminController::class, 'adminGetUsers']);
     Route::get('/banners', [BannerController::class, 'adminGetBanners']);
