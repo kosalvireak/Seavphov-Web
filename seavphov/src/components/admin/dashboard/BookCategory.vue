@@ -1,8 +1,8 @@
 <template>
   <v-chart class="h-96 w-full lg:w-1/2" :option="chartOptions" autoresize />
 </template>
-  
-  <script>
+
+<script>
 export default {
   name: "BookCategory",
   data() {
@@ -29,7 +29,6 @@ export default {
           {
             name: "Number of book",
             type: "pie",
-            roseType: "radius",
             data: [
               { value: 335, name: "Fiction" },
               { value: 310, name: "Novel" },
@@ -45,8 +44,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .chart {
   height: 400px;
 }

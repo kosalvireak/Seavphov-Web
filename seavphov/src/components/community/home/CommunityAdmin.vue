@@ -90,7 +90,7 @@ export default {
     async checkViewPermission() {
       this.isCheckingPermission = true;
       const response = await CopMemberController.checkViewCopHomePermission(
-        this.route
+        this.route,
       );
 
       if (!response.isCopAdmin) {

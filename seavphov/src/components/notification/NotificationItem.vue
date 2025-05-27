@@ -60,7 +60,7 @@ export default {
     },
     async markAsRead() {
       const response = await NotificationController.markAsRead(
-        this.notification.id
+        this.notification.id,
       );
       if (response) {
         window.open(this.notification.url);

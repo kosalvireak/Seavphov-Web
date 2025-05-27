@@ -23,11 +23,11 @@ export default class DiscussionController {
   }
 
   static async getNewestDiscussion() {
-    return await getData(DiscussionRoute + '/newest');
+    return await getData(DiscussionRoute + "/newest");
   }
 
   static async getPopularDiscussion() {
-    return await getData(DiscussionRoute + '/popular');
+    return await getData(DiscussionRoute + "/popular");
   }
 
   static async deleteDiscussion(id) {

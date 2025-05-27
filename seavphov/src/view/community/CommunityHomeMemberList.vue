@@ -62,12 +62,11 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.members = await CopMemberController.getHomeCommunityMembersList(
-      this.route
+      this.route,
     );
     this.isLoading = false;
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>
