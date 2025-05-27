@@ -33,7 +33,7 @@
           :isLoading="isDeleting"
           color="danger"
           text="Delete"
-          @click="adminDeleteBook(communities.id)"
+          @click="adminDeleteCommunity(communities.id)"
         />
       </template>
 
@@ -76,9 +76,9 @@ export default {
       this.isLoading = false;
     },
 
-    async adminDeleteBook(id) {
+    async adminDeleteCommunity(id) {
       this.isDeleting = true;
-      await this.$store.dispatch("adminDeleteBook", id);
+      await AdminController.adminDeleteCommunity(id);
       this.isDeleting = false;
       this.adminGetCommunities();
     },

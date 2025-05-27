@@ -1,4 +1,4 @@
-import { getData } from "../../utils/apiUtils.js";
+import { getData, deleteData } from "../../utils/apiUtils.js";
 
 const AdminRoute = "/api/admin";
 
@@ -25,5 +25,9 @@ export default class AdminController {
 
   static async adminGetCommunities() {
     return await getData(AdminRoute + "/communities", true);
+  }
+
+  static async adminDeleteCommunity(id) {
+    return await deleteData(AdminRoute + `/community/${id}`, true);
   }
 }
