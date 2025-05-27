@@ -1,6 +1,8 @@
 <template>
-  <section class="DashboardOverview">
-    <div class="w-100 d-flex flex-wrap gap-4">
+  <section class="DashboardOverview space-y-8">
+    <div
+      class="w-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full"
+    >
       <InfoCard
         v-for="item in items"
         :key="item"
@@ -10,7 +12,7 @@
         :routeName="item.routeName"
       />
     </div>
-    <div class="GraphSection flex flex-row flex-wrap">
+    <div class="GraphSection w-100 grid grid-cols-1 lg:grid-cols-2">
       <UserTrend />
       <BookTrend />
       <BookCondition />

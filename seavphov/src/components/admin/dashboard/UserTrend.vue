@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="h-96 w-full lg:w-1/2" :option="chartOptions" autoresize />
+  <v-chart class="h-96 w-full" :option="chartOptions" autoresize />
 </template>
 
 <script>
@@ -12,21 +12,29 @@ export default {
           text: "Total Books",
         },
         legend: {
-          data: ['Number of book upload each months', 'Number of book in the systems']
+          data: ["New Books", "Total Books"],
         },
         tooltip: {},
         xAxis: {
-          data: ["December", "January", "February", "March", "April", "May", "June"],
+          data: [
+            "December",
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+          ],
         },
         yAxis: {},
         series: [
           {
-            name: "Number of book upload each months",
+            name: "New Books",
             type: "line",
             data: [0, 5, 3, 6, 1, 7, 8],
           },
           {
-            name: "Number of book in the systems",
+            name: "Total Books",
             type: "line",
             data: [0, 5, 8, 14, 15, 22, 30],
           },
