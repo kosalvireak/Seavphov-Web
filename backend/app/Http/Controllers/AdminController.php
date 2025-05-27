@@ -9,6 +9,7 @@ use App\Models\Community;
 use App\Models\Discussion;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -33,6 +34,17 @@ class AdminController extends Controller
                 'message' => 'An error occurred while get books.',
                 'error' => $exception->getMessage()
             ], 500);
+        }
+    }
+
+    public function adminDeleteCommunity($id)
+    {
+        try {
+            $community = Community::findOrFail($id);
+            $community->delete();
+            return ResponseUtil::Success('Delete community success!', true, true);
+        } catch (Exception $exception) {
+            return ResponseUtil::ServerError('Cannot delete Community!', $exception->getMessage());
         }
     }
 
