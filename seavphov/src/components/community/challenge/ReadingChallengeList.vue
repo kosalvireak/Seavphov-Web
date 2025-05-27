@@ -35,7 +35,7 @@ export default {
   async mounted() {
     this.isLoading = true;
     this.challenges = await ReadingChallengeController.getReadingChallenges(
-      this.route
+      this.route,
     );
     this.isLoading = false;
   },

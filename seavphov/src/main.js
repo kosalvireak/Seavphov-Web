@@ -7,23 +7,17 @@ import "vue3-easy-data-table/dist/style.css";
 import "mdb-vue-ui-kit/css/mdb.min.css";
 
 // Vue.js EChart
-import VueECharts from 'vue-echarts';
+import VueECharts from "vue-echarts";
 import { use } from "echarts/core";
 
-import {
-  CanvasRenderer
-} from 'echarts/renderers';
-import {
-  BarChart,
-  LineChart,
-  PieChart
-} from 'echarts/charts';
+import { CanvasRenderer } from "echarts/renderers";
+import { BarChart, LineChart, PieChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
   GridComponent,
   LegendComponent,
-} from 'echarts/components';
+} from "echarts/components";
 
 use([
   CanvasRenderer,
@@ -92,7 +86,7 @@ setupResizeListener();
 
 // global component
 app.component("EasyDataTable", Vue3EasyDataTable);
-app.component('v-chart', VueECharts);
+app.component("v-chart", VueECharts);
 app.component("FwbButton", FwbButton);
 app.component("FwbModal", FwbModal);
 app.component("FwbAvatar", FwbAvatar);

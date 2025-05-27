@@ -33,7 +33,7 @@ export const UtilsMixin = {
     },
     textPluralize(total, singular, plural) {
       return total > 1 ? plural : singular;
-    }
+    },
   },
   computed: {
     isLogin() {

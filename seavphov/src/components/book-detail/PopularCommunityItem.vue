@@ -30,8 +30,8 @@
     </div>
   </section>
 </template>
-  
-  <script>
+
+<script>
 export default {
   name: "PopularCommunityItem",
   props: {
@@ -50,6 +50,5 @@ export default {
   },
 };
 </script>
-  
-  <style></style>
-  
+
+<style></style>
