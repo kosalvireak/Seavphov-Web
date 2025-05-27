@@ -15,6 +15,7 @@
             :initialImage="user.cover"
             :filled="true"
           />
+          <Info text="Recommended size 1250px * 250px" />
         </div>
         <div class="col-12 col-md-6">
           <div class="mb-4">

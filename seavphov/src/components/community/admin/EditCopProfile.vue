@@ -18,6 +18,8 @@
             :initialImage="cop.banner"
             :filled="true"
           />
+
+          <Info text="Recommended size 900px * 250px" />
         </div>
         <div class="col-12 col-md-6 space-y-4">
           <div>
