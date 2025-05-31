@@ -14,7 +14,7 @@
         class="flex-grow-1 flex-center lg:items-start flex-col p-2 space-y-2"
       >
         <router-link :to="`/community/${community.route}`">
-          <p class="h4 font-bold ellipsis-2 mb-0">
+          <p class="h4 font-bold ellipsis-2 mb-0 text-center">
             {{ community.name }}
           </p>
         </router-link>
@@ -23,7 +23,7 @@
           visibilityText
         }}</Badge>
 
-        <p v-if="community.description" class="ellipsis-2">
+        <p v-if="community.description" class="ellipsis-2 text-center">
           {{ community.description }}
         </p>
 
