@@ -15,7 +15,7 @@
         >
           <h6 class="p-0 m-0 font-bold font-75">
             Result: {{ discussions.length }}
-            {{ textPluralize(reviews.length, "Discussion", "Discussions") }}
+            {{ textPluralize(discussions.length, "Discussion", "Discussions") }}
           </h6>
         </div>
         <div class="flex-center">
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     isEmpty() {
-      return this.discussions.length == 0;
+      return this.discussions && this.discussions.length == 0;
     },
   },
   async mounted() {
