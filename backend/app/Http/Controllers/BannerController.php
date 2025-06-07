@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ResponseUtil;
 use App\Models\Banner;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -68,16 +69,9 @@ class BannerController extends Controller
             $banner->order_priority = 1;
             $banner->save();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Done',
-            ], 200);
+            return ResponseUtil::Success('Done', null, true);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while get banner.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('An error occurred while get banner.', $exception->getMessage());
         }
     }
 
@@ -101,22 +95,9 @@ class BannerController extends Controller
 
             Banner::create($validatedData);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Done'
-            ], 201);
-        } catch (\Illuminate\Validation\ValidationException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Banner validation error!',
-                'error' => $exception->getMessage()
-            ], 442);
+            return ResponseUtil::Success('Done', null, true);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot add Banner!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot add banner!', $exception->getMessage());
         }
     }
     public function adminDeleteBanner($id)
@@ -124,22 +105,12 @@ class BannerController extends Controller
         try {
             $banner = Banner::findOrFail($id);
             if ($banner->order_priority == 1) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Cannot delete banner, it is selected as the main banner!',
-                ], 400);
+                return ResponseUtil::Success("Cannot delete banner, it is selected as the main banner!", null, true);
             }
             $banner->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Deleted "' . $banner->title . '"',
-            ], 200);
+            return ResponseUtil::Success('Deleted "' . $banner->title . '"', null, true);
         } catch (Exception  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot delete banner!',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot delete banner!', $exception->getMessage());
         }
     }
 }

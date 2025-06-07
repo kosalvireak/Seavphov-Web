@@ -153,11 +153,11 @@ Route::prefix('admin')->middleware([ApiTokenAuthentication::class, AdminAuthoriz
     Route::get('/books', [AdminController::class, 'adminGetBooks']);
     Route::get('/communities', [AdminController::class, 'adminGetCommunities']);
     Route::delete('/community/{id}', [AdminController::class, 'adminDeleteCommunity']);
-    Route::get('/books/delete/{id}', [AdminController::class, 'adminDeleteBook']);
+    Route::delete('/books/delete/{id}', [AdminController::class, 'adminDeleteBook']);
     Route::get('/users', [AdminController::class, 'adminGetUsers']);
     Route::get('/banners', [BannerController::class, 'adminGetBanners']);
     Route::post('/banners', [BannerController::class, 'adminAddBanner']);
-    Route::get('/banners/{id}', [BannerController::class, 'adminDeleteBanner']);
+    Route::delete('/banners/{id}', [BannerController::class, 'adminDeleteBanner']);
     Route::get('/banners/selected/{id}', [BannerController::class, 'changeSelectedBanner']);
 });
 

@@ -80,7 +80,7 @@
 import SearchInput from "./home/SearchInput.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
 import NavDropdown from "./common/NavDropdown.vue";
-import echo from "../services/websocket/echo";
+// import echo from "../services/websocket/echo";
 import NotificationSideBar from "./notification/NotificationSideBar.vue";
 export default {
   name: "UserNavbar",
@@ -99,16 +99,14 @@ export default {
     };
   },
   mounted() {
-    echo.channel("public-messages").listen("MessageSent", (e) => {
-      console.log("public-messages");
-
-      this.notificationCount += 1;
-      console.log(e);
-    });
-
-    echo.channel("public-messages").listen(".**", (eventName, data) => {
-      console.log("Wildcard event:", eventName, data);
-    });
+    // echo.channel("public-messages").listen("MessageSent", (e) => {
+    //   console.log("public-messages");
+    //   this.notificationCount += 1;
+    //   console.log(e);
+    // });
+    // echo.channel("public-messages").listen(".**", (eventName, data) => {
+    //   console.log("Wildcard event:", eventName, data);
+    // });
   },
 };
 </script>

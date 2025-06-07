@@ -63,16 +63,9 @@ class AdminController extends Controller
         try {
             $book = Book::findOrFail($id);
             $book->delete();
-            return response()->json([
-                'success' => true,
-                'message' =>  'Deleted "' . $book->title . '"',
-            ], 200);
+            return ResponseUtil::Success('Deleted "' . $book->title . '"', null, true);
         } catch (QueryException  $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while get books.',
-                'error' => $exception->getMessage()
-            ], 500);
+            return ResponseUtil::ServerError('Cannot delete book!', $exception->getMessage());
         }
     }
     public function adminGetUsers()

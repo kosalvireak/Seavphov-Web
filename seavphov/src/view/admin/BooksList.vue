@@ -31,7 +31,7 @@
 
       <template #item-="books">
         <LoadingButton
-          :isLoading="isDeleting"
+          :disabled="isDeleting"
           color="danger"
           text="Delete"
           @click="adminDeleteBook(books.id, books.images)"
@@ -80,7 +80,7 @@ export default {
 
     async adminDeleteBook(id, imageUrl) {
       this.isDeleting = true;
-      await this.$store.dispatch("adminDeleteBook", id);
+      await AdminController.adminDeleteBook(id);
       await this.deleteImageFromUrl(imageUrl);
       this.isDeleting = false;
       this.adminGetBooks();
