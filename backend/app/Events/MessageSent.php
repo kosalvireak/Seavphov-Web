@@ -17,21 +17,18 @@ class MessageSent implements ShouldBroadcast
 
     public $message;
 
-    /**
-     * Create a new event instance.
-     */
-    public function __construct($message, private User $user)
+    public function __construct($message)
     {
         $this->message = $message;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
-    public function broadcastOn(): Channel
+    public function broadcastOn()
     {
-        return new Channel("notification");
+        return new Channel('public-messages');
+    }
+
+    public function broadcastAs()
+    {
+        return 'MessageSent';
     }
 }

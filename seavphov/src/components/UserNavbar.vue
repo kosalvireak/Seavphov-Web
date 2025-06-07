@@ -6,7 +6,6 @@
       <router-link :to="{ name: 'home' }" class="md:w-32 flex-center clickable">
         <img :src="logoUrl" class="sp-logo-md" alt="Seavphov Logo" />
       </router-link>
-
       <div
         class="md:w-32 flex items-center md:order-2 space-x-5 rtl:space-x-reverse"
       >
@@ -100,8 +99,15 @@ export default {
     };
   },
   mounted() {
-    echo.channel("notification").listen("MessageSent", (event) => {
+    echo.channel("public-messages").listen("MessageSent", (e) => {
+      console.log("public-messages");
+
       this.notificationCount += 1;
+      console.log(e);
+    });
+
+    echo.channel("public-messages").listen(".**", (eventName, data) => {
+      console.log("Wildcard event:", eventName, data);
     });
   },
 };
