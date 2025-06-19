@@ -52,6 +52,9 @@ class Notification extends Model
     private function getCopNotificationUrl(): string
     {
         $cop = Community::find($this->object_id);
+        if ($cop == null) {
+            return "";
+        }
         switch ($this->type) {
             case 'request-to-join-cop':
                 return "/community/" . $cop->route . "/members#tabs=member-requests";
