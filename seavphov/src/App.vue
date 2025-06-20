@@ -3,6 +3,14 @@ import { RouterView } from "vue-router";
 export default {
   name: "app",
   components: { RouterView },
+  mounted() {
+    window.Echo.channel("create-asset").listen(".CreateAsset", (e) => {
+      Seavphov.toast.info("New " + e.message + " has been added.");
+    });
+  },
+  unmounted() {
+    window.Echo.leave("create-asset");
+  },
 };
 </script>
 

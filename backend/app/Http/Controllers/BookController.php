@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateAsset;
 use App\Events\MessageSent;
 use App\Http\ResponseUtil;
 use App\Models\Book;
@@ -154,7 +155,6 @@ class BookController extends Controller
     {
         $user = $request->attributes->get('user');
 
-        broadcast(new MessageSent('Hello', $user))->toOthers();
 
         $books = $user->books()->get();
 
@@ -265,6 +265,10 @@ class BookController extends Controller
             $validatedData['owner_id'] = $user->id;
 
             $book = Book::create($validatedData);
+
+            //broadcast event
+            event(new CreateAsset('book'));
+
             return ResponseUtil::Success('Add book success', $book->id);
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot add book!', $exception->getMessage());
