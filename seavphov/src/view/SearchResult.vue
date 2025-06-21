@@ -261,6 +261,8 @@ export default {
       "$route.query.q": {
         immediate: true,
         handler(q) {
+          console.log("Hello");
+
           this.title = q || "";
           this.searchBook();
         },

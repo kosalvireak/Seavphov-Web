@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateAsset;
 use App\Http\ResponseUtil;
 use Illuminate\Http\Request;
 use Exception;
@@ -202,8 +201,6 @@ class CommunityController extends Controller
             // add user as cop admin
             $response = CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
             if ($response) {
-
-                event(new CreateAsset('community'));
                 return ResponseUtil::Success('Community created successfully', $cop);
             }
         } catch (Exception  $exception) {

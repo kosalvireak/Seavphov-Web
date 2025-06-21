@@ -2,9 +2,7 @@
 
 namespace App\Service;
 
-use App\Events\SendNotification;
 use App\Models\Notification;
-use App\Models\User;
 
 class NotificationService
 {

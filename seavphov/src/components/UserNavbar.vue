@@ -16,17 +16,11 @@
           >
             <i class="fas fa-plus-circle fa-xl"></i>
           </router-link>
-          <div class="notification-container">
-            <i
-              class="fas fa-bell fa-xl text-white clickable"
-              @click="handleOnClickNotification()"
-            >
-            </i>
-            <span v-if="notificationCount" class="notification-counter">
-              {{ notificationCount }}</span
-            >
-          </div>
 
+          <i
+            class="fas fa-bell fa-xl text-white clickable"
+            @click="openSidebar = true"
+          ></i>
           <AvatarDropdown />
         </template>
         <template v-else>
@@ -86,6 +80,7 @@
 import SearchInput from "./home/SearchInput.vue";
 import AvatarDropdown from "./AvatarDropdown.vue";
 import NavDropdown from "./common/NavDropdown.vue";
+// import echo from "../services/websocket/echo";
 import NotificationSideBar from "./notification/NotificationSideBar.vue";
 export default {
   name: "UserNavbar",
@@ -103,28 +98,15 @@ export default {
       isMenuOpen: false,
     };
   },
-  methods: {
-    handleOnClickNotification() {
-      this.openSidebar = true;
-      this.notificationCount = 0;
-    },
-  },
   mounted() {
-    if (!this.isLogin) return;
-
-    window.Echo.channel(`users.${this.$store.state.user.uuid}`).listen(
-      ".SendNotification",
-      (e) => {
-        this.notificationCount++;
-        // Show notification to user
-        Seavphov.toast.info("You have a new notification!");
-      }
-    );
-  },
-
-  unmounted() {
-    // Leave the private channel
-    window.Echo.leave(`users.${this.$store.state.user.uuid}`);
+    // echo.channel("public-messages").listen("MessageSent", (e) => {
+    //   console.log("public-messages");
+    //   this.notificationCount += 1;
+    //   console.log(e);
+    // });
+    // echo.channel("public-messages").listen(".**", (eventName, data) => {
+    //   console.log("Wildcard event:", eventName, data);
+    // });
   },
 };
 </script>
@@ -138,28 +120,5 @@ export default {
 .fade-slide-leave-to {
   opacity: 0;
   transform: translateY(-5px);
-}
-
-.notification-container {
-  position: relative;
-}
-
-.notification-counter {
-  /* circle shape, size and position */
-  position: absolute;
-  right: -0.7em;
-  top: -0.7em;
-  min-width: 1.6em; /* or width, explained below. */
-  height: 1.6em;
-  border-radius: 0.8em; /* or 50%, explained below. */
-  border: 0.025em solid white;
-  background-color: var(--sp-danger);
-
-  /* number size and position */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8em;
-  color: white;
 }
 </style>

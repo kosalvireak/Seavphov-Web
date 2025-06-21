@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateAsset;
 use App\Http\ResponseUtil;
 use App\Models\Discussion;
 use App\Models\User;
@@ -287,7 +286,7 @@ class DiscussionController extends Controller
                 'dislike' => 0,
             ]);
 
-            event(new CreateAsset('discussion'));
+
             return ResponseUtil::Success('Successfully added a discussion', $discussion->getData($user->id));
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot add discussion!', $exception->getMessage());

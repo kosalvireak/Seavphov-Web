@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 'reverb',
+    'default' => env('REVERB_SERVER', 'reverb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,8 +28,8 @@ return [
 
     'servers' => [
         'reverb' => [
-            'host' => env('REVERB_HOST', '127.0.0.1'),
-            'port' => env('REVERB_PORT', 6001),
+            'host' => env('REVERB_SERVER_HOST', '127.0.0.1'),
+            'port' => env('REVERB_SERVER_PORT', 6001),
             'path' => env('REVERB_SERVER_PATH', ''),
             'hostname' => env('REVERB_HOST'),
             'options' => [
@@ -75,7 +75,7 @@ return [
                 'app_id' => env('REVERB_APP_ID'),
                 'options' => [
                     'host' => env('REVERB_HOST'),
-                    'port' => env('REVERB_PORT', 6001),
+                    'port' => env('REVERB_PORT', 443),
                     'scheme' => env('REVERB_SCHEME', 'http'),
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
                 ],
