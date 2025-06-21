@@ -3,15 +3,18 @@
 use App\Events\CreateAsset;
 use App\Events\SendNotification;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/broadcast-notification', function () {
-    event(new SendNotification(User::find(1)));
-    return 'Sent notification!';
+Route::get('/broadcast/{id}', function ($id) {
+    event(new SendNotification(User::where('id', $id)->first()));
+    return 'Sent notification!' . $id;
 });
 
 Route::get('/create-book', function () {

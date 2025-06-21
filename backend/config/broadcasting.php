@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_CONNECTION', 'null'),
+    'default' => 'reverb',
 
     /*
     |--------------------------------------------------------------------------
@@ -36,8 +36,8 @@ return [
             'secret' => env('REVERB_APP_SECRET'),
             'app_id' => env('REVERB_APP_ID'),
             'options' => [
-                'host' => "localhost",
-                'port' => 8080,
+                'host' => env('APP_URL'),
+                'port' => 6001,
                 'scheme' => env('REVERB_SCHEME', 'http'),
                 'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
             ],

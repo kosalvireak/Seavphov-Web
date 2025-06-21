@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CreateAsset;
-use App\Events\MessageSent;
+use App\Events\SendNotification;
 use App\Http\ResponseUtil;
 use App\Models\Book;
 use App\Models\User;

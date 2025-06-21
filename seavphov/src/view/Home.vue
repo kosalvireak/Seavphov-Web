@@ -1,11 +1,11 @@
 <template>
   <div class="w-100 h-100 mb-auto space-y-8">
     <HomeNavigation selectedTab="home" />
-    <BannerContainer />
+    <!-- <BannerContainer /> -->
     <MostReviewed />
-    <NewestAddition />
+    <!-- <NewestAddition />
     <DiscussionHomepage />
-    <PaginatedBook />
+    <PaginatedBook /> -->
   </div>
 </template>
 
