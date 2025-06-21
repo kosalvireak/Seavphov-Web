@@ -3,7 +3,10 @@
 use App\Events\CreateAsset;
 use App\Events\SendNotification;
 use App\Models\User;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+
+Broadcast::routes();
 
 Route::get('/', function () {
     return view('welcome');
