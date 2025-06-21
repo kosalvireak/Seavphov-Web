@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookReviewController;
+use App\Http\Controllers\BroadcastingAuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\NotificationController;
@@ -20,7 +21,10 @@ use App\Http\Middleware\CopAdminAuthorization;
 use App\Http\Middleware\LogRequestInfo;
 use App\Http\Middleware\OptionalApiTokenAuthentication;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +36,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Broadcast::routes([
-    'middleware' => [\App\Http\Middleware\BroadcastTokenAuth::class],
-]);
+// Custom broadcasting authentication endpoint
+// Route::post('/broadcasting/auth', [BroadcastingAuthController::class, 'authenticate']);
 
 Route::prefix('auth/book')->middleware([ApiTokenAuthentication::class, LogRequestInfo::class])->group(function () {
     Route::get('', [BookController::class, 'getMyBooks']);

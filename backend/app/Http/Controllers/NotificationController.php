@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\MessageSent;
 use App\Http\ResponseUtil;
 use App\Models\Notification;
 use Exception;
@@ -73,7 +72,6 @@ class NotificationController extends Controller
     public function getNotifications(Request $request)
     {
         try {
-            broadcast(new MessageSent("Hello World"));
 
             $user = $request->attributes->get('user');
 
