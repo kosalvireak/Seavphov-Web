@@ -110,6 +110,8 @@ export default {
     },
   },
   mounted() {
+    if (!this.isLogin) return;
+
     window.Echo.channel(`users.${this.$store.state.user.uuid}`).listen(
       ".SendNotification",
       (e) => {

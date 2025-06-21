@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-
     /**
      * @OA\Get(
      *     path="/api/books/newest",

@@ -3,9 +3,6 @@
 use App\Events\CreateAsset;
 use App\Events\SendNotification;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,7 +10,10 @@ Route::get('/', function () {
 });
 
 Route::get('/broadcast/{id}', function ($id) {
-    event(new SendNotification(User::where('id', $id)->first()));
+    $user = User::where('id', $id)->first();
+    if ($user != null) {
+        event(new SendNotification($user));
+    }
     return 'Sent notification!' . $id;
 });
 

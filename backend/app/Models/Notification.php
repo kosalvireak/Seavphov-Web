@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SendNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -98,5 +99,18 @@ class Notification extends Model
     public function receiver()
     {
         return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($notification) {
+            // Set default banner if not provided
+            $user = User::where('id', $notification->receiver_id)->first();
+            if ($user != null) {
+                event(new SendNotification($user));
+            }
+        });
     }
 }

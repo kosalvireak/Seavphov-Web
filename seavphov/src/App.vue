@@ -4,6 +4,8 @@ export default {
   name: "app",
   components: { RouterView },
   mounted() {
+    if (!this.isLogin) return;
+
     window.Echo.channel("create-asset").listen(".CreateAsset", (e) => {
       Seavphov.toast.info("New " + e.message + " has been added.");
     });
