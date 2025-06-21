@@ -11,7 +11,8 @@ const echo = new Echo({
     wsHost: import.meta.env.VITE_REVERB_HOST,
     wsPort: import.meta.env.VITE_REVERB_PORT || 6001,
     wssPort: import.meta.env.VITE_REVERB_PORT || 6001,
-    forceTLS: false,
+    wsPath: import.meta.env.VITE_REVERB_PATH || '',
+    forceTLS: import.meta.env.VITE_REVERB_SCHEME === 'https',
     encrypted: true,
     enableStats: true,
     enabledTransports: ["ws", "wss"], // Ensures only WebSocket is used
