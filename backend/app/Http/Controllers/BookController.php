@@ -266,7 +266,7 @@ class BookController extends Controller
             $book = Book::create($validatedData);
 
             //broadcast event
-            event(new CreateAsset('book'));
+            // event(new CreateAsset('book'));
 
             return ResponseUtil::Success('Add book success', $book->id);
         } catch (Exception  $exception) {

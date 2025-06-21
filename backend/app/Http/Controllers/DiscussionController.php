@@ -287,7 +287,7 @@ class DiscussionController extends Controller
                 'dislike' => 0,
             ]);
 
-            event(new CreateAsset('discussion'));
+            // event(new CreateAsset('discussion'));
             return ResponseUtil::Success('Successfully added a discussion', $discussion->getData($user->id));
         } catch (Exception  $exception) {
             return ResponseUtil::ServerError('Cannot add discussion!', $exception->getMessage());

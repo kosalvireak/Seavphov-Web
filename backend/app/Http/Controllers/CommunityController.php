@@ -203,7 +203,7 @@ class CommunityController extends Controller
             $response = CopMemberService::addUserAsCopAdmin($cop->id, $user->id);
             if ($response) {
 
-                event(new CreateAsset('community'));
+                // event(new CreateAsset('community'));
                 return ResponseUtil::Success('Community created successfully', $cop);
             }
         } catch (Exception  $exception) {
